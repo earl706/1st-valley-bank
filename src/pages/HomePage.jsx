@@ -38,7 +38,7 @@ export default function HomePage() {
               </button>
             </div>
           </div>
-          <div className="w-1/2"></div>
+          <div className="w-1/2 bg-gray-600"></div>
         </div>
       </div>
       <div className="flex justify-center gap-[115px] py-[25px] bg-[#396131] mb-[60px]">
