@@ -19,6 +19,17 @@ import Deposits from "./pages/Deposits";
 import Loans from "./pages/Loans";
 import PropertiesForSale from "./pages/PropertiesForSale";
 import ContactUs from "./pages/ContactUs";
+import DepositsRegularSavings from "./pages/DepositsRegularSavings";
+import DepositsSpecialSavings from "./pages/DepositsSpecialSavings";
+import LoansAgriculture from "./pages/LoansAgriculture";
+import LoansSME from "./pages/LoansSME";
+import LoansMicrofinance from "./pages/LoansMicrofinance";
+import LoansSUCRE from "./pages/LoansSUCRE";
+import LoansGoldAndGems from "./pages/LoansGoldAndGems";
+import LoansSBL from "./pages/LoansSBL";
+import LoansSalary from "./pages/LoansSalary";
+import PropertiesForSaleVehicles from "./pages/PropertiesForSaleVehicles";
+import PropertiesForSaleRealEstate from "./pages/PropertiesForSaleRealEstate";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -55,12 +66,57 @@ function App() {
       route: "/deposits",
     },
     {
+      component: <DepositsRegularSavings />,
+      route: "/deposits/regular-savings",
+    },
+    {
+      component: <DepositsSpecialSavings />,
+      route: "/deposits/special-savings",
+    },
+    {
       component: <Loans />,
       route: "/loans",
     },
     {
+      component: <LoansAgriculture />,
+      route: "/loans/agriculture",
+    },
+    {
+      component: <LoansSME />,
+      route: "/loans/small-and-medium-enterprises",
+    },
+    {
+      component: <LoansMicrofinance />,
+      route: "/loans/microfinance",
+    },
+    {
+      component: <LoansSUCRE />,
+      route: "/loans/supervised-credit",
+    },
+    {
+      component: <LoansGoldAndGems />,
+      route: "/loans/gold-and-gems",
+    },
+    {
+      component: <LoansSBL />,
+      route: "/loans/small-business-loan",
+    },
+    {
+      component: <LoansSalary />,
+      route: "/loans/salary",
+    },
+    {
       component: <PropertiesForSale />,
       route: "/properties-for-sale",
+    },
+    {
+      component: <PropertiesForSaleVehicles />,
+      route: "/properties-for-sale/vehicles",
+    },
+    {
+      component: <PropertiesForSaleRealEstate />,
+      route:
+        "/properties-for-sale/real-estate-and-other-properties-acquired-for-sale",
     },
     {
       component: <ContactUs />,
