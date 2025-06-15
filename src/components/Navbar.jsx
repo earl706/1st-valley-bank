@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { CaretDownIcon } from "@phosphor-icons/react";
+import Footer from "./Footer";
 
 import logo from "/src/assets/1vb logo_2x2.png";
 import gcash from "/src/assets/gcash-logo-png_seeklogo-522261-removebg-preview.png";
@@ -452,88 +453,7 @@ export default function Navbar({ children }) {
         <div className="mt-[133px]">{children}</div>
 
         {/* Footer remains the same */}
-        <footer className="w-full bg-[#5F5F5F]">
-          <div className="flex w-full flex-col px-[50px] pt-[30px]">
-            <div className="flex justify-between items-start border-b-[1px] pb-[20px] border-white">
-              <img
-                src={logo}
-                alt=""
-                className="h-[172px] w-[172px] transition-transform duration-200 hover:scale-105"
-              />
-              <div className="flex flex-col mr-[100px]">
-                <div className="font-bold text-white text-[16px] mb-[20px]">
-                  Links
-                </div>
-                <ul className="grid grid-cols-2 gap-[20px] text-white text-[12px] font-thin">
-                  {footerNavigationItems.map((navItem, index) => (
-                    <li key={index} className="">
-                      <NavLink
-                        to={navItem.link}
-                        className="hover:font-semibold transition-all duration-200 mr-[30px] hover:text-gray-300"
-                      >
-                        <span>{navItem.navItem}</span>
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <ul className="grid grid-cols-2 gap-[25px] text-white text-[12px] font-thin">
-                {footerAgenciesNavigationItems.map((navItem, index) => (
-                  <li key={index} className="mr-[25px]">
-                    <NavLink
-                      to={navItem.link}
-                      className="hover:font-semibold transition-all duration-200"
-                    >
-                      <img
-                        src={navItem.image}
-                        alt=""
-                        className="w-[50px] h-[50px] transition-transform duration-200 hover:scale-110"
-                      />
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-              <div className="flex flex-col gap-[20px]">
-                <span className="font-bold text-white">Contact Us</span>
-                <div className="flex gap-[15px] items-center text-[14px] transition-all duration-200 hover:text-gray-300">
-                  <div className="flex items-center justify-center w-[30px] h-[30px] text-gray-300">
-                    <FontAwesomeIcon icon={faPhone} className="w-full h-full" />
-                  </div>
-                  <span className="text-white">+63917 820 8542</span>
-                </div>
-                <div className="flex gap-[15px] items-center text-[14px] mb-[20px]">
-                  <div className="flex items-center justify-center w-[30px] h-[30px] text-gray-300">
-                    <FontAwesomeIcon
-                      icon={faEnvelopeCircleCheck}
-                      className="w-full h-full"
-                    />
-                  </div>
-                  <input
-                    type="text"
-                    className="text-white bg-transparent border-b-[1px] border-white focus:outline-0 focus:border-gray-300 py-[3px] transition-all duration-200"
-                    placeholder="Email"
-                  />
-                </div>
-                <div className="flex items-center gap-[25px]">
-                  {footerSocMedLinks.map((navItem, index) => (
-                    <div
-                      key={index}
-                      className="flex item-center justify-center w-[50px] h-[50px] text-gray-300 hover:text-gray-400 transition-all duration-200 cursor-pointer transform hover:scale-110"
-                    >
-                      <FontAwesomeIcon
-                        icon={navItem.icon}
-                        className="w-full h-full"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="font-bold text-center w-full text-white py-[20px] text-[16px]">
-            Copyright © 2025 - 1st Valley Bank Inc. - All rights reserved
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );
