@@ -86,7 +86,7 @@ export default function HomePage() {
 
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[100px] pb-[50px]">
+      <main className="hidden lg:flex flex-col gap-[120px] pb-[50px]">
         <section className="px-[50px] py-[65px] mx-[15px] drop-shadow-lg rounded-sm bg-white mb-[25px] font-poppins">
           <div className="flex mb-[25px]">
             <div className="flex gap-[20px] flex-col w-3/5 justify-center">

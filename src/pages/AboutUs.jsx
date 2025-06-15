@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBuildingColumns } from "@fortawesome/free-solid-svg-icons/faBuildingColumns";
+import logo from "/src/assets/1vb logo_2x2.png";
 
 import img1 from "/src/assets/about-us/1.jpg";
 import img2 from "/src/assets/about-us/2.png";
@@ -14,7 +15,9 @@ import img9 from "/src/assets/about-us/9.jpg";
 import { NavLink } from "react-router-dom";
 import { faWheatAwn } from "@fortawesome/free-solid-svg-icons/faWheatAwn";
 import {
+  faArrowUpRightDots,
   faBreadSlice,
+  faBuilding,
   faCashRegister,
   faCodeBranch,
   faCoins,
@@ -23,8 +26,12 @@ import {
   faFileInvoiceDollar,
   faGem,
   faGraduationCap,
+  faHandHoldingHand,
   faHandsHoldingChild,
+  faHandSparkles,
   faHouseLaptop,
+  faLeaf,
+  faLightbulb,
   faMagnifyingGlassDollar,
   faMobile,
   faMoneyBillTransfer,
@@ -37,6 +44,7 @@ import {
   faSackDollar,
   faTractor,
   faTrophy,
+  faUsersGear,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function AboutUs() {
@@ -150,9 +158,317 @@ export default function AboutUs() {
     },
   ];
 
+  const corporateProfile = {
+    senior_management: [
+      {
+        name: "Nicolette Lim-Gica",
+        position: "VICE PRESIDENT FOR OPERATIONS",
+        image: logo,
+      },
+      { name: "Glenn A. Mendez", position: "CHIEF OF STAFF", image: logo },
+      {
+        name: "Anavic A. Sarsale",
+        position: "VICE PRESIDENT FOR FINANCE",
+        image: logo,
+      },
+      {
+        name: "Alfredo F. Girbes",
+        position: "BUSINESS DEVELOPMENT HEAD",
+        image: logo,
+      },
+      {
+        name: "Atty. Samuel Ryan C. Rudinas",
+        position: "CHIEF LEGAL OFFICER",
+        image: logo,
+      },
+      {
+        name: "Atty. Zara Teodora D. Cabanlet",
+        position: "CORPORATE SECRETARY",
+        image: logo,
+      },
+      { name: "Vivian V. Lim", position: "HR DIRECTOR", image: logo },
+      { name: "Emily E. Enad", position: "CHIEF RISK OFFICER", image: logo },
+      {
+        name: "Benjie Tadeo M. Abad, Jr.",
+        position: "CHIEF COMPLIANCE OFFICER",
+        image: logo,
+      },
+      {
+        name: "Onisimo L. Prado",
+        position: "CHIEF INTERNAL AUDITOR",
+        image: logo,
+      },
+      { name: "Felizardo A. Enad", position: "IT DIRECTOR", image: logo },
+      { name: "Annie Lisa G. Estrera", position: "CREDIT HEAD", image: logo },
+      { name: "Estrella E. Florida", position: "COMPTROLLER", image: logo },
+    ],
+    product_management: [
+      {
+        name: "Bernard C. Paderes",
+        position: "SMALL & MEDIUM ENTERPRISE LOANS",
+        image: logo,
+      },
+      {
+        name: "Errol C. Dioso",
+        position: "SUPERVISED CREDIT",
+        image: logo,
+      },
+      {
+        name: "Muamar Carba Yap",
+        position: "AGRICULTURAL LOANS",
+        image: logo,
+      },
+      {
+        name: "Andre M. Ates",
+        position: "MICROFINANCE & JEWELRY LOANS",
+        image: logo,
+      },
+      {
+        name: "Jubal Y. Yu",
+        position: "SALARY LOANS",
+        image: logo,
+      },
+      {
+        name: "Stella Maris S. Aranas",
+        position: "DEPOSIT",
+        image: logo,
+      },
+      {
+        name: "Glenn G. Bagaloyos",
+        position: "LANAO AURORA",
+        image: logo,
+      },
+      {
+        name: "Hazel O. Geromo",
+        position: "MISAMIS ORIENTAL",
+        image: logo,
+      },
+      {
+        name: "Peter M. Alfon",
+        position: "ZAMBOANGA SIBUGAY 1",
+        image: logo,
+      },
+      {
+        name: "Romulo P. Fiel",
+        position: "VISAYAS",
+        image: logo,
+      },
+      {
+        name: "Cecil C. Palenzuela",
+        position: "COTABATO DAVAO",
+        image: logo,
+      },
+      {
+        name: "Jamael M. Dangnan",
+        position: "MISAMIS ORIENTAL CDO",
+        image: logo,
+      },
+      {
+        name: "Samson Cababan, Jr.",
+        position: "ZAMBOANGA SIBUGAY 2",
+        image: logo,
+      },
+      {
+        name: "Frederick I. Paringit",
+        position: "CARAGA DAVAO NORTH",
+        image: logo,
+      },
+      {
+        name: "Heracleo Gaan, Jr.",
+        position: "BUKIDNON SOUTH",
+        image: logo,
+      },
+      {
+        name: "Christopher M. Obedencio",
+        position: "BUKIDNON NORTH",
+        image: logo,
+      },
+    ],
+  };
+
+  const annualReports = [
+    {
+      title: "ANNUAL REPORT 2023",
+      corporate_highlights: [
+        "One-Stop-Shop",
+        "Personalized Services",
+        "Right Financial Solutions",
+      ],
+      key_figures: [
+        "Total Resources: ₱10.99 billion",
+        "Net Income: Over ₱200 million",
+        "Loan-to-Deposit Ratio: 1:1",
+        "High Liquidity",
+      ],
+      comparative_growth: [
+        "Loans: ₱7.3 billion → ₱7.4 billion",
+        "Deposits: ₱7.3 billion → ₱7.4 billion",
+        "Net Interest Income: ₱983.7 million",
+        "Net Income: ₱224.9 million",
+      ],
+      path: "/",
+      image: img8,
+    },
+    {
+      title: "ANNUAL REPORT 2023",
+      corporate_highlights: [
+        "One-Stop-Shop",
+        "Personalized Services",
+        "Right Financial Solutions",
+      ],
+      key_figures: [
+        "Total Resources: ₱10.99 billion",
+        "Net Income: Over ₱200 million",
+        "Loan-to-Deposit Ratio: 1:1",
+        "High Liquidity",
+      ],
+      comparative_growth: [
+        "Loans: ₱7.3 billion → ₱7.4 billion",
+        "Deposits: ₱7.3 billion → ₱7.4 billion",
+        "Net Interest Income: ₱983.7 million",
+        "Net Income: ₱224.9 million",
+      ],
+      path: "/",
+      image: img8,
+    },
+    {
+      title: "ANNUAL REPORT 2023",
+      corporate_highlights: [
+        "One-Stop-Shop",
+        "Personalized Services",
+        "Right Financial Solutions",
+      ],
+      key_figures: [
+        "Total Resources: ₱10.99 billion",
+        "Net Income: Over ₱200 million",
+        "Loan-to-Deposit Ratio: 1:1",
+        "High Liquidity",
+      ],
+      comparative_growth: [
+        "Loans: ₱7.3 billion → ₱7.4 billion",
+        "Deposits: ₱7.3 billion → ₱7.4 billion",
+        "Net Interest Income: ₱983.7 million",
+        "Net Income: ₱224.9 million",
+      ],
+      path: "/",
+      image: img8,
+    },
+    {
+      title: "ANNUAL REPORT 2023",
+      corporate_highlights: [
+        "One-Stop-Shop",
+        "Personalized Services",
+        "Right Financial Solutions",
+      ],
+      key_figures: [
+        "Total Resources: ₱10.99 billion",
+        "Net Income: Over ₱200 million",
+        "Loan-to-Deposit Ratio: 1:1",
+        "High Liquidity",
+      ],
+      comparative_growth: [
+        "Loans: ₱7.3 billion → ₱7.4 billion",
+        "Deposits: ₱7.3 billion → ₱7.4 billion",
+        "Net Interest Income: ₱983.7 million",
+        "Net Income: ₱224.9 million",
+      ],
+      path: "/",
+      image: img8,
+    },
+    {
+      title: "ANNUAL REPORT 2023",
+      corporate_highlights: [
+        "One-Stop-Shop",
+        "Personalized Services",
+        "Right Financial Solutions",
+      ],
+      key_figures: [
+        "Total Resources: ₱10.99 billion",
+        "Net Income: Over ₱200 million",
+        "Loan-to-Deposit Ratio: 1:1",
+        "High Liquidity",
+      ],
+      comparative_growth: [
+        "Loans: ₱7.3 billion → ₱7.4 billion",
+        "Deposits: ₱7.3 billion → ₱7.4 billion",
+        "Net Interest Income: ₱983.7 million",
+        "Net Income: ₱224.9 million",
+      ],
+      path: "/",
+      image: img8,
+    },
+    {
+      title: "ANNUAL REPORT 2023",
+      corporate_highlights: [
+        "One-Stop-Shop",
+        "Personalized Services",
+        "Right Financial Solutions",
+      ],
+      key_figures: [
+        "Total Resources: ₱10.99 billion",
+        "Net Income: Over ₱200 million",
+        "Loan-to-Deposit Ratio: 1:1",
+        "High Liquidity",
+      ],
+      comparative_growth: [
+        "Loans: ₱7.3 billion → ₱7.4 billion",
+        "Deposits: ₱7.3 billion → ₱7.4 billion",
+        "Net Interest Income: ₱983.7 million",
+        "Net Income: ₱224.9 million",
+      ],
+      path: "/",
+      image: img8,
+    },
+  ];
+
+  const branchDirectories = [
+    {
+      image: img9,
+      name: "Baroy",
+      location: "Poblacion, Baroy,  Lanao del Norte",
+      contact_numbers: "0917-849-6985 / 0955-512-2468 / 063-227-7142",
+      email: "baroy@1vb.com.ph",
+    },
+    {
+      image: img9,
+      name: "Baroy",
+      location: "Poblacion, Baroy,  Lanao del Norte",
+      contact_numbers: "0917-849-6985 / 0955-512-2468 / 063-227-7142",
+      email: "baroy@1vb.com.ph",
+    },
+    {
+      image: img9,
+      name: "Baroy",
+      location: "Poblacion, Baroy,  Lanao del Norte",
+      contact_numbers: "0917-849-6985 / 0955-512-2468 / 063-227-7142",
+      email: "baroy@1vb.com.ph",
+    },
+    {
+      image: img9,
+      name: "Baroy",
+      location: "Poblacion, Baroy,  Lanao del Norte",
+      contact_numbers: "0917-849-6985 / 0955-512-2468 / 063-227-7142",
+      email: "baroy@1vb.com.ph",
+    },
+    {
+      image: img9,
+      name: "Baroy",
+      location: "Poblacion, Baroy,  Lanao del Norte",
+      contact_numbers: "0917-849-6985 / 0955-512-2468 / 063-227-7142",
+      email: "baroy@1vb.com.ph",
+    },
+    {
+      image: img9,
+      name: "Baroy",
+      location: "Poblacion, Baroy,  Lanao del Norte",
+      contact_numbers: "0917-849-6985 / 0955-512-2468 / 063-227-7142",
+      email: "baroy@1vb.com.ph",
+    },
+  ];
+
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[100px] pb-[50px]">
+      <main className="hidden lg:flex flex-col gap-[120px] pb-[50px]">
         <section className="px-[80px] py-[40px] bg-white rounded-[8px] drop-shadow-lg mx-[15px]">
           <div className="flex items-center justify-between px-[80px] py-[60px] gap-[50px] text-[#396131] rounded-[8px]">
             <div className="flex flex-col items-start gap-[60px] w-3/5">
@@ -554,6 +870,350 @@ export default function AboutUs() {
                   {award.header}
                 </span>
                 <span className="text-[1rem]/[2rem]">{award.description}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+        <section className="flex text-[#396131]">
+          <div className="flex flex-col p-[50px] gap-[30px] w-1/2">
+            <div className="flex flex-col gap-[20px]">
+              <span className="text-[2rem]/[4rem] font-bold">Vision</span>
+              <span className="text-[1rem]/[2rem]">
+                We envision to be the preferred banking institution. in
+                delivering innovative and customer-centered services.{" "}
+              </span>
+            </div>
+            <div className="flex flex-col gap-[20px]">
+              <span className="text-[2rem]/[4rem] font-bold">Mission</span>
+              <div className="flex flex-col gap-[20px]">
+                <div className="flex items-center gap-[20px]">
+                  <FontAwesomeIcon
+                    icon={faBuilding}
+                    className="aspect-square"
+                    style={{ width: "30px", height: "30px" }}
+                  />
+                  <span className="text-[1rem]/[2rem]">
+                    Be one 1st Valley Bank; be the go bank for our customers
+                  </span>
+                </div>
+                <div className="flex items-center gap-[20px]">
+                  <FontAwesomeIcon
+                    icon={faUsersGear}
+                    className="aspect-square"
+                    style={{ width: "30px", height: "30px" }}
+                  />
+                  <span className="text-[1rem]/[2rem]">
+                    Be the top employer for our staff
+                  </span>
+                </div>
+                <div className="flex items-center gap-[20px]">
+                  <FontAwesomeIcon
+                    icon={faLeaf}
+                    className="aspect-square"
+                    style={{ width: "30px", height: "30px" }}
+                  />
+                  <span className="text-[1rem]/[2rem]">
+                    Ensure delivery of high returns for our stakeholders
+                  </span>
+                </div>
+                <div className="flex items-center gap-[20px]">
+                  <FontAwesomeIcon
+                    icon={faArrowUpRightDots}
+                    className="aspect-square"
+                    style={{ width: "30px", height: "30px" }}
+                  />
+                  <span className="text-[1rem]/[2rem]">
+                    Promote development in the areas where we operate.
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col gap-[20px]">
+              <span className="text-[2rem]/[4rem] font-bold">Core Values</span>
+              <div className="flex flex-col gap-[20px]">
+                <div className="flex items-center gap-[20px]">
+                  <FontAwesomeIcon
+                    icon={faHandSparkles}
+                    className="aspect-square"
+                    style={{ width: "30px", height: "30px" }}
+                  />
+                  <span className="text-[1rem]/[2rem]">
+                    We conduct our business with integrity, transparency,
+                    honesty, and the highest ethical standards.
+                  </span>
+                </div>
+                <div className="flex items-center gap-[20px]">
+                  <FontAwesomeIcon
+                    icon={faHandHoldingHand}
+                    className="aspect-square"
+                    style={{ width: "30px", height: "30px" }}
+                  />
+                  <span className="text-[1rem]/[2rem]">
+                    Treating our customers with equality, fairness, and respect
+                    is foremost in our delivery of excellent banking services.
+                  </span>
+                </div>
+                <div className="flex items-center gap-[20px]">
+                  <FontAwesomeIcon
+                    icon={faLightbulb}
+                    className="aspect-square"
+                    style={{ width: "30px", height: "30px" }}
+                  />
+                  <span className="text-[1rem]/[2rem]">
+                    We develop our business through innovation, enthusiasm,
+                    creativity, and our constant quest for excellence.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center justify-center w-1/2">
+            <img
+              src={img6}
+              alt=""
+              className="flex object-cover rounded-[15px] w-[550px] h-[680px]"
+            />
+          </div>
+        </section>
+        <section className="flex gap-[10px] p-[50px] text-[#396131]">
+          <div className="flex items-start justify-center w-1/2">
+            <img
+              src={img7}
+              alt=""
+              className="rounded-[15px] object-cover w-[562px] h-[713px]"
+            />
+          </div>
+          <div className="flex flex-col gap-[10px] w-1/2">
+            <span className="text-[2rem]/[2rem] font-bold ">
+              BRANCH MANAGEMENT
+            </span>
+            <span className="text-[0.8rem]/[1.6rem]">
+              ALFON, JAMES II JABIL, Baroy I BLISS, NERI BALANAY, Kapatagan I
+              LIM, ARVIN CABAHUG, Marauding I MENDEZ, ROSERUBY LIM, Molave I
+              ALIA, JOEL SARUAY, Iligan I MANLANGIT, EDSEL BEDANIA, Ozamiz City
+              I CATILOC, GIA AMABELLE BACABIS, Margosatubig I ARNEJO, ARDEE
+              WARREN PADILLA, Dumalinao I DAUG, JOPHET DAG-UMAN, Pagadian |
+              PEPITO, GIRLIE ALBARICO, Buug I ROCAMORA, RUTH CAMATURA, Ipit I
+              ADALA, RAY CEBUA, Oroquieta I MAGDULA, MIKEL RONALD LIM, Imelda I
+              MONTEALTO, ARLINOVE MONARCA, Dipolog I PEREZ, JEYPE ANIBAN,
+              Cagayan de Oro City I BUCOG, GLEN CUBAL, Zamboanga City I
+              PATRICIO, ZANY CAPUNONG, Aglayan I SOMOSA, LARRY RAMONES, Liloy I
+              MONTEALTO, JAIME JR SANIEL, Sindangan I GORRA, JONATHAN SUMASTRE,
+              Gingoog I NABLO, JEFFREY MASIBA, Ozamiz City 2I MANDANTES, SHIELA
+              MONDEJAR, Dumaguete City I CARBAJAL, BHEBIE JHOYE GANO-AY, Maramag
+              I ANDALAY, RYAN REY HUMAGAO, Dumingag I HAYO, JOHN PAUL BARIMBAO,
+              Manukan I OROCIO, MITCHEL BASTASA, Davao I SALARDA, DESIREE
+              MASALTA, Aurora I TECSON, ED GLENN PATILUNA, Butuan City I
+              VERGARA, REGIEL SABELLO, San Francisco I CRUZ, PERCIVAL GUERRERO,
+              Bacolod I LANDICHO, HIPOLITO JR NIEPEZ, Talakag SALUNA, JOEL
+              PASCO, Balingasag I GAAN, JESSIE JAMPIT, Initao I SOON, ROSALITO
+              DICHOS, Bayugan PANANGLITAN, ELIEZER CALAPIZ, Bayavvan I NAMILIT,
+              ELVIES BALDO, Kabankalan I JANDOMON, JOSELITO AROA, La Carlota I
+              GUTANG, FILMOR MAGNO, Tagum CIELO, RAPSODE PEREZ, Guiv✓an I
+              REGENCIA, RICARDO JR BONIFACIO, Koronadal I MARIBAO,WARREN
+              BUENDIA, Digos I LABUCANA,RYAN JAY ZARSOSA, Kidapawan I DELA PENA,
+              JESSERIE NAYBE, Camiguin I ERASMO, LEOPOLDO JR CEDER°, KaLilangan
+              LLAUDER, JOFEL PATRICK MAGHINAY, KiwaLan I BALDELOVAR, EMMANUEL
+              GONZALES, Calinan I PONCE, VICTORIA SUICO, Osmefia SETIOTA,WILFRID
+              MONERA, Mandaue DABASOL,RENATO ASCENCION, MinglanilLa LAYAO,
+              ARISTON TINGA, Bantayan (BRUCE, RICHARD GABATI, Bogo ICABILI,
+              PEARL PUCOT, Balamban LINGAOLINGAO,VICTORIA CAMPO, Pinarnungahan I
+              ROMANO, SHALIMAR CELDA, Opol I NACALABAN, EVERLY AMARO, Cugrnan I
+              MACALAM, SHELLA ANN ABKILAN, Manolo I PINTO, RONNEL DELIMA
+              ViLlanueva I LLERIN, GEORGE SEGUERA, Malaybalay I ANIBONG, JEROME
+              NAVARRO, Dangcagan COLITA, VICENTE JR. PRESBETIRO, Valencia
+              REPOLIDON, ROLAND MORALDE, Talisay I SERINO JOPRAY CALAMBA,
+              Kabacan I OUIJADA, NICO JUNKIES REFISURA, Quezon I BATONGHINOG,
+              RENE MONIES, Lantapan I MENDEZ, JEAN ARENO, SumiLao I SORENO,
+              JERWIN TOTESORA., Tagbilaran I PALUGA ALLAN ROY ACERO, Tandag I
+              DUHAYLUNGSOD EVAN GLEE JALANDONI, Midsayap I CAPUTOL, BOBBY
+              TUGAHAN. Mlang BINAYAO, ARIS BALANDRA, CabangLasan I ESTENZO,
+              VICSTER TACASAN, San Fernando BRANCH LITE UNITS, JONIEL L. GALO,
+              San Miguel I EDGAR LOU G. DEMAYO, Bayog I ALBERT ALEGADO, Jimenez
+              I CHESTER JULY JUGAN, Claris I JEFFREY B. TIMAGOS, CaLambe I
+              DOMINGO A. PAGADOR, Mabuhay I ROXAN A. ANGHAY, Cabadbaran
+            </span>
+          </div>
+        </section>
+        <section className="flex flex-col p-[50px] gap-[30px] bg-[#396131] text-white rounded-[10px] mx-[10px] drop-shadow-lg">
+          <span className="text-[2.5rem] font-bold text-center">
+            Corporate Profile
+          </span>
+          <div className="flex flex-col gap-[45px]">
+            <div className="flex flex-col gap-[20px]">
+              <span className="font-bold text-[1rem] text-center">
+                Senior Management
+              </span>
+              <div className="flex flex-col gap-[20px] items-center">
+                <div className="flex flex-col justify-center items-center gap-[20px]">
+                  <img
+                    src={logo}
+                    alt=""
+                    className="bg-white h-[100px] w-[100px] rounded-full"
+                  />
+                  <div className="flex flex-col items-center">
+                    <span className="text-[1rem] font-bold">
+                      Atty. Nicolas J. Lim
+                    </span>
+                    <span className="text-[0.9rem]">PRESIDENT</span>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-4 gap-x-[30px] gap-y-[40px]">
+                {corporateProfile.senior_management.map((officer, index) => (
+                  <div
+                    className="flex flex-col justify-center items-center gap-[20px]"
+                    key={index}
+                  >
+                    <img
+                      src={logo}
+                      alt=""
+                      className="bg-white h-[100px] w-[100px] rounded-full"
+                    />
+                    <div className="flex flex-col items-center">
+                      <span className="text-[1rem] font-bold">
+                        {officer.name}
+                      </span>
+                      <span className="text-[0.9rem]">{officer.position}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col gap-[50px]">
+              <span className="font-bold text-[1rem] text-center">
+                Product & Area Management
+              </span>
+              <div className="grid grid-cols-4 gap-x-[30px] gap-y-[40px]">
+                {corporateProfile.product_management.map((officer, index) => (
+                  <div className="flex flex-col justify-center items-center gap-[20px]">
+                    <img
+                      src={logo}
+                      alt=""
+                      className="bg-white h-[100px] w-[100px] rounded-full"
+                    />
+                    <div className="flex flex-col items-center">
+                      <span className="text-[1rem] font-bold">
+                        {officer.name}
+                      </span>
+                      <span className="text-[0.9rem]">{officer.position}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="flex flex-col justify-center text-[#396131] gap-[40px] p-[50px]">
+          <span className="text-[3rem]/[3rem] font-bold text-center">
+            Annual Reports
+          </span>
+          <div className="grid grid-cols-3 gap-y-[60px] gap-x-[20px]">
+            {annualReports.map((report, index) => (
+              <div className="flex flex-col gap-[20px]" key={index}>
+                <div className="flex flex-col items-center gap-[20px]">
+                  <img
+                    src={report.image}
+                    alt=""
+                    className="object-cover w-full h-[277px] rounded-[15px] drop-shadow-lg bg-white"
+                  />
+                  <span className="font-bold text-[1.5rem]/[2.25rem] text-center">
+                    {report.title}
+                  </span>
+                </div>
+                <div className="flex flex-col px-[20px] gap-[20px]">
+                  <div className="flex flex-col gap-[20px]">
+                    <span className="text-[1rem]/[2rem] font-bold">
+                      Corporate Highlights
+                    </span>
+                    <div className="flex flex-col gap-[10px]">
+                      {report.corporate_highlights.map((highlight, index) => (
+                        <div
+                          className="flex items-center gap-[10px]"
+                          key={index}
+                        >
+                          <div className="w-[24px] h-[24px] bg-[#396131] rounded-[5px]"></div>
+                          <span className="text-[1rem]/[2rem]">
+                            {highlight}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-[20px]">
+                    <span className="text-[1.1rem] font-bold">
+                      Financial Performance
+                    </span>
+                    <div className="flex flex-col gap-[10px]">
+                      <span className="text-[1.1rem] font-bold">
+                        Key Figures
+                      </span>
+                      <div className="flex flex-col gap-[10px]">
+                        {report.key_figures.map((figure, index) => (
+                          <div
+                            className="flex items-center gap-[10px]"
+                            key={index}
+                          >
+                            <div className="w-[24px] h-[24px] bg-[#396131] rounded-[5px]"></div>
+                            <span className="text-[1rem]/[2rem]">{figure}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-[10px]">
+                      <span className="text-[1.1rem] font-bold">
+                        Comparative Growth
+                      </span>
+                      <div className="flex flex-col gap-[10px]">
+                        {report.comparative_growth.map((growth, index) => (
+                          <div
+                            className="flex items-center gap-[10px]"
+                            key={index}
+                          >
+                            <div className="w-[24px] h-[24px] bg-[#396131] rounded-[5px]"></div>
+                            <span className="text-[1rem]/[2rem]">{growth}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <NavLink
+                  to=""
+                  className="w-full text-[1.1rem]/[1.1rem] text-center font-bold text-white py-[15px] bg-[#396131] rounded-[12px] transition-all transform duration-200 outline-0 outline-[#396131] hover:text-[#396131] hover:bg-white hover:outline-1 hover:scale-102"
+                >
+                  See Full Report
+                </NavLink>
+              </div>
+            ))}
+          </div>
+        </section>
+        <section className="flex flex-col gap-[80px] p-[50px] text-white bg-[#396131] rounded-[10px] mx-[10px] drop-shadow-lg">
+          <span className="text-center font-bold text-[2.5rem]/[2.5rem]">
+            Branch Directory
+          </span>
+          <div className="grid grid-cols-2 gap-x-[50px] gap-y-[60px]">
+            {branchDirectories.map((branch, index) => (
+              <div className="flex gap-[20px]" key={index}>
+                <img
+                  src={branch.image}
+                  alt=""
+                  className="w-[150px] h-[150px] rounded-[15px]"
+                />
+                <div className="flex flex-col gap-[20px]">
+                  <div className="flex flex-col gap-[12px] font-bold">
+                    <span className="text-[1.4rem]/[1.4rem]">
+                      {branch.name}
+                    </span>
+                    <span className="text-[0.9rem]/[0.9rem]">
+                      {branch.location}
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-[12px] text-[0.9rem]/[0.9rem]">
+                    <span className="">{branch.contact_numbers}</span>
+                    <span className="">{branch.email}</span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
