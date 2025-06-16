@@ -51,6 +51,7 @@ export default function Navbar({ children }) {
   }, []);
 
   const location = window.location.pathname;
+
   const navbarNavigationItems = [
     { navItem: "HOME", path: "/", subItems: [] },
     {
@@ -213,6 +214,10 @@ export default function Navbar({ children }) {
   const handleSubSubItemHover = (subsubIndex) => {
     setActiveSubSubDropdown(subsubIndex);
   };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [location]);
 
   return (
     <>
