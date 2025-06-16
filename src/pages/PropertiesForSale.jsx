@@ -21,21 +21,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
 
 const VehicleCard = ({ vehicle }) => {
-  const [isLiked, setIsLiked] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleView = () => {
     console.log("Viewing vehicle:", vehicle.plateNumber);
     // Add your view logic here
-  };
-
-  const handleLike = () => {
-    setIsLiked(!isLiked);
-  };
-
-  const handleShare = () => {
-    console.log("Sharing vehicle:", vehicle.plateNumber);
-    // Add your share logic here
   };
 
   return (
@@ -153,26 +143,6 @@ const PropertyCard = ({ property }) => {
           onLoad={() => setImageLoaded(true)}
         />
 
-        {/* Overlay Actions */}
-        <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <button
-            onClick={handleLike}
-            className={`p-2 rounded-full backdrop-blur-sm transition-all duration-200 ${
-              isLiked
-                ? "bg-red-500 text-white shadow-lg"
-                : "bg-white/80 text-gray-700 hover:bg-red-50 hover:text-red-500"
-            }`}
-          >
-            <Heart size={16} className={isLiked ? "fill-current" : ""} />
-          </button>
-          <button
-            onClick={handleShare}
-            className="p-2 rounded-full bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-all duration-200"
-          >
-            <Share2 size={16} />
-          </button>
-        </div>
-
         {/* Price Badge */}
         <div className="absolute bottom-4 left-4">
           <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-4 py-2 rounded-full shadow-lg">
@@ -228,7 +198,7 @@ const PropertyCard = ({ property }) => {
         {/* Action Button */}
         <NavLink
           onClick={handleView}
-          className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-emerald-700 hover:to-teal-700 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group cursor-pointer"
+          className="w-full bg-gradient-to-r from-emerald-900 to-emerald-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-emerald-700 hover:to-emerald-900 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group cursor-pointer"
         >
           <Eye
             size={18}
@@ -245,11 +215,6 @@ export default function PropertiesForSale() {
   const [scrollY, setScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState({});
   const [activeSection, setActiveSection] = useState("");
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const sampleVehicles = [
     {
@@ -352,6 +317,12 @@ export default function PropertiesForSale() {
       propertyCode: "K05-03",
     },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const observers = [];
