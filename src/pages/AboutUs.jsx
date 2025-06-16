@@ -52,6 +52,17 @@ export default function AboutUs() {
   const [isVisible, setIsVisible] = useState({});
   const [activeSection, setActiveSection] = useState("");
 
+  const [imageLoaded1, setImageLoaded1] = useState(false);
+  const [imageLoaded2, setImageLoaded2] = useState(false);
+  const [imageLoaded3, setImageLoaded3] = useState(false);
+  const [imageLoaded4, setImageLoaded4] = useState(false);
+
+  // Sample images - replace with your actual img2 and img3
+  // const img2 =
+  //   "https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?w=458&h=380&fit=crop";
+  // const img3 =
+  //   "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=458&h=380&fit=crop";
+
   const loans = [
     {
       type: "AGRICULTURE",
@@ -610,7 +621,7 @@ export default function AboutUs() {
             </span>
           </div>
         </section>
-        <section
+        {/* <section
           id="history"
           data-scroll
           className="flex justify-between mx-[10px] rounded-[8px] p-[50px]"
@@ -665,8 +676,150 @@ export default function AboutUs() {
               className="object-cover h-[380px] w-[458px] rounded-[12px]"
             />
           </div>
-        </section>
+        </section> */}
         <section
+          id="history"
+          data-scroll
+          className="relative flex justify-between mx-4 rounded-2xl p-16 bg-gradient-to-br from-slate-50 via-gray-50 to-stone-50 shadow-2xl overflow-hidden group"
+        >
+          {/* Subtle background elements */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-400 to-green-500 rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-teal-400 to-emerald-500 rounded-full blur-3xl transform -translate-x-1/3 translate-y-1/3"></div>
+          </div>
+
+          {/* Content Container */}
+          <div className="relative z-10 flex justify-between w-full">
+            {/* Text Content */}
+            <div className="flex flex-col gap-12 w-1/2 text-[#396131] pr-8">
+              <div className="relative">
+                <span className="font-bold text-[4rem]/[4rem] bg-gradient-to-r from-[#396131] via-emerald-700 to-green-700 bg-clip-text text-transparent drop-shadow-sm">
+                  Brief History
+                </span>
+                {/* Decorative underline */}
+                <div className="absolute -bottom-4 left-0 w-24 h-1 bg-gradient-to-r from-[#396131] to-emerald-500 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 ease-out"></div>
+              </div>
+
+              <div className="flex flex-col gap-8 text-lg/[2.5rem] relative">
+                {/* Timeline line */}
+                <div className="absolute -left-8 top-0 w-1 h-full bg-gradient-to-b from-[#396131] via-emerald-400 to-green-300 rounded-full opacity-30"></div>
+
+                <div className="relative group/item">
+                  <div className="absolute -left-10 top-6 w-3 h-3 bg-[#396131] rounded-full border-4 border-white shadow-lg"></div>
+                  <span className="text-gray-700 font-medium leading-relaxed hover:text-[#396131] transition-colors duration-300">
+                    1st Valley Bank, a rapidly growing development bank in
+                    Mindanao and Visayas, traces its roots in the rural banking
+                    industry.
+                  </span>
+                </div>
+
+                <div className="relative group/item">
+                  <div className="absolute -left-10 top-6 w-3 h-3 bg-emerald-600 rounded-full border-4 border-white shadow-lg"></div>
+                  <span className="text-gray-700 font-medium leading-relaxed hover:text-[#396131] transition-colors duration-300">
+                    1st Valley Bank was formerly known as the Rural Bank of
+                    Kapatagan Valley (RUBANKA) first, and then Kapatagan Valley
+                    Bank (KVB). It earned its license to operate on November
+                    24,1956 and became the 75th rural bank in the country.
+                  </span>
+                </div>
+
+                <div className="relative group/item">
+                  <div className="absolute -left-10 top-6 w-3 h-3 bg-green-600 rounded-full border-4 border-white shadow-lg"></div>
+                  <span className="text-gray-700 font-medium leading-relaxed hover:text-[#396131] transition-colors duration-300">
+                    On April 5, 1957, the Bank has earned its prestigious
+                    membership in the Rural Bank Association of the Philippines
+                    (RBAP).
+                  </span>
+                </div>
+
+                <div className="relative group/item">
+                  <div className="absolute -left-10 top-6 w-3 h-3 bg-teal-600 rounded-full border-4 border-white shadow-lg"></div>
+                  <span className="text-gray-700 font-medium leading-relaxed hover:text-[#396131] transition-colors duration-300">
+                    In April 2004, Kapatagan Valley Bank entered into a
+                    consolidation agreement with Rural Bank of Sinacaban. On
+                    August 30, 2005, the Securities and Exchange Commission
+                    (SEC) issued the Certificate of Consolidation and
+                    Certificate of Incorporation to the merging institutions.
+                    This official merger gave birth to 1st Valley Bank.
+                  </span>
+                </div>
+
+                <div className="relative group/item">
+                  <div className="absolute -left-10 top-6 w-3 h-3 bg-emerald-700 rounded-full border-4 border-white shadow-lg"></div>
+                  <span className="text-gray-700 font-medium leading-relaxed hover:text-[#396131] transition-colors duration-300">
+                    On August 1, 2013, 1st Valley Bank has progressed into a
+                    development bank. It seeks to provide sufficient loan
+                    capital for productive investment along with technical
+                    assistance to help guarantee success of its borrowers.
+                  </span>
+                </div>
+
+                <div className="relative group/item">
+                  <div className="absolute -left-10 top-6 w-3 h-3 bg-green-800 rounded-full border-4 border-white shadow-lg"></div>
+                  <span className="text-gray-700 font-medium leading-relaxed hover:text-[#396131] transition-colors duration-300">
+                    Today, following the successful completion of its merger
+                    with SRBI and DAHBI, IVB is operating on a vast network of
+                    78 branches and branch lites.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Images Container */}
+            <div className="flex flex-col items-center w-1/2 h-full gap-12 pl-8">
+              {/* First Image */}
+              <div className="relative group/img overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-700">
+                {!imageLoaded1 && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl">
+                    <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
+                  </div>
+                )}
+                <img
+                  src={img2}
+                  alt=""
+                  className={`object-cover h-[380px] w-[458px] rounded-2xl group-hover/img:scale-105 transition-transform duration-700 ${
+                    imageLoaded1 ? "opacity-100" : "opacity-0"
+                  }`}
+                  onLoad={() => setImageLoaded1(true)}
+                />
+                {/* Overlay effect */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-2xl opacity-0 group-hover/img:opacity-100 transition-opacity duration-500"></div>
+                {/* Shine effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover/img:translate-x-full transition-transform duration-1000 ease-out"></div>
+              </div>
+
+              {/* Second Image */}
+              <div className="relative group/img overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-700">
+                {!imageLoaded2 && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl">
+                    <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
+                  </div>
+                )}
+                <img
+                  src={img3}
+                  alt=""
+                  className={`object-cover h-[380px] w-[458px] rounded-2xl group-hover/img:scale-105 transition-transform duration-700 ${
+                    imageLoaded2 ? "opacity-100" : "opacity-0"
+                  }`}
+                  onLoad={() => setImageLoaded2(true)}
+                />
+                {/* Overlay effect */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-2xl opacity-0 group-hover/img:opacity-100 transition-opacity duration-500"></div>
+                {/* Shine effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover/img:translate-x-full transition-transform duration-1000 ease-out"></div>
+              </div>
+
+              {/* Floating decorative elements */}
+              <div className="absolute top-8 right-8 w-4 h-4 bg-emerald-400/60 rounded-full animate-pulse"></div>
+              <div className="absolute bottom-12 left-12 w-3 h-3 bg-green-500/50 rounded-full animate-pulse animation-delay-1000"></div>
+              <div className="absolute top-1/2 right-4 w-2 h-2 bg-teal-400/40 rounded-full animate-pulse animation-delay-500"></div>
+            </div>
+          </div>
+
+          {/* Bottom accent line */}
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#396131]/50 to-transparent"></div>
+        </section>
+        {/* <section
           id="marketing"
           data-scroll
           className="flex flex-col mx-[10px] gap-[60px] rounded-[8px] p-[50px] bg-[#396131]"
@@ -742,8 +895,171 @@ export default function AboutUs() {
               />
             </div>
           </div>
-        </section>
+        </section> */}
         <section
+          id="marketing"
+          data-scroll
+          className="relative flex flex-col mx-4 gap-20 rounded-2xl p-16 bg-gradient-to-br from-[#396131] via-emerald-700 to-green-800 overflow-hidden group"
+        >
+          {/* Animated background elements */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-emerald-300 to-green-400 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
+            <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-teal-300 to-emerald-400 rounded-full blur-3xl transform translate-x-1/3 translate-y-1/3 animate-pulse animation-delay-1000"></div>
+            <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-green-300 to-emerald-300 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2 animate-pulse animation-delay-500"></div>
+          </div>
+
+          {/* Decorative pattern overlay */}
+          <div className="absolute inset-0 opacity-5 bg-gradient-to-br from-white/10 via-transparent to-white/5"></div>
+
+          {/* First Section */}
+          <div className="relative z-10 flex gap-16 group/section1">
+            {/* Image Container */}
+            <div className="flex flex-col items-start w-1/3">
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-700 group/img1">
+                {!imageLoaded3 && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-emerald-800 to-green-900 rounded-2xl">
+                    <div className="w-12 h-12 border-4 border-emerald-300 border-t-white rounded-full animate-spin"></div>
+                  </div>
+                )}
+                <img
+                  src={img4}
+                  alt=""
+                  className={`object-cover h-[455px] w-[468px] rounded-2xl group-hover/img1:scale-110 transition-transform duration-1000 ease-out ${
+                    imageLoaded3 ? "opacity-100" : "opacity-0"
+                  }`}
+                  onLoad={() => setImageLoaded3(true)}
+                />
+                {/* Glass overlay effect */}
+                <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/30 via-transparent to-white/10 rounded-2xl opacity-0 group-hover/img1:opacity-100 transition-opacity duration-500"></div>
+                {/* Shine effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 -translate-x-full group-hover/img1:translate-x-full transition-transform duration-1200 ease-out"></div>
+                {/* Border glow */}
+                <div className="absolute inset-0 rounded-2xl ring-2 ring-white/20 group-hover/img1:ring-white/40 transition-all duration-500"></div>
+              </div>
+            </div>
+
+            {/* Text Content */}
+            <div className="flex flex-col gap-12 text-white w-2/3 transform group-hover/section1:translate-x-2 transition-transform duration-700">
+              <div className="relative">
+                <span className="font-bold text-[3rem]/[3rem] bg-gradient-to-r from-white via-emerald-100 to-green-100 bg-clip-text text-transparent drop-shadow-lg">
+                  Why do business with us?
+                </span>
+                {/* Animated underline */}
+                <div className="absolute -bottom-4 left-0 w-32 h-1 bg-gradient-to-r from-emerald-300 to-white rounded-full transform scale-x-0 group-hover/section1:scale-x-100 transition-transform duration-1000 ease-out"></div>
+              </div>
+
+              <div className="flex flex-col gap-8 text-lg/[2.5rem] relative">
+                {/* Accent line */}
+                <div className="absolute -left-8 top-0 w-1 h-full bg-gradient-to-b from-emerald-300 to-white/50 rounded-full opacity-60"></div>
+
+                <span className="text-emerald-50 font-medium leading-relaxed hover:text-white hover:translate-x-2 transition-all duration-300 cursor-default relative pl-6">
+                  <div className="absolute left-0 top-8 w-3 h-3 bg-emerald-300 rounded-full shadow-lg"></div>
+                  There are so many reasons doing business with us will be
+                  profitable for you. Our long years in the industry, 64 years
+                  and counting, make us one of the most stable banks you can
+                  depend.
+                </span>
+
+                <span className="text-emerald-50 font-medium leading-relaxed hover:text-white hover:translate-x-2 transition-all duration-300 cursor-default relative pl-6">
+                  <div className="absolute left-0 top-8 w-3 h-3 bg-green-300 rounded-full shadow-lg"></div>
+                  1st Valley Bank is also known for its personalized services as
+                  it treats its clients as family and friends. You can even call
+                  the Bank as your lifetime friend.
+                </span>
+
+                <span className="text-emerald-50 font-medium leading-relaxed hover:text-white hover:translate-x-2 transition-all duration-300 cursor-default relative pl-6">
+                  <div className="absolute left-0 top-8 w-3 h-3 bg-teal-300 rounded-full shadow-lg"></div>
+                  You're looking for a bank that can support your financial
+                  needs to grow your business? 1st Valley Bank offers a full
+                  range of services. You want convenience in banking? 1st Valley
+                  Bank delivers its services whenever and wherever you want it.
+                  Come and experience 1st Valley Bank!
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Second Section */}
+          <div className="relative z-10 flex gap-16 group/section2">
+            {/* Text Content */}
+            <div className="flex flex-col gap-8 text-white w-3/5 transform group-hover/section2:-translate-x-2 transition-transform duration-700">
+              <div className="flex flex-col relative">
+                <div className="relative overflow-hidden">
+                  <span className="font-bold text-[3rem]/[5rem] bg-gradient-to-r from-white via-emerald-100 to-green-100 bg-clip-text text-transparent drop-shadow-lg inline-block transform group-hover/section2:scale-105 transition-transform duration-500">
+                    At 1st Valley Bank,
+                  </span>
+                </div>
+                <div className="relative overflow-hidden">
+                  <span className="font-bold text-[3rem]/[5rem] bg-gradient-to-r from-emerald-100 via-white to-teal-100 bg-clip-text text-transparent drop-shadow-lg inline-block transform group-hover/section2:scale-105 transition-transform duration-500 animation-delay-200">
+                    You're Always First
+                  </span>
+                </div>
+                {/* Animated accent */}
+                <div className="absolute -bottom-2 left-0 w-40 h-1 bg-gradient-to-r from-white to-emerald-300 rounded-full transform scale-x-0 group-hover/section2:scale-x-100 transition-transform duration-1000 ease-out animation-delay-300"></div>
+              </div>
+
+              <div className="flex flex-col gap-8 text-lg/[2.5rem] relative">
+                {/* Accent line */}
+                <div className="absolute -left-8 top-0 w-1 h-full bg-gradient-to-b from-white/50 to-emerald-300 rounded-full opacity-60"></div>
+
+                <span className="text-emerald-50 font-medium leading-relaxed hover:text-white hover:-translate-x-2 transition-all duration-300 cursor-default relative pl-6">
+                  <div className="absolute left-0 top-8 w-3 h-3 bg-white rounded-full shadow-lg"></div>
+                  There is nothing more important for 1st Valley Bank than to
+                  work with their clients to ensure that they benefit from the
+                  products and services of the Bank. The Bank sees to it that
+                  what they offer are financial solutions that match the needs
+                  of their clients.
+                </span>
+
+                <span className="text-emerald-50 font-medium leading-relaxed hover:text-white hover:-translate-x-2 transition-all duration-300 cursor-default relative pl-6">
+                  <div className="absolute left-0 top-8 w-3 h-3 bg-emerald-200 rounded-full shadow-lg"></div>
+                  1st Valley Bank grows its business for its clients. Meeting
+                  the needs of their clients comes first for the Bank. All
+                  employees of the Bank work hard to deliver more value to the
+                  Bank's clients. They know that the time of their clients is
+                  valuable, and they do everything in their capacity to get
+                  their work done faster to deliver the products and services
+                  speedily.
+                </span>
+              </div>
+            </div>
+
+            {/* Image Container */}
+            <div className="flex flex-col items-start w-2/5">
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-700 group/img2">
+                {!imageLoaded4 && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-emerald-800 to-green-900 rounded-2xl">
+                    <div className="w-12 h-12 border-4 border-emerald-300 border-t-white rounded-full animate-spin"></div>
+                  </div>
+                )}
+                <img
+                  src={img5}
+                  alt=""
+                  className={`object-cover h-[507px] w-[468px] rounded-2xl group-hover/img2:scale-110 transition-transform duration-1000 ease-out ${
+                    imageLoaded4 ? "opacity-100" : "opacity-0"
+                  }`}
+                  onLoad={() => setImageLoaded4(true)}
+                />
+                {/* Glass overlay effect */}
+                <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/30 via-transparent to-white/10 rounded-2xl opacity-0 group-hover/img2:opacity-100 transition-opacity duration-500"></div>
+                {/* Shine effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 -translate-x-full group-hover/img2:translate-x-full transition-transform duration-1200 ease-out"></div>
+                {/* Border glow */}
+                <div className="absolute inset-0 rounded-2xl ring-2 ring-white/20 group-hover/img2:ring-white/40 transition-all duration-500"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating decorative elements */}
+          <div className="absolute top-20 right-20 w-4 h-4 bg-emerald-300/60 rounded-full animate-pulse"></div>
+          <div className="absolute bottom-32 left-16 w-3 h-3 bg-white/50 rounded-full animate-pulse animation-delay-1000"></div>
+          <div className="absolute top-1/2 right-8 w-2 h-2 bg-green-300/40 rounded-full animate-pulse animation-delay-500"></div>
+          <div className="absolute bottom-20 right-32 w-3 h-3 bg-teal-300/50 rounded-full animate-pulse animation-delay-1500"></div>
+
+          {/* Bottom gradient border */}
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-300/80 to-transparent"></div>
+        </section>
+        {/* <section
           id="loans"
           data-scroll
           className="flex flex-col items-center text-[#396131] gap-[40px] mx-[10px] "
@@ -778,8 +1094,93 @@ export default function AboutUs() {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
+
         <section
+          id="loans"
+          data-scroll
+          className="relative py-16 lg:py-24  overflow-hidden"
+        >
+          {/* Background decoration */}
+          <div className="absolute inset-0 opacity-40">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#396131]/5 via-transparent to-[#396131]/10"></div>
+          </div>
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Section Header */}
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#396131] mb-4">
+                LOANS
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-[#396131] to-[#4a7a3f] mx-auto rounded-full"></div>
+              <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+                Discover our comprehensive loan solutions designed to meet your
+                financial needs
+              </p>
+            </div>
+
+            {/* Loans Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+              {loans.map((loan, index) => (
+                <div
+                  key={index}
+                  className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-100"
+                >
+                  {/* Card gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-[#396131]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                  <div className="relative p-8 lg:p-10">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 lg:gap-8">
+                      {/* Icon Container */}
+                      <div className="flex-shrink-0 relative">
+                        <div className="w-24 h-24 lg:w-32 lg:h-32 bg-gradient-to-br from-[#396131] to-[#4a7a3f] rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                          <FontAwesomeIcon
+                            icon={loan.logo}
+                            className="text-white text-3xl lg:text-4xl"
+                          />
+                        </div>
+                        {/* Decorative ring */}
+                        <div className="absolute -inset-2 bg-gradient-to-br from-[#396131]/20 to-[#4a7a3f]/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1 text-center sm:text-left">
+                        <h3 className="text-xl lg:text-2xl font-bold text-[#396131] mb-3 group-hover:text-[#4a7a3f] transition-colors duration-300">
+                          {loan.type}
+                        </h3>
+                        <p className="text-gray-600 leading-relaxed mb-6 text-sm lg:text-base">
+                          {loan.description}
+                        </p>
+
+                        {/* CTA Button */}
+                        <NavLink
+                          to={loan.path}
+                          className="inline-flex items-center justify-center px-6 py-3 bg-[#396131] text-white font-semibold rounded-xl hover:bg-[#4a7a3f] focus:outline-none focus:ring-4 focus:ring-[#396131]/25 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group/btn"
+                        >
+                          <span className="mr-2">Learn More</span>
+                          <svg
+                            className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </NavLink>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        {/* <section
           id="deposits"
           data-scroll
           className="flex flex-col px-[50px] py-[50px] mx-[10px] gap-[85px] bg-[#396131] text-white drop-shadow-lg rounded-[8px]"
@@ -906,8 +1307,236 @@ export default function AboutUs() {
               Learn More
             </NavLink>
           </div>
-        </section>
+        </section> */}
         <section
+          id="deposits"
+          data-scroll
+          className="relative py-16 lg:py-20 mx-4 sm:mx-6 lg:mx-8 rounded-3xl bg-gradient-to-br from-[#396131] to-[#2d4a26] text-white shadow-2xl overflow-hidden"
+        >
+          {/* Background decorative elements */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-10 right-10 w-32 h-32 bg-white/20 rounded-full blur-2xl"></div>
+            <div className="absolute bottom-20 left-16 w-24 h-24 bg-white/15 rounded-full blur-xl"></div>
+            <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-white/10 rounded-full blur-lg"></div>
+          </div>
+
+          <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+            {/* Section Header */}
+            <div className="text-center mb-16 lg:mb-20">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 leading-tight">
+                1VB Deposits: Safe, Secure, and Rewarding
+              </h2>
+              <div className="w-24 h-1 bg-white/80 mx-auto rounded-full"></div>
+            </div>
+
+            {/* Main Deposit Types */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16 lg:mb-20">
+              {/* Regular Deposits */}
+              <div className="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 lg:gap-8 h-full">
+                  {/* Icon Container */}
+                  <div className="flex-shrink-0 relative">
+                    <div className="w-24 h-24 lg:w-32 lg:h-32 bg-white/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 backdrop-blur-sm">
+                      <FontAwesomeIcon
+                        icon={faPiggyBank}
+                        className="text-white text-4xl lg:text-5xl"
+                      />
+                    </div>
+                    <div className="absolute -inset-2 bg-white/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 flex flex-col justify-between h-full text-center sm:text-left">
+                    <div className="flex-1">
+                      <h3 className="text-xl lg:text-2xl font-bold mb-4 lg:mb-6">
+                        Regular
+                      </h3>
+                      <div className="space-y-3 lg:space-y-4 mb-6 lg:mb-8">
+                        <div className="flex items-center justify-center sm:justify-start gap-3">
+                          <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <FontAwesomeIcon
+                              icon={faPlusCircle}
+                              className="text-white text-sm"
+                            />
+                          </div>
+                          <span className="font-semibold text-sm lg:text-base">
+                            SD PLUS
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-center sm:justify-start gap-3">
+                          <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <FontAwesomeIcon
+                              icon={faFileInvoiceDollar}
+                              className="text-white text-sm"
+                            />
+                          </div>
+                          <span className="font-semibold text-sm lg:text-base">
+                            1ST CHECKING ACCOUNT
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <NavLink
+                      to="/deposits/regular-savings"
+                      className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#396131] font-bold rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-white/25 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group/btn"
+                    >
+                      <span className="mr-2">Learn More</span>
+                      <svg
+                        className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </NavLink>
+                  </div>
+                </div>
+              </div>
+
+              {/* Special Deposits */}
+              <div className="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 lg:gap-8 h-full">
+                  {/* Icon Container */}
+                  <div className="flex-shrink-0 relative">
+                    <div className="w-24 h-24 lg:w-32 lg:h-32 bg-white/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 backdrop-blur-sm">
+                      <FontAwesomeIcon
+                        icon={faMoneyBillTransfer}
+                        className="text-white text-4xl lg:text-5xl"
+                      />
+                    </div>
+                    <div className="absolute -inset-2 bg-white/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 flex flex-col justify-between h-full text-center sm:text-left">
+                    <div className="flex-1">
+                      <h3 className="text-xl lg:text-2xl font-bold mb-4 lg:mb-6">
+                        Special
+                      </h3>
+                      <div className="space-y-3 lg:space-y-4 mb-6 lg:mb-8">
+                        <div className="flex items-center justify-center sm:justify-start gap-3">
+                          <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <FontAwesomeIcon
+                              icon={faCoins}
+                              className="text-white text-sm"
+                            />
+                          </div>
+                          <span className="font-semibold text-sm lg:text-base">
+                            SSD MICRO
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-center sm:justify-start gap-3">
+                          <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <FontAwesomeIcon
+                              icon={faMoneyBillTrendUp}
+                              className="text-white text-sm"
+                            />
+                          </div>
+                          <span className="font-semibold text-sm lg:text-base">
+                            SSD REGULAR
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-center sm:justify-start gap-3">
+                          <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <FontAwesomeIcon
+                              icon={faFileInvoiceDollar}
+                              className="text-white text-sm"
+                            />
+                          </div>
+                          <span className="font-semibold text-sm lg:text-base">
+                            HANDOG SAVINGS
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-center sm:justify-start gap-3">
+                          <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                            <FontAwesomeIcon
+                              icon={faFileInvoiceDollar}
+                              className="text-white text-sm"
+                            />
+                          </div>
+                          <span className="font-semibold text-sm lg:text-base">
+                            BASIC SAVINGS
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <NavLink
+                      to="/deposits/special-savings"
+                      className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#396131] font-bold rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-white/25 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group/btn"
+                    >
+                      <span className="mr-2">Learn More</span>
+                      <svg
+                        className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </NavLink>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Features Grid */}
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/10">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8 mb-8 lg:mb-10">
+                {depositsFeatures.map((deposit, index) => (
+                  <div
+                    key={index}
+                    className="group flex flex-col items-center text-center gap-3 lg:gap-4 p-4 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-1"
+                  >
+                    <div className="w-16 h-16 lg:w-20 lg:h-20 bg-white/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 backdrop-blur-sm">
+                      <FontAwesomeIcon
+                        icon={deposit.icon}
+                        className="text-white text-2xl lg:text-3xl"
+                      />
+                    </div>
+                    <span className="font-semibold text-sm lg:text-base leading-tight">
+                      {deposit.feature}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Main CTA */}
+              <div className="text-center">
+                <NavLink
+                  to="/deposits"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#396131] font-bold text-lg rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-white/25 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group/btn"
+                >
+                  <span className="mr-2">Learn More About All Deposits</span>
+                  <svg
+                    className="w-5 h-5 transition-transform duration-300 group-hover/btn:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </NavLink>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* <section
           id="services"
           data-scroll
           className="flex flex-col gap-[50px] p-[50px] text-[#396131]"
@@ -932,8 +1561,86 @@ export default function AboutUs() {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
         <section
+          id="services"
+          data-scroll
+          className="relative py-16 lg:py-24 overflow-hidden"
+        >
+          {/* Background decoration */}
+          <div className="absolute inset-0 opacity-40">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#396131]/5 via-transparent to-[#396131]/10"></div>
+            <div className="absolute top-20 right-20 w-40 h-40 bg-[#396131]/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-32 left-16 w-32 h-32 bg-[#396131]/15 rounded-full blur-2xl"></div>
+          </div>
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Section Header */}
+            <div className="text-center mb-16 lg:mb-20">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#396131] mb-6">
+                SERVICES
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-[#396131] to-[#4a7a3f] mx-auto rounded-full mb-6"></div>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Comprehensive financial solutions designed to meet all your
+                banking needs
+              </p>
+            </div>
+
+            {/* Services Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+              {services.map((service, index) => (
+                <div
+                  key={index}
+                  className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 overflow-hidden border border-gray-100 p-8 lg:p-10"
+                >
+                  {/* Card gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-[#396131]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  {/* Decorative corner accent */}
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#396131]/20 to-transparent rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  <div className="relative text-center">
+                    {/* Icon Container */}
+                    <div className="mb-8 lg:mb-10">
+                      <div className="relative inline-block">
+                        <div className="w-32 h-32 lg:w-40 lg:h-40 mx-auto bg-gradient-to-br from-[#396131] to-[#4a7a3f] rounded-3xl flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                          <FontAwesomeIcon
+                            icon={service.icon}
+                            className="text-white text-4xl lg:text-5xl"
+                          />
+                        </div>
+                        {/* Floating ring animation */}
+                        <div className="absolute -inset-4 bg-gradient-to-br from-[#396131]/20 to-[#4a7a3f]/20 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 blur-sm scale-110 group-hover:scale-125"></div>
+                        {/* Pulse effect */}
+                        <div className="absolute -inset-2 bg-[#396131]/10 rounded-full opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-500"></div>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="space-y-4 lg:space-y-6">
+                      <h3 className="text-xl lg:text-2xl font-bold text-[#396131] group-hover:text-[#4a7a3f] transition-colors duration-300">
+                        {service.name}
+                      </h3>
+
+                      <div className="w-12 h-0.5 bg-gradient-to-r from-[#396131] to-[#4a7a3f] mx-auto rounded-full opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all duration-300"></div>
+
+                      <p className="text-gray-600 leading-relaxed text-sm lg:text-base group-hover:text-gray-700 transition-colors duration-300">
+                        {service.description}
+                      </p>
+                    </div>
+
+                    {/* Hover indicator */}
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                      <div className="w-8 h-1 bg-gradient-to-r from-[#396131] to-[#4a7a3f] rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        {/* <section
           id="awards"
           data-scroll
           className="flex flex-col gap-[30px] mx-[10px] p-[50px] text-[#396131]"
@@ -981,6 +1688,152 @@ export default function AboutUs() {
                 <span className="text-[1rem]/[2rem]">{award.description}</span>
               </div>
             ))}
+          </div>
+        </section> */}
+        <section
+          id="awards"
+          data-scroll
+          className="relative py-16 lg:py-24 overflow-hidden"
+        >
+          {/* Background decorative elements */}
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-amber-400/20 to-yellow-500/20 rounded-full blur-2xl"></div>
+            <div className="absolute bottom-20 left-16 w-40 h-40 bg-gradient-to-br from-yellow-400/15 to-orange-400/15 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/2 right-1/4 w-24 h-24 bg-gradient-to-br from-amber-300/10 to-yellow-400/10 rounded-full blur-xl"></div>
+          </div>
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Hero Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16 lg:mb-24">
+              {/* Trophy Icon */}
+              <div className="relative order-2 lg:order-1 flex justify-center lg:justify-start">
+                <div className="relative group">
+                  {/* Main trophy container */}
+                  <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-105 transition-all duration-700">
+                    <FontAwesomeIcon
+                      icon={faTrophy}
+                      className="text-white text-8xl sm:text-9xl lg:text-[10rem] filter drop-shadow-2xl"
+                    />
+                  </div>
+
+                  {/* Floating rings */}
+                  <div className="absolute -inset-4 bg-gradient-to-br from-amber-400/30 to-yellow-500/30 rounded-full blur-xl group-hover:blur-2xl group-hover:scale-110 transition-all duration-700"></div>
+                  <div className="absolute -inset-8 bg-gradient-to-br from-yellow-400/20 to-amber-500/20 rounded-full blur-2xl group-hover:blur-3xl group-hover:scale-125 transition-all duration-1000"></div>
+
+                  {/* Sparkle effects */}
+                  <div className="absolute top-8 right-8 w-4 h-4 bg-white rounded-full animate-pulse opacity-80"></div>
+                  <div className="absolute bottom-12 left-12 w-3 h-3 bg-yellow-200 rounded-full animate-ping opacity-60"></div>
+                  <div className="absolute top-1/4 left-8 w-2 h-2 bg-amber-200 rounded-full animate-pulse opacity-70 delay-300"></div>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="order-1 lg:order-2 text-center lg:text-left">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#396131] mb-8 leading-tight">
+                  AWARDS & RECOGNITION
+                </h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-amber-400 to-yellow-500 mx-auto lg:mx-0 rounded-full mb-10"></div>
+
+                {/* Featured Awards */}
+                <div className="space-y-8 lg:space-y-10">
+                  <div className="group bg-white/80 backdrop-blur-sm rounded-2xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-amber-100 hover:border-amber-200">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                        <span className="text-white font-bold text-lg">A+</span>
+                      </div>
+                      <div>
+                        <h3 className="text-xl lg:text-2xl font-bold text-[#396131] mb-3 group-hover:text-amber-700 transition-colors duration-300">
+                          RATED A+
+                        </h3>
+                        <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                          By PhilRatings, a pioneer domestic credit rating
+                          agency recognized by the Bangko Sentral ng Pilipinas
+                          (BSP).
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="group bg-white/80 backdrop-blur-sm rounded-2xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-amber-100 hover:border-amber-200">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                        <FontAwesomeIcon
+                          icon={faTrophy}
+                          className="text-white text-lg"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-xl lg:text-2xl font-bold text-[#396131] mb-3 group-hover:text-amber-700 transition-colors duration-300">
+                          EAGLE AWARD FOR MICROFINANCE
+                        </h3>
+                        <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                          Bestowed by the U.S. Agency for International
+                          Development through the RBAP-implemented MABS, a
+                          program that assists rural banks in increasing their
+                          financial services to the microenterprise sector.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Additional Awards Grid */}
+            <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 lg:p-12 shadow-xl border border-amber-100">
+              <div className="text-center mb-10 lg:mb-12">
+                <h3 className="text-2xl lg:text-3xl font-bold text-[#396131] mb-4">
+                  More Achievements
+                </h3>
+                <div className="w-16 h-0.5 bg-gradient-to-r from-amber-400 to-yellow-500 mx-auto rounded-full"></div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+                {awards.map((award, index) => (
+                  <div
+                    key={index}
+                    className="group bg-white/80 rounded-2xl p-6 lg:p-8 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-amber-200"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                        <FontAwesomeIcon
+                          icon={faTrophy}
+                          className="text-white text-sm"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-lg lg:text-xl font-bold text-[#396131] mb-3 group-hover:text-amber-700 transition-colors duration-300 leading-tight">
+                          {award.header}
+                        </h4>
+                        <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                          {award.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Hover indicator */}
+                    <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom CTA */}
+            <div className="text-center mt-16 lg:mt-20">
+              <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-amber-100 to-yellow-100 rounded-full border border-amber-200">
+                <FontAwesomeIcon
+                  icon={faTrophy}
+                  className="text-amber-600 text-lg animate-pulse"
+                />
+                <span className="text-amber-800 font-semibold">
+                  Trusted Excellence Since Our Foundation
+                </span>
+                <FontAwesomeIcon
+                  icon={faTrophy}
+                  className="text-amber-600 text-lg animate-pulse delay-300"
+                />
+              </div>
+            </div>
           </div>
         </section>
         <section id="core-values" data-scroll className="flex text-[#396131]">
