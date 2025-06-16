@@ -30,6 +30,7 @@ import LoansSBL from "./pages/LoansSBL";
 import LoansSalary from "./pages/LoansSalary";
 import PropertiesForSaleVehicles from "./pages/PropertiesForSaleVehicles";
 import PropertiesForSaleRealEstate from "./pages/PropertiesForSaleRealEstate";
+import Effects from "./pages/Effects";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -121,6 +122,10 @@ function App() {
     {
       component: <ContactUs />,
       route: "/contact-us",
+    },
+    {
+      component: <Effects />,
+      route: "/effects",
     },
   ];
 

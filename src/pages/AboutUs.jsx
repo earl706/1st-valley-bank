@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBuildingColumns } from "@fortawesome/free-solid-svg-icons/faBuildingColumns";
 import logo from "/src/assets/1vb logo_2x2.png";
@@ -48,6 +48,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function AboutUs() {
+  const [scrollY, setScrollY] = useState(0);
+  const [isVisible, setIsVisible] = useState({});
+  const [activeSection, setActiveSection] = useState("");
+
   const loans = [
     {
       type: "AGRICULTURE",
@@ -466,10 +470,87 @@ export default function AboutUs() {
     },
   ];
 
+  // Track scroll position
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observers = [];
+
+    const createObserver = (threshold = 0.1) => {
+      return new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            setIsVisible((prev) => ({
+              ...prev,
+              [entry.target.id]: entry.isIntersecting,
+            }));
+
+            if (entry.isIntersecting) {
+              setActiveSection(entry.target.id);
+            }
+          });
+        },
+        { threshold, rootMargin: "-50px 0px" }
+      );
+    };
+
+    const observer = createObserver();
+    const elements = document.querySelectorAll("[data-scroll]");
+    elements.forEach((el) => observer.observe(el));
+    observers.push(observer);
+
+    return () => observers.forEach((obs) => obs.disconnect());
+  }, []);
+
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <>
       <main className="hidden lg:flex flex-col gap-[120px] pb-[50px]">
-        <section className="px-[80px] py-[40px] bg-white rounded-[8px] drop-shadow-lg mx-[15px]">
+        <nav className="fixed top-35 right-4 z-40 bg-black bg-opacity-50 backdrop-blur-lg rounded-2xl p-2">
+          <div className="flex flex-col gap-2">
+            {[
+              "main",
+              "description",
+              "history",
+              "marketing",
+              "loans",
+              "deposits",
+              "services",
+              "awards",
+              "core-values",
+              "branch-management",
+              "corporate-profile",
+              "annual-reports",
+              "branch-directory",
+            ].map((section) => (
+              <button
+                key={section}
+                onClick={() => scrollToSection(section)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  activeSection === section
+                    ? "bg-[#396131] scale-125 cursor-pointer"
+                    : "bg-gray-500 hover:bg-gray-300 cursor-pointer"
+                }`}
+              />
+            ))}
+          </div>
+        </nav>
+
+        <section
+          id="main"
+          data-scroll
+          className="px-[80px] py-[40px] bg-white rounded-[8px] drop-shadow-lg mx-[15px]"
+        >
           <div className="flex items-center justify-between px-[80px] py-[60px] gap-[50px] text-[#396131] rounded-[8px]">
             <div className="flex flex-col items-start gap-[60px] w-3/5">
               <div className="flex flex-col gap-[20px]">
@@ -492,7 +573,11 @@ export default function AboutUs() {
             </div>
           </div>
         </section>
-        <section className="flex justify-end mx-[10px] bg-[#396131] rounded-[8px] p-[50px] drop-shadow-lg">
+        <section
+          id="description"
+          data-scroll
+          className="flex justify-end mx-[10px] bg-[#396131] rounded-[8px] p-[50px] drop-shadow-lg"
+        >
           <div className="flex justify-center w-1/2">
             <img
               src={img1}
@@ -525,7 +610,11 @@ export default function AboutUs() {
             </span>
           </div>
         </section>
-        <section className="flex justify-between mx-[10px] rounded-[8px] p-[50px]">
+        <section
+          id="history"
+          data-scroll
+          className="flex justify-between mx-[10px] rounded-[8px] p-[50px]"
+        >
           <div className="flex flex-col gap-[30px] w-1/2 text-[#396131]">
             <span className="font-bold text-[4rem]/[4rem]">Brief History</span>
             <div className="flex flex-col gap-[20px] text-[1rem]/[2.5rem]">
@@ -577,7 +666,11 @@ export default function AboutUs() {
             />
           </div>
         </section>
-        <section className="flex flex-col mx-[10px] gap-[60px] rounded-[8px] p-[50px] bg-[#396131]">
+        <section
+          id="marketing"
+          data-scroll
+          className="flex flex-col mx-[10px] gap-[60px] rounded-[8px] p-[50px] bg-[#396131]"
+        >
           <div className="flex gap-[50px]">
             <div className="flex flex-col items-start w-1/3">
               <img
@@ -650,7 +743,11 @@ export default function AboutUs() {
             </div>
           </div>
         </section>
-        <section className="flex flex-col items-center text-[#396131] gap-[40px] mx-[10px] ">
+        <section
+          id="loans"
+          data-scroll
+          className="flex flex-col items-center text-[#396131] gap-[40px] mx-[10px] "
+        >
           <p className="text-[4rem] text-center font-bold">LOANS</p>
           <div className="grid grid-cols-2 gap-x-[50px] gap-y-[80px] px-[80px]">
             {loans.map((loan, index) => (
@@ -682,7 +779,11 @@ export default function AboutUs() {
             ))}
           </div>
         </section>
-        <section className="flex flex-col px-[50px] py-[50px] mx-[10px] gap-[85px] bg-[#396131] text-white drop-shadow-lg rounded-[8px]">
+        <section
+          id="deposits"
+          data-scroll
+          className="flex flex-col px-[50px] py-[50px] mx-[10px] gap-[85px] bg-[#396131] text-white drop-shadow-lg rounded-[8px]"
+        >
           <div className="flex flex-col gap-[80px]">
             <p className="font-bold text-center text-[2rem]/[2rem]">
               1VB Deposits: Safe, Secure, and Rewarding
@@ -806,7 +907,11 @@ export default function AboutUs() {
             </NavLink>
           </div>
         </section>
-        <section className="flex flex-col gap-[50px] p-[50px] text-[#396131]">
+        <section
+          id="services"
+          data-scroll
+          className="flex flex-col gap-[50px] p-[50px] text-[#396131]"
+        >
           <p className="font-bold text-[4rem]/[4rem] text-center">SERVICES</p>
           <div className="grid grid-cols-3 gap-x-[25px]">
             {services.map((service, index) => (
@@ -828,7 +933,11 @@ export default function AboutUs() {
             ))}
           </div>
         </section>
-        <section className="flex flex-col gap-[30px] mx-[10px] p-[50px] text-[#396131]">
+        <section
+          id="awards"
+          data-scroll
+          className="flex flex-col gap-[30px] mx-[10px] p-[50px] text-[#396131]"
+        >
           <div className="flex gap-[50px] items-center">
             <div className="flex justify-center items-start w-1/2">
               <FontAwesomeIcon
@@ -874,7 +983,7 @@ export default function AboutUs() {
             ))}
           </div>
         </section>
-        <section className="flex text-[#396131]">
+        <section id="core-values" data-scroll className="flex text-[#396131]">
           <div className="flex flex-col p-[50px] gap-[30px] w-1/2">
             <div className="flex flex-col gap-[20px]">
               <span className="text-[2rem]/[4rem] font-bold">Vision</span>
@@ -975,7 +1084,11 @@ export default function AboutUs() {
             />
           </div>
         </section>
-        <section className="flex gap-[10px] p-[50px] text-[#396131]">
+        <section
+          id="branch-management"
+          data-scroll
+          className="flex gap-[10px] p-[50px] text-[#396131]"
+        >
           <div className="flex items-start justify-center w-1/2">
             <img
               src={img7}
@@ -1035,7 +1148,11 @@ export default function AboutUs() {
             </span>
           </div>
         </section>
-        <section className="flex flex-col p-[50px] gap-[30px] bg-[#396131] text-white rounded-[10px] mx-[10px] drop-shadow-lg">
+        <section
+          id="corporate-profile"
+          data-scroll
+          className="flex flex-col p-[50px] gap-[30px] bg-[#396131] text-white rounded-[10px] mx-[10px] drop-shadow-lg"
+        >
           <span className="text-[2.5rem] font-bold text-center">
             Corporate Profile
           </span>
@@ -1104,7 +1221,11 @@ export default function AboutUs() {
             </div>
           </div>
         </section>
-        <section className="flex flex-col justify-center text-[#396131] gap-[40px] p-[50px]">
+        <section
+          id="annual-reports"
+          data-scroll
+          className="flex flex-col justify-center text-[#396131] gap-[40px] p-[50px]"
+        >
           <span className="text-[3rem]/[3rem] font-bold text-center">
             Annual Reports
           </span>
@@ -1188,7 +1309,11 @@ export default function AboutUs() {
             ))}
           </div>
         </section>
-        <section className="flex flex-col gap-[80px] p-[50px] text-white bg-[#396131] rounded-[10px] mx-[10px] drop-shadow-lg">
+        <section
+          id="branch-directory"
+          data-scroll
+          className="flex flex-col gap-[80px] p-[50px] text-white bg-[#396131] rounded-[10px] mx-[10px] drop-shadow-lg"
+        >
           <span className="text-center font-bold text-[2.5rem]/[2.5rem]">
             Branch Directory
           </span>

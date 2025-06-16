@@ -1,147 +1,3 @@
-// import React from "react";
-// import { NavLink } from "react-router-dom";
-
-// import gcash from "/src/assets/gcash-logo-png_seeklogo-522261-removebg-preview.png";
-// import bsp from "/src/assets/image-removebg-preview (1).png";
-// import ctb from "/src/assets/image-removebg-preview (2).png";
-// import pdic from "/src/assets/image-removebg-preview.png";
-// import usaid from "/src/assets/Seal_of_the_United_States_Agency_for_International_Development.svg.png";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {
-//   faFacebook,
-//   faGoogle,
-//   faLinkedin,
-//   faSkype,
-//   faYoutube,
-// } from "@fortawesome/free-brands-svg-icons";
-// import {
-//   faEnvelopeCircleCheck,
-//   faPhone,
-// } from "@fortawesome/free-solid-svg-icons";
-
-// export default function Footer() {
-//   const footerNavigationItems = [
-//     { navItem: "Home", link: "/" },
-//     { navItem: "Deposits", link: "/deposits" },
-//     { navItem: "About Us", link: "/about-us" },
-//     { navItem: "Loans", link: "/loans" },
-//     { navItem: "Properties for Sale", link: "/properties-for-sale" },
-//     { navItem: "1VB Advisory", link: "/1vb-advisory" },
-//     { navItem: "Consumer Protection", link: "/consumer-protection" },
-//     { navItem: "Newsletter", link: "/newsletter" },
-//   ];
-
-//   const footerAgenciesNavigationItems = [
-//     { image: usaid, link: "" },
-//     { image: ctb, link: "" },
-//     { image: gcash, link: "" },
-//     { image: pdic, link: "" },
-//   ];
-
-//   const footerSocMedLinks = [
-//     { link: "", icon: faFacebook },
-//     { link: "", icon: faSkype },
-//     { link: "", icon: faGoogle },
-//     { link: "", icon: faLinkedin },
-//     { link: "", icon: faYoutube },
-//   ];
-
-//   return (
-//     <>
-//       <footer className="flex flex-col w-full bg-[#21441B] px-[20px] py-[10px] gap-[20px]">
-//         <div className="flex gap-[40px] items-center w-full px-[50px] pt-[30px] h">
-//           <div className="w-1/4">
-//             <img
-//               src={logo}
-//               alt=""
-//               className="h-[172px] w-[172px] transition-transform duration-200 hover:scale-105"
-//             />
-//           </div>
-//           <div className="flex flex-col items-stretch w-1/4 h-full">
-//             <div className="flex items-center gap-[10px] h-1/2">
-//               <img src={bsp} alt="" className="w-[50px] h-[50px]" />
-//               <span className="text-[0.6rem]/[1.2rem] text-white text-center">
-//                 1st Valley Bank, Inc., A Development Bank is regulated by the
-//                 Bangko Sentral ng Pilipinas (www.bsp.gov.ph). Deposits are
-//                 insured by PDIC up to P1 million per depositor.
-//               </span>
-//             </div>
-//             <div className="flex items-end justify-between text-white text-[12px] font-thin w-full h-1/2">
-//               {footerAgenciesNavigationItems.map((navItem, index) => (
-//                 <NavLink
-//                   to={navItem.link}
-//                   className="hover:font-semibold transition-all duration-200"
-//                 >
-//                   <img
-//                     src={navItem.image}
-//                     alt=""
-//                     className="w-[50px] h-[50px] transition-transform duration-200 hover:scale-110"
-//                   />
-//                 </NavLink>
-//               ))}
-//             </div>
-//           </div>
-//           <div className="flex flex-col mr-[100px] w-1/4">
-//             <div className="font-bold text-white text-[16px] mb-[20px]">
-//               Links
-//             </div>
-//             <ul className="grid grid-cols-2 gap-[20px] text-white text-[12px] font-thin">
-//               {footerNavigationItems.map((navItem, index) => (
-//                 <li key={index} className="">
-//                   <NavLink
-//                     to={navItem.link}
-//                     className="hover:font-semibold transition-all duration-200 mr-[30px] hover:text-gray-300"
-//                   >
-//                     <span>{navItem.navItem}</span>
-//                   </NavLink>
-//                 </li>
-//               ))}
-//             </ul>
-//           </div>
-//           <div className="flex flex-col gap-[20px] w-1/4">
-//             <span className="font-bold text-white">Contact Us</span>
-//             <div className="flex gap-[15px] items-center text-[14px] transition-all duration-200 hover:text-gray-300">
-//               <div className="flex items-center justify-center w-[30px] h-[30px] text-gray-300">
-//                 <FontAwesomeIcon icon={faPhone} className="w-full h-full" />
-//               </div>
-//               <span className="text-white">+63917 820 8542</span>
-//             </div>
-//             <div className="flex gap-[15px] items-center text-[14px] mb-[20px]">
-//               <div className="flex items-center justify-center w-[30px] h-[30px] text-gray-300">
-//                 <FontAwesomeIcon
-//                   icon={faEnvelopeCircleCheck}
-//                   className="w-full h-full"
-//                 />
-//               </div>
-//               <input
-//                 type="text"
-//                 className="text-white bg-transparent border-b-[1px] border-white focus:outline-0 focus:border-gray-300 py-[3px] transition-all duration-200"
-//                 placeholder="Email"
-//               />
-//             </div>
-//             <div className="flex items-center gap-[25px]">
-//               {footerSocMedLinks.map((navItem, index) => (
-//                 <div
-//                   key={index}
-//                   className="flex item-center justify-center w-[50px] h-[50px] text-gray-300 hover:text-gray-400 transition-all duration-200 cursor-pointer transform hover:scale-110"
-//                 >
-//                   <FontAwesomeIcon
-//                     icon={navItem.icon}
-//                     className="w-full h-full"
-//                   />
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         </div>
-//         <div className="font-bold text-center w-full text-white py-[20px] text-[16px]">
-//           Copyright © 2025 - 1st Valley Bank Inc. - All rights reserved
-//         </div>
-//       </footer>
-//     </>
-//   );
-// }
-
 import React, { useState } from "react";
 import logo from "/src/assets/1vb logo_2x2.png";
 import { NavLink } from "react-router-dom";
@@ -157,7 +13,6 @@ import {
   ExternalLink,
   ChevronUp,
   Shield,
-  Building2,
 } from "lucide-react";
 
 const Footer = () => {
@@ -201,7 +56,7 @@ const Footer = () => {
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className="absolute top-6 right-6 bg-white/20 hover:bg-white/30 rounded-full p-3 transition-all duration-300 hover:scale-110 z-20 drop-shadow-lg"
+        className="absolute top-6 right-6 bg-white/20 hover:bg-white/30 rounded-full p-3 transition-all duration-300 hover:scale-110 z-20 drop-shadow-lg cursor-pointer"
         aria-label="Scroll to top"
       >
         <ChevronUp className="w-5 h-5" />
@@ -215,7 +70,7 @@ const Footer = () => {
             <div className="group cursor-pointer">
               <img
                 src={logo}
-                className="w-32 h-32 bg-white/10 p-2 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:bg-opacity-20 group-hover:scale-105"
+                className="w-32 h-32 p-2 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:bg-opacity-20 group-hover:scale-105"
               />
               <h3 className="text-xl font-bold mb-3">1st Valley Bank</h3>
             </div>
