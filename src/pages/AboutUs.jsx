@@ -527,7 +527,7 @@ export default function AboutUs() {
   return (
     <>
       <main className="hidden lg:flex flex-col gap-[120px] pb-[50px]">
-        <nav className="fixed top-35 right-4 z-40 bg-black bg-opacity-50 backdrop-blur-lg rounded-2xl p-2">
+        <nav className="fixed top-35 right-4 z-40 bg-white/50 backdrop-blur-lg rounded-2xl p-2">
           <div className="flex flex-col gap-2">
             {[
               "main",
@@ -1611,9 +1611,9 @@ export default function AboutUs() {
                           />
                         </div>
                         {/* Floating ring animation */}
-                        <div className="absolute -inset-4 bg-gradient-to-br from-[#396131]/20 to-[#4a7a3f]/20 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 blur-sm scale-110 group-hover:scale-125"></div>
+                        {/* <div className="absolute -inset-4 bg-gradient-to-br from-[#396131]/20 to-[#4a7a3f]/20 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 blur-sm scale-110 group-hover:scale-125"></div> */}
                         {/* Pulse effect */}
-                        <div className="absolute -inset-2 bg-[#396131]/10 rounded-full opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-500"></div>
+                        {/* <div className="absolute -inset-2 bg-[#396131]/10 rounded-full opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-500"></div> */}
                       </div>
                     </div>
 
@@ -1628,11 +1628,6 @@ export default function AboutUs() {
                       <p className="text-gray-600 leading-relaxed text-sm lg:text-base group-hover:text-gray-700 transition-colors duration-300">
                         {service.description}
                       </p>
-                    </div>
-
-                    {/* Hover indicator */}
-                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-                      <div className="w-8 h-1 bg-gradient-to-r from-[#396131] to-[#4a7a3f] rounded-full"></div>
                     </div>
                   </div>
                 </div>
@@ -1836,7 +1831,7 @@ export default function AboutUs() {
             </div>
           </div>
         </section>
-        <section id="core-values" data-scroll className="flex text-[#396131]">
+        {/* <section id="core-values" data-scroll className="flex text-[#396131]">
           <div className="flex flex-col p-[50px] gap-[30px] w-1/2">
             <div className="flex flex-col gap-[20px]">
               <span className="text-[2rem]/[4rem] font-bold">Vision</span>
@@ -1935,6 +1930,262 @@ export default function AboutUs() {
               alt=""
               className="flex object-cover rounded-[15px] w-[550px] h-[680px]"
             />
+          </div>
+        </section> */}
+        <section
+          id="core-values"
+          className="relative py-16 lg:py-24 overflow-hidden bg-gradient-to-br from-slate-50 to-white"
+        >
+          {/* Background decorative elements */}
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-emerald-400/20 to-green-500/20 rounded-full blur-2xl"></div>
+            <div className="absolute bottom-20 left-16 w-40 h-40 bg-gradient-to-br from-green-400/15 to-teal-400/15 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/2 right-1/4 w-24 h-24 bg-gradient-to-br from-emerald-300/10 to-green-400/10 rounded-full blur-xl"></div>
+          </div>
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Hero Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16 lg:mb-24">
+              {/* Bank Icon */}
+              <div className="relative order-2 lg:order-1 flex justify-center lg:justify-start">
+                <div className="relative group">
+                  {/* Main bank container */}
+                  <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-emerald-500 via-green-600 to-teal-600 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-105 transition-all duration-700">
+                    <span className="text-white text-8xl sm:text-9xl lg:text-[10rem] filter drop-shadow-2xl">
+                      🏦
+                    </span>
+                  </div>
+
+                  {/* Floating rings */}
+                  <div className="absolute -inset-4 bg-gradient-to-br from-emerald-400/30 to-green-500/30 rounded-full blur-xl group-hover:blur-2xl group-hover:scale-110 transition-all duration-700"></div>
+                  <div className="absolute -inset-8 bg-gradient-to-br from-green-400/20 to-emerald-500/20 rounded-full blur-2xl group-hover:blur-3xl group-hover:scale-125 transition-all duration-1000"></div>
+
+                  {/* Sparkle effects */}
+                  <div className="absolute top-8 right-8 w-4 h-4 bg-white rounded-full animate-pulse opacity-80"></div>
+                  <div className="absolute bottom-12 left-12 w-3 h-3 bg-green-200 rounded-full animate-ping opacity-60"></div>
+                  <div className="absolute top-1/4 left-8 w-2 h-2 bg-emerald-200 rounded-full animate-pulse opacity-70 delay-300"></div>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="order-1 lg:order-2 text-center lg:text-left">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#396131] mb-8 leading-tight">
+                  VISION & MISSION
+                </h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-emerald-400 to-green-500 mx-auto lg:mx-0 rounded-full mb-10"></div>
+
+                {/* Featured Vision */}
+                <div className="space-y-8 lg:space-y-10">
+                  <div className="group bg-white/80 backdrop-blur-sm rounded-2xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-emerald-100 hover:border-emerald-200">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-green-500 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                        <span className="text-white font-bold text-lg">V</span>
+                      </div>
+                      <div>
+                        <h3 className="text-xl lg:text-2xl font-bold text-[#396131] mb-3 group-hover:text-emerald-700 transition-colors duration-300">
+                          VISION
+                        </h3>
+                        <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                          We envision to be the preferred banking institution in
+                          delivering innovative and customer-centered services.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* <div className="group bg-white/80 backdrop-blur-sm rounded-2xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-emerald-100 hover:border-emerald-200">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-500 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                        <FontAwesomeIcon
+                          icon={faLeaf}
+                          className="aspect-square text-white"
+                          style={{ width: "30px", height: "30px" }}
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-xl lg:text-2xl font-bold text-[#396131] mb-3 group-hover:text-emerald-700 transition-colors duration-300">
+                          MISSION
+                        </h3>
+                        <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                          Committed to delivering exceptional banking services
+                          while fostering growth for our customers, employees,
+                          stakeholders, and communities.
+                        </p>
+                      </div>
+                    </div>
+                  </div> */}
+                  <div className="group bg-white/80 rounded-2xl p-6 lg:p-8 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-amber-200">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-[#396131] rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                        <FontAwesomeIcon
+                          icon={faLeaf}
+                          className="text-white text-sm"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-lg lg:text-xl font-bold text-[#396131] mb-3 group-hover:text-amber-700 transition-colors duration-300 leading-tight">
+                          Mission
+                        </h4>
+                        <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                          Committed to delivering exceptional banking services
+                          while fostering growth for our customers, employees,
+                          stakeholders, and communities.
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Hover indicator */}
+                    <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Mission & Core Values Grid */}
+            <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 lg:p-12 shadow-xl border border-emerald-100">
+              <div className="text-center mb-10 lg:mb-12">
+                <h3 className="text-2xl lg:text-3xl font-bold text-[#396131] mb-4">
+                  Our Mission Points
+                </h3>
+                <div className="w-16 h-0.5 bg-gradient-to-r from-emerald-400 to-green-500 mx-auto rounded-full"></div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 mb-12">
+                <div className="group bg-white/80 rounded-2xl p-6 lg:p-8 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-emerald-200">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-500 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-white text-sm">🏢</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg lg:text-xl font-bold text-[#396131] mb-3 group-hover:text-emerald-700 transition-colors duration-300 leading-tight">
+                        Customer First
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                        Be one 1st Valley Bank; be the go-to bank for our
+                        customers
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-emerald-400 to-transparent mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+
+                <div className="group bg-white/80 rounded-2xl p-6 lg:p-8 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-emerald-200">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-white text-sm">👥</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg lg:text-xl font-bold text-[#396131] mb-3 group-hover:text-emerald-700 transition-colors duration-300 leading-tight">
+                        Top Employer
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                        Be the top employer for our staff
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-emerald-400 to-transparent mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+
+                <div className="group bg-white/80 rounded-2xl p-6 lg:p-8 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-emerald-200">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-500 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-white text-sm">🍃</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg lg:text-xl font-bold text-[#396131] mb-3 group-hover:text-emerald-700 transition-colors duration-300 leading-tight">
+                        High Returns
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                        Ensure delivery of high returns for our stakeholders
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-emerald-400 to-transparent mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+
+                <div className="group bg-white/80 rounded-2xl p-6 lg:p-8 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-emerald-200">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-teal-400 to-teal-500 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-white text-sm">📈</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg lg:text-xl font-bold text-[#396131] mb-3 group-hover:text-emerald-700 transition-colors duration-300 leading-tight">
+                        Community Development
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                        Promote development in the areas where we operate
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-emerald-400 to-transparent mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+              </div>
+
+              {/* Core Values Section */}
+              <div className="text-center mb-10">
+                <h3 className="text-2xl lg:text-3xl font-bold text-[#396131] mb-4">
+                  Core Values
+                </h3>
+                <div className="w-16 h-0.5 bg-gradient-to-r from-emerald-400 to-green-500 mx-auto rounded-full"></div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
+                <div className="group bg-white/80 rounded-2xl p-6 lg:p-8 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-emerald-200">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-white text-sm">✨</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg lg:text-xl font-bold text-[#396131] mb-3 group-hover:text-emerald-700 transition-colors duration-300 leading-tight">
+                        Integrity & Transparency
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                        We conduct our business with integrity, transparency,
+                        honesty, and the highest ethical standards.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-emerald-400 to-transparent mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+
+                <div className="group bg-white/80 rounded-2xl p-6 lg:p-8 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-emerald-200">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-rose-400 to-rose-500 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-white text-sm">🤝</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg lg:text-xl font-bold text-[#396131] mb-3 group-hover:text-emerald-700 transition-colors duration-300 leading-tight">
+                        Equality & Respect
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                        Treating our customers with equality, fairness, and
+                        respect is foremost in our delivery of excellent banking
+                        services.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-emerald-400 to-transparent mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+
+                <div className="group bg-white/80 rounded-2xl p-6 lg:p-8 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-emerald-200">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-amber-500 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-white text-sm">💡</span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg lg:text-xl font-bold text-[#396131] mb-3 group-hover:text-emerald-700 transition-colors duration-300 leading-tight">
+                        Innovation & Excellence
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
+                        We develop our business through innovation, enthusiasm,
+                        creativity, and our constant quest for excellence.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-emerald-400 to-transparent mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
         <section
