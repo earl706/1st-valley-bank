@@ -450,7 +450,7 @@ export default function ConsumerProtectionPrivacyPolicy() {
           </div>
         </section>
         <section
-          id="conditions-of-use"
+          id="privacy-changes-statement"
           data-scroll
           className="text-white rounded-[8px] mx-[10px]"
         >
