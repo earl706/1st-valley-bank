@@ -32,11 +32,7 @@ import {
   ShieldPlusIcon,
   TractorIcon,
 } from "@phosphor-icons/react/dist/ssr";
-import {
-  CandlestickChart,
-  CandlestickChartIcon,
-  LucideChartCandlestick,
-} from "lucide-react";
+import { LucideChartCandlestick } from "lucide-react";
 import React from "react";
 import { NavLink } from "react-router-dom";
 

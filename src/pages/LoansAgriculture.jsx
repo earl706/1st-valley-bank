@@ -36,7 +36,7 @@ export default function LoansAgriculture() {
             <BarnIcon className="w-[60%] h-auto" />
           </div>
         </section>
-        <section className="px-[15px] text-white">
+        <section id="description" className="px-[15px] text-white">
           <div className="flex items-center justify-center px-[80px] py-[60px] gap-[80px] bg-[#396131] rounded-[8px] drop-shadow-lg">
             <div className="flex items-center justify-center w-2/5">
               <LeafIcon className="w-[50%] h-auto" />
