@@ -269,7 +269,8 @@ export default function Navbar({ children }) {
                     >
                       {navItem.subItems.length > 0 ? (
                         <div className="flex items-center gap-[5px]">
-                          {navItem.navItem}
+                          <span className="flex">{navItem.navItem}</span>
+
                           <FontAwesomeIcon
                             icon={faAngleUp}
                             className={

@@ -1,3 +1,4 @@
+import React from "react";
 import {
   faArrowUpRightDots,
   faBreadSlice,
@@ -32,7 +33,6 @@ import {
   faWheatAwn,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import { NavLink } from "react-router-dom";
 
 export default function ConsumerProtection1VBProducts() {
