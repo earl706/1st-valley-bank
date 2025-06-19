@@ -1,12 +1,12 @@
+import React from "react";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Carousel from "../components/Carousel";
-import React from "react";
 
 export default function OneVBAdvisory() {
   return (
     <>
-      <main className="flex flex-col gap-[80px] pb-[50px]">
+      <main className="hidden lg:flex flex-col gap-[80px] pb-[50px]">
         <section
           id="main"
           data-scroll
@@ -30,10 +30,12 @@ export default function OneVBAdvisory() {
             />
           </div>
         </section>
-        <section id="carousel" className="mx-[80px]">
+        <section id="carousel" className="mx-auto">
           <Carousel />
         </section>
       </main>
+      <main className="hidden sm:block lg:hidden">Tablet</main>
+      <main className="block sm:hidden">Mobile</main>
     </>
   );
 }
