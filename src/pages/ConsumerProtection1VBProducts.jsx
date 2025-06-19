@@ -100,21 +100,21 @@ export default function ConsumerProtection1VBProducts() {
 
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[80px] pb-[50px]">
+      <main className="flex flex-col gap-[40px] lg:gap-[80px] pb-[50px]">
         <section
           id="main"
-          className="flex text-[#396131] bg-white drop-shadow-lg mx-[10px] rounded-[8px] py-[50px]"
+          className="flex flex-col-reverse lg:flex-row text-[#396131] bg-white drop-shadow-lg mx-[5px] lg:mx-[10px] rounded-[8px] lg:py-[50px]"
         >
-          <div className="flex flex-col gap-[20px] py-[80px] px-[60px] mx-[10px] w-3/5">
+          <div className="flex flex-col gap-[20px] lg:py-[80px] p-[20px] lg:px-[60px] mx-[10px] lg:w-3/5">
             <div className="flex flex-col gap-[20px]">
-              <span className="text-[4rem]/[4rem] font-bold">
+              <span className="text-[2rem]/[2rem] lg:text-[4rem]/[4rem] font-bold">
                 Consumer Protection
               </span>
-              <span className="text-[3rem]/[3rem] font-semibold">
+              <span className="text-[1.5rem]/[1.5rem] lg:text-[3rem]/[3rem] font-semibold">
                 1VB Products
               </span>
             </div>
-            <span className="text-[1rem]/[2rem]">
+            <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
               At 1st Valley Bank, your protection starts with every product we
               offer. Our Consumer Protection: 1VB Products initiative ensures
               that each loan, deposit, and service is designed with fairness,
@@ -123,7 +123,7 @@ export default function ConsumerProtection1VBProducts() {
               nothing less.
             </span>
           </div>
-          <div className="flex items-center justify-center w-2/5">
+          <div className="flex items-center justify-center lg:w-2/5">
             <FontAwesomeIcon
               icon={faGem}
               className="flex aspect-square"
@@ -443,8 +443,6 @@ export default function ConsumerProtection1VBProducts() {
           </div>
         </section>
       </main>
-      <main className="hidden sm:block lg:hidden">Tablet</main>
-      <main className="block sm:hidden">Mobile</main>
     </>
   );
 }
