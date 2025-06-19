@@ -498,7 +498,7 @@ export default function Navbar({ children }) {
         </div>
 
         {/* MOBILE */}
-        <div className="lg:hidden">
+        <div className="fixed lg:hidden z-50 w-full">
           {/* Mobile Header */}
           <div className="flex justify-between items-center h-16 bg-[#31542B] px-4">
             <div className="flex items-center">
@@ -703,7 +703,7 @@ export default function Navbar({ children }) {
           )}
         </div>
 
-        <div className="mt-4 lg:mt-[133px]">{children}</div>
+        <div className="mt-20 lg:mt-[133px]">{children}</div>
 
         {/* Footer remains the same */}
         <Footer />

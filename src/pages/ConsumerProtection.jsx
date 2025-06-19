@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 export default function ConsumerProtection() {
   return (
     <>
-      <main className="flex flex-col gap-[80px] pb-[50px]">
+      <main className="flex flex-col gap-[40px] lg:gap-[80px] pb-[50px]">
         {/* <section
           id="main"
           data-scroll
@@ -41,7 +41,7 @@ export default function ConsumerProtection() {
         </section> */}
         <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 mx-4 rounded-3xl shadow-2xl shadow-emerald-900/10 mb-8 font-sans">
           <div className="relative px-8 sm:px-12 lg:px-16 py-16 lg:py-24">
-            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+            <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-16">
               {/* Content Section */}
               <div className="flex-1 space-y-8 text-center lg:text-left">
                 {/* Main Heading */}
@@ -69,8 +69,7 @@ export default function ConsumerProtection() {
                   <div className="flex justify-center items-center overflow-hidden rounded-3xl  text-[#396131] group-hover:shadow-3xl transition-all duration-500 transform group-hover:-translate-y-2">
                     <FontAwesomeIcon
                       icon={faUnlock}
-                      className="flex aspect-square"
-                      style={{ width: "60%", height: "auto" }}
+                      className="text-[10rem] lg:text-[20rem]"
                     />
                   </div>
                 </div>
@@ -81,21 +80,20 @@ export default function ConsumerProtection() {
         <section
           id="privacy-policy"
           data-scroll
-          className="flex text-[#396131] mx-[80px] rounded-[8px] gap-[30px]"
+          className="flex flex-col lg:flex-row text-[#396131] mx-[20px] lg:mx-[80px] rounded-[8px] gap-[30px]"
         >
-          <div className="flex items-center justify-center w-1/4">
+          <div className="flex items-center justify-center lg:w-1/4">
             <FontAwesomeIcon
               icon={faFingerprint}
-              className="flex aspect-square"
-              style={{ width: "100%", height: "auto" }}
+              className="flex aspect-square text-[10rem] lg:text-[20rem]"
             />
           </div>
-          <div className="flex flex-col gap-[30px] w-3/4">
-            <div className="flex flex-col gap-[20px] py-[80px] mx-[10px]">
-              <span className="text-[3rem]/[3rem] font-bold">
+          <div className="flex flex-col gap-[15px] lg:gap-[30px] lg:w-3/4">
+            <div className="flex flex-col gap-[20px] lg:py-[80px] mx-[10px]">
+              <span className="text-[1.5rem]/[1.5rem] lg:text-[3rem]/[3rem] font-bold">
                 Privacy Policy
               </span>
-              <span className="text-[1rem]/[3rem]">
+              <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                 Your privacy matters at 1st Valley Bank. Through our Consumer
                 Protection & Privacy Policy, we safeguard your personal data
                 with the highest standards of security, transparency, and
@@ -106,7 +104,7 @@ export default function ConsumerProtection() {
             </div>
             <NavLink
               to="/consumer-protection/privacy-policy"
-              className="flex items-center justify-center w-full h-[60px] font-bold text-center rounded-[16px] bg-[#396131] text-white text-[1.5rem] outline-0 outline-[#396131] transition-all transform duration-200 hover:bg-white hover:outline-1 hover:text-[#396131]"
+              className="flex items-center justify-center w-full h-[30px] lg:h-[60px] font-bold text-center rounded-[5px] lg:rounded-[16px] bg-[#396131] text-white text-[0.8rem] lg:text-[1.5rem] outline-0 outline-[#396131] transition-all transform duration-200 hover:bg-white hover:outline-1 hover:text-[#396131]"
             >
               <span>Learn More</span>
             </NavLink>
@@ -115,12 +113,14 @@ export default function ConsumerProtection() {
         <section
           id="1vb-products"
           data-scroll
-          className="flex bg-[#396131] text-white mx-[10px] drop-shadow-lg rounded-[8px] gap-[30px] px-[60px] py-[90px]"
+          className="flex flex-col-reverse lg:flex-row bg-[#396131] text-white mx-[10px] drop-shadow-lg rounded-[8px] gap-[30px] p-[20px] lg:px-[60px] lg:py-[90px]"
         >
-          <div className="flex flex-col gap-[30px] w-3/4">
-            <div className="flex flex-col gap-[20px] py-[80px] mx-[10px]">
-              <span className="text-[3rem]/[3rem] font-bold">1VB Products</span>
-              <span className="text-[1rem]/[3rem]">
+          <div className="flex flex-col gap-[30px] lg:w-3/4">
+            <div className="flex flex-col gap-[20px] lg:py-[80px] mx-[10px]">
+              <span className="text-[1.5rem]/[1.5rem] lg:text-[3rem]/[3rem] font-bold">
+                1VB Products
+              </span>
+              <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                 At 1st Valley Bank, your protection starts with every product we
                 offer. Our Consumer Protection: 1VB Products initiative ensures
                 that each loan, deposit, and service is designed with fairness,
@@ -131,37 +131,35 @@ export default function ConsumerProtection() {
             </div>
             <NavLink
               to="/consumer-protection/1vb-products"
-              className="flex items-center justify-center w-full h-[60px] font-bold text-center rounded-[16px] text-[#396131] bg-white text-[1.5rem] outline-0 outline-white transition-all transform duration-200 hover:text-white hover:outline-1 hover:bg-[#396131]"
+              className="flex items-center justify-center w-full h-[30px] lg:h-[60px] font-bold text-center rounded-[5px] lg:rounded-[16px] text-[#396131] bg-white text-[0.8rem] lg:text-[1.5rem] outline-0 outline-white transition-all transform duration-200 hover:text-white hover:outline-1 hover:bg-[#396131]"
             >
               <span>Learn More</span>
             </NavLink>
           </div>
-          <div className="flex items-center justify-center w-1/4">
+          <div className="flex items-center justify-center lg:w-1/4">
             <FontAwesomeIcon
               icon={faGem}
-              className="flex aspect-square"
-              style={{ width: "100%", height: "auto" }}
+              className="flex aspect-square text-[10rem] lg:text-[20rem]"
             />
           </div>
         </section>
         <section
           id="privacy-policy"
           data-scroll
-          className="flex text-[#396131] mx-[80px] rounded-[8px] gap-[30px]"
+          className="flex flex-col lg:flex-row  text-[#396131] mx-[10px] lg:mx-[80px] rounded-[8px] gap-[20px] lg:gap-[30px]"
         >
-          <div className="flex items-center justify-center w-1/4">
+          <div className="flex items-center justify-center lg:w-1/4">
             <FontAwesomeIcon
               icon={faFileSignature}
-              className="flex aspect-square"
-              style={{ width: "100%", height: "auto" }}
+              className="flex aspect-square text-[10rem] lg:text-[20rem]"
             />
           </div>
-          <div className="flex flex-col gap-[30px] w-3/4">
-            <div className="flex flex-col gap-[20px] py-[80px] mx-[10px]">
-              <span className="text-[3rem]/[3rem] font-bold">
+          <div className="flex flex-col gap-[10px] lg:gap-[30px] lg:w-3/4">
+            <div className="flex flex-col gap-[20px] lg:py-[80px] mx-[10px]">
+              <span className="text-[1.5rem]/[1.5rem] lg:text-[3rem]/[3rem] font-bold">
                 Product Requirements
               </span>
-              <span className="text-[1rem]/[3rem]">
+              <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                 At 1st Valley Bank, we believe in clear, transparent banking.
                 Our Consumer Protection: Product Requirements section ensures
                 you're fully informed about what’s needed for each of our
@@ -172,7 +170,7 @@ export default function ConsumerProtection() {
             </div>
             <NavLink
               to="/consumer-protection/product-requirements"
-              className="flex items-center justify-center w-full h-[60px] font-bold text-center rounded-[16px] bg-[#396131] text-white text-[1.5rem] outline-0 outline-[#396131] transition-all transform duration-200 hover:bg-white hover:outline-1 hover:text-[#396131]"
+              className="flex items-center justify-center w-full h-[30px] lg:h-[60px] font-bold text-center rounded-[5px] lg:rounded-[16px] bg-[#396131] text-white text-[0.8rem] lg:text-[1.5rem] outline-0 outline-[#396131] transition-all transform duration-200 hover:bg-white hover:outline-1 hover:text-[#396131]"
             >
               <span>Learn More</span>
             </NavLink>
