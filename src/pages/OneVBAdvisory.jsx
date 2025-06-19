@@ -6,7 +6,7 @@ import React from "react";
 export default function OneVBAdvisory() {
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[80px] pb-[50px]">
+      <main className="flex flex-col gap-[80px] pb-[50px]">
         <section
           id="main"
           data-scroll
