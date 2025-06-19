@@ -29,6 +29,7 @@ import {
   faPhone,
   faVoicemail,
 } from "@fortawesome/free-solid-svg-icons";
+import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 
 export default function Navbar({ children }) {
   const [scrollY, setScrollY] = useState(0);
@@ -40,6 +41,8 @@ export default function Navbar({ children }) {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeSubDropdown, setActiveSubDropdown] = useState(null);
   const [activeSubSubDropdown, setActiveSubSubDropdown] = useState(null);
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -215,6 +218,21 @@ export default function Navbar({ children }) {
     setActiveSubSubDropdown(subsubIndex);
   };
 
+  const handleDropdownToggle = (index) => {
+    setActiveDropdown(activeDropdown === index ? null : index);
+    setActiveSubDropdown(null);
+  };
+
+  const handleSubDropdownToggle = (index) => {
+    setActiveSubDropdown(activeSubDropdown === index ? null : index);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+    setActiveDropdown(null);
+    setActiveSubDropdown(null);
+  };
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [location]);
@@ -235,8 +253,10 @@ export default function Navbar({ children }) {
             }}
           />
         </div>
+
+        {/* DESKTOP NAVBAR */}
         <div
-          className="bg-white fixed z-99 w-full"
+          className=" bg-white lg:block fixed hidden z-99 w-full"
           onMouseLeave={() => setActiveItemHover("")}
         >
           {/* Primary Navbar */}
@@ -477,7 +497,213 @@ export default function Navbar({ children }) {
           </div>
         </div>
 
-        <div className="mt-[133px]">{children}</div>
+        {/* MOBILE */}
+        <div className="lg:hidden">
+          {/* Mobile Header */}
+          <div className="flex justify-between items-center h-16 bg-[#31542B] px-4">
+            <div className="flex items-center">
+              <NavLink
+                to="/"
+                className="w-10 h-10 rounded-lg flex items-center justify-center"
+              >
+                <img src={logo} alt="" />
+              </NavLink>
+            </div>
+
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-white p-1"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
+
+          {/* Mobile Menu Overlay */}
+          {isMobileMenuOpen && (
+            <div
+              className="fixed inset-0 z-50 bg-black bg-opacity-50"
+              onClick={closeMobileMenu}
+            >
+              <div
+                className="absolute top-0 right-0 w-80 h-full bg-white shadow-xl overflow-y-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Menu Header */}
+                <div className="flex justify-between items-center p-4 bg-[#31542B] text-white">
+                  <h2 className="text-lg font-bold"></h2>
+                  <button onClick={closeMobileMenu}>
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+
+                {/* Menu Content */}
+                <div className="p-4">
+                  {/* Primary Navigation */}
+                  <div className="mb-6">
+                    {navbarNavigationItems.map((navItem, index) => (
+                      <div key={index} className="mb-2">
+                        <div className="flex items-center justify-between">
+                          <NavLink
+                            to={navItem.path}
+                            className="flex-1 py-3 px-2 text-[#31542B] font-semibold hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                            onClick={closeMobileMenu}
+                          >
+                            {navItem.navItem}
+                          </NavLink>
+                          {navItem.subItems.length > 0 && (
+                            <button
+                              onClick={() =>
+                                handleDropdownToggle(`primary-${index}`)
+                              }
+                              className="p-2 text-[#31542B] hover:bg-gray-50 rounded-lg"
+                            >
+                              <ChevronDown
+                                className={`w-4 h-4 transition-transform duration-200 ${
+                                  activeDropdown === `primary-${index}`
+                                    ? "rotate-180"
+                                    : ""
+                                }`}
+                              />
+                            </button>
+                          )}
+                        </div>
+
+                        {/* Primary Subitems */}
+                        {activeDropdown === `primary-${index}` &&
+                          navItem.subItems.length > 0 && (
+                            <div className="ml-4 mt-2 space-y-1">
+                              {navItem.subItems.map((subItem, subIndex) => (
+                                <NavLink
+                                  key={subIndex}
+                                  to={subItem.path}
+                                  className="block py-2 px-3 text-gray-600 hover:text-[#31542B] hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                                  onClick={closeMobileMenu}
+                                >
+                                  {subItem.subItem}
+                                </NavLink>
+                              ))}
+                            </div>
+                          )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Secondary Navigation */}
+                  <div className="mb-6">
+                    <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">
+                      Categories
+                    </h3>
+                    {secondaryNavbarItems.map((navItem, index) => (
+                      <div key={index} className="mb-2">
+                        <div className="flex items-center justify-between">
+                          <NavLink
+                            to={navItem.path}
+                            className="flex-1 py-3 px-2 text-[#31542B] font-semibold hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                            onClick={closeMobileMenu}
+                          >
+                            {navItem.navItem}
+                          </NavLink>
+                          {navItem.subItems.length > 0 && (
+                            <button
+                              onClick={() =>
+                                handleDropdownToggle(`secondary-${index}`)
+                              }
+                              className="p-2 text-[#31542B] hover:bg-gray-50 rounded-lg"
+                            >
+                              <ChevronDown
+                                className={`w-4 h-4 transition-transform duration-200 ${
+                                  activeDropdown === `secondary-${index}`
+                                    ? "rotate-180"
+                                    : ""
+                                }`}
+                              />
+                            </button>
+                          )}
+                        </div>
+
+                        {/* Secondary Subitems */}
+                        {activeDropdown === `secondary-${index}` &&
+                          navItem.subItems.length > 0 && (
+                            <div className="ml-4 mt-2 space-y-1">
+                              {navItem.subItems.map((subItem, subIndex) => (
+                                <div key={subIndex}>
+                                  <div className="flex items-center justify-between">
+                                    <NavLink
+                                      to={subItem.path}
+                                      className="flex-1 py-2 px-3 text-gray-600 hover:text-[#31542B] hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                                      onClick={closeMobileMenu}
+                                    >
+                                      {subItem.subItem}
+                                    </NavLink>
+                                    {subItem.subsubItems.length > 0 && (
+                                      <button
+                                        onClick={() =>
+                                          handleSubDropdownToggle(
+                                            `${index}-${subIndex}`
+                                          )
+                                        }
+                                        className="p-1 text-gray-400 hover:text-[#31542B]"
+                                      >
+                                        <ChevronRight
+                                          className={`w-3 h-3 transition-transform duration-200 ${
+                                            activeSubDropdown ===
+                                            `${index}-${subIndex}`
+                                              ? "rotate-90"
+                                              : ""
+                                          }`}
+                                        />
+                                      </button>
+                                    )}
+                                  </div>
+
+                                  {/* Sub-subitems */}
+                                  {activeSubDropdown ===
+                                    `${index}-${subIndex}` &&
+                                    subItem.subsubItems.length > 0 && (
+                                      <div className="ml-4 mt-1 space-y-1">
+                                        {subItem.subsubItems.map(
+                                          (subsubItem, subsubIndex) => (
+                                            <NavLink
+                                              key={subsubIndex}
+                                              href={subsubItem.path}
+                                              className="block py-2 px-3 text-sm text-gray-500 hover:text-[#31542B] hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                                              onClick={closeMobileMenu}
+                                            >
+                                              • {subsubItem.subItem}
+                                            </NavLink>
+                                          )
+                                        )}
+                                      </div>
+                                    )}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Contact Button */}
+                  <div className="pt-4 border-t border-gray-200">
+                    <NavLink
+                      href="/contact-us"
+                      className="block w-full py-3 px-4 text-center text-white bg-[#31542B] hover:bg-[#396131] rounded-lg font-semibold transition-colors duration-200"
+                      onClick={closeMobileMenu}
+                    >
+                      Contact Us
+                    </NavLink>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="mt-4 lg:mt-[133px]">{children}</div>
 
         {/* Footer remains the same */}
         <Footer />

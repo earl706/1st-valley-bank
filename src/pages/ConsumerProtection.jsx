@@ -12,11 +12,11 @@ import { NavLink } from "react-router-dom";
 export default function ConsumerProtection() {
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[80px] pb-[50px]">
-        <section
+      <main className="flex flex-col gap-[80px] pb-[50px]">
+        {/* <section
           id="main"
           data-scroll
-          className="flex text-[#396131] bg-white drop-shadow-lg mx-[10px] rounded-[8px] py-[50px]"
+          className="flex text-[#396131] bg-white drop-shadow-lg mx-[10px] rounded-[8px] py-[30px]"
         >
           <div className="flex flex-col gap-[20px] py-[80px] px-[60px] mx-[10px] w-3/5">
             <span className="text-[4rem]/[4rem] font-bold">
@@ -37,6 +37,45 @@ export default function ConsumerProtection() {
               className="flex aspect-square"
               style={{ width: "60%", height: "auto" }}
             />
+          </div>
+        </section> */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 mx-4 rounded-3xl shadow-2xl shadow-emerald-900/10 mb-8 font-sans">
+          <div className="relative px-8 sm:px-12 lg:px-16 py-16 lg:py-24">
+            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+              {/* Content Section */}
+              <div className="flex-1 space-y-8 text-center lg:text-left">
+                {/* Main Heading */}
+                <div className="space-y-2">
+                  <h1 className="text-xl sm:text-2xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#396131] via-[#FB3F3F] to-[#FDE900] leading-tight">
+                    Consumer Protection
+                  </h1>
+                </div>
+
+                {/* Description */}
+                <p className="text-lg text-slate-700 leading-relaxed max-w-2xl">
+                  At 1st Valley Bank, your trust is our priority. Our Consumer
+                  Protection program ensures your rights as a client are
+                  respected, your data is secure, and your concerns are heard.
+                  We’re committed to fair, transparent, and responsible
+                  banking—because protecting you is just as important as serving
+                  you. Let’s grow safely, together.
+                </p>
+              </div>
+
+              {/* Image Section */}
+              <div className="flex-shrink-0 lg:w-2/5">
+                <div className="relative group">
+                  {/* Main image container */}
+                  <div className="flex justify-center items-center overflow-hidden rounded-3xl  text-[#396131] group-hover:shadow-3xl transition-all duration-500 transform group-hover:-translate-y-2">
+                    <FontAwesomeIcon
+                      icon={faUnlock}
+                      className="flex aspect-square"
+                      style={{ width: "60%", height: "auto" }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
         <section
@@ -140,8 +179,8 @@ export default function ConsumerProtection() {
           </div>
         </section>
       </main>
-      <main className="hidden sm:block lg:hidden">Tablet</main>
-      <main className="block sm:hidden">Mobile</main>
+      {/* <main className="hidden sm:block lg:hidden">Tablet</main>
+      <main className="block sm:hidden">Mobile</main> */}
     </>
   );
 }

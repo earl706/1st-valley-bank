@@ -14,6 +14,7 @@ import img8 from "/src/assets/about-us/8.jpg";
 import img9 from "/src/assets/about-us/9.jpg";
 import { NavLink } from "react-router-dom";
 import { faWheatAwn } from "@fortawesome/free-solid-svg-icons/faWheatAwn";
+import CorporateProfile from "../components/CorporateProfile";
 import {
   faArrowUpRightDots,
   faBreadSlice,
@@ -526,7 +527,7 @@ export default function AboutUs() {
 
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[120px] pb-[50px]">
+      <main className="flex flex-col gap-[80px] lg:gap-[120px] pb-[50px]">
         <nav className="fixed top-35 right-4 z-40 bg-white/50 backdrop-blur-lg rounded-2xl p-2">
           <div className="flex flex-col gap-2">
             {[
@@ -560,13 +561,15 @@ export default function AboutUs() {
         <section
           id="main"
           data-scroll
-          className="px-[80px] py-[40px] bg-white rounded-[8px] drop-shadow-lg mx-[15px]"
+          className="px-[20px] py-[40px] lg:px-[80px] lg:py-[40px] bg-white rounded-[8px] drop-shadow-lg mx-[5px] lg:mx-[15px]"
         >
-          <div className="flex items-center justify-between px-[80px] py-[60px] gap-[50px] text-[#396131] rounded-[8px]">
-            <div className="flex flex-col items-start gap-[60px] w-3/5">
+          <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-[20px] lg:gap-[50px] text-[#396131] rounded-[8px]">
+            <div className="flex flex-col items-start gap-[20px] lg:gap-[60px] lg:w-3/5">
               <div className="flex flex-col gap-[20px]">
-                <span className="font-bold text-[4rem]">About Us</span>
-                <span className="font-medium text-[1rem]/[3rem]">
+                <span className="font-bold text-[2rem] lg:text-[4rem]">
+                  About Us
+                </span>
+                <span className="font-medium text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                   Founded in 1956, 1st Valley Bank, A Development Bank, has a
                   long and distinguished history of banking excellence. It
                   started as a rural bank operating in Northern Mindanao before
@@ -575,11 +578,11 @@ export default function AboutUs() {
                 </span>
               </div>
             </div>
-            <div className="w-2/5">
+            <div className="lg:w-2/5">
               <FontAwesomeIcon
                 icon={faBuildingColumns}
                 className="aspect-square"
-                style={{ width: "416px", height: "416px" }}
+                style={{ width: "100%", height: "auto" }}
               />
             </div>
           </div>
@@ -587,16 +590,16 @@ export default function AboutUs() {
         <section
           id="description"
           data-scroll
-          className="flex justify-end mx-[10px] bg-[#396131] rounded-[8px] p-[50px] drop-shadow-lg"
+          className="flex lg:flex-row flex-col justify-end mx-[10px] bg-[#396131] gap-[20px] rounded-[8px] p-[20px] lg:p-[80px] drop-shadow-lg"
         >
-          <div className="flex justify-center w-1/2">
+          <div className="flex justify-center lg:w-1/2">
             <img
               src={img1}
               alt=""
               className="object-cover h-[600px] w-[556px] rounded-[12px]"
             />
           </div>
-          <div className="flex flex-col gap-[20px] w-1/2 text-[1rem]/[3rem] text-white">
+          <div className="flex flex-col gap-[10px] lg:gap-[20px] lg:w-1/2 text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem] text-white">
             <span>
               1st Valley Bank (1VB) is one of the largest independent
               developmental banks dedicated to fund development projects and
@@ -621,14 +624,16 @@ export default function AboutUs() {
             </span>
           </div>
         </section>
-        {/* <section
+        <section
           id="history"
           data-scroll
-          className="flex justify-between mx-[10px] rounded-[8px] p-[50px]"
+          className="flex lg:flex-row flex-col-reverse justify-between mx-[10px] gap-[30px] lg:gap-none rounded-[8px] p-[20px] lg:p-[50px]"
         >
-          <div className="flex flex-col gap-[30px] w-1/2 text-[#396131]">
-            <span className="font-bold text-[4rem]/[4rem]">Brief History</span>
-            <div className="flex flex-col gap-[20px] text-[1rem]/[2.5rem]">
+          <div className="flex flex-col gap-[10px] lg:gap-[30px] lg:w-1/2 text-[#396131]">
+            <span className="font-bold text-[1.5rem]/[3rem] lg:text-[4rem]/[4rem]">
+              Brief History
+            </span>
+            <div className="flex flex-col gap-[10px] lg:gap-[20px] text-[0.8rem]/[2.4rem] lg:text-[1rem]/[2.5rem]">
               <span>
                 1st Valley Bank, a rapidly growing development bank in Mindanao
                 and Visayas, traces its roots in the rural banking industry.
@@ -664,179 +669,37 @@ export default function AboutUs() {
               </span>
             </div>
           </div>
-          <div className="flex flex-col items-center w-1/2 h-full gap-[40px]">
+          <div className="flex lg:flex-col items-center lg:w-1/2 h-full gap-[10px] lg:gap-[40px]">
             <img
               src={img2}
               alt=""
-              className="object-cover h-[380px] w-[458px] rounded-[12px]"
+              className="object-cover w-[200px] h-[180px] lg:h-[380px] lg:w-[458px] rounded-[12px]"
             />
             <img
               src={img3}
               alt=""
-              className="object-cover h-[380px] w-[458px] rounded-[12px]"
+              className="object-cover w-[200px] h-[180px] lg:h-[380px] lg:w-[458px] rounded-[12px]"
             />
           </div>
-        </section> */}
-        <section
-          id="history"
-          data-scroll
-          className="relative flex justify-between mx-4 rounded-2xl p-16 bg-gradient-to-br from-slate-50 via-gray-50 to-stone-50 shadow-2xl overflow-hidden group"
-        >
-          {/* Subtle background elements */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-400 to-green-500 rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-teal-400 to-emerald-500 rounded-full blur-3xl transform -translate-x-1/3 translate-y-1/3"></div>
-          </div>
-
-          {/* Content Container */}
-          <div className="relative z-10 flex justify-between w-full">
-            {/* Text Content */}
-            <div className="flex flex-col gap-12 w-1/2 text-[#396131] pr-8">
-              <div className="relative">
-                <span className="font-bold text-[4rem]/[4rem] bg-gradient-to-r from-[#396131] via-emerald-700 to-green-700 bg-clip-text text-transparent drop-shadow-sm">
-                  Brief History
-                </span>
-                {/* Decorative underline */}
-                <div className="absolute -bottom-4 left-0 w-24 h-1 bg-gradient-to-r from-[#396131] to-emerald-500 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 ease-out"></div>
-              </div>
-
-              <div className="flex flex-col gap-8 text-lg/[2.5rem] relative">
-                {/* Timeline line */}
-                <div className="absolute -left-8 top-0 w-1 h-full bg-gradient-to-b from-[#396131] via-emerald-400 to-green-300 rounded-full opacity-30"></div>
-
-                <div className="relative group/item">
-                  <div className="absolute -left-10 top-6 w-3 h-3 bg-[#396131] rounded-full border-4 border-white shadow-lg"></div>
-                  <span className="text-gray-700 font-medium leading-relaxed hover:text-[#396131] transition-colors duration-300">
-                    1st Valley Bank, a rapidly growing development bank in
-                    Mindanao and Visayas, traces its roots in the rural banking
-                    industry.
-                  </span>
-                </div>
-
-                <div className="relative group/item">
-                  <div className="absolute -left-10 top-6 w-3 h-3 bg-emerald-600 rounded-full border-4 border-white shadow-lg"></div>
-                  <span className="text-gray-700 font-medium leading-relaxed hover:text-[#396131] transition-colors duration-300">
-                    1st Valley Bank was formerly known as the Rural Bank of
-                    Kapatagan Valley (RUBANKA) first, and then Kapatagan Valley
-                    Bank (KVB). It earned its license to operate on November
-                    24,1956 and became the 75th rural bank in the country.
-                  </span>
-                </div>
-
-                <div className="relative group/item">
-                  <div className="absolute -left-10 top-6 w-3 h-3 bg-green-600 rounded-full border-4 border-white shadow-lg"></div>
-                  <span className="text-gray-700 font-medium leading-relaxed hover:text-[#396131] transition-colors duration-300">
-                    On April 5, 1957, the Bank has earned its prestigious
-                    membership in the Rural Bank Association of the Philippines
-                    (RBAP).
-                  </span>
-                </div>
-
-                <div className="relative group/item">
-                  <div className="absolute -left-10 top-6 w-3 h-3 bg-teal-600 rounded-full border-4 border-white shadow-lg"></div>
-                  <span className="text-gray-700 font-medium leading-relaxed hover:text-[#396131] transition-colors duration-300">
-                    In April 2004, Kapatagan Valley Bank entered into a
-                    consolidation agreement with Rural Bank of Sinacaban. On
-                    August 30, 2005, the Securities and Exchange Commission
-                    (SEC) issued the Certificate of Consolidation and
-                    Certificate of Incorporation to the merging institutions.
-                    This official merger gave birth to 1st Valley Bank.
-                  </span>
-                </div>
-
-                <div className="relative group/item">
-                  <div className="absolute -left-10 top-6 w-3 h-3 bg-emerald-700 rounded-full border-4 border-white shadow-lg"></div>
-                  <span className="text-gray-700 font-medium leading-relaxed hover:text-[#396131] transition-colors duration-300">
-                    On August 1, 2013, 1st Valley Bank has progressed into a
-                    development bank. It seeks to provide sufficient loan
-                    capital for productive investment along with technical
-                    assistance to help guarantee success of its borrowers.
-                  </span>
-                </div>
-
-                <div className="relative group/item">
-                  <div className="absolute -left-10 top-6 w-3 h-3 bg-green-800 rounded-full border-4 border-white shadow-lg"></div>
-                  <span className="text-gray-700 font-medium leading-relaxed hover:text-[#396131] transition-colors duration-300">
-                    Today, following the successful completion of its merger
-                    with SRBI and DAHBI, IVB is operating on a vast network of
-                    78 branches and branch lites.
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Images Container */}
-            <div className="flex flex-col items-center w-1/2 h-full gap-12 pl-8">
-              {/* First Image */}
-              <div className="relative group/img overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-700">
-                {!imageLoaded1 && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl">
-                    <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
-                  </div>
-                )}
-                <img
-                  src={img2}
-                  alt=""
-                  className={`object-cover h-[380px] w-[458px] rounded-2xl group-hover/img:scale-105 transition-transform duration-700 ${
-                    imageLoaded1 ? "opacity-100" : "opacity-0"
-                  }`}
-                  onLoad={() => setImageLoaded1(true)}
-                />
-                {/* Overlay effect */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-2xl opacity-0 group-hover/img:opacity-100 transition-opacity duration-500"></div>
-                {/* Shine effect */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover/img:translate-x-full transition-transform duration-1000 ease-out"></div>
-              </div>
-
-              {/* Second Image */}
-              <div className="relative group/img overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-700">
-                {!imageLoaded2 && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl">
-                    <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
-                  </div>
-                )}
-                <img
-                  src={img3}
-                  alt=""
-                  className={`object-cover h-[380px] w-[458px] rounded-2xl group-hover/img:scale-105 transition-transform duration-700 ${
-                    imageLoaded2 ? "opacity-100" : "opacity-0"
-                  }`}
-                  onLoad={() => setImageLoaded2(true)}
-                />
-                {/* Overlay effect */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-2xl opacity-0 group-hover/img:opacity-100 transition-opacity duration-500"></div>
-                {/* Shine effect */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover/img:translate-x-full transition-transform duration-1000 ease-out"></div>
-              </div>
-
-              {/* Floating decorative elements */}
-              <div className="absolute top-8 right-8 w-4 h-4 bg-emerald-400/60 rounded-full animate-pulse"></div>
-              <div className="absolute bottom-12 left-12 w-3 h-3 bg-green-500/50 rounded-full animate-pulse animation-delay-1000"></div>
-              <div className="absolute top-1/2 right-4 w-2 h-2 bg-teal-400/40 rounded-full animate-pulse animation-delay-500"></div>
-            </div>
-          </div>
-
-          {/* Bottom accent line */}
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#396131]/50 to-transparent"></div>
         </section>
-        {/* <section
+        <section
           id="marketing"
           data-scroll
-          className="flex flex-col mx-[10px] gap-[60px] rounded-[8px] p-[50px] bg-[#396131]"
+          className="flex flex-col mx-[10px] gap-[60px] rounded-[8px] p-[20px] lg:p-[50px] bg-[#396131]"
         >
-          <div className="flex gap-[50px]">
-            <div className="flex flex-col items-start w-1/3">
+          <div className="flex lg:flex-row flex-col gap-[50px]">
+            <div className="flex flex-col items-start lg:w-1/3">
               <img
                 src={img4}
                 alt=""
                 className="object-cover h-[455px] w-[468px] rounded-[12px]"
               />
             </div>
-            <div className="flex flex-col gap-[30px] text-white w-2/3">
-              <span className="font-bold text-[3rem]/[3rem]">
+            <div className="flex flex-col gap-[30px] text-white lg:w-2/3">
+              <span className="font-bold text-[1.5rem]/[3rem] lg:text-[3rem]/[3rem]">
                 Why do business with us?
               </span>
-              <div className="flex flex-col gap-[20px] text-[1rem]/[2.5rem]">
+              <div className="flex flex-col gap-[10px] lg:gap-[20px] text-[0.8rem]/[2.4rem] lg:text-[1rem]/[2.5rem]">
                 <span>
                   There are so many reasons doing business with us will be
                   profitable for you. Our long years in the industry, 64 years
@@ -858,17 +721,17 @@ export default function AboutUs() {
               </div>
             </div>
           </div>
-          <div className="flex gap-[50px]">
-            <div className="flex flex-col gap-[20px] text-white w-3/5">
+          <div className="flex flex-col-reverse lg:flex-row gap-[30px] lg:gap-[50px]">
+            <div className="flex flex-col gap-[20px] text-white lg:w-3/5">
               <div className="flex flex-col">
-                <span className="font-bold text-[3rem]/[5rem]">
+                <span className="font-bold text-[1.5rem]/[3rem] lg:text-[3rem]/[5rem]">
                   At 1st Valley Bank,
                 </span>
-                <span className="font-bold text-[3rem]/[5rem]">
+                <span className="font-bold text-[1.5rem]/[3rem] lg:text-[3rem]/[5rem]">
                   You're Always First
                 </span>
               </div>
-              <div className="flex flex-col gap-[20px] text-[1rem]/[2.5rem]">
+              <div className="flex flex-col gap-[10px] lg:gap-[20px] text-[0.8rem]/[2.4rem] lg:text-[1rem]/[2.5rem]">
                 <span>
                   There is nothing more important for 1st Valley Bank than to
                   work with their clients to ensure that they benefit from the
@@ -887,7 +750,7 @@ export default function AboutUs() {
                 </span>
               </div>
             </div>
-            <div className="flex flex-col items-start w-2/5">
+            <div className="flex flex-col items-start lg:w-2/5">
               <img
                 src={img5}
                 alt=""
@@ -895,170 +758,8 @@ export default function AboutUs() {
               />
             </div>
           </div>
-        </section> */}
-        <section
-          id="marketing"
-          data-scroll
-          className="relative flex flex-col mx-4 gap-20 rounded-2xl p-16 bg-gradient-to-br from-[#396131] via-emerald-700 to-green-800 overflow-hidden group"
-        >
-          {/* Animated background elements */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-emerald-300 to-green-400 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
-            <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-teal-300 to-emerald-400 rounded-full blur-3xl transform translate-x-1/3 translate-y-1/3 animate-pulse animation-delay-1000"></div>
-            <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-green-300 to-emerald-300 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2 animate-pulse animation-delay-500"></div>
-          </div>
-
-          {/* Decorative pattern overlay */}
-          <div className="absolute inset-0 opacity-5 bg-gradient-to-br from-white/10 via-transparent to-white/5"></div>
-
-          {/* First Section */}
-          <div className="relative z-10 flex gap-16 group/section1">
-            {/* Image Container */}
-            <div className="flex flex-col items-start w-1/3">
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-700 group/img1">
-                {!imageLoaded3 && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-emerald-800 to-green-900 rounded-2xl">
-                    <div className="w-12 h-12 border-4 border-emerald-300 border-t-white rounded-full animate-spin"></div>
-                  </div>
-                )}
-                <img
-                  src={img4}
-                  alt=""
-                  className={`object-cover h-[455px] w-[468px] rounded-2xl group-hover/img1:scale-110 transition-transform duration-1000 ease-out ${
-                    imageLoaded3 ? "opacity-100" : "opacity-0"
-                  }`}
-                  onLoad={() => setImageLoaded3(true)}
-                />
-                {/* Glass overlay effect */}
-                <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/30 via-transparent to-white/10 rounded-2xl opacity-0 group-hover/img1:opacity-100 transition-opacity duration-500"></div>
-                {/* Shine effect */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 -translate-x-full group-hover/img1:translate-x-full transition-transform duration-1200 ease-out"></div>
-                {/* Border glow */}
-                <div className="absolute inset-0 rounded-2xl ring-2 ring-white/20 group-hover/img1:ring-white/40 transition-all duration-500"></div>
-              </div>
-            </div>
-
-            {/* Text Content */}
-            <div className="flex flex-col gap-12 text-white w-2/3 transform group-hover/section1:translate-x-2 transition-transform duration-700">
-              <div className="relative">
-                <span className="font-bold text-[3rem]/[3rem] bg-gradient-to-r from-white via-emerald-100 to-green-100 bg-clip-text text-transparent drop-shadow-lg">
-                  Why do business with us?
-                </span>
-                {/* Animated underline */}
-                <div className="absolute -bottom-4 left-0 w-32 h-1 bg-gradient-to-r from-emerald-300 to-white rounded-full transform scale-x-0 group-hover/section1:scale-x-100 transition-transform duration-1000 ease-out"></div>
-              </div>
-
-              <div className="flex flex-col gap-8 text-lg/[2.5rem] relative">
-                {/* Accent line */}
-                <div className="absolute -left-8 top-0 w-1 h-full bg-gradient-to-b from-emerald-300 to-white/50 rounded-full opacity-60"></div>
-
-                <span className="text-emerald-50 font-medium leading-relaxed hover:text-white hover:translate-x-2 transition-all duration-300 cursor-default relative pl-6">
-                  <div className="absolute left-0 top-8 w-3 h-3 bg-emerald-300 rounded-full shadow-lg"></div>
-                  There are so many reasons doing business with us will be
-                  profitable for you. Our long years in the industry, 64 years
-                  and counting, make us one of the most stable banks you can
-                  depend.
-                </span>
-
-                <span className="text-emerald-50 font-medium leading-relaxed hover:text-white hover:translate-x-2 transition-all duration-300 cursor-default relative pl-6">
-                  <div className="absolute left-0 top-8 w-3 h-3 bg-green-300 rounded-full shadow-lg"></div>
-                  1st Valley Bank is also known for its personalized services as
-                  it treats its clients as family and friends. You can even call
-                  the Bank as your lifetime friend.
-                </span>
-
-                <span className="text-emerald-50 font-medium leading-relaxed hover:text-white hover:translate-x-2 transition-all duration-300 cursor-default relative pl-6">
-                  <div className="absolute left-0 top-8 w-3 h-3 bg-teal-300 rounded-full shadow-lg"></div>
-                  You're looking for a bank that can support your financial
-                  needs to grow your business? 1st Valley Bank offers a full
-                  range of services. You want convenience in banking? 1st Valley
-                  Bank delivers its services whenever and wherever you want it.
-                  Come and experience 1st Valley Bank!
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Second Section */}
-          <div className="relative z-10 flex gap-16 group/section2">
-            {/* Text Content */}
-            <div className="flex flex-col gap-8 text-white w-3/5 transform group-hover/section2:-translate-x-2 transition-transform duration-700">
-              <div className="flex flex-col relative">
-                <div className="relative overflow-hidden">
-                  <span className="font-bold text-[3rem]/[5rem] bg-gradient-to-r from-white via-emerald-100 to-green-100 bg-clip-text text-transparent drop-shadow-lg inline-block transform group-hover/section2:scale-105 transition-transform duration-500">
-                    At 1st Valley Bank,
-                  </span>
-                </div>
-                <div className="relative overflow-hidden">
-                  <span className="font-bold text-[3rem]/[5rem] bg-gradient-to-r from-emerald-100 via-white to-teal-100 bg-clip-text text-transparent drop-shadow-lg inline-block transform group-hover/section2:scale-105 transition-transform duration-500 animation-delay-200">
-                    You're Always First
-                  </span>
-                </div>
-                {/* Animated accent */}
-                <div className="absolute -bottom-2 left-0 w-40 h-1 bg-gradient-to-r from-white to-emerald-300 rounded-full transform scale-x-0 group-hover/section2:scale-x-100 transition-transform duration-1000 ease-out animation-delay-300"></div>
-              </div>
-
-              <div className="flex flex-col gap-8 text-lg/[2.5rem] relative">
-                {/* Accent line */}
-                <div className="absolute -left-8 top-0 w-1 h-full bg-gradient-to-b from-white/50 to-emerald-300 rounded-full opacity-60"></div>
-
-                <span className="text-emerald-50 font-medium leading-relaxed hover:text-white hover:-translate-x-2 transition-all duration-300 cursor-default relative pl-6">
-                  <div className="absolute left-0 top-8 w-3 h-3 bg-white rounded-full shadow-lg"></div>
-                  There is nothing more important for 1st Valley Bank than to
-                  work with their clients to ensure that they benefit from the
-                  products and services of the Bank. The Bank sees to it that
-                  what they offer are financial solutions that match the needs
-                  of their clients.
-                </span>
-
-                <span className="text-emerald-50 font-medium leading-relaxed hover:text-white hover:-translate-x-2 transition-all duration-300 cursor-default relative pl-6">
-                  <div className="absolute left-0 top-8 w-3 h-3 bg-emerald-200 rounded-full shadow-lg"></div>
-                  1st Valley Bank grows its business for its clients. Meeting
-                  the needs of their clients comes first for the Bank. All
-                  employees of the Bank work hard to deliver more value to the
-                  Bank's clients. They know that the time of their clients is
-                  valuable, and they do everything in their capacity to get
-                  their work done faster to deliver the products and services
-                  speedily.
-                </span>
-              </div>
-            </div>
-
-            {/* Image Container */}
-            <div className="flex flex-col items-start w-2/5">
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-700 group/img2">
-                {!imageLoaded4 && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-emerald-800 to-green-900 rounded-2xl">
-                    <div className="w-12 h-12 border-4 border-emerald-300 border-t-white rounded-full animate-spin"></div>
-                  </div>
-                )}
-                <img
-                  src={img5}
-                  alt=""
-                  className={`object-cover h-[507px] w-[468px] rounded-2xl group-hover/img2:scale-110 transition-transform duration-1000 ease-out ${
-                    imageLoaded4 ? "opacity-100" : "opacity-0"
-                  }`}
-                  onLoad={() => setImageLoaded4(true)}
-                />
-                {/* Glass overlay effect */}
-                <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/30 via-transparent to-white/10 rounded-2xl opacity-0 group-hover/img2:opacity-100 transition-opacity duration-500"></div>
-                {/* Shine effect */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 -translate-x-full group-hover/img2:translate-x-full transition-transform duration-1200 ease-out"></div>
-                {/* Border glow */}
-                <div className="absolute inset-0 rounded-2xl ring-2 ring-white/20 group-hover/img2:ring-white/40 transition-all duration-500"></div>
-              </div>
-            </div>
-          </div>
-
-          {/* Floating decorative elements */}
-          <div className="absolute top-20 right-20 w-4 h-4 bg-emerald-300/60 rounded-full animate-pulse"></div>
-          <div className="absolute bottom-32 left-16 w-3 h-3 bg-white/50 rounded-full animate-pulse animation-delay-1000"></div>
-          <div className="absolute top-1/2 right-8 w-2 h-2 bg-green-300/40 rounded-full animate-pulse animation-delay-500"></div>
-          <div className="absolute bottom-20 right-32 w-3 h-3 bg-teal-300/50 rounded-full animate-pulse animation-delay-1500"></div>
-
-          {/* Bottom gradient border */}
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-300/80 to-transparent"></div>
         </section>
+
         {/* <section
           id="loans"
           data-scroll
@@ -2191,20 +1892,20 @@ export default function AboutUs() {
         <section
           id="branch-management"
           data-scroll
-          className="flex gap-[10px] p-[50px] text-[#396131]"
+          className="flex flex-col lg:flex-row gap-[10px] p-[20px] lg:p-[50px] text-[#396131]"
         >
-          <div className="flex items-start justify-center w-1/2">
+          <div className="flex items-start justify-center lg:w-1/2">
             <img
               src={img7}
               alt=""
-              className="rounded-[15px] object-cover w-[562px] h-[713px]"
+              className="rounded-[15px] object-cover w-[562px] h-[350px] lg:h-[713px]"
             />
           </div>
-          <div className="flex flex-col gap-[10px] w-1/2">
-            <span className="text-[2rem]/[2rem] font-bold ">
+          <div className="flex flex-col gap-[10px] lg:w-1/2">
+            <span className="text-[1.5rem] lg:text-[2rem]/[2rem] font-bold ">
               BRANCH MANAGEMENT
             </span>
-            <span className="text-[0.8rem]/[1.6rem]">
+            <span className="text-[0.563rem] lg:text-[0.8rem]/[1.6rem]">
               ALFON, JAMES II JABIL, Baroy I BLISS, NERI BALANAY, Kapatagan I
               LIM, ARVIN CABAHUG, Marauding I MENDEZ, ROSERUBY LIM, Molave I
               ALIA, JOEL SARUAY, Iligan I MANLANGIT, EDSEL BEDANIA, Ozamiz City
@@ -2255,9 +1956,9 @@ export default function AboutUs() {
         <section
           id="corporate-profile"
           data-scroll
-          className="flex flex-col p-[50px] gap-[30px] bg-[#396131] text-white rounded-[10px] mx-[10px] drop-shadow-lg"
+          className="flex flex-col p-[20px] lg:p-[50px] gap-[30px] bg-[#396131] text-white rounded-[10px] mx-[10px] drop-shadow-lg"
         >
-          <span className="text-[2.5rem] font-bold text-center">
+          <span className="text-[1.5rem]/[3rem] lg:text-[2.5rem] font-bold text-center">
             Corporate Profile
           </span>
           <div className="flex flex-col gap-[45px]">
@@ -2273,14 +1974,14 @@ export default function AboutUs() {
                     className="bg-white h-[100px] w-[100px] rounded-full"
                   />
                   <div className="flex flex-col items-center">
-                    <span className="text-[1rem] font-bold">
+                    <span className="text-[0.8rem]/[1.2rem] lg:text-[1rem] font-bold text-center">
                       Atty. Nicolas J. Lim
                     </span>
-                    <span className="text-[0.9rem]">PRESIDENT</span>
+                    <span className="text-[0.6rem]/[1.2rem]">PRESIDENT</span>
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-4 gap-x-[30px] gap-y-[40px]">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-[15px] gap-y-[20px] lg:gap-x-[30px] lg:gap-y-[40px] text-center">
                 {corporateProfile.senior_management.map((officer, index) => (
                   <div
                     className="flex flex-col justify-center items-center gap-[20px]"
@@ -2292,10 +1993,12 @@ export default function AboutUs() {
                       className="bg-white h-[100px] w-[100px] rounded-full"
                     />
                     <div className="flex flex-col items-center">
-                      <span className="text-[1rem] font-bold">
+                      <span className="text-[0.8rem]/[1.2rem] lg:text-[1rem] font-bold">
                         {officer.name}
                       </span>
-                      <span className="text-[0.9rem]">{officer.position}</span>
+                      <span className="text-[0.6rem]/[1.2rem] lg:text-[0.9rem]">
+                        {officer.position}
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -2305,7 +2008,7 @@ export default function AboutUs() {
               <span className="font-bold text-[1rem] text-center">
                 Product & Area Management
               </span>
-              <div className="grid grid-cols-4 gap-x-[30px] gap-y-[40px]">
+              <div className="grid grid-cols-2 g:grid-cols-4 gap-x-[30px] gap-y-[40px] text-center">
                 {corporateProfile.product_management.map((officer, index) => (
                   <div className="flex flex-col justify-center items-center gap-[20px]">
                     <img
@@ -2314,10 +2017,12 @@ export default function AboutUs() {
                       className="bg-white h-[100px] w-[100px] rounded-full"
                     />
                     <div className="flex flex-col items-center">
-                      <span className="text-[1rem] font-bold">
+                      <span className="text-[0.8rem]/[1.2rem] lg:text-[1rem] font-bold">
                         {officer.name}
                       </span>
-                      <span className="text-[0.9rem]">{officer.position}</span>
+                      <span className="text-[0.6rem]/[1.2rem] lg:text-[0.9rem]">
+                        {officer.position}
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -2328,12 +2033,12 @@ export default function AboutUs() {
         <section
           id="annual-reports"
           data-scroll
-          className="flex flex-col justify-center text-[#396131] gap-[40px] p-[50px]"
+          className="flex flex-col justify-center text-[#396131] gap-[40px] p-[20px] lg:p-[50px]"
         >
-          <span className="text-[3rem]/[3rem] font-bold text-center">
+          <span className="text-[1.5rem] lg:text-[3rem]/[3rem] font-bold text-center">
             Annual Reports
           </span>
-          <div className="grid grid-cols-3 gap-y-[60px] gap-x-[20px]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-[10px] gap-y-[30px] lg:gap-y-[60px] lg:gap-x-[20px]">
             {annualReports.map((report, index) => (
               <div className="flex flex-col gap-[20px]" key={index}>
                 <div className="flex flex-col items-center gap-[20px]">
@@ -2416,12 +2121,12 @@ export default function AboutUs() {
         <section
           id="branch-directory"
           data-scroll
-          className="flex flex-col gap-[80px] p-[50px] text-white bg-[#396131] rounded-[10px] mx-[10px] drop-shadow-lg"
+          className="flex flex-col gap-[40px] lg:gap-[80px] p-[20px] lg:p-[50px] text-white bg-[#396131] rounded-[10px] mx-[10px] drop-shadow-lg"
         >
-          <span className="text-center font-bold text-[2.5rem]/[2.5rem]">
+          <span className="text-center font-bold text-[1.5rem]/[2.5rem] lg:text-[2.5rem]/[2.5rem]">
             Branch Directory
           </span>
-          <div className="grid grid-cols-2 gap-x-[50px] gap-y-[60px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-[50px] gap-y-[30px] lg:gap-y-[60px]">
             {branchDirectories.map((branch, index) => (
               <div className="flex gap-[20px]" key={index}>
                 <img
@@ -2429,16 +2134,16 @@ export default function AboutUs() {
                   alt=""
                   className="w-[150px] h-[150px] rounded-[15px]"
                 />
-                <div className="flex flex-col gap-[20px]">
+                <div className="flex flex-col gap-[10px] lg:gap-[20px]">
                   <div className="flex flex-col gap-[12px] font-bold">
-                    <span className="text-[1.4rem]/[1.4rem]">
+                    <span className="text-[1rem]/[1rem] lg:text-[1.4rem]/[1.4rem]">
                       {branch.name}
                     </span>
-                    <span className="text-[0.9rem]/[0.9rem]">
+                    <span className="text-[0.8rem]/[0.8rem] lg:text-[0.9rem]/[0.9rem]">
                       {branch.location}
                     </span>
                   </div>
-                  <div className="flex flex-col gap-[12px] text-[0.9rem]/[0.9rem]">
+                  <div className="flex flex-col gap-[12px] text-[0.8rem]/[0.8rem] lg:text-[0.9rem]/[0.9rem]">
                     <span className="">{branch.contact_numbers}</span>
                     <span className="">{branch.email}</span>
                   </div>
@@ -2448,8 +2153,6 @@ export default function AboutUs() {
           </div>
         </section>
       </main>
-      <main className="hidden sm:block lg:hidden">Tablet</main>
-      <main className="block sm:hidden">Mobile</main>
     </>
   );
 }
