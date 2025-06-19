@@ -208,7 +208,7 @@ export default function Deposits() {
 
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[120px] pb-[50px]">
+      <main className="flex flex-col gap-[40px] lg:gap-[120px] pb-[50px]">
         <nav className="fixed top-35 right-4 z-40 bg-black bg-opacity-50 backdrop-blur-lg rounded-2xl p-2">
           <div className="flex flex-col gap-2">
             {[
@@ -237,14 +237,16 @@ export default function Deposits() {
           data-scroll
           className="text-[#396131] bg-white drop-shadow-lg mx-[10px] rounded-[8px]"
         >
-          <div className="flex flex-col gap-[20px] w-1/2 py-[80px] px-[60px] mx-[10px]">
+          <div className="flex flex-col gap-[20px] lg:w-1/2 p-[20px] lg:py-[80px] lg:px-[60px] mx-[10px]">
             <div className="flex flex-col gap-[10px]">
-              <span className="text-[4rem]/[4rem] font-bold">Deposits</span>
-              <span className="text-[1.5rem]/[1.5rem] font-bold">
+              <span className="text-[2rem] lg:text-[4rem]/[4rem] font-bold">
+                Deposits
+              </span>
+              <span className="text-[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
                 Saving with a smile
               </span>
             </div>
-            <span className="text-[1rem]/[2rem]">
+            <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[2rem]">
               This savings account offers an annual interest rate that is 0.5%
               higher than what most banks typically provide. It stands out as a
               wise and practical option for individuals looking to securely park
@@ -254,25 +256,24 @@ export default function Deposits() {
             </span>
           </div>
         </section>
-        <section id="header" data-scroll className="mx-[40px]">
-          <div className="flex flex-col justify-center gap-[70px] px-[40px] text-[#396131]">
-            <span className="text-[2.5rem]/[2.5rem] font-bold text-center">
+        <section id="header" data-scroll className="mx-[15px] lg:mx-[40px]">
+          <div className="flex flex-col justify-center gap-[30px] lg:gap-[70px] px-[20px] lg:px-[40px] text-[#396131]">
+            <span className="text-[1rem] lg:text-[2.5rem]/[2.5rem] font-bold text-center">
               Deposit Portfolio Now at Php 7.5B
             </span>
             <div className="flex justify-center gap-[30px]">
-              <div className="flex justify-center w-2/5">
+              <div className="flex justify-center items-center w-2/5">
                 {" "}
                 <FontAwesomeIcon
                   icon={faUpDownLeftRight}
-                  className="flex aspect-square"
-                  style={{ width: "250px", height: "250px" }}
+                  className="flex aspect-square text-[10rem] lg:text-[20rem]"
                 />
               </div>
               <div className="flex flex-col justify-start gap-[20px] w-3/5">
-                <span className="text-[1.5rem]/[3rem] font-bold">
+                <span className="text-[1rem] lg:text-[1.5rem]/[3rem] font-bold">
                   Stella Maris Aranas, Product Manager
                 </span>
-                <span className="text-[1rem]/[2rem]">
+                <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
                   1VB Deposit has grown bigger with a portfolio increase of
                   784.063 million. It is now at Php7.5B with a good mix of low
                   and high-cost deposit. 40 ATMs have been deployed
@@ -284,18 +285,17 @@ export default function Deposits() {
           </div>
         </section>
         <section id="features" data-scroll className="text-white">
-          <div className="grid grid-cols-3 bg-[#396131] gap-x-[100px] gap-y-[50px] px-[60px] py-[80px]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 bg-[#396131] gap-x-[20px] lg:gap-x-[100px] gap-y-[30px] lg:gap-y-[50px] p-[20px] lg:px-[60px] lg:py-[80px] text-center">
             {features.map((feature, index) => (
-              <div className="flex flex-col justify-start items-center gap-[30px]">
+              <div className="flex flex-col justify-start items-center gap-[20px] lg:gap-[30px]">
                 <FontAwesomeIcon
                   icon={feature.icon}
-                  className="flex aspect-square"
-                  style={{ width: "100px", height: "80px" }}
+                  className="flex aspect-square text-[2rem] lg:text-[5rem]"
                 />
                 <span className="font-bold text-[1rem]/[1rem]">
                   {feature.name}
                 </span>
-                <span className="text-[1rem]/[2rem] text-center">
+                <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem] text-center">
                   {feature.description}
                 </span>
               </div>
@@ -303,19 +303,18 @@ export default function Deposits() {
           </div>
         </section>
         <section id="requirements" data-scroll className="text-[#396131]">
-          <div className="flex justify-center gap-[175px] mx-[80px]">
-            <div className="flex flex-col gap-[40px] w-1/2">
+          <div className="flex flex-col lg:flex-row justify-center gap-[50px] lg:gap-[175px] mx-[20px] lg:mx-[80px]">
+            <div className="flex flex-col gap-[30px] lg:gap-[40px] lg:w-1/2">
               <div className="flex flex-col items-center gap-[50px]">
                 <FontAwesomeIcon
                   icon={faBuildingUser}
-                  className="flex aspect-square"
-                  style={{ width: "100px", height: "80px" }}
+                  className="flex aspect-square text-[5rem]"
                 />
                 <span className="text-[1.5rem]/[1.5rem] font-bold text-center">
                   Requirements for Account Opening-Corporate
                 </span>
               </div>
-              <div className="flex flex-col gap-[30px]">
+              <div className="flex flex-col gap-[20px] lg:gap-[30px]">
                 {[
                   "SEC Certificate of Registration",
                   "Notarized Secretary Certificate",
@@ -326,43 +325,46 @@ export default function Deposits() {
                   "Business Permit",
                   "General Information Sheet",
                 ].map((requirement, index) => (
-                  <div className="flex items-center gap-[30px]" key={index}>
+                  <div
+                    className="flex items-center gap-[20px] lg:gap-[30px]"
+                    key={index}
+                  >
                     <FontAwesomeIcon
                       icon={faPaperPlane}
-                      className="flex aspect-square"
-                      style={{ width: "30px", height: "30px" }}
+                      className="flex aspect-square text-[1.2rem] lg:text-[2rem]"
                     />
-                    <span className="text-[0.9rem]/[0.9rem]">
+                    <span className="text-[0.8rem]/[0.9rem] lg:text-[0.9rem]/[0.9rem]">
                       {requirement}
                     </span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="flex flex-col gap-[40px] w-1/2">
+            <div className="flex flex-col gap-[30px] lg:gap-[40px] lg:w-1/2">
               <div className="flex flex-col items-center gap-[50px]">
                 <FontAwesomeIcon
                   icon={faUser}
-                  className="flex aspect-square"
-                  style={{ width: "100px", height: "80px" }}
+                  className="flex aspect-square text-[5rem]"
                 />
                 <span className="text-[1.5rem]/[1.5rem] font-bold text-center">
                   Requirements for Account Opening-Corporate
                 </span>
               </div>
-              <div className="flex flex-col gap-[30px]">
+              <div className="flex flex-col gap-[20px] lg:gap-[30px]">
                 {[
                   "Colored photocopy of 2 Valid IDs",
                   "Three pieces 2x2 pictures",
                   "If you have business - Business Permit, DTI Permit",
                 ].map((requirement, index) => (
-                  <div className="flex items-center gap-[30px]" key={index}>
+                  <div
+                    className="flex items-center gap-[20px] lg:gap-[30px]"
+                    key={index}
+                  >
                     <FontAwesomeIcon
                       icon={faPaperPlane}
-                      className="flex aspect-square"
-                      style={{ width: "30px", height: "30px" }}
+                      className="flex aspect-square text-[1.2rem] lg:text-[2rem]"
                     />
-                    <span className="text-[0.9rem]/[0.9rem]">
+                    <span className="text-[0.8rem]/[0.9rem] lg:text-[0.9rem]/[0.9rem]">
                       {requirement}
                     </span>
                   </div>
@@ -376,41 +378,41 @@ export default function Deposits() {
           data-scroll
           className="flex flex-col gap-[40px]"
         >
-          <span className="text-center text-[#396131] text-[2rem]/[2rem] font-bold">
+          <span className="text-center text-[#396131] text-[1.5rem]/[1.5rem] lg:text-[2rem]/[2rem] font-bold">
             Types of Savings Deposit
           </span>
-          <div className="flex flex-col bg-[#396131] text-white gap-[30px] p-[40px]">
-            <span className="text-center font-bold text-[1.5rem]/[1.5rem]">
+          <div className="flex flex-col bg-[#396131] text-white gap-[30px] p-[20px] lg:p-[40px]">
+            <span className="text-center font-bold text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem]">
               Savings Deposit
             </span>
-            <div className="rounded-lg shadow-sm border border-gray-200/20 overflow-hidden">
+            <div className="rounded-lg shadow-sm border border-gray-200/20 overflow-auto">
               <table className="w-full">
-                <thead className="border-b border-gray-200/20 text-[1rem]/[1rem] font-bold">
+                <thead className="border-b border-gray-200/20 text-[0.6rem] lg:text-[1rem]/[1rem] font-bold">
                   <tr>
-                    <th className="px-6 py-6 text-left tracking-wider">
+                    <th className="px-3 py-3 lg:px-6 lg:py-6 text-left tracking-wider">
                       Account Type
                     </th>
-                    <th className="px-6 py-6 text-left tracking-wider">
+                    <th className="px-3 py-3 lg:px-6 lg:py-6 text-left tracking-wider">
                       Required Initial Deposit
                     </th>
-                    <th className="px-6 py-6 text-left tracking-wider">
+                    <th className="px-3 py-3 lg:px-6 lg:py-6 text-left tracking-wider">
                       Required Minimum Monthly ADB
                     </th>
-                    <th className="px-6 py-6 text-left tracking-wider">
+                    <th className="px-3 py-3 lg:px-6 lg:py-6 text-left tracking-wider">
                       Required ADB To Earn Interest
                     </th>
-                    <th className="px-6 py-6 text-left tracking-wider">
+                    <th className="px-3 py-3 lg:px-6 lg:py-6 text-left tracking-wider">
                       <div className="flex flex-col">
                         <span>Interest Rate Per Annum </span>
-                        <span className="text-[0.8rem]/[0.8rem] font-normal">
+                        <span className="text-[0.5rem]/[0.5rem] lg:text-[0.8rem]/[0.8rem] font-normal">
                           Below 5M ADB
                         </span>
                       </div>
                     </th>
-                    <th className="px-6 py-6 text-left tracking-wider">
+                    <th className="px-3 py-3 lg:px-6 lg:py-6 text-left tracking-wider">
                       <div className="flex flex-col">
                         <span>Interest Rate Per Annum </span>
-                        <span className="text-[0.8rem]/[0.8rem] font-normal">
+                        <span className="text-[0.5rem]/[0.5rem] lg:text-[0.8rem]/[0.8rem] font-normal">
                           Below 5M ADB
                         </span>
                       </div>
@@ -421,24 +423,24 @@ export default function Deposits() {
                   {savingsDeposit.map((row, index) => (
                     <tr
                       key={index}
-                      className="transition-colors duration-150 text-white text-[0.9rem]/[0.9rem]"
+                      className="transition-colors duration-150 text-white text-[0.6rem]/[0.6rem] lg:text-[0.9rem]/[0.9rem]"
                     >
-                      <td className="px-6 py-10 whitespace-nowrap font-bold">
+                      <td className="px-3 py-3 lg:px-6 lg:py-10 whitespace-nowrap font-bold">
                         {row.account}
                       </td>
-                      <td className="px-6 py-10 whitespace-nowrap">
+                      <td className="px-3 py-3 lg:px-6 lg:py-10 whitespace-nowrap">
                         {row.required_initial_deposit}
                       </td>
-                      <td className="px-6 py-10 whitespace-nowrap">
+                      <td className="px-3 py-3 lg:px-6 lg:py-10 whitespace-nowrap">
                         {row.required_monthly_ADB}
                       </td>
-                      <td className="px-6 py-10 whitespace-nowrap">
+                      <td className="px-3 py-3 lg:px-6 lg:py-10 whitespace-nowrap">
                         {row.required_monthly_ADB_to_earn_interest}
                       </td>
-                      <td className="px-6 py-10 whitespace-nowrap">
+                      <td className="px-3 py-3 lg:px-6 lg:py-10 whitespace-nowrap">
                         {row.interest_rate_per_annum_below}
                       </td>
-                      <td className="px-6 py-10 whitespace-nowrap">
+                      <td className="px-3 py-3 lg:px-6 lg:py-10 whitespace-nowrap">
                         {row.interest_rate_per_annum_above}
                       </td>
                     </tr>
@@ -451,41 +453,41 @@ export default function Deposits() {
         <section
           id="checking-current-deposit"
           data-scroll
-          className="flex flex-col gap-[40px]"
+          className="flex flex-col gap-[20px] lg:gap-[40px]"
         >
           <div className="flex flex-col text-[#396131] bg-white gap-[30px] p-[40px]">
-            <span className="text-center font-bold text-[1.5rem]/[1.5rem]">
+            <span className="text-center font-bold text-[1rem] lg:text-[1.5rem]/[1.5rem]">
               Checking/Current Account
             </span>
             <div className="flex flex-col gap-[50px]">
-              <div className="rounded-lg shadow-sm border border-[#396131]/20 overflow-hidden">
+              <div className="rounded-lg shadow-sm border border-[#396131]/20 overflow-auto">
                 <table className="w-full">
-                  <thead className="border-b border-[#396131]/20 text-[1rem]/[1rem] font-bold">
+                  <thead className="border-b border-[#396131]/20 text-[0.6rem]/[0.6rem] lg:text-[1rem]/[1rem] font-bold">
                     <tr>
-                      <th className="px-6 py-6 text-left tracking-wider">
+                      <th className="px-3 py-3 lg:px-6 lg:py-6 text-left tracking-wider">
                         Account Type
                       </th>
-                      <th className="px-6 py-6 text-left tracking-wider">
+                      <th className="px-3 py-3 lg:px-6 lg:py-6 text-left tracking-wider">
                         Required Initial Deposit
                       </th>
-                      <th className="px-6 py-6 text-left tracking-wider">
+                      <th className="px-3 py-3 lg:px-6 lg:py-6 text-left tracking-wider">
                         Required Minimum Monthly ADB
                       </th>
-                      <th className="px-6 py-6 text-left tracking-wider">
+                      <th className="px-3 py-3 lg:px-6 lg:py-6 text-left tracking-wider">
                         Required ADB To Earn Interest
                       </th>
-                      <th className="px-6 py-6 text-left tracking-wider">
+                      <th className="px-3 py-3 lg:px-6 lg:py-6 text-left tracking-wider">
                         <div className="flex flex-col">
                           <span>Interest Rate Per Annum </span>
-                          <span className="text-[0.8rem]/[0.8rem] font-normal">
+                          <span className="lg:text-[0.8rem]/[0.8rem] font-normal">
                             Below 5M ADB
                           </span>
                         </div>
                       </th>
-                      <th className="px-6 py-6 text-left tracking-wider">
+                      <th className="px-3 py-3 lg:px-6 lg:py-6 text-left tracking-wider">
                         <div className="flex flex-col">
                           <span>Interest Rate Per Annum </span>
-                          <span className="text-[0.8rem]/[0.8rem] font-normal">
+                          <span className="lg:text-[0.8rem]/[0.8rem] font-normal">
                             Below 5M ADB
                           </span>
                         </div>
@@ -496,24 +498,24 @@ export default function Deposits() {
                     {checkingCurrentAccount.map((row, index) => (
                       <tr
                         key={index}
-                        className="transition-colors duration-150 text-[#396131] text-[0.9rem]/[0.9rem]"
+                        className="transition-colors duration-150 text-[#396131] text-[0.6rem]/[0.6rem] lg:text-[0.9rem]/[0.9rem]"
                       >
-                        <td className="px-6 py-10 whitespace-nowrap font-bold">
+                        <td className="px-3 py-5 lg:px-6 lg:py-10 whitespace-nowrap font-bold">
                           {row.account}
                         </td>
-                        <td className="px-6 py-10 whitespace-nowrap">
+                        <td className="px-3 py-5 lg:px-6 lg:py-10 whitespace-nowrap">
                           {row.required_initial_deposit}
                         </td>
-                        <td className="px-6 py-10 whitespace-nowrap">
+                        <td className="px-3 py-5 lg:px-6 lg:py-10 whitespace-nowrap">
                           {row.required_monthly_ADB}
                         </td>
-                        <td className="px-6 py-10 whitespace-nowrap">
+                        <td className="px-3 py-5 lg:px-6 lg:py-10 whitespace-nowrap">
                           {row.required_monthly_ADB_to_earn_interest}
                         </td>
-                        <td className="px-6 py-10 whitespace-nowrap">
+                        <td className="px-3 py-5 lg:px-6 lg:py-10 whitespace-nowrap">
                           {row.interest_rate_per_annum_below}
                         </td>
-                        <td className="px-6 py-10 whitespace-nowrap">
+                        <td className="px-3 py-5 lg:px-6 lg:py-10 whitespace-nowrap">
                           {row.interest_rate_per_annum_above}
                         </td>
                       </tr>
@@ -521,17 +523,17 @@ export default function Deposits() {
                   </tbody>
                 </table>
               </div>
-              <div className="rounded-lg shadow-sm border border-[#396131]/20 overflow-hidden">
+              <div className="rounded-lg shadow-sm border border-[#396131]/20 overflow-auto">
                 <table className="w-full">
-                  <thead className="border-b border-[#396131]/20 text-[1rem]/[1rem] font-bold">
+                  <thead className="border-b border-[#396131]/20 text-[0.6rem]/[0.6rem] lg:text-[1rem]/[1rem] font-bold">
                     <tr>
-                      <th className="px-6 py-6 text-left tracking-wider">
+                      <th className="px-3 py-6 lg:px-6 lg:py-6 text-left tracking-wider">
                         Terms
                       </th>
-                      <th className="px-6 py-6 text-left tracking-wider">
+                      <th className="px-3 py-6 lg:px-6 lg:py-6 text-left tracking-wider">
                         Initial Amount
                       </th>
-                      <th className="px-6 py-6 text-left tracking-wider">
+                      <th className="px-3 py-6 lg:px-6 lg:py-6 text-left tracking-wider">
                         Interest Rate Per Annum
                       </th>
                     </tr>
@@ -540,15 +542,15 @@ export default function Deposits() {
                     {terms.map((row, index) => (
                       <tr
                         key={index}
-                        className="transition-colors duration-150 text-[#396131] text-[0.9rem]/[0.9rem]"
+                        className="transition-colors duration-150 text-[#396131] text-[0.6rem]/[0.6rem] lg:text-[0.9rem]/[0.9rem]"
                       >
-                        <td className="px-6 py-10 whitespace-nowrap font-bold">
+                        <td className="px-3 py-5 lg:px-6 lg:py-10 whitespace-nowrap font-bold">
                           {row.term}
                         </td>
-                        <td className="px-6 py-10 whitespace-nowrap">
+                        <td className="px-3 py-5 lg:px-6 lg:py-10 whitespace-nowrap">
                           {row.initial_amount}
                         </td>
-                        <td className="px-6 py-10 whitespace-nowrap">
+                        <td className="px-3 py-5 lg:px-6 lg:py-10 whitespace-nowrap">
                           {row.interest_per_annum}
                         </td>
                       </tr>
@@ -560,8 +562,6 @@ export default function Deposits() {
           </div>
         </section>
       </main>
-      <main className="hidden sm:block lg:hidden">Tablet</main>
-      <main className="block sm:hidden">Mobile</main>
     </>
   );
 }
