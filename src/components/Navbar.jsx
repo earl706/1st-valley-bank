@@ -240,7 +240,7 @@ export default function Navbar({ children }) {
   return (
     <>
       <div className="flex flex-col w-full h-full scroll-smooth font-poppins">
-        <div className="fixed top-0 left-0 w-full h-1 bg-gray-800 z-100">
+        <div className="fixed top-0 left-0 w-full h-1 bg-gray-800 z-50">
           <div
             className="h-full bg-gradient-to-r from-[#31542B] via-[#FB3F3F] to-[#FDE900] transition-all duration-300"
             style={{

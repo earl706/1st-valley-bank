@@ -203,11 +203,13 @@ export default function Newsletter() {
         <section
           id="main"
           data-scroll
-          className="flex text-[#396131] bg-white drop-shadow-lg rounded-[8px] py-[80px] px-[80px] mx-[10px]"
+          className="flex flex-col-reverse lg:flex-row text-[#396131] bg-white drop-shadow-lg rounded-[8px] p-[20px] lg:py-[60px] lg:px-[80px] mx-[10px]"
         >
-          <div className="flex flex-col gap-[20px] w-3/5">
-            <span className="text-[4rem]/[4rem] font-bold">1VB Newsletter</span>
-            <span className="text-[1rem]/[2rem]">
+          <div className="flex flex-col gap-[20px] lg:w-3/5">
+            <span className="text-[2rem]/[4rem] lg:text-[4rem]/[4rem] font-bold">
+              1VB Newsletter
+            </span>
+            <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[2rem]">
               Navigate your financial journey with confidence through 1VB
               Advisory! Our expert team is here to guide you with personalized
               advice, smart strategies, and tailored solutions. Whether planning
@@ -216,10 +218,10 @@ export default function Newsletter() {
               financial future. Your success, our mission!
             </span>
           </div>
-          <div className="flex justify-center w-2/5">
+          <div className="flex justify-center items-center lg:w-2/5">
             <FontAwesomeIcon
               icon={faEnvelope}
-              style={{ width: "50%", height: "auto" }}
+              className="text-[10rem] lg:text-[15rem]"
             />
           </div>
         </section>
