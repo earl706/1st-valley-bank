@@ -30,10 +30,10 @@ export default function OneVBAdvisory() {
             />
           </div>
         </section>
-        <Carousel />
+        <section id="carousel" className="mx-[80px]">
+          <Carousel />
+        </section>
       </main>
-      <main className="hidden sm:block lg:hidden">Tablet</main>
-      <main className="block sm:hidden">Mobile</main>
     </>
   );
 }
