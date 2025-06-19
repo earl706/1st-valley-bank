@@ -173,22 +173,22 @@ export default function PropertiesForSale() {
 
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[120px] pb-[50px]">
+      <main className="flex flex-col gap-[60px] lg:gap-[120px] pb-[50px]">
         <section
           id="main"
           data-scroll
-          className="flex text-[#396131] bg-white drop-shadow-lg mx-[10px] rounded-[8px]"
+          className="flex flex-col-reverse lg:flex-row text-[#396131] bg-white drop-shadow-lg mx-[5px] lg:mx-[10px] rounded-[8px]"
         >
-          <div className="flex flex-col gap-[20px] py-[80px] px-[60px] mx-[10px] w-3/5">
-            <div className="flex flex-col gap-[20px]">
-              <span className="text-[4rem]/[4rem] font-bold">
+          <div className="flex flex-col gap-[20px] p-[20px] lg:py-[80px] lg:px-[60px] mx-[10px] lg:w-3/5">
+            <div className="flex flex-col gap-[10px] lg:gap-[20px]">
+              <span className="text-[2rem]/[2rem] lg:text-[4rem]/[4rem] font-bold">
                 Properties for Sale
               </span>
-              <span className="text-[1.5rem]/[1.5rem] font-bold">
+              <span className="text-[1rem]/[1.5rem] lg:text-[1.5rem]/[1.5rem] font-bold">
                 Turn opportunities into assets with our featured listings
               </span>
             </div>
-            <span className="text-[1rem]/[2rem]">
+            <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
               Discover 1st Valley Bank’s Properties for Sale—a curated list of
               real estate, vehicles, and other acquired assets available at
               affordable prices. Whether you're starting fresh or growing your
@@ -196,36 +196,36 @@ export default function PropertiesForSale() {
               out—explore our listings and find your next opportunity today!
             </span>
           </div>
-          <div className="flex items-center justify-center w-2/5">
+          <div className="flex items-center justify-center lg:w-2/5">
             <FontAwesomeIcon
               icon={faTags}
-              className="flex aspect-square"
-              style={{ width: "60%", height: "auto" }}
+              className="flex aspect-square text-[10rem] lg:text-[20rem]"
             />
           </div>
         </section>
         <section
           id="vehicles"
-          className="flex flex-col text-[#396131] mx-[80px] gap-[70px]"
+          className="flex flex-col text-[#396131] mx-[10px] lg:mx-[80px] gap-[70px]"
         >
-          <div className="flex justify-center gap-[40px]">
-            <div className="flex justify-center w-1/4">
+          <div className="flex flex-col lg:flex-row justify-center gap-[20px] lg:gap-[40px]">
+            <div className="flex justify-center lg:w-1/4">
               {" "}
               <FontAwesomeIcon
                 icon={faTruck}
-                className="flex aspect-square"
-                style={{ width: "250px", height: "250px" }}
+                className="flex aspect-square text-[10rem] lg:text-[20rem]"
               />
             </div>
-            <div className="flex flex-col justify-start gap-[10px] w-3/4">
-              <div className="flex flex-col gap-[20px]">
-                <span className="text-[3rem]/[3rem] font-bold">Vehicles</span>
-                <span className="text-[1.5rem]/[3rem] font-bold">
+            <div className="flex flex-col justify-start gap-[10px] lg:w-3/4">
+              <div className="flex flex-col gap-[10px] lg:gap-[20px]">
+                <span className="text-[1.5rem]/[1.5rem] lg:text-[3rem]/[3rem] font-bold">
+                  Vehicles
+                </span>
+                <span className="text-[1rem]/[1.5rem] lg:text-[1.5rem]/[3rem] font-bold">
                   Looking for great deals on wheels?
                 </span>
               </div>
 
-              <span className="text-[1rem]/[3rem]">
+              <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[3rem]">
                 1st Valley Bank offers quality pre-owned vehicles at affordable
                 prices through our Properties for Sale – Vehicles program!
                 Whether for personal or business use, drive home your dream car
@@ -252,20 +252,20 @@ export default function PropertiesForSale() {
         </section>
         <section
           id="properties"
-          className="flex flex-col text-[#396131] mx-[80px] gap-[70px]"
+          className="flex flex-col text-[#396131] mx-[20px] lg:mx-[80px] gap-[30px] lg:gap-[70px]"
         >
-          <div className="flex justify-center gap-[40px]">
-            <div className="flex flex-col justify-start gap-[10px] w-3/4">
+          <div className="flex flex-col-reverse lg:flex-row justify-center gap-[40px]">
+            <div className="flex flex-col justify-start gap-[10px] lg:w-3/4">
               <div className="flex flex-col gap-[20px]">
-                <span className="text-[3rem]/[3rem] font-bold">
+                <span className="text-[1.5rem]/[2rem] lg:text-[3rem]/[3rem] font-bold">
                   Real Estate and Other Properties Acquired for Sale
                 </span>
-                <span className="text-[1.5rem]/[3rem] font-bold">
+                <span className="text-[1rem] lg:text-[1.5rem]/[3rem] font-bold">
                   Ready to invest in your future?
                 </span>
               </div>
 
-              <span className="text-[1rem]/[3rem]">
+              <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                 Explore 1st Valley Bank’s Properties for Sale—featuring real
                 estate and other acquired assets at great value! From
                 residential lots to commercial spaces and more, find the perfect
@@ -273,12 +273,11 @@ export default function PropertiesForSale() {
                 and trusted service, your next big opportunity starts here!
               </span>
             </div>
-            <div className="flex justify-center w-1/4">
+            <div className="flex justify-center lg:w-1/4">
               {" "}
               <FontAwesomeIcon
                 icon={faHouseCircleCheck}
-                className="flex aspect-square"
-                style={{ width: "250px", height: "250px" }}
+                className="flex aspect-square text-[10rem] lg:text-[20rem]"
               />
             </div>
           </div>
@@ -299,8 +298,6 @@ export default function PropertiesForSale() {
           </NavLink>
         </section>
       </main>
-      <main className="hidden sm:block lg:hidden">Tablet</main>
-      <main className="block sm:hidden">Mobile</main>
     </>
   );
 }
