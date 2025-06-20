@@ -51,17 +51,17 @@ export default function LoansGoldAndGems() {
 
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[80px] pb-[50px]">
+      <main className="flex flex-col gap-[40px] lg:gap-[80px] pb-[50px]">
         <section
           id="main"
           data-scroll
-          className="flex text-[#396131] bg-white drop-shadow-lg rounded-[8px] py-[80px] px-[80px] mx-[10px]"
+          className="flex flex-col-reverse lg:flex-row text-[#396131] bg-white drop-shadow-lg rounded-[8px] p-[20px] lg:py-[80px] lg:px-[80px] mx-[10px]"
         >
-          <div className="flex flex-col gap-[20px] w-3/5">
-            <span className="text-[4rem]/[4rem] font-bold">
+          <div className="flex flex-col gap-[20px] lg:w-3/5">
+            <span className="text-[2rem]/[2rem] lg:text-[4rem]/[4rem] font-bold">
               Loans / Gold & Gems
             </span>
-            <span className="text-[1rem]/[2rem]">
+            <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
               Secure quick cash with 1st Valley Bank’s Gold and Gems Loan—a
               hassle-free lending solution using your valuable jewelry as
               collateral. Enjoy low interest rates, fast approval, and flexible
@@ -69,18 +69,18 @@ export default function LoansGoldAndGems() {
               treasures stay safe while your finances stay strong.
             </span>
           </div>
-          <div className="flex justify-center w-2/5">
+          <div className="flex justify-center lg:w-2/5">
             <SketchLogoIcon className="w-[50%] h-auto" />
           </div>
         </section>
         <section id="description" className="px-[15px] text-white">
-          <div className="flex px-[80px] py-[60px] gap-[80px] bg-[#396131] rounded-[8px] drop-shadow-lg">
-            <div className="flex justify-center w-2/5">
+          <div className="flex flex-col lg:flex-row p-[30px] lg:px-[80px] lg:py-[60px] lg:gap-[80px] bg-[#396131] rounded-[8px] drop-shadow-lg">
+            <div className="flex justify-center lg:w-2/5">
               <MoneyWavyIcon className="w-[50%] h-auto" />
             </div>
-            <div className="flex flex-col items-start justify-start gap-[50px] w-3/5">
+            <div className="flex flex-col items-start justify-start gap-[20px] lg:gap-[50px] lg:w-3/5">
               <div className="flex flex-col gap-[20px]">
-                <span className="text-white font-bold text-[3rem]/[3rem]">
+                <span className="text-white font-bold text-[1.5rem]/[1.5rem] lg:text-[3rem]/[3rem]">
                   Gold & Gems
                 </span>
                 <span className="text-white text-[0.8rem]/[2.4rem]">
@@ -91,7 +91,7 @@ export default function LoansGoldAndGems() {
                 </span>
               </div>
               <div className="flex flex-col gap-[20px]">
-                <span className="text-white font-bold text-[3rem]/[3rem]">
+                <span className="text-white font-bold text-[1.5rem]/[1.5rem] lg:text-[3rem]/[3rem]">
                   Jewelry Loan
                 </span>
                 <span className="text-white text-[0.8rem]/[2.4rem]">
@@ -106,13 +106,13 @@ export default function LoansGoldAndGems() {
         </section>
         <section
           id="description-2"
-          className="flex justify-between mx-[60px] text-[#396131]"
+          className="flex flex-col-reverse lg:flex-row justify-between mx-[20px] gap-[20px] lg:gap-0 lg:mx-[60px] text-[#396131]"
         >
-          <div className="flex flex-col gap-[50px] w-3/5">
-            <span className="text-[2.5rem]/[2.5rem] font-bold">
+          <div className="flex flex-col gap-[50px] lg:w-3/5">
+            <span className="text-[1.5rem]/[1.5rem] lg:text-[2.5rem]/[2.5rem] font-bold">
               Small Business Loan Ends 2023 with Php385M
             </span>
-            <span className="text-[2rem]/[2rem] font-semibold">
+            <span className="text-[1rem]/[1rem] lg:text-[2rem]/[2rem] font-semibold">
               Ervie E. Cane, Product Manager
             </span>
             {[
@@ -132,37 +132,42 @@ export default function LoansGoldAndGems() {
                   "This loan grants business funds to anyone with authentic jewelry pieces to submit as collateral. It's the fastest way to get credit. Just convert your idle jewelry pieces. Let them shine and sparkle in times of need.",
               },
             ].map((part, index) => (
-              <div className="flex flex-col gap-[20px]" key={index}>
-                <span className="text-[1.5rem]/[2rem] font-semibold">
+              <div
+                className="flex flex-col gap-[10px] lg:gap-[20px]"
+                key={index}
+              >
+                <span className="text-[1rem]/[1rem] lg:text-[1.5rem]/[2rem] font-semibold">
                   {part.header}
                 </span>
-                <span className="text-[1rem]/[3rem]">{part.description}</span>
+                <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
+                  {part.description}
+                </span>
               </div>
             ))}
           </div>
-          <div className="flex justify-center w-2/5 h-full">
+          <div className="flex justify-center lg:w-2/5 h-full">
             <img
               src={img1}
               alt=""
-              className="object-cover aspect-square rounded-[12px] w-4/5 h-full"
+              className="object-cover aspect-square rounded-[12px] w-full lg:w-4/5 h-full"
             />
           </div>
         </section>
         <section
           id="who-can-apply"
-          className="flex flex-col p-[50px] gap-[50px] bg-[#396131] text-white mx-[15px] rounded-[10px] drop-shadow-lg"
+          className="flex flex-col p-[30px] lg:p-[50px] gap-[50px] bg-[#396131] text-white mx-[15px] rounded-[10px] drop-shadow-lg"
         >
-          <span className="text-center font-bold text-[2rem]/[2rem]">
+          <span className="text-center font-bold text-[1.5rem]/[1.5rem] lg:text-[2rem]/[2rem]">
             Advantages
           </span>
-          <div className="grid grid-cols-4 gap-x-[20px] gap-y-[50px]">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-[20px] gap-y-[20px] lg:gap-y-[50px]">
             {advantages.map((loan, index) => (
               <div
                 className="flex flex-col items-center gap-[10px]"
                 key={index}
               >
                 <div className="flex">{loan.logo}</div>
-                <span className="text-[1rem]/[3rem] text-center">
+                <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem] text-center">
                   {loan.description}
                 </span>
               </div>
@@ -170,8 +175,6 @@ export default function LoansGoldAndGems() {
           </div>
         </section>
       </main>
-      <main className="hidden sm:block lg:hidden">Tablet</main>
-      <main className="block sm:hidden">Mobile</main>
     </>
   );
 }

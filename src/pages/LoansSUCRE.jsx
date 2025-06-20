@@ -70,15 +70,17 @@ export default function LoansSUCRE() {
 
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[80px] pb-[50px]">
+      <main className="flex flex-col gap-[40px] lg:gap-[80px] pb-[50px]">
         <section
           id="main"
           data-scroll
-          className="flex text-[#396131] bg-white drop-shadow-lg mx-[10px] rounded-[8px] py-[50px]"
+          className="flex flex-col-reverse lg:flex-row gap-[20px] text-[#396131] bg-white drop-shadow-lg mx-[10px] rounded-[8px] p-[30px] lg:py-[50px]"
         >
-          <div className="flex flex-col gap-[20px] py-[80px] px-[60px] mx-[10px] w-2/3">
-            <span className="text-[4rem]/[4rem] font-bold">Loans / SUCRE</span>
-            <span className="text-[1rem]/[2rem]">
+          <div className="flex flex-col gap-[20px] lg:py-[80px] lg:px-[60px] mx-[10px] lg:w-2/3">
+            <span className="text-[2rem]/[3rem] lg:text-[4rem]/[4rem] font-bold">
+              Loans / SUCRE
+            </span>
+            <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
               Supervised Credit is a lending program that provides funds to
               farmers for the production of rice, corn, cacao, or sugarcane.
               This unsecured loan is also bundled with the provision of
@@ -86,7 +88,7 @@ export default function LoansSUCRE() {
               productivity and income.
             </span>
           </div>
-          <div className="flex items-center justify-center w-1/3">
+          <div className="flex items-center justify-center lg:w-1/3">
             <FontAwesomeIcon
               icon={faMoneyBillWheat}
               style={{ width: "50%", height: "auto" }}
@@ -94,12 +96,12 @@ export default function LoansSUCRE() {
           </div>
         </section>
         <section id="description" className="px-[15px] text-white">
-          <div className="flex items-center justify-center px-[80px] py-[60px] gap-[80px] bg-[#396131] rounded-[8px] drop-shadow-lg">
-            <div className="flex items-center justify-center w-2/5">
+          <div className="flex flex-col lg:flex-row items-center justify-center p-[20px] lg:px-[80px] lg:py-[60px] gap-[20px] lg:gap-[80px] bg-[#396131] rounded-[8px] drop-shadow-lg">
+            <div className="flex items-center justify-center w-full lg:w-2/5">
               <ShieldCheckIcon className="w-[50%] h-auto" />
             </div>
-            <div className="flex flex-col items-start gap-[20px] w-3/5">
-              <span className="text-white font-bold text-[4rem]/[4rem]">
+            <div className="flex flex-col items-start gap-[20px] lg:w-3/5">
+              <span className="text-white font-bold text-[1.5rem]/[1.5rem] lg:text-[4rem]/[4rem]">
                 Supervised Credit Loans
               </span>
               <div className="flex flex-col gap-[20px]">
@@ -121,22 +123,22 @@ export default function LoansSUCRE() {
         </section>
         <section
           id="description-2"
-          className="flex justify-between mx-[60px] text-[#396131]"
+          className="flex flex-col-reverse lg:flex-row gap-[20px] justify-between mx-[15px] lg:mx-[60px] text-[#396131]"
         >
-          <div className="flex flex-col gap-[50px] w-3/5">
-            <span className="text-[2.5rem]/[2.5rem] font-bold">
+          <div className="flex flex-col gap-[20px] lg:gap-[50px] lg:w-3/5">
+            <span className="text-[1.5rem]/ lg:text-[2.5rem]/[2.5rem] font-bold">
               From Supervised Credit to Crop Loan: Sowing the Seeds of
               Innovation
             </span>
-            <span className="text-[2rem]/[2rem] font-semibold">
+            <span className="text-[1rem] lg:text-[2rem]/[2rem] font-semibold">
               Bernard C. Paderes, Product Manager
             </span>
             <div className="flex flex-col gap-[20px]">
-              <span className="text-[1.5rem]/[1.5rem] font-semibold">
+              <span className="text-[1rem]/[1.5rem] lg:text-[1.5rem]/[1.5rem] font-semibold">
                 From Rice to Sugarcane Production Loan, Supervised Credit
                 Embraces Its Rewards
               </span>
-              <span className="text-[1rem]/[3rem]">
+              <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[3rem]">
                 Supervised Credit or SUCRE is now known as Crop Loan. From rice
                 production loan, it now focuses on sugarcane production loan
                 where it is most profitable. It ended the year 2023 with a
@@ -144,33 +146,33 @@ export default function LoansSUCRE() {
               </span>
             </div>
           </div>
-          <div className="flex justify-center w-2/5">
+          <div className="flex justify-center lg:w-2/5">
             <img
               src={img1}
               alt=""
-              className="object-cover rounded-[12px] w-4/5 h-auto"
+              className="object-cover rounded-[12px] w-full lg:w-4/5 h-auto"
             />
           </div>
         </section>
         <section
           id="kinds"
-          className="flex flex-col p-[50px] gap-[50px] bg-[#396131] text-white mx-[15px] rounded-[10px] drop-shadow-lg"
+          className="flex flex-col p-[30px] lg:p-[50px] gap-[50px] bg-[#396131] text-white mx-[15px] rounded-[10px] drop-shadow-lg"
         >
           <div className="flex flex-col gap-[10px]">
-            <span className="text-center font-bold text-[2rem]/[2rem]">
+            <span className="text-[1.5rem]/[1.5rem] text-center font-bold lg:text-[2rem]/[2rem]">
               Disbursed Loans
             </span>
             <div className="flex flex-col gap-[5px]">
-              <span className="text-center text-[1rem]/[2rem]">
+              <span className="text-center text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
                 1VB has disbursed a total of P229.35M for 2023, higher by
                 P11.44M as compared to the 2022 disbursement of P217.98M.
               </span>
-              <span className="text-center text-[1rem]/[2rem]">
+              <span className="text-center text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
                 The loan was disbursed to three (3) major crops.
               </span>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-x-[100px] gap-y-[90px]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-[100px] gap-y-[30px] lg:gap-y-[90px]">
             {disbursedLoans.map((loan, index) => (
               <div
                 className="flex flex-col justify-between gap-[40px]"
@@ -179,10 +181,10 @@ export default function LoansSUCRE() {
                 <div className="flex flex-col items-center gap-[30px]">
                   <div className="flex">{loan.logo}</div>
                   <div className="flex flex-col gap-[20px]">
-                    <span className="text-center text-[1.5rem]/[1.5rem] font-bold">
+                    <span className="text-center text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
                       {loan.type}
                     </span>
-                    <span className="text-[1rem]/[3rem]">
+                    <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[3rem]">
                       {loan.description}
                     </span>
                   </div>
@@ -190,23 +192,23 @@ export default function LoansSUCRE() {
               </div>
             ))}
           </div>
-          <span className="text-[1rem]/[1rem] text-center">
+          <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[1rem] text-center">
             ₱ 6.69M emergency funding to 191 farmers
           </span>
         </section>
         <section
           id="product-enhancement"
           data-scroll
-          className="flex text-[#396131] rounded-[8px]"
+          className="flex flex-col lg:flex-row text-[#396131] rounded-[8px]"
         >
-          <div className="flex items-center justify-center w-2/5">
+          <div className="flex items-center justify-center lg:w-2/5">
             <MagicWandIcon size={300} />
           </div>
-          <div className="flex flex-col gap-[20px] py-[80px] px-[60px] w-3/5">
-            <span className="text-[3rem]/[3rem] font-bold">
+          <div className="flex flex-col gap-[20px] p-[30px] lg:py-[80px] lg:px-[60px] lg:w-3/5">
+            <span className="text-[1rem]/[1rem] lg:text-[3rem]/[3rem] font-bold">
               PRODUCT ENHANCEMENT
             </span>
-            <span className="text-[1rem]/[3rem]">
+            <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[3rem]">
               When it was still known as supervised credit, 1VB has set a
               maximum loan amount of Php150K/farmer. With the transformation to
               Crop Loan, the ceiling has been removed. Now, there is no maximum
@@ -217,12 +219,12 @@ export default function LoansSUCRE() {
         </section>
         <section
           id="benefits-and-uses"
-          className="flex flex-col p-[50px] gap-[50px] bg-[#396131] text-white mx-[15px] rounded-[10px] drop-shadow-lg"
+          className="flex flex-col p-[30px] lg:p-[50px] gap-[50px] bg-[#396131] text-white mx-[15px] rounded-[10px] drop-shadow-lg"
         >
-          <span className="text-center font-bold text-[2rem]/[2rem]">
+          <span className="text-center font-bold text-[1.5rem]/[1.5rem] lg:text-[2rem]/[2rem]">
             Benefits and Uses
           </span>
-          <div className="grid grid-cols-3 gap-x-[100px] gap-y-[90px]">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-[50px] gap-y-[40px] lg:gap-x-[100px] lg:gap-y-[90px]">
             {benefitsUses.map((loan, index) => (
               <div
                 className="flex flex-col justify-between gap-[40px]"
@@ -231,10 +233,10 @@ export default function LoansSUCRE() {
                 <div className="flex flex-col items-center gap-[30px]">
                   <div className="flex">{loan.logo}</div>
                   <div className="flex flex-col gap-[20px]">
-                    <span className="text-center text-[1.5rem]/[1.5rem] font-bold">
+                    <span className="text-center text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
                       {loan.type}
                     </span>
-                    <span className="text-[1rem]/[3rem] text-center">
+                    <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[3rem] text-center">
                       {loan.description}
                     </span>
                   </div>
@@ -244,8 +246,6 @@ export default function LoansSUCRE() {
           </div>
         </section>
       </main>
-      <main className="hidden sm:block lg:hidden">Tablet</main>
-      <main className="block sm:hidden">Mobile</main>
     </>
   );
 }
