@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { CaretDownIcon } from "@phosphor-icons/react";
 import Footer from "./Footer";
 
-import logo from "/src/assets/1vb logo_2x2.png";
+import logo from "/src/assets/logo.png";
 import gcash from "/src/assets/gcash-logo-png_seeklogo-522261-removebg-preview.png";
 import bsp from "/src/assets/image-removebg-preview (1).png";
 import ctb from "/src/assets/image-removebg-preview (2).png";

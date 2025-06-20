@@ -9,7 +9,14 @@ import {
   faHandshake,
 } from "@fortawesome/free-solid-svg-icons";
 
-import logo from "/src/assets/1vb logo_2x2.png";
+import img1 from "/src/assets/homepage/1.png";
+import img2 from "/src/assets/homepage/2.png";
+import img3 from "/src/assets/homepage/3.png";
+import img4 from "/src/assets/homepage/4.png";
+import img5 from "/src/assets/homepage/5.png";
+import img6 from "/src/assets/homepage/6.png";
+
+import logo from "/src/assets/logo.png";
 import gcash from "/src/assets/gcash-logo-png_seeklogo-522261-removebg-preview.png";
 import bsp from "/src/assets/image-removebg-preview (1).png";
 import ctb from "/src/assets/image-removebg-preview (2).png";
@@ -20,21 +27,21 @@ import { faBuildingColumns } from "@fortawesome/free-solid-svg-icons/faBuildingC
 export default function HomePage() {
   const products = [
     {
-      image: logo,
+      image: img1,
       header: "Deposits",
       description:
         "Grow your savings with security and ease! 1st Valley Bank’s deposit products are built to help you reach your goals—one peso at a time.",
       path: "/deposits",
     },
     {
-      image: logo,
+      image: img2,
       header: "Loans",
       description:
         "Get the support you need to start a business, grow your farm, or build your dream home with affordable loan options from 1st Valley Bank.",
       path: "/loans",
     },
     {
-      image: logo,
+      image: img3,
       header: "Properties for Sale",
       description:
         "Start your next chapter—browse prime properties for sale at great prices. Your dream home or investment could be just a click away.",
@@ -65,19 +72,19 @@ export default function HomePage() {
 
   const features = [
     {
-      image: logo,
+      image: img4,
       header: "BUSINESS CONDUCT",
       description:
         "We conduct our business with integrity, transparency, honesty, and highest ethical standards.",
     },
     {
-      image: logo,
+      image: img5,
       header: "CLIENT TREATMENT",
       description:
         "Treating our clients with equality, fairness, and respect is foremost in our delivery of excellent banking services.",
     },
     {
-      image: logo,
+      image: img6,
       header: "BUSINESS DEVELOPMENT",
       description:
         "We develop our business through innovation, enthusiasm, creativity, and our constant quest for excellence",
@@ -138,7 +145,7 @@ export default function HomePage() {
             </div>
           </div>
         </section> */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 mx-4 rounded-3xl shadow-2xl shadow-emerald-900/10 mb-8 font-sans">
+        <section className="relative overflow-hidden mx-4 rounded-3xl shadow-2xl shadow-emerald-900/10 mb-8 font-sans">
           {/* Background decoration */}
           <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/5 to-transparent"></div>
           <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-100/30 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
@@ -223,21 +230,13 @@ export default function HomePage() {
               {/* Image Section */}
               <div className="flex-shrink-0 lg:w-2/5">
                 <div className="relative group">
-                  {/* Floating elements */}
-                  <div className="absolute -top-4 -left-4 w-20 h-20 bg-emerald-500/20 rounded-full blur-xl animate-pulse"></div>
-                  <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-emerald-400/30 rounded-full blur-lg animate-pulse delay-1000"></div>
-
                   {/* Main image container */}
-                  <div className="relative overflow-hidden rounded-3xl shadow-2xl shadow-emerald-900/20 group-hover:shadow-3xl transition-all duration-500 transform group-hover:-translate-y-2">
-                    <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/10 to-transparent z-10"></div>
+                  <div className="relative overflow-hidden rounded-3xl group-hover:shadow-3xl transition-all duration-500 transform group-hover:scale-105 group-hover:-translate-y-2">
                     <img
                       src={logo}
                       alt="1st Valley Bank Logo"
-                      className="w-full h-full object-cover aspect-square group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full object-cover aspect-square transition-transform duration-700"
                     />
-
-                    {/* Overlay gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/5 via-transparent to-emerald-800/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
                 </div>
               </div>
@@ -251,11 +250,13 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-[80px] gap-y-[50px] lg:gap-y-none">
             {products.map((product, index) => (
               <div className="flex flex-col text-center items-center gap-[17px]">
-                <img
-                  src={product.image}
-                  alt=""
-                  className="drop-shadow-lg rounded-full object-center w-[200px] h-[200px]"
-                />
+                <div className="relative w-[200px] h-[200px] rounded-full drop-shadow-lg bg-[url('./src/assets/logo.png')] bg-cover bg-center">
+                  <img
+                    src={product.image}
+                    alt=""
+                    className="w-full h-full rounded-full object-cover"
+                  />
+                </div>
                 <p className="font-bold text-[1.5rem]/[3rem] lg:text-[2rem]/[3rem]">
                   {product.header}
                 </p>
@@ -280,11 +281,13 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-[50px] lg:gap-y-[50px] gap-y-[50px]">
             {features.map((feature, index) => (
               <div className="flex flex-col text-center items-center gap-[17px]">
-                <img
-                  src={feature.image}
-                  alt=""
-                  className="drop-shadow-lg rounded-full object-center w-[200px] h-[200px]"
-                />
+                <div className="relative w-[200px] h-[200px] rounded-full drop-shadow-lg bg-[url('./src/assets/logo.png')] bg-cover bg-center">
+                  <img
+                    src={feature.image}
+                    alt=""
+                    className="w-full h-full rounded-full object-cover"
+                  />
+                </div>
                 <p className="font-bold text-[1.5em]/[3rem] lg:text-[2rem]/[3rem]">
                   {feature.header}
                 </p>
