@@ -70,20 +70,22 @@ export default function PropertiesForSaleVehicles() {
 
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[120px] pb-[50px]">
+      <main className="flex flex-col gap-[120px] pb-[50px]">
         <section
           id="main"
           data-scroll
-          className="flex text-[#396131] bg-white drop-shadow-lg mx-[10px] rounded-[8px]"
+          className="flex flex-col-reverse lg:flex-row p-[20px] text-[#396131] bg-white drop-shadow-lg mx-[10px] rounded-[8px]"
         >
-          <div className="flex flex-col gap-[20px] py-[80px] px-[60px] mx-[10px] w-3/5">
+          <div className="flex flex-col gap-[20px] lg:py-[80px] lg:px-[60px] mx-[10px] lg:w-3/5">
             <div className="flex flex-col gap-[20px]">
-              <span className="text-[4rem]/[4rem] font-bold">
+              <span className="text-[1.5rem]/[1.5rem] lg:text-[4rem]/[4rem] font-bold">
                 Properties for Sale
               </span>
-              <span className="text-[1.5rem]/[1.5rem] font-bold">Vehicles</span>
+              <span className="text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
+                Vehicles
+              </span>
             </div>
-            <span className="text-[1rem]/[2rem]">
+            <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
               1st Valley Bank offers quality pre-owned vehicles at affordable
               prices through our Properties for Sale – Vehicles program! Whether
               for personal or business use, drive home your dream car with
@@ -91,7 +93,7 @@ export default function PropertiesForSaleVehicles() {
               chance to own for less—check out our listings today!
             </span>
           </div>
-          <div className="flex items-center justify-center w-2/5">
+          <div className="flex items-center justify-center w-full lg:w-2/5">
             <FontAwesomeIcon
               icon={faTruck}
               className="flex aspect-square"
@@ -99,7 +101,7 @@ export default function PropertiesForSaleVehicles() {
             />
           </div>
         </section>
-        <section id="vehicles" className="mx-[80px]">
+        <section id="vehicles" className="mx-[10px] lg:mx-[80px]">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {sampleVehicles.map((vehicle, index) => (
               <VehicleCard key={index} vehicle={vehicle} />
@@ -107,8 +109,6 @@ export default function PropertiesForSaleVehicles() {
           </div>
         </section>
       </main>
-      <main className="hidden sm:block lg:hidden">Tablet</main>
-      <main className="block sm:hidden">Mobile</main>
     </>
   );
 }
