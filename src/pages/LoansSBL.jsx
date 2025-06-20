@@ -72,15 +72,17 @@ export default function LoansSBL() {
 
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[80px] pb-[50px]">
+      <main className="flex flex-col gap-[40px] lg:gap-[80px] pb-[50px]">
         <section
           id="main"
           data-scroll
-          className="flex text-[#396131] bg-white drop-shadow-lg mx-[10px] rounded-[8px] py-[50px]"
+          className="flex flex-col-reverse lg:flex-row text-[#396131] bg-white drop-shadow-lg mx-[10px] rounded-[8px] gap-[20px] p-[30px] lg:py-[50px]"
         >
-          <div className="flex flex-col gap-[20px] py-[80px] px-[60px] mx-[10px] w-2/3">
-            <span className="text-[4rem]/[4rem] font-bold">Loans / SBL</span>
-            <span className="text-[1rem]/[2rem]">
+          <div className="flex flex-col gap-[20px] lg:py-[80px] lg:px-[60px] mx-[10px] lg:w-2/3">
+            <span className="text-[2rem]/[2rem] lg:text-[4rem]/[4rem] font-bold">
+              Loans / SBL
+            </span>
+            <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[2rem]">
               These multi-purpose loans are specifically tailored for legitimate
               small businesses that require additional capital to support their
               expansion efforts. Whether the goal is to increase inventory,
@@ -89,17 +91,17 @@ export default function LoansSBL() {
               enterprises grow and thrive.
             </span>
           </div>
-          <div className="flex items-center justify-center w-1/3">
+          <div className="flex items-center justify-center lg:w-1/3">
             <StorefrontIcon className="w-[60%] h-auto" />
           </div>
         </section>
         <section id="description" className="px-[15px] text-white">
-          <div className="flex items-center justify-center px-[80px] py-[60px] gap-[80px] bg-[#396131] rounded-[8px] drop-shadow-lg">
-            <div className="flex items-center justify-center w-2/5">
+          <div className="flex flex-col lg:flex-row items-center justify-center p-[30px] gap-[20px] lg:px-[80px] lg:py-[60px] lg:gap-[80px] bg-[#396131] rounded-[8px] drop-shadow-lg">
+            <div className="flex items-center justify-center w-full lg:w-2/5">
               <HandCoinsIcon className="w-[50%] h-auto" />
             </div>
-            <div className="flex flex-col items-start gap-[20px] w-3/5">
-              <span className="text-white font-bold text-[4rem]/[4rem]">
+            <div className="flex flex-col items-start gap-[20px] lg:w-3/5">
+              <span className="text-white font-bold text-[1.5rem]/[1.5rem] lg:text-[4rem]/[4rem]">
                 Small Business Loans
               </span>
               <span className="text-white text-[0.8rem]/[2.4rem]">
@@ -117,21 +119,21 @@ export default function LoansSBL() {
         </section>
         <section
           id="description-2"
-          className="flex justify-between mx-[60px] text-[#396131]"
+          className="flex flex-col-reverse lg:flex-row justify-between mx-[15px] gap-[20px] lg:mx-[60px] text-[#396131]"
         >
-          <div className="flex flex-col gap-[50px] w-3/5">
-            <span className="text-[2.5rem]/[2.5rem] font-bold">
+          <div className="flex flex-col gap-[20px] lg:gap-[50px] lg:w-3/5">
+            <span className="text-[1.5rem]/[2rem] lg:text-[2.5rem]/[2.5rem] font-bold">
               Small Business Loan Ends 2023 with Php385M
             </span>
-            <span className="text-[2rem]/[2rem] font-semibold">
+            <span className="text-[1rem]/[2rem] lg:text-[2rem]/[2rem] font-semibold">
               Ervie E. Cane, Product Manager
             </span>
             <div className="flex flex-col gap-[20px]">
-              <span className="text-[1.5rem]/[2rem] font-semibold">
+              <span className="text-[1rem]/[2rem] lg:text-[1.5rem]/[2rem] font-semibold">
                 1VB Small Business Loan gained traction closing 2023 with a
                 portfolio of Php385M
               </span>
-              <span className="text-[1rem]/[3rem]">
+              <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[3rem]">
                 It continues to attract the support of consumers with new
                 features. Small business entrepreneurs can get as much as Php1M
                 payable in 12 months, 24 months, or 36 months whichever is
@@ -139,11 +141,11 @@ export default function LoansSBL() {
               </span>
             </div>
           </div>
-          <div className="flex justify-center w-2/5 h-full">
+          <div className="flex justify-center lg:w-2/5 h-full">
             <img
               src={img1}
               alt=""
-              className="object-cover aspect-square rounded-[12px] w-4/5"
+              className="object-cover aspect-square rounded-[12px] w-full lg:w-4/5"
             />
           </div>
         </section>
@@ -151,18 +153,18 @@ export default function LoansSBL() {
           id="who-can-apply"
           className="flex flex-col p-[50px] gap-[50px] bg-[#396131] text-white mx-[15px] rounded-[10px] drop-shadow-lg"
         >
-          <span className="text-center font-bold text-[2rem]/[2rem]">
+          <span className="text-center font-bold text-[1.5rem]/[1.5rem] lg:text-[2rem]/[2rem]">
             Who Can Apply
           </span>
-          <div className="grid grid-cols-3 gap-x-[100px] gap-y-[90px]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-[100px] gap-y-[40px] lg:gap-y-[90px]">
             {whoCanApply.map((loan, index) => (
               <div
                 className="flex flex-col justify-between gap-[40px]"
                 key={index}
               >
-                <div className="flex flex-col items-center gap-[30px]">
+                <div className="flex flex-col items-center gap-[20px] lg:gap-[30px]">
                   <div className="flex">{loan.logo}</div>
-                  <span className="text-[1rem]/[3rem] text-center">
+                  <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[3rem] text-center">
                     {loan.description}
                   </span>
                 </div>
@@ -174,10 +176,10 @@ export default function LoansSBL() {
           id="benefits-features"
           className="flex flex-col p-[50px] gap-[50px] text-[#396131] mx-[15px]"
         >
-          <span className="text-center font-bold text-[2rem]/[2rem]">
+          <span className="text-center font-bold text-[1.5rem]/[1.5rem] lg:text-[2rem]/[2rem]">
             Benefits Features
           </span>
-          <div className="grid grid-cols-2 gap-x-[100px] gap-y-[90px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-[100px] gap-y-[40px] lg:gap-y-[90px]">
             {benefitsFeature.map((benefit, index) => (
               <div
                 className="flex flex-col justify-between gap-[40px]"
@@ -185,10 +187,10 @@ export default function LoansSBL() {
               >
                 <div className="flex flex-col items-center gap-[30px]">
                   <div className="flex">{benefit.logo}</div>
-                  <span className="text-[1.5rem]/[2rem] font-bold text-center">
+                  <span className="text-[1rem]/[1rem] lg:text-[1.5rem]/[2rem] font-bold text-center">
                     {benefit.header}
                   </span>
-                  <span className="text-[1rem]/[3rem] text-center">
+                  <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[3rem] text-center">
                     {benefit.description}
                   </span>
                 </div>
@@ -197,8 +199,6 @@ export default function LoansSBL() {
           </div>
         </section>
       </main>
-      <main className="hidden sm:block lg:hidden">Tablet</main>
-      <main className="block sm:hidden">Mobile</main>
     </>
   );
 }
