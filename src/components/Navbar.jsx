@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { CaretDownIcon } from "@phosphor-icons/react";
 import Footer from "./Footer";
+import ChatBox from "./ChatBox";
 
 import logo from "/src/assets/logo.png";
 import gcash from "/src/assets/gcash-logo-png_seeklogo-522261-removebg-preview.png";
@@ -704,6 +705,7 @@ export default function Navbar({ children }) {
         </div>
 
         <div className="mt-20 lg:mt-[133px]">{children}</div>
+        <ChatBox />
 
         {/* Footer remains the same */}
         <Footer />
