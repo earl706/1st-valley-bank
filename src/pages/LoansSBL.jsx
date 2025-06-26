@@ -104,7 +104,7 @@ export default function LoansSBL() {
               <span className="text-white font-bold text-[1.5rem]/[1.5rem] lg:text-[4rem]/[4rem]">
                 Small Business Loans
               </span>
-              <span className="text-white text-[0.8rem]/[2.4rem]">
+              <span className="text-white text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                 Qualified clients have the opportunity to borrow amounts of up
                 to Php300,000 with ease, offering a practical solution for
                 immediate business needs. The loans carry a competitive interest

@@ -602,6 +602,9 @@ export default function AboutUs() {
             />
           </div>
           <div className="flex flex-col gap-[10px] lg:gap-[20px] lg:w-1/2 text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem] text-white">
+            <span className="font-bold text-[2rem]/[2rem] lg:text-[4rem]/[4rem]">
+              Bank Profile
+            </span>
             <span>
               1st Valley Bank (1VB) is one of the largest independent
               developmental banks dedicated to fund development projects and
@@ -1916,7 +1919,7 @@ export default function AboutUs() {
               <span className="font-bold text-[1rem] text-center">
                 Product & Area Management
               </span>
-              <div className="grid grid-cols-2 g:grid-cols-4 gap-x-[30px] gap-y-[40px] text-center">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-[30px] gap-y-[40px] text-center">
                 {corporateProfile.product_management.map((officer, index) => (
                   <div className="flex flex-col justify-center items-center gap-[20px]">
                     <img

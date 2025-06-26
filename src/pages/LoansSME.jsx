@@ -167,13 +167,13 @@ export default function LoansSME() {
             },
             {
               icon: <TrayArrowUpIcon size={70} />,
-              header: "Growth",
+              header: "Biggest Contributor",
               description:
                 "SME remains to be the biggest growth contributor among the push products of 1VB",
             },
             {
               icon: <TrendUpIcon size={70} />,
-              header: "Growth",
+              header: "Consistent Increase",
               description:
                 "The product enjoys an 11-year streak in portfolio increase",
             },

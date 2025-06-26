@@ -75,25 +75,25 @@ export default function ConsumerProtectionProductRequirements() {
       type: "RICE & CORN",
       logo: <GrainsIcon size={300} />,
       description:
-        "the quickest way to access money for either personal or business needs. It's a demand deposit that can earn up to 0.50% per annum. For personal account, initial deposit required is Php5K, while for corporate or business account. initial deposit is Php10K. Our loan products are usually tied up with 1st Checking Account. This product has the power to lower the cost of our loans. All applications for the 1st Checking Account are subject to careful evaluation.",
+        "Grow more with confidence! The 1VB Supervised Credit Loan for Rice & Corn gives farmers access to funds, plus expert support in production and marketing. Pay in full after harvest or in installments—flexible, guided, and built to boost your yields and income.",
     },
     {
       type: "SUGARCANE",
       logo: <FlowerLotusIcon size={300} />,
       description:
-        "the quickest way to access money for either personal or business needs. It's a demand deposit that can earn up to 0.50% per annum. For personal account, initial deposit required is Php5K, while for corporate or business account. initial deposit is Php10K. Our loan products are usually tied up with 1st Checking Account. This product has the power to lower the cost of our loans. All applications for the 1st Checking Account are subject to careful evaluation.",
+        "Boost your harvest with 1VB’s Supervised Credit Loan for Sugarcane! Designed for sugarcane farmers, this loan offers funding plus expert technical and marketing support. Enjoy flexible repayment terms—lump sum or installment—tailored to your crop cycle. Grow smart, earn more with 1VB.",
     },
     {
       type: "SUCRE PLUS",
       logo: <FarmIcon size={300} />,
       description:
-        "the quickest way to access money for either personal or business needs. It's a demand deposit that can earn up to 0.50% per annum. For personal account, initial deposit required is Php5K, while for corporate or business account. initial deposit is Php10K. Our loan products are usually tied up with 1st Checking Account. This product has the power to lower the cost of our loans. All applications for the 1st Checking Account are subject to careful evaluation.",
+        "SUCRE PLUS by 1VB is a premium Supervised Credit Loan for sugarcane farmers seeking higher yields and bigger returns. Get enhanced funding support, expert agri-advice, and flexible payment terms aligned with your harvest. Level up your farming with SUCRE PLUS—grow better, earn more!",
     },
     {
       type: "SUCRE A-PLUS",
       logo: <ShieldPlusIcon size={300} />,
       description:
-        "the quickest way to access money for either personal or business needs. It's a demand deposit that can earn up to 0.50% per annum. For personal account, initial deposit required is Php5K, while for corporate or business account. initial deposit is Php10K. Our loan products are usually tied up with 1st Checking Account. This product has the power to lower the cost of our loans. All applications for the 1st Checking Account are subject to careful evaluation.",
+        "SUCRE A-PLUS is 1VB’s advanced loan program for high-performing sugarcane farmers. Enjoy bigger loan amounts, personalized technical support, and flexible repayment options. Designed to maximize productivity and profit, SUCRE A-PLUS helps you take your farm to the next level.",
     },
   ];
 
@@ -337,10 +337,10 @@ export default function ConsumerProtectionProductRequirements() {
 
                         {/* Content */}
                         <div className="flex-1 text-center sm:text-left">
-                          <h3 className="text-xl lg:text-2xl font-bold text-[#396131] mb-3 group-hover:text-[#4a7a3f] transition-colors duration-300">
+                          <h3 className="text-xl lg:text-2xl font-bold mb-3  transition-colors duration-300">
                             {product.type}
                           </h3>
-                          <p className="text-gray-600 leading-relaxed mb-6 text-sm lg:text-base">
+                          <p className="leading-relaxed mb-6 text-sm lg:text-base">
                             {product.description}
                           </p>
 
@@ -424,10 +424,7 @@ export default function ConsumerProtectionProductRequirements() {
                       {product.type}
                     </span>
                     <span className="text-[1rem]/[3rem]">
-                      A loan facility intended to finance the crop production
-                      activity of rice and corn farmers. This is available to
-                      all rice farmers aged 18 to 70 years old. They can avail a
-                      loan up to P150,000.00 payable within six (6) months.
+                      {product.description}
                     </span>
                   </div>
                   <NavLink
