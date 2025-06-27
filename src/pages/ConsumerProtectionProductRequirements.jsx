@@ -153,21 +153,21 @@ export default function ConsumerProtectionProductRequirements() {
 
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[80px] pb-[50px]">
+      <main className="flex flex-col gap-[40px] lg:gap-[80px] pb-[50px]">
         <section
           id="main"
-          className="flex text-[#396131] bg-white drop-shadow-lg mx-[10px] rounded-[8px] py-[50px]"
+          className="flex flex-col-reverse lg:flex-row text-[#396131] gap-[40px] lg:gap-0 bg-white drop-shadow-lg mx-[5px] p-[20px] lg:mx-[10px] rounded-[8px] lg:py-[50px]"
         >
-          <div className="flex flex-col gap-[20px] py-[80px] px-[60px] mx-[10px] w-3/5">
+          <div className="flex flex-col gap-[20px] lg:py-[80px] lg:px-[60px] lg:mx-[10px] lg:w-3/5">
             <div className="flex flex-col gap-[20px]">
-              <span className="text-[4rem]/[4rem] font-bold">
+              <span className="text-[2rem]/[2rem] lg:text-[4rem]/[4rem] font-bold">
                 Consumer Protection
               </span>
-              <span className="text-[3rem]/[3rem] font-semibold">
+              <span className="text-[1.5rem]/[1.5rem] lg:text-[3rem]/[3rem] font-semibold">
                 Product Requirements
               </span>
             </div>
-            <span className="text-[1rem]/[2rem]">
+            <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
               At 1st Valley Bank, your protection starts with every product we
               offer. Our Consumer Protection: 1VB Products initiative ensures
               that each loan, deposit, and service is designed with fairness,
@@ -176,33 +176,31 @@ export default function ConsumerProtectionProductRequirements() {
               nothing less.
             </span>
           </div>
-          <div className="flex items-center justify-center w-2/5">
+          <div className="flex items-center justify-center lg:w-2/5">
             <FontAwesomeIcon
               icon={faFileSignature}
-              className="flex aspect-square"
-              style={{ width: "60%", height: "auto" }}
+              className="flex aspect-square text-[7.5rem] lg:text-[23rem]"
             />
           </div>
         </section>
         <section
           id="salary-loans"
           data-scroll
-          className="flex flex-col gap-[80px] mx-[80px] text-[#396131]"
+          className="flex flex-col gap-[80px] mx-[40px] lg:mx-[80px] text-[#396131]"
         >
-          <div className="flex gap-[20px]">
-            <div className="flex items-center justify-center w-2/5">
+          <div className="flex flex-col lg:flex-row gap-[20px]">
+            <div className="flex items-center justify-center lg:w-2/5">
               <FontAwesomeIcon
                 icon={faCommentsDollar}
-                className="flex aspect-square"
-                style={{ width: "70%", height: "auto" }}
+                className="flex aspect-square text-[7.5rem] lg:text-[23rem]"
               />
             </div>
-            <div className="flex flex-col justify-between w-3/5">
+            <div className="flex flex-col justify-between gap-[30px] lg:w-3/5">
               <div className="flex flex-col gap-[20px]">
-                <span className="text-[3rem]/[3rem] font-bold">
+                <span className="text-[2rem]/[2rem] lg:text-[3rem]/[3rem] font-bold">
                   Salary Loans
                 </span>
-                <span className="text-[1rem]/[3rem]">
+                <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                   These loans offered to salaried individuals may it be private
                   or government employees, generally require a memorandum of
                   agreement between the company and of the government agency.
@@ -215,15 +213,15 @@ export default function ConsumerProtectionProductRequirements() {
               </div>
               <NavLink
                 to="/loans/salary"
-                className="flex items-center justify-center w-full h-[60px] font-bold text-center rounded-[16px] bg-[#396131] text-white text-[1.5rem] outline-0 outline-[#396131] transition-all transform duration-200 hover:bg-white hover:outline-1 hover:text-[#396131]"
+                className="flex items-center justify-center w-full h-[30px] lg:h-[60px] font-bold text-center rounded-[5px] lg:rounded-[16px] bg-[#396131] text-white text-[0.8rem]/[1.6rem] lg:text-[1.5rem] outline-0 outline-[#396131] transition-all transform duration-200 hover:bg-white hover:outline-1 hover:text-[#396131]"
               >
                 <span>Learn More</span>
               </NavLink>
             </div>
           </div>
-          <div className="flex gap-[60px]">
-            <div className="flex flex-col gap-[30px] w-1/2">
-              <span className="text-[1.5rem]/[1.5rem] font-bold ">
+          <div className="flex flex-col lg:flex-row gap-[60px]">
+            <div className="flex flex-col gap-[30px] lg:w-1/2">
+              <span className="text-[1.5rem]/[2.25rem] text-center lg:text-left font-bold">
                 Salary-based general purpose consumption loans categories
               </span>
               <div className="flex flex-col gap-[20px]">
@@ -236,21 +234,23 @@ export default function ConsumerProtectionProductRequirements() {
                   ],
                   ["LGU.", "Local government employees and elected officials"],
                 ].map((statement, index) => (
-                  <div key={index} className="flex items-center gap-[20px]">
+                  <div
+                    key={index}
+                    className="flex items-start lg:items-center gap-[20px]"
+                  >
                     <FontAwesomeIcon
                       icon={faCheckSquare}
-                      className="flex aspect-square"
-                      style={{ width: "30px", height: "30px" }}
+                      className="flex aspect-square text-[1.5rem]"
                     />
-                    <div className="flex gap-[5px]">
-                      <span className="font-bold">{statement[0]}</span>
-                      <span> {statement[1]}</span>
-                    </div>
+                    <span className="text-[0.8rem]">
+                      {" "}
+                      <b>{statement[0]}</b> {statement[1]}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="flex flex-col gap-[30px] w-1/2">
+            <div className="flex flex-col gap-[30px] lg:w-1/2">
               <span className="text-[1.5rem]/[1.5rem] font-bold">
                 General Requirements
               </span>
@@ -263,10 +263,11 @@ export default function ConsumerProtectionProductRequirements() {
                   <div key={index} className="flex items-center gap-[20px]">
                     <FontAwesomeIcon
                       icon={faCheckSquare}
-                      className="flex aspect-square"
-                      style={{ width: "30px", height: "30px" }}
+                      className="flex aspect-square text-[1.5rem]"
                     />
-                    <span className="font-bold">{statement}</span>
+                    <span className="font-bold text-[0.8rem] lg:text-[1rem]">
+                      {statement}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -275,15 +276,15 @@ export default function ConsumerProtectionProductRequirements() {
         </section>
         <section
           id="savings-deposit"
-          className="flex flex-col bg-[#396131] text-white mx-[15px] rounded-[8px] gap-[80px] px-[60px] py-[80px] drop-shadow-lg"
+          className="flex flex-col bg-[#396131] text-white mx-[15px] rounded-[8px] gap-[80px] p-[20px] lg:px-[60px] lg:py-[80px] drop-shadow-lg"
         >
-          <div className="flex gap-[20px]">
-            <div className="flex flex-col justify-between w-3/5">
+          <div className="flex flex-col-reverse lg:flex-row gap-[20px]">
+            <div className="flex flex-col justify-between gap-[20px] lg:w-3/5">
               <div className="flex flex-col gap-[20px]">
-                <span className="text-[3rem]/[3rem] font-bold">
+                <span className="text-[2rem]/[2rem] lg:text-[3rem]/[3rem] font-bold">
                   Savings Deposit
                 </span>
-                <span className="text-[1rem]/[3rem]">
+                <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                   Our deposit products have registered a growth of 11.82% in
                   2021 with high- cost deposits outnumbering low-cost deposits
                   by a slight margin only or 6.0% difference.
@@ -291,12 +292,12 @@ export default function ConsumerProtectionProductRequirements() {
               </div>
               <NavLink
                 to="/loans/salary"
-                className="flex items-center justify-center w-full h-[60px] font-bold text-center rounded-[16px] text-[#396131] bg-white text-[1.5rem] outline-0 outline-white transition-all transform duration-200 hover:text-white hover:outline-1 hover:bg-[#396131]"
+                className="flex items-center justify-center w-full h-[30px] lg:h-[60px] font-bold text-center rounded-[5px] lg:rounded-[16px] text-[#396131] bg-white text-[0.8rem] lg:text-[1.5rem] outline-0 outline-white transition-all transform duration-200 hover:text-white hover:outline-1 hover:bg-[#396131]"
               >
                 <span>Learn More</span>
               </NavLink>
             </div>
-            <div className="flex items-center justify-center w-2/5">
+            <div className="flex items-center justify-center lg:w-2/5">
               <FontAwesomeIcon
                 icon={faMoneyBillTransfer}
                 className="flex aspect-square"
@@ -304,11 +305,11 @@ export default function ConsumerProtectionProductRequirements() {
               />
             </div>
           </div>
-          <div className="flex flex-col gap-[80px]">
+          <div className="flex flex-col gap-[40px] lg:gap-[80px]">
             <span className="font-bold text-white text-[2rem]/[2rem] text-center">
               Our Deposit Products
             </span>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 text-white">
+            <div className="hidden lg:grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 text-white">
               {depositProducts.map((product, index) => {
                 const isLast = index === depositProducts.length - 1;
                 const isOddCount = depositProducts.length % 2 !== 0;
@@ -371,27 +372,86 @@ export default function ConsumerProtectionProductRequirements() {
                 );
               })}
             </div>
+            <div className="lg:hidden grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 text-white">
+              {depositProducts.map((product, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={`group relative bg-white/10 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-100`}
+                  >
+                    {/* Card gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-[#396131]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                    <div className="relative p-8 lg:p-10">
+                      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 lg:gap-8">
+                        {/* Icon Container */}
+                        <div className="flex-shrink-0 relative">
+                          <div className="w-24 h-24 lg:w-32 lg:h-32 bg-gradient-to-br from-[#396131] to-[#4a7a3f] rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <FontAwesomeIcon
+                              icon={product.logo}
+                              className="text-white text-3xl lg:text-4xl"
+                            />
+                          </div>
+                          {/* Decorative ring */}
+                          <div className="absolute -inset-2 bg-gradient-to-br from-[#396131]/20 to-[#4a7a3f]/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="flex-1 text-center sm:text-left">
+                          <h3 className="text-xl lg:text-2xl font-bold mb-3  transition-colors duration-300">
+                            {product.type}
+                          </h3>
+                          <p className="leading-relaxed mb-6 text-sm lg:text-base">
+                            {product.description}
+                          </p>
+
+                          {/* CTA Button */}
+                          <NavLink
+                            to={""}
+                            className="inline-flex items-center justify-center px-6 py-3 bg-[#396131] text-white font-semibold rounded-xl hover:bg-[#4a7a3f] focus:outline-none focus:ring-4 focus:ring-[#396131]/25 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group/btn"
+                          >
+                            <span className="mr-2">Learn More</span>
+                            <svg
+                              className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M9 5l7 7-7 7"
+                              />
+                            </svg>
+                          </NavLink>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </section>
         <section
           id="sucre-loans"
           data-scroll
-          className="flex flex-col gap-[80px] mx-[80px] text-[#396131]"
+          className="flex flex-col gap-[80px] mx-[40px] lg:mx-[80px] text-[#396131]"
         >
-          <div className="flex gap-[20px]">
-            <div className="flex items-center justify-center w-2/5">
+          <div className="flex flex-col lg:flex-row gap-[40px] lg:gap-[20px]">
+            <div className="flex items-center justify-center lg:w-2/5">
               <FontAwesomeIcon
                 icon={faMoneyBillWheat}
-                className="flex aspect-square"
-                style={{ width: "70%", height: "auto" }}
+                className="flex aspect-square text-[7.5rem] lg:text-[23rem]"
               />
             </div>
-            <div className="flex flex-col justify-between w-3/5">
+            <div className="flex flex-col justify-between lg:w-3/5 gap-[20px]">
               <div className="flex flex-col gap-[20px]">
-                <span className="text-[3rem]/[3rem] font-bold">
+                <span className="text-[1.5rem]/[1.5rem] lg:text-[3rem]/[3rem] font-bold">
                   Supervised Credit (SUCRE)
                 </span>
-                <span className="text-[1rem]/[3rem]">
+                <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                   A set of loan products that aims to provide farmers not only
                   with financial assistance, but also to help educate them of
                   the modern farming methods and technology. This is why 1st
@@ -403,33 +463,33 @@ export default function ConsumerProtectionProductRequirements() {
               </div>
               <NavLink
                 to="/loans/supervised-credit"
-                className="flex items-center justify-center w-full h-[60px] font-bold text-center rounded-[16px] bg-[#396131] text-white text-[1.5rem] outline-0 outline-[#396131] transition-all transform duration-200 hover:bg-white hover:outline-1 hover:text-[#396131]"
+                className="flex items-center justify-center w-full h-[30px] lg:h-[60px] font-bold text-center rounded-[5px] lg:rounded-[16px] bg-[#396131] text-white text-[0.8rem] lg:text-[1.5rem] outline-0 outline-[#396131] transition-all transform duration-200 hover:bg-white hover:outline-1 hover:text-[#396131]"
               >
                 <span>Learn More</span>
               </NavLink>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-x-[40px] gap-y-[80px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-[40px] gap-y-[40px] lg:gap-y-[80px]">
             {supervisedCreditProducts.map((product, index) => (
-              <div className="flex gap-[20px]">
+              <div className="flex flex-col lg:flex-row gap-[20px]">
                 <div
-                  className="flex items-center justify-center w-1/2"
+                  className="flex items-center justify-center lg:w-1/2"
                   key={index}
                 >
                   {product.logo}
                 </div>
-                <div className="flex flex-col justify-between gap-[30px] w-1/2">
+                <div className="flex flex-col justify-between gap-[30px] lg:w-1/2">
                   <div className="flex flex-col gap-[10px]">
-                    <span className="font-bold text-[1.5rem]/[1.5rem]">
+                    <span className="font-bold text-center lg:text-left text-[1.5rem]/[1.5rem]">
                       {product.type}
                     </span>
-                    <span className="text-[1rem]/[3rem]">
+                    <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                       {product.description}
                     </span>
                   </div>
                   <NavLink
                     to="/loans/supervised-credit"
-                    className="flex items-center justify-center w-full h-[40px] font-bold text-center rounded-[10px] bg-[#396131] text-white text-[1rem] outline-0 outline-[#396131] transition-all transform duration-200 hover:bg-white hover:outline-1 hover:text-[#396131]"
+                    className="flex items-center justify-center w-full h-[30px] lg:h-[40px] font-bold text-center rounded-[5px] lg:rounded-[10px] bg-[#396131] text-white text-[0.8rem] lg:text-[1rem] outline-0 outline-[#396131] transition-all transform duration-200 hover:bg-white hover:outline-1 hover:text-[#396131]"
                   >
                     <span>Learn More</span>
                   </NavLink>
@@ -440,15 +500,15 @@ export default function ConsumerProtectionProductRequirements() {
         </section>
         <section
           id="agriculture-loans"
-          className="flex flex-col gap-[80px] mx-[15px] bg-[#396131] text-white px-[60px] py-[80px] rounded-[8px] drop-shadow-lg"
+          className="flex flex-col gap-[80px] mx-[15px] bg-[#396131] text-white px-[30px] py-[40px] lg:px-[60px] lg:py-[80px] rounded-[8px] drop-shadow-lg"
         >
-          <div className="flex gap-[20px]">
-            <div className="flex flex-col justify-between w-3/5">
+          <div className="flex flex-col-reverse lg:flex-row gap-[30px] lg:gap-[20px]">
+            <div className="flex flex-col justify-between lg:w-3/5 gap-[20px]">
               <div className="flex flex-col gap-[20px]">
-                <span className="text-[3rem]/[3rem] font-bold">
+                <span className="text-[1.5rem]/[1.5rem] lg:text-[3rem]/[3rem] font-bold">
                   Agriculture & Agrarian Reform Loans
                 </span>
-                <span className="text-[1rem]/[3rem]">
+                <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                   Agriculture and Agrarian Reform (Agri-Agra) loans are secured
                   lending products that provide financial assistance to farmers
                   engaged in agricultural and/or agrarian reform activities.
@@ -458,12 +518,12 @@ export default function ConsumerProtectionProductRequirements() {
               </div>
               <NavLink
                 to="/loans/agriculture"
-                className="flex items-center justify-center w-full h-[60px] font-bold text-center rounded-[16px] text-[#396131] bg-white text-[1.5rem] outline-0 outline-white transition-all transform duration-200 hover:text-white hover:outline-1 hover:bg-[#396131]"
+                className="flex items-center justify-center w-full h-[30px] lg:h-[60px] font-bold text-center rounded-[5px] lg:rounded-[16px] text-[#396131] bg-white text-[0.8rem] lg:text-[1.5rem] outline-0 outline-white transition-all transform duration-200 hover:text-white hover:outline-1 hover:bg-[#396131]"
               >
                 <span>Learn More</span>
               </NavLink>
             </div>
-            <div className="flex items-center justify-center w-2/5">
+            <div className="flex items-center justify-center lg:w-2/5">
               <FontAwesomeIcon
                 icon={faWheatAwn}
                 className="flex aspect-square"
@@ -471,32 +531,32 @@ export default function ConsumerProtectionProductRequirements() {
               />
             </div>
           </div>
-          <div className="flex gap-[20px]">
+          <div className="flex flex-col lg:flex-row gap-[40px] lg:gap-[20px]">
             {agricultureLoans.map((loan, index) => (
               <div className="flex flex-col justify-between gap-[40px]">
                 <div className="flex flex-col items-center gap-[30px]">
                   <div className="flex">{loan.logo}</div>
                   <div className="flex flex-col gap-[20px]">
-                    <span className="text-center text-[1.5rem]/[1.5rem] font-bold">
+                    <span className="text-center text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
                       {loan.type}
                     </span>
-                    <span className="text-[1rem]/[3rem]">
+                    <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                       {loan.description}
                     </span>
                   </div>
                 </div>
                 <NavLink
                   to="/loans/salary"
-                  className="flex items-center justify-center w-full h-[40px] font-bold text-center rounded-[10px] text-[#396131] bg-white text-[1rem] outline-0 outline-white transition-all transform duration-200 hover:text-white hover:outline-1 hover:bg-[#396131]"
+                  className="flex items-center justify-center w-full h-[30px] lg:h-[40px] font-bold text-center rounded-[5px] lg:rounded-[10px] text-[#396131] bg-white text-[0.8rem] lg:text-[1rem] outline-0 outline-white transition-all transform duration-200 hover:text-white hover:outline-1 hover:bg-[#396131]"
                 >
                   <span>Learn More</span>
                 </NavLink>
               </div>
             ))}
           </div>
-          <div className="flex gap-[10px]">
-            <div className="flex flex-col gap-[40px] w-1/2">
-              <span className="text-[2rem]/[2rem] font-bold">
+          <div className="flex flex-col lg:flex-row gap-[40px] lg:gap-[10px]">
+            <div className="flex flex-col gap-[40px] lg:w-1/2">
+              <span className="text-[1rem]/[1rem] lg:text-[2rem]/[2rem] font-bold">
                 Financial Documents
               </span>
               <div className="flex flex-col gap-[20px]">
@@ -513,14 +573,16 @@ export default function ConsumerProtectionProductRequirements() {
                 ].map((requirement, index) => (
                   <div className="flex items-center gap-[20px]" key={index}>
                     <ChecksIcon size={30} />
-                    <span className="text-[1rem]/[2rem]">{requirement}</span>
+                    <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
+                      {requirement}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="flex flex-col w-1/2 gap-[40px]">
+            <div className="flex flex-col gap-[40px] lg:w-1/2">
               <div className="flex flex-col gap-[40px]">
-                <span className="text-[2rem]/[2rem] font-bold">
+                <span className="text-[1rem]/[1rem] lg:text-[2rem]/[2rem] font-bold">
                   Personal/Client's Information
                 </span>
                 <div className="flex flex-col gap-[20px]">
@@ -528,7 +590,7 @@ export default function ConsumerProtectionProductRequirements() {
                     (requirement, index) => (
                       <div className="flex items-center gap-[20px]" key={index}>
                         <ChecksIcon size={30} />
-                        <span className="text-[1rem]/[2rem]">
+                        <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[2rem]">
                           {requirement}
                         </span>
                       </div>
@@ -537,7 +599,7 @@ export default function ConsumerProtectionProductRequirements() {
                 </div>
               </div>
               <div className="flex flex-col gap-[40px]">
-                <span className="text-[2rem]/[2rem] font-bold">
+                <span className="text-[1rem]/[1rem] lg:text-[2rem]/[2rem] font-bold">
                   Collateral Requirements
                 </span>
                 <div className="flex flex-col gap-[20px]">
@@ -552,7 +614,9 @@ export default function ConsumerProtectionProductRequirements() {
                   ].map((requirement, index) => (
                     <div className="flex items-center gap-[20px]" key={index}>
                       <ChecksIcon size={30} />
-                      <span className="text-[1rem]/[2rem]">{requirement}</span>
+                      <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[2rem]">
+                        {requirement}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -562,10 +626,10 @@ export default function ConsumerProtectionProductRequirements() {
         </section>
         <section
           id="gems-sbl-microfinance-loans"
-          className="flex flex-col gap-[80px] mx-[80px] text-[#396131]"
+          className="flex flex-col gap-[40px] lg:gap-[80px] mx-[15px] lg:mx-[80px] text-[#396131]"
         >
-          <div className="flex gap-[20px]">
-            <div className="grid grid-cols-2 gap-y-[20px] w-2/5">
+          <div className="flex flex-col lg:flex-row gap-[40px] lg:gap-[20px]">
+            <div className="grid grid-cols-2 gap-y-[20px] lg:w-2/5">
               {[faLaptopHouse, faGem, faBreadSlice].map((icon, index) => {
                 const isLast = index === 3 - 1;
                 const isOddCount = 3 % 2 !== 0;
@@ -585,12 +649,12 @@ export default function ConsumerProtectionProductRequirements() {
                 );
               })}
             </div>
-            <div className="flex flex-col justify-between w-3/5">
+            <div className="flex flex-col justify-between lg:w-3/5 gap-[20px] lg:gap-0">
               <div className="flex flex-col gap-[20px]">
-                <span className="text-[3rem]/[3rem] font-bold">
+                <span className="text-[1.5rem]/[1.5rem] lg:text-[3rem]/[3rem] font-bold">
                   SBL, Gold & Gems, and Microfinance
                 </span>
-                <span className="text-[1rem]/[3rem]">
+                <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                   At 1st Valley Bank, transparency matters. We make it easy to
                   understand what you need to apply for Small Business Loans,
                   Gold & Gems Loans, and Microfinance. From basic documents to
@@ -601,7 +665,7 @@ export default function ConsumerProtectionProductRequirements() {
               </div>
               <NavLink
                 to="/loans"
-                className="flex items-center justify-center w-full h-[60px] font-bold text-center rounded-[16px] bg-[#396131] text-white text-[1.5rem] outline-0 outline-[#396131] transition-all transform duration-200 hover:bg-white hover:outline-1 hover:text-[#396131]"
+                className="flex items-center justify-center w-full h-[30px] lg:h-[60px] font-bold text-center rounded-[5px] lg:rounded-[16px] bg-[#396131] text-white text-[0.8rem] lg:text-[1.5rem] outline-0 outline-[#396131] transition-all transform duration-200 hover:bg-white hover:outline-1 hover:text-[#396131]"
               >
                 <span>Learn More</span>
               </NavLink>
@@ -609,10 +673,10 @@ export default function ConsumerProtectionProductRequirements() {
           </div>
           <div className="flex flex-col gap-[40px]">
             <div className="flex flex-col gap-[20px]">
-              <span className="text-[2rem]/[2rem] font-bold">
+              <span className="text-[1.5rem]/[1.5rem] lg:text-[3rem]/[3rem] font-bold">
                 Small Business Loans (SBL)
               </span>
-              <span className="text-[1rem]/[3rem]">
+              <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                 Small Business Loans (SBL) are for entrepreneurs who need funds
                 to expand their business, procure equipment or vehicle, or to
                 use as working capital. When they meet the requirements, they
@@ -621,10 +685,10 @@ export default function ConsumerProtectionProductRequirements() {
               </span>
             </div>
             <div className="flex flex-col gap-[30px]">
-              <span className="text-[1.5rem]/[1.5rem] font-bold">
+              <span className="text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
                 Basic Requirements
               </span>
-              <div className="grid grid-cols-2 gap-y-[20px] gap-x-[10px]">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-[20px] gap-x-[10px]">
                 {[
                   "Latest Business Permit",
                   "Sales Journal",
@@ -639,7 +703,9 @@ export default function ConsumerProtectionProductRequirements() {
                 ].map((requirement, index) => (
                   <div className="flex items-center gap-[20px]" key={index}>
                     <ChecksIcon size={30} />
-                    <span className="text-[1rem]/[2rem]">{requirement}</span>
+                    <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
+                      {requirement}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -647,17 +713,17 @@ export default function ConsumerProtectionProductRequirements() {
           </div>
           <div className="flex flex-col gap-[40px]">
             <div className="flex flex-col gap-[20px]">
-              <span className="text-[2rem]/[2rem] font-bold">
+              <span className="text-[1.5rem]/[1.5rem] lg:text-[2rem]/[2rem] font-bold">
                 Gold and Gems Loans
               </span>
-              <span className="text-[1rem]/[3rem]">
+              <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                 For all those who need quick cash and have authentic jewelry
                 item/s to submit as collateral.
               </span>
             </div>
-            <div className="flex gap-[10px]">
-              <div className="flex flex-col gap-[30px] w-1/2">
-                <span className="text-[1.5rem]/[1.5rem] font-bold">
+            <div className="flex flex-col lg:flex-row gap-[30px] lg:gap-[10px]">
+              <div className="flex flex-col gap-[30px] lg:w-1/2">
+                <span className="text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
                   Basic Requirements
                 </span>
                 <div className="flex flex-col gap-[20px]">
@@ -668,13 +734,15 @@ export default function ConsumerProtectionProductRequirements() {
                   ].map((requirement, index) => (
                     <div className="flex items-center gap-[20px]" key={index}>
                       <ChecksIcon size={30} />
-                      <span className="text-[1rem]/[2rem]">{requirement}</span>
+                      <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
+                        {requirement}
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="flex flex-col gap-[30px] w-1/2">
-                <span className="text-[1.5rem]/[1.5rem] font-bold">
+              <div className="flex flex-col gap-[30px] lg:w-1/2">
+                <span className="text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
                   For Buyouts
                 </span>
                 <div className="flex flex-col gap-[20px]">
@@ -688,7 +756,9 @@ export default function ConsumerProtectionProductRequirements() {
                   ].map((requirement, index) => (
                     <div className="flex items-center gap-[20px]" key={index}>
                       <ChecksIcon size={30} />
-                      <span className="text-[1rem]/[2rem]">{requirement}</span>
+                      <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
+                        {requirement}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -697,10 +767,10 @@ export default function ConsumerProtectionProductRequirements() {
           </div>
           <div className="flex flex-col gap-[40px]">
             <div className="flex flex-col gap-[20px]">
-              <span className="text-[2rem]/[2rem] font-bold">
+              <span className="text-[1.5rem]/[1.5rem] lg:text-[2rem]/[2rem] font-bold">
                 Microfinance Loans
               </span>
-              <span className="text-[1rem]/[3rem]">
+              <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                 For micro entrepreneurs who wish to expand their business. They
                 can get affordable funds that they can repay easily and
                 conveniently. They will also receive technical assistance to
@@ -708,9 +778,9 @@ export default function ConsumerProtectionProductRequirements() {
               </span>
             </div>
             <div className="flex flex-col gap-[50px]">
-              <div className="flex gap-[10px]">
-                <div className="flex flex-col gap-[30px] w-1/2">
-                  <span className="text-[1.5rem]/[1.5rem] font-bold">
+              <div className="flex flex-col lg:flex-col gap-[30px] lg:gap-[10px]">
+                <div className="flex flex-col gap-[30px] lg:w-1/2">
+                  <span className="text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
                     Basic Requirements
                   </span>
                   <div className="flex flex-col gap-[20px]">
@@ -724,15 +794,15 @@ export default function ConsumerProtectionProductRequirements() {
                     ].map((requirement, index) => (
                       <div className="flex items-center gap-[20px]" key={index}>
                         <ChecksIcon size={30} />
-                        <span className="text-[1rem]/[2rem]">
+                        <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
                           {requirement}
                         </span>
                       </div>
                     ))}
                   </div>
                 </div>
-                <div className="flex flex-col gap-[30px] w-1/2">
-                  <span className="text-[1.5rem]/[1.5rem] font-bold">
+                <div className="flex flex-col gap-[30px] lg:w-1/2">
+                  <span className="text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
                     Requirements for Co-Makers
                   </span>
                   <div className="flex flex-col gap-[20px]">
@@ -743,7 +813,7 @@ export default function ConsumerProtectionProductRequirements() {
                           key={index}
                         >
                           <ChecksIcon size={30} />
-                          <span className="text-[1rem]/[2rem]">
+                          <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
                             {requirement}
                           </span>
                         </div>
@@ -753,10 +823,10 @@ export default function ConsumerProtectionProductRequirements() {
                 </div>
               </div>
               <div className="flex flex-col gap-[30px]">
-                <span className="text-[1.5rem]/[1.5rem] font-bold">
+                <span className="text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
                   Existing Client/Renewal
                 </span>
-                <div className="grid grid-cols-2 gap-y-[20px] gap-x-[10px]">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-[20px] gap-x-[10px]">
                   {[
                     "Photocopy of the updated business permit or barangay permit",
                     "Bank statement - deposit",
@@ -769,7 +839,9 @@ export default function ConsumerProtectionProductRequirements() {
                   ].map((requirement, index) => (
                     <div className="flex items-center gap-[20px]" key={index}>
                       <ChecksIcon size={30} />
-                      <span className="text-[1rem]/[2rem]">{requirement}</span>
+                      <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
+                        {requirement}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -779,15 +851,15 @@ export default function ConsumerProtectionProductRequirements() {
         </section>
         <section
           id="sme-loans"
-          className="flex flex-col gap-[80px] px-[60px] py-[80px] bg-[#396131] mx-[15px] text-white rounded-[8px]"
+          className="flex flex-col gap-[80px] px-[20px] py-[30px] lg:px-[60px] lg:py-[80px] bg-[#396131] mx-[15px] text-white rounded-[8px]"
         >
-          <div className="flex gap-[20px]">
-            <div className="flex flex-col justify-between w-3/5">
+          <div className="flex flex-col-reverse gap-[30px] lg:gap-[20px]">
+            <div className="flex flex-col justify-between lg:w-3/5 gap-[20px] lg:gap-0">
               <div className="flex flex-col gap-[20px]">
-                <span className="text-[3rem]/[3rem] font-bold">
+                <span className="text-[1.5rem]/[2.25rem] lg:text-[3rem]/[3rem] font-bold">
                   Small and Medium Enterprise Loans (SME)
                 </span>
-                <span className="text-[1rem]/[3rem]">
+                <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                   As the best-selling product of the Bank, our SME loans provide
                   entrepreneurs with the funds they need for (1) growth and
                   expansion of their business, (2) purchase of trucks and heavy
@@ -797,12 +869,12 @@ export default function ConsumerProtectionProductRequirements() {
               </div>
               <NavLink
                 to="/loans/small-and-medium-enterprises"
-                className="flex items-center justify-center w-full h-[60px] font-bold text-center rounded-[16px] text-[#396131] bg-white text-[1.5rem] outline-0 outline-white transition-all transform duration-200 hover:text-white hover:outline-1 hover:bg-[#396131]"
+                className="flex items-center justify-center w-full h-[30px] lg:h-[60px] font-bold text-center rounded-[5px] lg:rounded-[16px] text-[#396131] bg-white text-[0.8rem] lg:text-[1.5rem] outline-0 outline-white transition-all transform duration-200 hover:text-white hover:outline-1 hover:bg-[#396131]"
               >
                 <span>Learn More</span>
               </NavLink>
             </div>
-            <div className="flex items-center justify-center w-2/5">
+            <div className="flex items-center justify-center lg:w-2/5">
               <FontAwesomeIcon
                 icon={faTractor}
                 className="flex aspect-square"
@@ -810,32 +882,32 @@ export default function ConsumerProtectionProductRequirements() {
               />
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-x-[20px] gap-y-[80px]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-[20px] gap-y-[80px]">
             {smallBusinessLoans.map((loan, index) => (
               <div className="flex flex-col justify-between gap-[40px]">
                 <div className="flex flex-col items-center gap-[30px]">
                   <div className="flex">{loan.logo}</div>
                   <div className="flex flex-col gap-[20px]">
-                    <span className="text-center text-[1.5rem]/[1.5rem] font-bold">
+                    <span className="text-center text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
                       {loan.type}
                     </span>
-                    <span className="text-[1rem]/[3rem]">
+                    <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                       {loan.description}
                     </span>
                   </div>
                 </div>
                 <NavLink
                   to="/loans/small-and-medium-enterprises"
-                  className="flex items-center justify-center w-full h-[40px] font-bold text-center rounded-[10px] text-[#396131] bg-white text-[1rem] outline-0 outline-white transition-all transform duration-200 hover:text-white hover:outline-1 hover:bg-[#396131]"
+                  className="flex items-center justify-center w-full h-[30px] lg:h-[40px] font-bold text-center rounded-[5px] lg:rounded-[10px] text-[#396131] bg-white text-[0.8rem] lg:text-[1rem] outline-0 outline-white transition-all transform duration-200 hover:text-white hover:outline-1 hover:bg-[#396131]"
                 >
                   <span>Learn More</span>
                 </NavLink>
               </div>
             ))}
           </div>
-          <div className="flex gap-[10px]">
-            <div className="flex flex-col gap-[40px] w-1/2">
-              <span className="text-[2rem]/[2rem] font-bold">
+          <div className="flex flex-col lg:flex-col gap-[30px] lg:gap-[10px]">
+            <div className="flex flex-col gap-[40px] lg:w-1/2">
+              <span className="text-[1rem]/[1rem] lg:text-[2rem]/[2rem] font-bold">
                 Financial Documents
               </span>
               <div className="flex flex-col gap-[20px]">
@@ -852,14 +924,16 @@ export default function ConsumerProtectionProductRequirements() {
                 ].map((requirement, index) => (
                   <div className="flex items-center gap-[20px]" key={index}>
                     <ChecksIcon size={30} />
-                    <span className="text-[1rem]/[2rem]">{requirement}</span>
+                    <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
+                      {requirement}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="flex flex-col w-1/2 gap-[40px]">
+            <div className="flex flex-col gap-[40px] lg:w-1/2">
               <div className="flex flex-col gap-[40px]">
-                <span className="text-[2rem]/[2rem] font-bold">
+                <span className="text-[1rem]/[1rem] lg:text-[2rem]/[2rem] font-bold">
                   Personal/Client's Information
                 </span>
                 <div className="flex flex-col gap-[20px]">
@@ -867,7 +941,7 @@ export default function ConsumerProtectionProductRequirements() {
                     (requirement, index) => (
                       <div className="flex items-center gap-[20px]" key={index}>
                         <ChecksIcon size={30} />
-                        <span className="text-[1rem]/[2rem]">
+                        <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
                           {requirement}
                         </span>
                       </div>
@@ -876,7 +950,7 @@ export default function ConsumerProtectionProductRequirements() {
                 </div>
               </div>
               <div className="flex flex-col gap-[40px]">
-                <span className="text-[2rem]/[2rem] font-bold">
+                <span className="text-[1rem]/[1rem] lg:text-[2rem]/[2rem] font-bold">
                   Collateral Requirements
                 </span>
                 <div className="flex flex-col gap-[20px]">
@@ -891,7 +965,9 @@ export default function ConsumerProtectionProductRequirements() {
                   ].map((requirement, index) => (
                     <div className="flex items-center gap-[20px]" key={index}>
                       <ChecksIcon size={30} />
-                      <span className="text-[1rem]/[2rem]">{requirement}</span>
+                      <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
+                        {requirement}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -900,8 +976,6 @@ export default function ConsumerProtectionProductRequirements() {
           </div>
         </section>
       </main>
-      <main className="hidden sm:block lg:hidden">Tablet</main>
-      <main className="block sm:hidden">Mobile</main>
     </>
   );
 }
