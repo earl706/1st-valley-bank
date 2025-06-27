@@ -20,7 +20,7 @@ export default function DepositsRegularSavings() {
   useEffect(() => {
     const observers = [];
 
-    const createObserver = (threshold = 0.1) => {
+    const createObserver = (threshold = 0.01) => {
       return new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
