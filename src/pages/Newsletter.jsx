@@ -178,9 +178,6 @@ const NewsletterGrid = () => {
                   />
                 </button>
               </div>
-
-              {/* Decorative Elements */}
-              <div className="absolute -top-2 -right-2 w-16 h-16 bg-[#396131]/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
             </div>
           ))}
         </div>

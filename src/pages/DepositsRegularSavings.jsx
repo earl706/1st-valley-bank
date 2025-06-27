@@ -55,7 +55,7 @@ export default function DepositsRegularSavings() {
 
   return (
     <>
-      <main className="hidden lg:flex flex-col gap-[120px] pb-[50px]">
+      <main className="flex flex-col gap-[50px] lg:gap-[120px] pb-[50px]">
         <nav className="fixed top-35 right-4 z-40 bg-black bg-opacity-50 backdrop-blur-lg rounded-2xl p-2">
           <div className="flex flex-col gap-2">
             {["main", "sd-plus", "first-checking-account"].map((section) => (
@@ -74,18 +74,18 @@ export default function DepositsRegularSavings() {
         <section
           id="main"
           data-scroll
-          className="text-[#396131] bg-white drop-shadow-lg mx-[10px] rounded-[8px]"
+          className="text-[#396131] bg-white drop-shadow-lg mx-[5px] rounded-[8px]"
         >
-          <div className="flex flex-col gap-[20px] py-[80px] px-[60px] mx-[10px]">
+          <div className="flex flex-col gap-[20px] px-[20px] py-[30px] lg:py-[80px] lg:px-[60px] mx-[10px]">
             <div className="flex flex-col gap-[10px]">
-              <span className="text-[4rem]/[4rem] font-bold">
+              <span className="text-[2rem]/[2rem] lg:text-[4rem]/[4rem] font-bold">
                 Deposits / Regular Savings
               </span>
-              <span className="text-[1.5rem]/[1.5rem] font-bold">
+              <span className="text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
                 Saving with a smile
               </span>
             </div>
-            <span className="text-[1rem]/[2rem] w-1/2">
+            <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem] lg:w-1/2">
               This savings account offers an annual interest rate that is 0.5%
               higher than what most banks typically provide. It stands out as a
               wise and practical option for individuals looking to securely park
@@ -95,10 +95,10 @@ export default function DepositsRegularSavings() {
             </span>
           </div>
         </section>
-        <section id="sd-plus" data-scroll className="mx-[40px]">
-          <div className="flex flex-col justify-center gap-[70px] px-[80px] text-[#396131]">
-            <div className="flex justify-center gap-[30px]">
-              <div className="flex justify-center w-1/5">
+        <section id="sd-plus" data-scroll className="mx-[10px] lg:mx-[40px]">
+          <div className="flex flex-col justify-center gap-[70px] px-[20px] lg:px-[80px] text-[#396131]">
+            <div className="flex flex-col lg:flex-row justify-center gap-[30px]">
+              <div className="flex justify-center lg:w-1/5">
                 {" "}
                 <FontAwesomeIcon
                   icon={faPlusCircle}
@@ -106,9 +106,9 @@ export default function DepositsRegularSavings() {
                   style={{ width: "250px", height: "250px" }}
                 />
               </div>
-              <div className="flex flex-col justify-start gap-[20px] w-4/5">
+              <div className="flex flex-col justify-start gap-[20px] lg:w-4/5">
                 <span className="text-[1.5rem]/[3rem] font-bold">SD PLUS</span>
-                <span className="text-[1rem]/[3rem]">
+                <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                   1VB Deposit has grown bigger with a portfolio increase of
                   784.063 million. It is now at Php7.5B with a good mix of low
                   and high-cost deposit. 40 ATMs have been deployed
@@ -119,14 +119,18 @@ export default function DepositsRegularSavings() {
             </div>
           </div>
         </section>
-        <section id="first-checking-account" data-scroll className="mx-[15px]">
-          <div className="flex flex-col justify-center gap-[70px] p-[80px] rounded-[8px] bg-[#396131] text-white drop-shadow-lg">
-            <div className="flex justify-center gap-[30px]">
-              <div className="flex flex-col justify-start gap-[20px] w-4/5">
+        <section
+          id="first-checking-account"
+          data-scroll
+          className="mx-[5px] lg:mx-[15px]"
+        >
+          <div className="flex flex-col justify-center gap-[70px] p-[30px] lg:p-[80px] rounded-[8px] bg-[#396131] text-white drop-shadow-lg">
+            <div className="flex flex-col-reverse lg:flex-row justify-center gap-[30px]">
+              <div className="flex flex-col justify-start gap-[20px] lg:w-4/5">
                 <span className="text-[1.5rem]/[3rem] font-bold">
                   1ST CHECKING ACCOUNT
                 </span>
-                <span className="text-[1rem]/[3rem]">
+                <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
                   1st Checking Account is a demand deposit that earns interest
                   and comes with a passbook. It can be a personal account or a
                   business account. It can also be tied up with ones loan
@@ -135,7 +139,7 @@ export default function DepositsRegularSavings() {
                   opening are subject to evaluation.
                 </span>
               </div>
-              <div className="flex justify-center w-1/5">
+              <div className="flex justify-center lg:w-1/5">
                 {" "}
                 <FontAwesomeIcon
                   icon={faPlusCircle}
@@ -147,8 +151,6 @@ export default function DepositsRegularSavings() {
           </div>
         </section>
       </main>
-      <main className="hidden sm:block lg:hidden">Tablet</main>
-      <main className="block sm:hidden">Mobile</main>
     </>
   );
 }
