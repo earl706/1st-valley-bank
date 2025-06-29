@@ -110,10 +110,10 @@ export default function LoansGoldAndGems() {
         >
           <div className="flex flex-col gap-[50px] lg:w-3/5">
             <span className="text-[1.5rem]/[1.5rem] lg:text-[2.5rem]/[2.5rem] font-bold">
-              Small Business Loan Ends 2023 with Php385M
+              Gold & Gems Loan Shines Bright
             </span>
             <span className="text-[1rem]/[1rem] lg:text-[2rem]/[2rem] font-semibold">
-              Ervie E. Cane, Product Manager
+              Andre M. Ates, Product Manager
             </span>
             {[
               {
@@ -145,11 +145,11 @@ export default function LoansGoldAndGems() {
               </div>
             ))}
           </div>
-          <div className="flex justify-center lg:w-2/5 h-full">
+          <div className="flex justify-center lg:w-2/5">
             <img
               src={img1}
               alt=""
-              className="object-cover aspect-square rounded-[12px] w-full lg:w-4/5 h-full"
+              className="object-cover rounded-[12px] w-full lg:w-4/5 h-full"
             />
           </div>
         </section>
@@ -160,7 +160,7 @@ export default function LoansGoldAndGems() {
           <span className="text-center font-bold text-[1.5rem]/[1.5rem] lg:text-[2rem]/[2rem]">
             Advantages
           </span>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-[20px] gap-y-[20px] lg:gap-y-[50px]">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-[1.25rem] gap-y-[1.25rem] lg:gap-y-[50px]">
             {advantages.map((loan, index) => (
               <div
                 className="flex flex-col items-center gap-[10px]"

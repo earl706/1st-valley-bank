@@ -157,10 +157,13 @@ export default function HomePage() {
               <div className="flex-1 space-y-8 text-center lg:text-left">
                 {/* CTA Badge */}
                 <div className="inline-flex">
-                  <button className="group cursor-pointer relative overflow-hidden bg-[#396131] text-white px-6 py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:from-emerald-700 hover:to-emerald-800">
+                  <NavLink
+                    to={"/about-us"}
+                    className="group cursor-pointer relative overflow-hidden bg-[#396131] text-white px-6 py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:from-emerald-700 hover:to-emerald-800"
+                  >
                     <span className="relative z-10">Read More</span>
                     <div className="absolute inset-0 bg-white/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                  </button>
+                  </NavLink>
                 </div>
 
                 {/* Main Heading */}
@@ -186,7 +189,10 @@ export default function HomePage() {
 
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <button className="group cursor-pointer relative overflow-hidden bg-[#396131] text-white px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 hover:from-emerald-700 hover:to-emerald-800">
+                  <NavLink
+                    to={"/consumer-protection/1vb-products"}
+                    className="group cursor-pointer relative overflow-hidden bg-[#396131] text-white px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 hover:from-emerald-700 hover:to-emerald-800"
+                  >
                     <span className="relative z-10 flex items-center justify-center gap-2">
                       Our Services
                       <svg
@@ -204,9 +210,12 @@ export default function HomePage() {
                       </svg>
                     </span>
                     <div className="absolute inset-0 bg-white/10 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                  </button>
+                  </NavLink>
 
-                  <button className="group cursor-pointer bg-white/80 backdrop-blur-sm text-[#396131] px-8 py-4 rounded-2xl font-semibold border-2 border-[#396131] hover:border-[#396131]/50 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 hover:bg-white">
+                  <NavLink
+                    to={"/about-us"}
+                    className="group cursor-pointer bg-white/80 backdrop-blur-sm text-[#396131] px-8 py-4 rounded-2xl font-semibold border-2 border-[#396131] hover:border-[#396131]/50 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 hover:bg-white"
+                  >
                     <span className="flex items-center justify-center gap-2">
                       About Us
                       <svg
@@ -223,7 +232,7 @@ export default function HomePage() {
                         />
                       </svg>
                     </span>
-                  </button>
+                  </NavLink>
                 </div>
               </div>
 

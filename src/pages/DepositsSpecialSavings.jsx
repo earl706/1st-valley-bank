@@ -69,7 +69,7 @@ export default function DepositsSpecialSavings() {
     {
       name: "HANDOG SAVINGS",
       description:
-        "Deposit program for supervised credit clients. Minimum deposit is Php500 or 1% of the loan amount. .",
+        "Deposit program for supervised credit clients. Minimum deposit is Php500 or 1% of the loan amount.",
       icon: faHandHoldingMedical,
     },
   ];

@@ -347,7 +347,7 @@ export default function Deposits() {
                   className="flex aspect-square text-[5rem]"
                 />
                 <span className="text-[1.5rem]/[1.5rem] font-bold text-center">
-                  Requirements for Account Opening-Corporate
+                  Requirements for Account Opening-Individual
                 </span>
               </div>
               <div className="flex flex-col gap-[20px] lg:gap-[30px]">
