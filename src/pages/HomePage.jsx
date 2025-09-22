@@ -226,11 +226,11 @@ export default function HomePage() {
 						setCurrent((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
 
 					return (
-						<div className="max-w-8xl relative mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+						<div className="max-w-8xl relative mx-auto px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
 							<div className="relative">
-								<div className="grid items-center gap-12 lg:grid-cols-2">
+								<div className="mx-8 grid min-h-[560px] items-center gap-12 lg:mx-16 lg:min-h-[640px] lg:grid-cols-2">
 									{/* Image - goes on top in mobile, right in desktop */}
-									<div className="relative order-0 lg:order-1">
+									<div className="relative order-0 flex h-full items-center justify-center lg:order-1">
 										<div className="relative z-10">
 											<img
 												src={heroSlides[current].image}
@@ -241,7 +241,7 @@ export default function HomePage() {
 									</div>
 
 									{/* Content */}
-									<div className="order-1 space-y-8 lg:order-0">
+									<div className="order-1 flex h-full flex-col justify-center space-y-8 lg:order-0">
 										<div className="space-y-4">
 											<h1 className="text-4xl leading-tight font-bold text-gray-900 sm:text-5xl lg:text-6xl">
 												<span className="block bg-gradient-to-r from-[#396131] via-[#4a7c3a] to-[#5a8c4a] bg-clip-text text-5xl leading-tight font-black text-transparent sm:text-6xl lg:text-7xl">
@@ -284,7 +284,7 @@ export default function HomePage() {
 									<>
 										<button
 											onClick={prevSlide}
-											className="absolute top-1/2 left-2 z-20 -translate-y-1/2 cursor-pointer rounded-full bg-white/80 p-2 shadow hover:bg-white"
+											className="absolute top-1/2 left-4 z-20 hidden -translate-x-[calc(100%+0.5rem)] -translate-y-1/2 cursor-pointer rounded-full bg-white/80 p-2 shadow hover:bg-white sm:left-6 sm:flex md:left-8 lg:left-10 xl:left-12"
 											aria-label="Previous Slide"
 										>
 											<svg
@@ -303,7 +303,7 @@ export default function HomePage() {
 										</button>
 										<button
 											onClick={nextSlide}
-											className="absolute top-1/2 right-2 z-20 -translate-y-1/2 cursor-pointer rounded-full bg-white/80 p-2 shadow hover:bg-white"
+											className="absolute top-1/2 right-4 z-20 hidden translate-x-[calc(100%+0.5rem)] -translate-y-1/2 cursor-pointer rounded-full bg-white/80 p-2 shadow hover:bg-white sm:right-6 sm:flex md:right-8 lg:right-10 xl:right-12"
 											aria-label="Next Slide"
 										>
 											<svg
@@ -321,7 +321,7 @@ export default function HomePage() {
 											</svg>
 										</button>
 										{/* Dots */}
-										<div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+										<div className="z-20 mt-6 flex justify-center gap-2 lg:mt-8 xl:absolute xl:bottom-4 xl:left-1/2 xl:mt-0 xl:-translate-x-1/2">
 											{heroSlides.map((_, idx) => (
 												<button
 													key={idx}
