@@ -16,6 +16,9 @@ import PropertiesForSale from './pages/PropertiesForSale';
 import ContactUs from './pages/ContactUs';
 import DepositsRegularSavings from './pages/DepositsRegularSavings';
 import DepositsSpecialSavings from './pages/DepositsSpecialSavings';
+import SavingsAccount from './pages/SavingsAccount';
+import CheckingAccount from './pages/CheckingAccount';
+import TimeDeposit from './pages/TimeDeposit';
 import LoansAgriculture from './pages/LoansAgriculture';
 import LoansSME from './pages/LoansSME';
 import LoansMicrofinance from './pages/LoansMicrofinance';
@@ -70,9 +73,18 @@ function App() {
 			route: '/deposits/special-savings'
 		},
 		{
-			component: <Loans />,
-			route: '/loans'
+			component: <SavingsAccount />,
+			route: '/deposits/savings-account'
 		},
+		{
+			component: <CheckingAccount />,
+			route: '/deposits/checking-account'
+		},
+		{
+			component: <TimeDeposit />,
+			route: '/deposits/time-deposit'
+		},
+		{ component: <Loans />, route: '/loans' },
 		{
 			component: <LoansAgriculture />,
 			route: '/loans/agriculture'
