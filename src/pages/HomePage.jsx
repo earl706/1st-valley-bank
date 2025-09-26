@@ -163,12 +163,6 @@ export default function HomePage() {
 									path: '/deposits',
 									style: 'primary',
 									icon: PiggyBank
-								},
-								{
-									text: 'View All Deposits',
-									path: '/deposits',
-									style: 'secondary',
-									icon: ArrowRight
 								}
 							]
 						},
@@ -185,12 +179,6 @@ export default function HomePage() {
 									path: '/loans',
 									style: 'primary',
 									icon: Building2
-								},
-								{
-									text: 'Loan Calculator',
-									path: '/loans',
-									style: 'secondary',
-									icon: TrendingUp
 								}
 							]
 						},
@@ -207,12 +195,6 @@ export default function HomePage() {
 									path: '/properties-for-sale',
 									style: 'primary',
 									icon: Home
-								},
-								{
-									text: 'Get Pre-approved',
-									path: '/loans',
-									style: 'secondary',
-									icon: Shield
 								}
 							]
 						}

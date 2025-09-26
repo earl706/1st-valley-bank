@@ -596,9 +596,6 @@ export default function Deposits() {
 				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="mb-20 text-center">
-							<div className="mb-4 inline-flex items-center rounded-full bg-[#396131]/10 px-4 py-2 text-sm font-semibold text-[#396131]">
-								Our Products
-							</div>
 							<h2 className="mb-6 text-4xl font-bold text-gray-900 sm:text-5xl lg:text-6xl">
 								Deposit Solutions
 							</h2>
