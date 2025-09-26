@@ -1,0 +1,486 @@
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+import img1 from '/src/assets/homepage/1.png';
+import img2 from '/src/assets/homepage/2.png';
+import img3 from '/src/assets/homepage/3.png';
+import img4 from '/src/assets/homepage/4.png';
+import img5 from '/src/assets/homepage/5.png';
+import img6 from '/src/assets/homepage/6.png';
+
+import logo from '/src/assets/logo.png';
+import gcash from '/src/assets/gcash-logo-png_seeklogo-522261-removebg-preview.png';
+import bsp from '/src/assets/image-removebg-preview (1).png';
+import ctb from '/src/assets/image-removebg-preview (2).png';
+import pdic from '/src/assets/image-removebg-preview.png';
+import usaid from '/src/assets/Seal_of_the_United_States_Agency_for_International_Development.svg.png';
+
+// Lucide React icons
+import { Mail, Quote, Handshake } from 'lucide-react';
+
+export default function HomePage() {
+	const sampleCards = [
+		{
+			id: 1,
+			title: 'Forest Restoration',
+			body: 'Regenerating native forests with community-led planting and monitoring.',
+			img: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=60',
+			imgAlt: 'Close-up of green forest canopy'
+		},
+		{
+			id: 2,
+			title: 'Clean Energy',
+			body: 'Deploying solar microgrids and teaching local technicians to maintain them.',
+			img: 'https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1200&q=60',
+			imgAlt: 'Solar panels on a rooftop'
+		},
+		{
+			id: 3,
+			title: 'Coastal Protection',
+			body: 'Designing nature-based solutions to reduce erosion and improve habitats.',
+			img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=60',
+			imgAlt: 'Waves washing a sandy shore'
+		}
+	];
+
+	const products = [
+		{
+			image: img1,
+			header: 'Deposits',
+			description: 'Save securely, grow steadily.',
+			path: '/deposits'
+		},
+		{
+			image: img2,
+			header: 'Loans',
+			description: 'Loans for business, farm, or home.',
+			path: '/loans'
+		},
+		{
+			image: img3,
+			header: 'Properties for Sale',
+			description: 'Prime properties at great prices.',
+			path: '/properties-for-sale'
+		}
+	];
+
+	const testimonials = [
+		{
+			image: logo,
+			name: 'Mrs. Virginia Cameros Tobiano',
+			testimony:
+				'Dako jud kaayo natabang ang 1st Valley Bank samoa kay tungod sa ila pagpautang samoa nakabakod mi balik. (1st Valley Bank helped us a lot that we were able to rise again.)'
+		},
+		{
+			image: logo,
+			name: 'Mrs. Maria Santos',
+			testimony:
+				'Ang 1st Valley Bank dili lang bank, sila ang among pamilya sa negosyo. (1st Valley Bank is not just a bank, they are our business family.)'
+		},
+		{
+			image: logo,
+			name: 'Mr. Juan Dela Cruz',
+			testimony:
+				'Salamat sa 1st Valley Bank kay natabangan mi sa among panginabuhian. (Thank you 1st Valley Bank for helping us with our livelihood.)'
+		}
+	];
+
+	const features = [
+		{
+			image: img4,
+			header: 'BUSINESS CONDUCT',
+			description:
+				'We conduct our business with integrity, transparency, honesty, and highest ethical standards.'
+		},
+		{
+			image: img5,
+			header: 'CLIENT TREATMENT',
+			description:
+				'Treating our clients with equality, fairness, and respect is foremost in our delivery of excellent banking services.'
+		},
+		{
+			image: img6,
+			header: 'BUSINESS DEVELOPMENT',
+			description:
+				'We develop our business through innovation, enthusiasm, creativity, and our constant quest for excellence'
+		}
+	];
+
+	// Consistent design tokens
+	const designTokens = {
+		colors: {
+			primary: '#31542B',
+			primaryHover: '#396131',
+			accent: '#FB3F3F',
+			highlight: '#FDE900',
+			text: '#1E1E1E',
+			textLight: '#6B7280',
+			white: '#FFFFFF'
+		},
+		spacing: {
+			section: 'py-16 md:py-20 lg:py-24',
+			container: 'px-4 md:px-6 lg:px-8 xl:px-12',
+			card: 'p-6 md:p-8',
+			button: 'px-6 py-3 md:px-8 md:py-4'
+		},
+		typography: {
+			heading1: 'text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight',
+			heading2: 'text-3xl md:text-4xl lg:text-5xl font-bold leading-tight',
+			heading3: 'text-xl md:text-2xl lg:text-3xl font-bold leading-tight',
+			body: 'text-base md:text-lg leading-relaxed',
+			bodySmall: 'text-sm md:text-base leading-relaxed',
+			caption: 'text-xs md:text-sm leading-normal'
+		},
+		shadows: {
+			card: 'shadow-lg hover:shadow-xl',
+			button: 'shadow-md hover:shadow-lg',
+			section: 'shadow-2xl'
+		}
+	};
+
+	return (
+		<>
+			<main className="flex flex-col space-y-16 md:space-y-20 lg:space-y-24">
+				{/* Hero Section */}
+				<section className="relative mx-4 mb-8 overflow-hidden rounded-3xl font-sans shadow-2xl shadow-emerald-900/10">
+					<div
+						className={`relative w-full ${designTokens.spacing.container} ${designTokens.spacing.section}`}
+					>
+						<div className="flex flex-col items-center gap-12 lg:flex-row lg:gap-16">
+							{/* Content Section */}
+							<div className="flex-1 space-y-8 text-center lg:text-left">
+								{/* Main Heading */}
+								<div className="space-y-2">
+									<h1 className="bg-gradient-to-r from-[#396131] via-[#FB3F3F] to-[#FDE900] bg-clip-text text-5xl leading-tight font-black text-transparent sm:text-6xl lg:text-7xl">
+										Your Satisfaction
+									</h1>
+									<h1 className="bg-gradient-to-r from-[#396131] via-[#FB3F3F] to-[#FDE900] bg-clip-text text-5xl leading-tight font-black text-transparent sm:text-6xl lg:text-7xl">
+										is Our Mission
+									</h1>
+								</div>
+
+								{/* Description */}
+								<p className="max-w-2xl text-lg leading-relaxed text-slate-700">
+									1st Valley Bank is committed to provide you with innovative and responsive
+									solutions to your banking needs and requirements. From a multi-awarded rural bank
+									to a development bank in Mindanao and Visayas, our 82 branches and branch lite
+									units shall deliver you only the best services that you truly deserve. We will
+									work with you all the way. As your success is our business, you can count on us to
+									be your lifetime friend
+								</p>
+
+								{/* Action Buttons */}
+								<div className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+									<NavLink
+										to={'/consumer-protection/1vb-products'}
+										className="group relative transform cursor-pointer overflow-hidden rounded-2xl bg-[#396131] px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:from-emerald-700 hover:to-emerald-800 hover:shadow-xl"
+									>
+										<span className="relative z-10 flex items-center justify-center gap-2">
+											Our Services
+											<svg
+												className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth={2}
+													d="M9 5l7 7-7 7"
+												/>
+											</svg>
+										</span>
+										<div className="absolute inset-0 origin-left scale-x-0 bg-white/10 transition-transform duration-300 group-hover:scale-x-100"></div>
+									</NavLink>
+
+									<NavLink
+										to={'/about-us'}
+										className="group transform cursor-pointer rounded-2xl border-2 border-[#396131] bg-white/80 px-8 py-4 font-semibold text-[#396131] shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#396131]/50 hover:bg-white hover:shadow-xl"
+									>
+										<span className="flex items-center justify-center gap-2">
+											About Us
+											<svg
+												className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth={2}
+													d="M9 5l7 7-7 7"
+												/>
+											</svg>
+										</span>
+									</NavLink>
+								</div>
+							</div>
+
+							{/* Image Section */}
+							<div className="flex-shrink-0 lg:w-2/5">
+								<div className="group relative">
+									{/* Main image container */}
+									<div className="group-hover:shadow-3xl relative transform overflow-hidden rounded-3xl transition-all duration-500 group-hover:-translate-y-2 group-hover:scale-105">
+										<img
+											src={logo}
+											alt="1st Valley Bank Logo"
+											className="aspect-square h-full w-full object-cover transition-transform duration-700"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				{/* Products Section */}
+				<section className={`flex flex-col gap-12 ${designTokens.spacing.container}`}>
+					<div className="text-center">
+						<h2 className={`${designTokens.typography.heading2} text-[#31542B]`}>
+							Your Lifetime Friend in Banking
+						</h2>
+					</div>
+
+					<div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+						{products.map((product, index) => (
+							<article
+								key={product.image}
+								className="group transform overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl"
+								role="article"
+								aria-labelledby={`product-title-${index}`}
+							>
+								{/* Product Image */}
+								<div className="relative flex h-48 w-full items-center justify-center bg-gradient-to-br from-[#31542B]/5 to-[#31542B]/10">
+									<div className="relative h-32 w-32 overflow-hidden rounded-full bg-white shadow-lg">
+										<img
+											src={product.image}
+											alt={product.header}
+											className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+											loading="lazy"
+										/>
+									</div>
+								</div>
+
+								{/* Product Content */}
+								<div className={`${designTokens.spacing.card}`}>
+									<h3
+										id={`product-title-${index}`}
+										className={`${designTokens.typography.heading3} mb-3 text-[#31542B]`}
+									>
+										{product.header}
+									</h3>
+
+									<p className={`${designTokens.typography.bodySmall} mb-6 text-gray-700`}>
+										{product.description}
+									</p>
+
+									<NavLink
+										to={product.path}
+										className="group/btn inline-flex w-full items-center justify-center rounded-xl bg-[#31542B] px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-[#396131] hover:shadow-lg"
+									>
+										<span className="flex items-center gap-2">
+											Read More
+											<svg
+												className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth={2}
+													d="M9 5l7 7-7 7"
+												/>
+											</svg>
+										</span>
+									</NavLink>
+								</div>
+							</article>
+						))}
+					</div>
+				</section>
+
+				{/* Features Section */}
+				<section className={`flex flex-col gap-12 ${designTokens.spacing.container}`}>
+					<div className="text-center">
+						<h2 className={`${designTokens.typography.heading2} text-[#31542B]`}>
+							The 1st Valley Bank Difference
+						</h2>
+					</div>
+
+					<div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+						{features.map((feature, index) => (
+							<div
+								key={index}
+								className="group flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1"
+							>
+								{/* Feature Image */}
+								<div className="relative mb-6 h-48 w-48 overflow-hidden rounded-full bg-gradient-to-br from-[#31542B]/10 to-[#31542B]/20 shadow-lg transition-all duration-300 group-hover:shadow-xl">
+									<img
+										src={feature.image}
+										alt={feature.header}
+										className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+									/>
+								</div>
+
+								{/* Feature Content */}
+								<h3 className={`${designTokens.typography.heading3} mb-4 text-[#31542B]`}>
+									{feature.header}
+								</h3>
+								<p className={`${designTokens.typography.bodySmall} text-gray-700`}>
+									{feature.description}
+								</p>
+							</div>
+						))}
+					</div>
+				</section>
+
+				{/* Newsletter Section */}
+				<section className="mx-4">
+					<div className="flex flex-col-reverse items-center justify-center gap-8 rounded-2xl bg-gradient-to-r from-[#31542B] to-[#396131] px-8 py-12 shadow-2xl lg:flex-row lg:gap-16 lg:px-16 lg:py-16">
+						{/* Content */}
+						<div className="flex flex-col items-start gap-6 lg:w-3/5">
+							<NavLink
+								to="/newsletter"
+								className="group inline-flex items-center justify-center rounded-xl bg-white px-8 py-3 text-sm font-semibold text-[#31542B] shadow-md transition-all duration-300 hover:bg-gray-50 hover:shadow-lg"
+							>
+								<span className="flex items-center gap-2">
+									Read More
+									<svg
+										className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M9 5l7 7-7 7"
+										/>
+									</svg>
+								</span>
+							</NavLink>
+
+							<h2 className={`${designTokens.typography.heading1} text-white`}>Newsletter</h2>
+
+							<h3 className={`${designTokens.typography.heading3} text-white`}>
+								Stay Connected with 1st Valley Bank!
+							</h3>
+
+							<p className={`${designTokens.typography.body} text-white/90`}>
+								Welcome to your monthly source of financial tips, community updates, new services,
+								and exclusive offers. Whether you're planning, saving, or growing, we're here to
+								guide your journey every step of the way. Let's build a brighter financial
+								future—together!
+							</p>
+						</div>
+
+						{/* Icon */}
+						<div className="lg:w-2/5">
+							<div className="flex justify-center">
+								<Mail className="h-120 w-120 text-white/80 transition-all duration-300 hover:scale-110 hover:text-white" />
+							</div>
+						</div>
+					</div>
+				</section>
+
+				{/* Testimonials Section */}
+				<section className={`flex flex-col gap-12 ${designTokens.spacing.container}`}>
+					<div className="text-center">
+						<h2 className={`${designTokens.typography.heading2} text-[#31542B]`}>
+							Trusted by the Community
+						</h2>
+					</div>
+
+					<div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+						{testimonials.map((testimony, index) => (
+							<div
+								key={index}
+								className="group transform overflow-hidden rounded-2xl bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+							>
+								{/* Testimonial Header */}
+								<div className="mb-6 flex items-center gap-4">
+									<div className="h-16 w-16 overflow-hidden rounded-full bg-gradient-to-br from-[#31542B]/10 to-[#31542B]/20 shadow-md">
+										<img
+											src={testimony.image}
+											alt={testimony.name}
+											className="h-full w-full object-cover"
+										/>
+									</div>
+									<div className="flex-1">
+										<h4
+											className={`${designTokens.typography.bodySmall} font-semibold text-[#31542B]`}
+										>
+											{testimony.name}
+										</h4>
+									</div>
+									<div className="text-[#31542B]/60">
+										<Quote className="h-6 w-6" />
+									</div>
+								</div>
+
+								{/* Testimonial Content */}
+								<blockquote className={`${designTokens.typography.bodySmall} text-gray-700 italic`}>
+									"{testimony.testimony}"
+								</blockquote>
+							</div>
+						))}
+					</div>
+				</section>
+
+				{/* CTA Section */}
+				<section className="mx-4 mb-8">
+					<div className="flex flex-col-reverse items-center justify-center gap-8 rounded-2xl bg-gradient-to-r from-[#31542B] to-[#396131] px-8 py-12 shadow-2xl lg:flex-row lg:gap-16 lg:px-16 lg:py-16">
+						{/* Content */}
+						<div className="flex flex-col items-start gap-6 lg:w-3/5">
+							<h2 className={`${designTokens.typography.heading1} text-white`}>
+								Be Our Lifetime Friend
+							</h2>
+
+							<p className={`${designTokens.typography.body} text-white/90`}>
+								At 1st Valley Bank, we believe banking is more than transactions—it's about building
+								lasting relationships. When you choose us, you're not just a customer; you're part
+								of our family. Together, we'll support your dreams, celebrate milestones, and grow
+								through every chapter of life. Let's walk this journey side by side—today, tomorrow,
+								and always.
+							</p>
+
+							<NavLink
+								to="/contact-us"
+								className="group inline-flex items-center justify-center rounded-xl bg-white px-8 py-3 text-sm font-semibold text-[#31542B] shadow-md transition-all duration-300 hover:bg-gray-50 hover:shadow-lg"
+							>
+								<span className="flex items-center gap-2">
+									Inquire Now
+									<svg
+										className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M9 5l7 7-7 7"
+										/>
+									</svg>
+								</span>
+							</NavLink>
+						</div>
+
+						{/* Icon */}
+						<div className="lg:w-2/5">
+							<div className="flex justify-center">
+								<Handshake className="h-120 w-120 text-white/80 transition-all duration-300 hover:scale-110 hover:text-white" />
+							</div>
+						</div>
+					</div>
+				</section>
+			</main>
+		</>
+	);
+}
