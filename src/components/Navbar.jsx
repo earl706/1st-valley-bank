@@ -62,25 +62,20 @@ export default function Navbar({ children }) {
 			navItem: 'CONSUMER PROTECTION',
 			path: '/consumer-protection',
 			subItems: [
-				{
-					subItem: 'Privacy Policy',
-					path: '/consumer-protection/privacy-policy'
-				},
-				{ subItem: '1VB Products', path: '/consumer-protection/1vb-products' },
-				{
-					subItem: 'Product Requirements',
-					path: '/consumer-protection/product-requirements'
-				}
+				// {
+				// 	subItem: 'Privacy Policy',
+				// 	path: '/consumer-protection/privacy-policy'
+				// },
+				// { subItem: '1VB Products', path: '/consumer-protection/1vb-products' },
+				// {
+				// 	subItem: 'Product Requirements',
+				// 	path: '/consumer-protection/product-requirements'
+				// }
 			]
 		},
 		{ navItem: 'ABOUT US', path: '/about-us', subItems: [] },
 		{ navItem: '1VB ADVISORY', path: '/1vb-advisory', subItems: [] },
-		{ navItem: 'NEWSLETTER', path: '/newsletter', subItems: [] },
-		{
-			navItem: 'PRODUCTS',
-			path: '/consumer-protection/1vb-products',
-			subItems: []
-		}
+		{ navItem: 'NEWSLETTER', path: '/newsletter', subItems: [] }
 	];
 
 	const secondaryNavbarItems = [
