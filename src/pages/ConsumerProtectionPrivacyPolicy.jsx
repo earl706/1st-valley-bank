@@ -93,12 +93,6 @@ export default function ConsumerProtectionPrivacyPolicy() {
 	return (
 		<>
 			{/* Reading Progress Bar */}
-			<div className="fixed top-0 left-0 z-50 h-1 w-full bg-gray-200">
-				<div
-					className="h-full bg-[#396131] transition-all duration-300"
-					style={{ width: `${readingProgress}%` }}
-				/>
-			</div>
 
 			{/* Floating Table of Contents */}
 			{/* <div className="fixed top-1/2 right-4 z-40 hidden -translate-y-1/2 transform xl:block">

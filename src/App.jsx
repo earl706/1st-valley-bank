@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
+import SplashScreen from './components/SplashScreen';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import './App.css';
@@ -31,7 +32,17 @@ import PropertiesForSaleRealEstate from './pages/PropertiesForSaleRealEstate';
 import Effects from './pages/Effects';
 
 function App() {
-	const [count, setCount] = useState(0);
+	const [showSplash, setShowSplash] = useState(false);
+	const [isFirstVisit, setIsFirstVisit] = useState(false);
+
+	useEffect(() => {
+		setIsFirstVisit(true);
+		setShowSplash(true);
+	}, []);
+
+	const handleSplashComplete = () => {
+		setShowSplash(false);
+	};
 
 	const routes = [
 		{ component: <HomePage />, route: '/' },
@@ -137,6 +148,7 @@ function App() {
 
 	return (
 		<>
+			{showSplash && <SplashScreen onComplete={handleSplashComplete} />}
 			<Router>
 				<Routes>
 					{routes.map((route, index) => (

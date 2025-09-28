@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ArrowLeft, CreditCard, Building, User, DollarSign, CheckCircle } from 'lucide-react';
+import CarouselSection from '../components/CarouselSection';
+import img from '/src/assets/homepage/heroSectionImage.png';
 
 export default function CheckingAccount() {
 	const [scrollY, setScrollY] = useState(0);
@@ -9,8 +11,9 @@ export default function CheckingAccount() {
 
 	const checkingAccounts = [
 		{
-			name: 'Personal Checking Account',
-			description: 'Perfect for individuals who need frequent access to their funds with check-writing capabilities and convenient banking services.',
+			title: 'Personal Checking Account',
+			description:
+				'Perfect for individuals who need frequent access to their funds with check-writing capabilities and convenient banking services.',
 			initialDeposit: '₱5,000.00',
 			minimumBalance: '₱10,000.00',
 			interestRate: '0.10% - 0.15% per annum',
@@ -27,11 +30,14 @@ export default function CheckingAccount() {
 				'Direct deposit',
 				'Overdraft protection available',
 				'24/7 account access'
-			]
+			],
+			image: img,
+			route: '/contact-us'
 		},
 		{
-			name: 'Business/Corporate Checking Account',
-			description: 'Designed for businesses and corporations that require comprehensive banking services with multiple signatories and enhanced features.',
+			title: 'Business/Corporate Checking Account',
+			description:
+				'Designed for businesses and corporations that require comprehensive banking services with multiple signatories and enhanced features.',
 			initialDeposit: '₱10,000.00',
 			minimumBalance: '₱10,000.00',
 			interestRate: '0.10% - 0.15% per annum',
@@ -48,11 +54,14 @@ export default function CheckingAccount() {
 				'Professional banking services',
 				'Dedicated relationship manager',
 				'Bulk transaction processing'
-			]
+			],
+			image: img,
+			route: '/contact-us'
 		},
 		{
-			name: 'Premium Checking Account',
-			description: 'Our premium checking account offers enhanced benefits, higher transaction limits, and exclusive services for high-value customers.',
+			title: 'Premium Checking Account',
+			description:
+				'Our premium checking account offers enhanced benefits, higher transaction limits, and exclusive services for high-value customers.',
 			initialDeposit: '₱25,000.00',
 			minimumBalance: '₱25,000.00',
 			interestRate: '0.15% - 0.25% per annum',
@@ -69,7 +78,9 @@ export default function CheckingAccount() {
 				'Waived fees on most services',
 				'Priority loan processing',
 				'Personalized financial planning'
-			]
+			],
+			image: img,
+			route: '/contact-us'
 		}
 	];
 
@@ -118,88 +129,44 @@ export default function CheckingAccount() {
 	return (
 		<>
 			<main className="flex flex-col gap-[40px] pb-[50px] lg:gap-[120px]">
-				<nav className="bg-opacity-50 fixed top-35 right-4 z-40 rounded-2xl bg-black p-2 backdrop-blur-lg">
-					<div className="flex flex-col gap-2">
-						{['main', 'accounts', 'requirements'].map((section) => (
-							<button
-								key={section}
-								onClick={() => scrollToSection(section)}
-								className={`h-3 w-3 rounded-full transition-all duration-300 ${
-									activeSection === section
-										? 'scale-125 cursor-pointer bg-[#396131]'
-										: 'cursor-pointer bg-gray-500 hover:bg-gray-300'
-								}`}
-							/>
-						))}
-					</div>
-				</nav>
-
-				{/* Hero Section */}
-				<section
+				<CarouselSection
 					id="main"
-					data-scroll
-					className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-green-50"
-				>
-					<div className="absolute inset-0">
-						<div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-gradient-to-br from-[#396131]/20 to-[#4a7c3a]/20 blur-3xl"></div>
-						<div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-gradient-to-tr from-green-400/20 to-[#396131]/20 blur-3xl"></div>
-					</div>
-
-					<div className="max-w-8xl relative mx-auto px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-						<div className="mx-8 grid min-h-[560px] items-center gap-12 lg:mx-16 lg:min-h-[640px] lg:grid-cols-2">
-							<div className="relative order-0 flex h-full items-center justify-center lg:order-1">
-								<div className="relative z-10">
-									<CreditCard className="mx-auto h-48 w-48 text-[#396131] drop-shadow-2xl lg:h-64 lg:w-64" />
-								</div>
-							</div>
-
-							<div className="order-1 flex h-full flex-col justify-center space-y-8 lg:order-0">
-								<div className="space-y-6">
-									<NavLink
-										to="/deposits"
-										className="group inline-flex items-center text-[#396131] hover:text-[#4a7c3a] transition-colors duration-300"
-									>
-										<ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
-										Back to Deposits
-									</NavLink>
-
-									<h1 className="text-4xl leading-tight font-bold text-gray-900 sm:text-5xl lg:text-6xl">
-										<span className="block bg-gradient-to-r from-[#396131] via-[#4a7c3a] to-[#5a8c4a] bg-clip-text text-5xl leading-tight font-black text-transparent sm:text-6xl lg:text-7xl">
-											Checking Account
-										</span>
-										<span className="block bg-gradient-to-r from-[#396131] via-[#4a7c3a] to-[#5a8c4a] bg-clip-text text-2xl leading-tight font-bold text-transparent sm:text-3xl lg:text-4xl">
-											Convenient business banking
-										</span>
-									</h1>
-
-									<p className="max-w-2xl text-xl leading-relaxed text-gray-600">
-										Professional checking solutions designed for businesses and individuals who need frequent transactions and check-writing capabilities.
-									</p>
-
-									<div className="flex items-center gap-4 text-sm text-gray-600">
-										<div className="flex items-center gap-2">
-											<CheckCircle className="h-4 w-4" />
-											<span>3 Account Types</span>
-										</div>
-										<div className="flex items-center gap-2">
-											<DollarSign className="h-4 w-4" />
-											<span>Check Writing</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
+					title={
+						<>
+							<span className="block bg-gradient-to-r from-[#396131] via-[#4a7c3a] to-[#5a8c4a] bg-clip-text text-5xl leading-tight font-black text-transparent sm:text-6xl lg:text-7xl">
+								Checking Account
+							</span>
+							<span className="block bg-gradient-to-r from-[#396131] via-[#4a7c3a] to-[#5a8c4a] bg-clip-text text-2xl leading-tight font-bold text-transparent sm:text-3xl lg:text-4xl">
+								Convenient business banking
+							</span>
+						</>
+					}
+					description="Professional checking solutions designed for businesses and individuals who need frequent transactions and check-writing capabilities."
+					stats={[
+						{ icon: <CheckCircle className="h-4 w-4" />, label: '3 Account Types' },
+						{ icon: <DollarSign className="h-4 w-4" />, label: 'Check Writing' }
+					]}
+					extra={
+						<NavLink
+							to="/deposits"
+							className="group inline-flex items-center text-[#396131] transition-colors duration-300 hover:text-[#4a7c3a]"
+						>
+							<ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
+							Back to Deposits
+						</NavLink>
+					}
+					slides={checkingAccounts}
+				/>
 
 				{/* Accounts Section */}
 				<section id="accounts" data-scroll className="text-[#396131]">
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-								Available Checking Accounts
+							<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
+								CHECKING ACCOUNTS
 							</h2>
-							<p className="text-xl text-gray-600">
+							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7a3f]"></div>
+							<p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
 								Choose the checking account that fits your needs
 							</p>
 						</div>
@@ -211,39 +178,48 @@ export default function CheckingAccount() {
 									className="group relative flex flex-col rounded-2xl border border-gray-100 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl lg:flex-row lg:gap-8"
 								>
 									<div className="mb-6 flex items-center justify-center lg:mb-0 lg:w-1/4">
-										<CreditCard className="h-16 w-16 text-[#396131]" />
+										<img
+											src={account.image}
+											alt={`${account.title} visual`}
+											className="h-48 w-auto object-contain lg:h-64"
+										/>
 									</div>
 
 									<div className="flex-1">
-										<h3 className="mb-4 text-2xl font-bold text-gray-900">
-											{account.name}
-										</h3>
+										<h3 className="mb-4 text-2xl font-bold text-gray-900">{account.title}</h3>
 
-										<p className="mb-6 text-gray-600 leading-relaxed">
-											{account.description}
-										</p>
+										<p className="mb-6 leading-relaxed text-gray-600">{account.description}</p>
 
 										<div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
 											<div className="rounded-lg bg-gray-50 p-4">
 												<div className="text-sm font-medium text-gray-500">Initial Deposit</div>
-												<div className="text-lg font-semibold text-[#396131]">{account.initialDeposit}</div>
+												<div className="text-lg font-semibold text-[#396131]">
+													{account.initialDeposit}
+												</div>
 											</div>
 											<div className="rounded-lg bg-gray-50 p-4">
 												<div className="text-sm font-medium text-gray-500">Minimum Balance</div>
-												<div className="text-lg font-semibold text-[#396131]">{account.minimumBalance}</div>
+												<div className="text-lg font-semibold text-[#396131]">
+													{account.minimumBalance}
+												</div>
 											</div>
 											<div className="rounded-lg bg-gray-50 p-4">
 												<div className="text-sm font-medium text-gray-500">Interest Rate</div>
-												<div className="text-lg font-semibold text-[#396131]">{account.interestRate}</div>
+												<div className="text-lg font-semibold text-[#396131]">
+													{account.interestRate}
+												</div>
 											</div>
 										</div>
 
-										<div className="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+										{/* <div className="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
 											<div>
 												<h4 className="mb-3 text-sm font-semibold text-gray-800">Features:</h4>
 												<ul className="space-y-2">
 													{account.features.map((feature, featureIndex) => (
-														<li key={featureIndex} className="flex items-center gap-2 text-sm text-gray-600">
+														<li
+															key={featureIndex}
+															className="flex items-center gap-2 text-sm text-gray-600"
+														>
 															<div className="h-1.5 w-1.5 rounded-full bg-[#396131]"></div>
 															{feature}
 														</li>
@@ -254,18 +230,24 @@ export default function CheckingAccount() {
 												<h4 className="mb-3 text-sm font-semibold text-gray-800">Benefits:</h4>
 												<ul className="space-y-2">
 													{account.benefits.map((benefit, benefitIndex) => (
-														<li key={benefitIndex} className="flex items-center gap-2 text-sm text-gray-600">
+														<li
+															key={benefitIndex}
+															className="flex items-center gap-2 text-sm text-gray-600"
+														>
 															<div className="h-1.5 w-1.5 rounded-full bg-[#396131]"></div>
 															{benefit}
 														</li>
 													))}
 												</ul>
 											</div>
-										</div>
+										</div> */}
 
-										<button className="w-full rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-3 font-semibold text-white transition-all duration-300 hover:shadow-lg lg:w-auto">
+										<NavLink
+											to={account.route}
+											className="flex w-full cursor-pointer items-center justify-center rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-3 font-semibold text-white transition-all duration-300 hover:shadow-lg lg:w-auto"
+										>
 											Open Account
-										</button>
+										</NavLink>
 									</div>
 								</div>
 							))}
@@ -274,71 +256,67 @@ export default function CheckingAccount() {
 				</section>
 
 				{/* Requirements Section */}
-				<section id="requirements" data-scroll className="bg-[#396131] text-white">
-					<div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-3xl font-bold sm:text-4xl">
-								Account Opening Requirements
-							</h2>
-							<p className="text-xl text-green-100">
-								What you need to open a checking account
-							</p>
+				<section id="requirements" data-scroll className="border-gray-200 bg-white text-gray-900">
+					<div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+						<div className="mb-12 text-center">
+							<h2 className="mb-2 text-3xl font-bold sm:text-4xl">Account Opening Requirements</h2>
+							<p className="text-lg text-gray-500">What you need to open a checking account</p>
 						</div>
 
 						<div className="grid gap-8 md:grid-cols-2">
-							<div className="rounded-2xl bg-white/10 p-8 backdrop-blur-sm">
+							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
 								<div className="mb-6 flex items-center gap-4">
-									<User className="h-8 w-8 text-green-300" />
+									<User className="h-8 w-8 text-gray-400" />
 									<h3 className="text-xl font-bold">Individual Requirements</h3>
 								</div>
 								<ul className="space-y-4">
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-green-300"></div>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
 										<span>Colored photocopy of 2 Valid IDs</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-green-300"></div>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
 										<span>Three pieces 2x2 pictures</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-green-300"></div>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
 										<span>Proof of income (payslip, ITR, etc.)</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-green-300"></div>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
 										<span>Initial deposit amount</span>
 									</li>
 								</ul>
 							</div>
 
-							<div className="rounded-2xl bg-white/10 p-8 backdrop-blur-sm">
+							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
 								<div className="mb-6 flex items-center gap-4">
-									<Building className="h-8 w-8 text-green-300" />
+									<Building className="h-8 w-8 text-gray-400" />
 									<h3 className="text-xl font-bold">Business Requirements</h3>
 								</div>
 								<ul className="space-y-4">
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-green-300"></div>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
 										<span>SEC Certificate of Registration</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-green-300"></div>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
 										<span>Articles of Incorporation</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-green-300"></div>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
 										<span>Board Resolution for account opening</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-green-300"></div>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
 										<span>Valid IDs of authorized signatories</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-green-300"></div>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
 										<span>Business Permit</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-green-300"></div>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
 										<span>Financial statements (if applicable)</span>
 									</li>
 								</ul>

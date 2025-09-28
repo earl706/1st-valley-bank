@@ -82,23 +82,7 @@ export default function CarouselSection({
 	}
 
 	return (
-		<section
-			id={id}
-			data-scroll
-			className={`relative overflow-hidden bg-gradient-to-br ${backgroundColor} ${className}`}
-		>
-			{/* Background Elements */}
-			<div className="absolute inset-0">
-				<div
-					className="absolute top-0 right-0 h-96 w-96 rounded-full blur-3xl"
-					style={{ backgroundColor: `${brandColor}33` }}
-				></div>
-				<div
-					className="absolute bottom-0 left-0 h-80 w-80 rounded-full blur-3xl"
-					style={{ backgroundColor: `${brandColor}33` }}
-				></div>
-			</div>
-
+		<section id={id} data-scroll className={`relative overflow-hidden`}>
 			{/* Carousel Implementation */}
 			<div
 				className="max-w-8xl relative mx-auto px-4 py-5 sm:px-6 lg:px-8 lg:py-8"
@@ -140,9 +124,9 @@ export default function CarouselSection({
 									{/* Content */}
 									<div className="order-1 flex h-full flex-col justify-center space-y-8 lg:order-0">
 										<div className="space-y-4">
-											<h1 className="text-4xl leading-tight font-bold text-gray-900 sm:text-5xl lg:text-6xl">
+											<h1 className="text-3xl leading-tight font-bold text-gray-900 sm:text-4xl lg:text-5xl">
 												<span
-													className={`block transform bg-gradient-to-r ${brandGradient} bg-clip-text text-5xl leading-tight font-black text-transparent transition-all delay-100 duration-700 sm:text-6xl lg:text-7xl ${
+													className={`block transform bg-gradient-to-r ${brandGradient} bg-clip-text text-4xl leading-tight font-black text-transparent transition-all delay-100 duration-700 sm:text-5xl lg:text-6xl ${
 														index === current
 															? 'translate-y-0 opacity-100'
 															: 'translate-y-4 opacity-0'
@@ -152,7 +136,7 @@ export default function CarouselSection({
 												</span>
 												{slide.subtitle && (
 													<span
-														className={`block transform bg-gradient-to-r ${brandGradient} bg-clip-text text-2xl leading-tight font-bold text-transparent transition-all delay-200 duration-700 sm:text-3xl lg:text-4xl ${
+														className={`block transform bg-gradient-to-r ${brandGradient} bg-clip-text text-xl leading-tight font-bold text-transparent transition-all delay-200 duration-700 sm:text-2xl lg:text-3xl ${
 															index === current
 																? 'translate-y-0 opacity-100'
 																: 'translate-y-4 opacity-0'
@@ -165,7 +149,7 @@ export default function CarouselSection({
 
 											{slide.description && (
 												<p
-													className={`max-w-2xl transform text-xl leading-relaxed text-gray-600 transition-all delay-300 duration-700 ${
+													className={`max-w-2xl transform text-lg leading-relaxed text-gray-600 transition-all delay-300 duration-700 ${
 														index === current
 															? 'translate-y-0 opacity-100'
 															: 'translate-y-4 opacity-0'
@@ -286,7 +270,7 @@ export default function CarouselSection({
 										key={idx}
 										onClick={() => changeSlide(idx)}
 										disabled={isTransitioning}
-										className={`h-2 w-6 rounded-full transition-all duration-300 hover:scale-110 ${
+										className={`h-2 w-6 cursor-pointer rounded-full transition-all duration-300 hover:scale-110 ${
 											current === idx ? 'w-8' : 'bg-gray-300 hover:bg-gray-400'
 										} ${isTransitioning ? 'pointer-events-none' : ''}`}
 										style={{
@@ -296,19 +280,6 @@ export default function CarouselSection({
 									/>
 								))}
 							</div>
-
-							{/* Auto-play indicator */}
-							{autoPlay && !isPaused && (
-								<div className="absolute top-4 right-4 z-20 rounded-full bg-white/80 p-2 text-xs text-gray-600">
-									<div className="flex items-center gap-1">
-										<div
-											className="h-2 w-2 animate-pulse rounded-full"
-											style={{ backgroundColor: brandColor }}
-										></div>
-										Auto
-									</div>
-								</div>
-							)}
 						</>
 					)}
 				</div>

@@ -14,6 +14,8 @@ import img8 from '/src/assets/about-us/8.jpg';
 import img9 from '/src/assets/about-us/9.jpg';
 import { NavLink } from 'react-router-dom';
 import { faWheatAwn } from '@fortawesome/free-solid-svg-icons/faWheatAwn';
+import img from '/src/assets/homepage/heroSectionImage.png';
+
 import CorporateProfile from '../components/CorporateProfile';
 import {
 	faArrowUpRightDots,
@@ -49,6 +51,7 @@ import {
 	faTrophy,
 	faUsersGear
 } from '@fortawesome/free-solid-svg-icons';
+import CarouselSection from '../components/CarouselSection';
 
 export default function AboutUs() {
 	const [scrollY, setScrollY] = useState(0);
@@ -92,7 +95,7 @@ export default function AboutUs() {
 			type: 'SALARY',
 			logo: faCommentsDollar,
 			description:
-				'Need cash before payday? Get quick approval, low rates, and flexible terms with 1st Valley Bank’s Salary Loans today!',
+				"Need cash before payday? Get quick approval, low rates, and flexible terms with 1st Valley Bank's Salary Loans today!",
 			path: '/loans/salary'
 		},
 		{
@@ -495,17 +498,134 @@ export default function AboutUs() {
 		return () => observers.forEach((obs) => obs.disconnect());
 	}, []);
 
-	const scrollToSection = (id) => {
-		document.getElementById(id)?.scrollIntoView({
-			behavior: 'smooth',
-			block: 'start'
-		});
+	// Custom anchor navigation function
+	const scrollToSection = (sectionId) => {
+		const element = document.getElementById(sectionId.replace('#', ''));
+		if (element) {
+			element.scrollIntoView({
+				behavior: 'smooth',
+				block: 'start'
+			});
+		}
 	};
+
+	// Carousel slides data for About Us sections
+	const aboutUsSlides = [
+		{
+			title: 'About 1st Valley Bank',
+			subtitle: 'Your Trusted Development Bank',
+			description:
+				'Founded in 1956, 1st Valley Bank has a long and distinguished history of banking excellence. We started as a rural bank operating in Northern Mindanao and have grown exponentially as a development bank with 78 branches and branch lites in Mindanao and certain areas in the Visayas.',
+			image: logo,
+			imageAlt: '1st Valley Bank Logo',
+			route: '#description',
+			buttonText: 'Learn About Our Profile',
+			showButton: true,
+			onButtonClick: () => scrollToSection('#description')
+		},
+		{
+			title: 'Our Rich History',
+			subtitle: 'From Rural Bank to Development Bank',
+			description:
+				'Discover our journey from the Rural Bank of Kapatagan Valley (RUBANKA) in 1956 to becoming one of the largest development banks in the country. Learn about our mergers, growth, and commitment to serving our communities.',
+			image: img,
+			imageAlt: 'Bank History',
+			route: '#history',
+			buttonText: 'Explore Our History',
+			showButton: true,
+			onButtonClick: () => scrollToSection('#history')
+		},
+		{
+			title: 'Why Choose Us',
+			subtitle: "You're Always First",
+			description:
+				'With 64+ years in the industry, we offer personalized services treating our clients as family and friends. We provide comprehensive financial solutions with convenience whenever and wherever you need them.',
+			image: img,
+			imageAlt: 'Why Choose 1st Valley Bank',
+			route: '#marketing',
+			buttonText: 'Discover Our Benefits',
+			showButton: true,
+			onButtonClick: () => scrollToSection('#marketing')
+		},
+		{
+			title: 'Comprehensive Loans',
+			subtitle: 'Financial Solutions for Every Need',
+			description:
+				'From agriculture and microfinance to salary loans and SME financing, we offer a full range of loan products designed to help you achieve your financial goals with competitive rates and flexible terms.',
+			image: img,
+			imageAlt: 'Loan Services',
+			route: '#loans',
+			buttonText: 'View All Loans',
+			showButton: true,
+			onButtonClick: () => scrollToSection('#loans')
+		},
+		{
+			title: 'Secure Deposits',
+			subtitle: 'Safe, Secure, and Rewarding',
+			description:
+				'Protect and grow your wealth with our comprehensive deposit products. From regular savings to special deposits, we offer high interest rates, flexible terms, and the security you can trust.',
+			image: img,
+			imageAlt: 'Deposit Services',
+			route: '#deposits',
+			buttonText: 'Explore Deposits',
+			showButton: true,
+			onButtonClick: () => scrollToSection('#deposits')
+		},
+		{
+			title: 'Banking Services',
+			subtitle: 'Convenience at Your Fingertips',
+			description:
+				'Experience modern banking with our branch networking, GCash services, and 24/7 ATM services. We provide comprehensive financial solutions designed to meet all your banking needs.',
+			image: img,
+			imageAlt: 'Banking Services',
+			route: '#services',
+			buttonText: 'View All Services',
+			showButton: true,
+			onButtonClick: () => scrollToSection('#services')
+		},
+		{
+			title: 'Awards & Recognition',
+			subtitle: 'Excellence in Banking',
+			description:
+				'Recognized as one of the top development banks in the country with an A+ rating from PhilRatings and multiple awards for our outstanding service and commitment to our communities.',
+			image: img,
+			imageAlt: 'Awards and Recognition',
+			route: '#awards',
+			buttonText: 'See Our Achievements',
+			showButton: true,
+			onButtonClick: () => scrollToSection('#awards')
+		},
+		{
+			title: 'Vision & Mission',
+			subtitle: 'Our Core Values',
+			description:
+				'We envision being the preferred banking institution delivering innovative and customer-centered services. Our mission is to foster growth for our customers, employees, stakeholders, and communities.',
+			image: img,
+			imageAlt: 'Vision and Mission',
+			route: '#core-values',
+			buttonText: 'Learn Our Values',
+			showButton: true,
+			onButtonClick: () => scrollToSection('#core-values')
+		},
+		{
+			title: 'Corporate Profile',
+			subtitle: 'Meet Our Leadership Team',
+			description:
+				'Get to know our experienced senior management and product management teams who are dedicated to providing exceptional banking services and driving our continued growth and success.',
+			image: img,
+			imageAlt: 'Corporate Leadership',
+			route: '#corporate-profile',
+			buttonText: 'Meet Our Team',
+			showButton: true,
+			onButtonClick: () => scrollToSection('#corporate-profile')
+		}
+	];
 
 	return (
 		<>
 			<main className="flex flex-col gap-[80px] pb-[50px] lg:gap-[120px]">
-				<nav className="fixed top-35 right-4 z-40 rounded-2xl bg-white/50 p-2 backdrop-blur-lg">
+				{/* Navigation dots */}
+				{/* <nav className="fixed top-35 right-4 z-40 rounded-2xl bg-white/50 p-2 backdrop-blur-lg">
 					<div className="flex flex-col gap-2">
 						{[
 							'main',
@@ -533,34 +653,23 @@ export default function AboutUs() {
 							/>
 						))}
 					</div>
-				</nav>
+				</nav> */}
 
-				<section
-					id="main"
-					data-scroll
-					className="mx-[5px] rounded-[8px] bg-white px-[20px] py-[40px] drop-shadow-lg lg:mx-[15px] lg:px-[80px] lg:py-[40px]"
-				>
-					<div className="flex flex-col-reverse items-center justify-between gap-[20px] rounded-[8px] text-[#396131] lg:flex-row lg:gap-[50px]">
-						<div className="flex flex-col items-start gap-[20px] lg:w-3/5 lg:gap-[60px]">
-							<div className="flex flex-col gap-[20px]">
-								<span className="text-[2rem] font-bold lg:text-[4rem]">About Us</span>
-								<span className="text-[0.8rem]/[2.4rem] font-medium lg:text-[1rem]/[3rem]">
-									Founded in 1956, 1st Valley Bank, A Development Bank, has a long and distinguished
-									history of banking excellence. It started as a rural bank operating in Northern
-									Mindanao before it grew exponentially as a development bank with 78 branches and
-									branch lites in Mindanao and certain areas in the Visayas.
-								</span>
-							</div>
-						</div>
-						<div className="lg:w-2/5">
-							<FontAwesomeIcon
-								icon={faBuildingColumns}
-								className="aspect-square"
-								style={{ width: '100%', height: 'auto' }}
-							/>
-						</div>
-					</div>
-				</section>
+				{/* Hero Carousel Section */}
+				<CarouselSection
+					id="about-us-carousel"
+					slides={aboutUsSlides}
+					autoPlay={true}
+					autoPlayInterval={6000}
+					backgroundColor="from-slate-50 via-white to-green-50"
+					brandColor="#396131"
+					brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
+					minHeight="min-h-[560px] lg:min-h-[640px]"
+					showLearnMoreButton={true}
+					learnMoreText="Learn More"
+					excludeLearnMoreForTitles={[]}
+				/>
+
 				<section
 					id="description"
 					data-scroll
@@ -708,43 +817,6 @@ export default function AboutUs() {
 					</div>
 				</section>
 
-				{/* <section
-          id="loans"
-          data-scroll
-          className="flex flex-col items-center text-[#396131] gap-[40px] mx-[10px] "
-        >
-          <p className="text-[4rem] text-center font-bold">LOANS</p>
-          <div className="grid grid-cols-2 gap-x-[50px] gap-y-[80px] px-[80px]">
-            {loans.map((loan, index) => (
-              <div className="flex gap-[40px] items-center" key={index}>
-                <div className="flex justify-center items-center w-1/2">
-                  <FontAwesomeIcon
-                    icon={loan.logo}
-                    className="aspect-square"
-                    style={{ width: "200px", height: "200px" }}
-                  />
-                </div>
-                <div className="flex flex-col justify-between h-full w-1/2 gap-[30px]">
-                  <div className="flex flex-col gap-[20px]">
-                    <span className="font-bold text-[1.5rem]/[1.5rem]">
-                      {loan.type}
-                    </span>
-                    <span className="text-[1rem]/[2.5rem]">
-                      {loan.description}
-                    </span>
-                  </div>
-                  <NavLink
-                    to={loan.path}
-                    className="w-full text-[1rem]/[1.5rem] text-white font-bold bg-[#396131] text-center py-[10px] rounded-[10px] transition-all transform duration-300 outline-0 ease-in-out outline-[#396131] hover:outline-1 hover:bg-white hover:text-[#396131] hover:scale-105"
-                  >
-                    Learn More
-                  </NavLink>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section> */}
-
 				<section id="loans" data-scroll className="relative overflow-hidden py-16 lg:py-24">
 					{/* Background decoration */}
 					<div className="absolute inset-0 opacity-40">
@@ -824,134 +896,6 @@ export default function AboutUs() {
 						</div>
 					</div>
 				</section>
-				{/* <section
-          id="deposits"
-          data-scroll
-          className="flex flex-col px-[50px] py-[50px] mx-[10px] gap-[85px] bg-[#396131] text-white drop-shadow-lg rounded-[8px]"
-        >
-          <div className="flex flex-col gap-[80px]">
-            <p className="font-bold text-center text-[2rem]/[2rem]">
-              1VB Deposits: Safe, Secure, and Rewarding
-            </p>
-            <div className="flex gap-[94px]">
-              <div className="flex gap-[40px] w-1/2 h-[300px]">
-                <div className="flex items-center justify-center w-1/2">
-                  <FontAwesomeIcon
-                    icon={faPiggyBank}
-                    className="aspect-square"
-                    style={{ width: "238px", height: "213px" }}
-                  />
-                </div>
-                <div className="flex flex-col justify-between h-full w-1/2">
-                  <div className="flex flex-col gap-[22px]">
-                    <p className="text-[1.5rem] font-bold">Regular</p>
-                    <div className="flex flex-col gap-[20px] font-bold text-[1rem]">
-                      <div className="flex gap-[12px]">
-                        <FontAwesomeIcon
-                          icon={faPlusCircle}
-                          className="aspect-square"
-                          style={{ width: "26px", height: "27px" }}
-                        />
-                        <span>SD PLUS</span>
-                      </div>
-                      <div className="flex gap-[12px]">
-                        <FontAwesomeIcon
-                          icon={faFileInvoiceDollar}
-                          className="aspect-square"
-                          style={{ width: "26px", height: "27px" }}
-                        />
-                        <span>1ST CHECKING ACCOUNT</span>
-                      </div>
-                    </div>
-                  </div>
-                  <NavLink
-                    to="/deposits/regular-savings"
-                    className="w-full text-center font-bold bg-white text-[#396131] outline-0 outline-white py-[10px] rounded-[10px] transition-all transform duration-300 ease-in-out hover:outline-1 hover:text-white hover:bg-[#396131] hover:scale-105"
-                  >
-                    Learn More
-                  </NavLink>
-                </div>
-              </div>
-              <div className="flex gap-[40px] w-1/2 h-[300px]">
-                <div className="flex items-center justify-center w-1/2">
-                  <FontAwesomeIcon
-                    icon={faMoneyBillTransfer}
-                    className="aspect-square"
-                    style={{ width: "256px", height: "205px" }}
-                  />
-                </div>
-                <div className="flex flex-col justify-between w-1/2 h-full">
-                  <div className="flex flex-col gap-[22px]">
-                    <p className="text-[1.5rem] font-bold">Special</p>
-                    <div className="flex flex-col gap-[20px] font-bold text-[1rem]">
-                      <div className="flex gap-[12px]">
-                        <FontAwesomeIcon
-                          icon={faCoins}
-                          className="aspect-square"
-                          style={{ width: "26px", height: "27px" }}
-                        />
-                        <span>SSD MICRO</span>
-                      </div>
-                      <div className="flex gap-[12px]">
-                        <FontAwesomeIcon
-                          icon={faMoneyBillTrendUp}
-                          className="aspect-square"
-                          style={{ width: "26px", height: "27px" }}
-                        />
-                        <span>SSD REGULAR</span>
-                      </div>
-                      <div className="flex gap-[12px]">
-                        <FontAwesomeIcon
-                          icon={faFileInvoiceDollar}
-                          className="aspect-square"
-                          style={{ width: "26px", height: "27px" }}
-                        />
-                        <span>HANDOG SAVINGS</span>
-                      </div>
-                      <div className="flex gap-[12px]">
-                        <FontAwesomeIcon
-                          icon={faFileInvoiceDollar}
-                          className="aspect-square"
-                          style={{ width: "26px", height: "27px" }}
-                        />
-                        <span>BASIC SAVINGS</span>
-                      </div>
-                    </div>
-                  </div>
-                  <NavLink
-                    to="/deposits/special-savings"
-                    className="w-full text-center font-bold bg-white text-[#396131] outline-0 outline-white py-[10px] rounded-[10px] transition-all transform duration-300 ease-in-out hover:outline-1 hover:text-white hover:bg-[#396131] hover:scale-105"
-                  >
-                    Learn More
-                  </NavLink>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col gap-[50px] w-full">
-            <div className="grid grid-cols-4 gap-y-[60px] font-bold text-[1rem]">
-              {depositsFeatures.map((deposit, index) => (
-                <div
-                  className="flex flex-col items-center gap-[30px]"
-                  key={index}
-                >
-                  <FontAwesomeIcon
-                    icon={deposit.icon}
-                    className="aspect-square"
-                    style={{ width: "80px", height: "71px" }}
-                  />
-                  <span>{deposit.feature}</span>
-                </div>
-              ))}
-            </div>
-            <NavLink
-              to="/deposits"
-              className="w-full text-center font-bold bg-white text-[#396131] outline-0 outline-white py-[10px] rounded-[10px] transition-all transform duration-300 ease-in-out hover:outline-1 hover:text-white hover:bg-[#396131] hover:scale-101"
-            >
-              Learn More
-            </NavLink>
-          </div>
-        </section> */}
 				<section
 					id="deposits"
 					data-scroll
@@ -1160,32 +1104,6 @@ export default function AboutUs() {
 						</div>
 					</div>
 				</section>
-				{/* <section
-          id="services"
-          data-scroll
-          className="flex flex-col gap-[50px] p-[50px] text-[#396131]"
-        >
-          <p className="font-bold text-[4rem]/[4rem] text-center">SERVICES</p>
-          <div className="grid grid-cols-3 gap-x-[25px]">
-            {services.map((service, index) => (
-              <div className="flex flex-col justify-center items-center gap-[20px]">
-                <div className="flex flex-col justify-center items-center gap-[50px]">
-                  <FontAwesomeIcon
-                    icon={service.icon}
-                    className="aspect-square"
-                    style={{ width: "208px", height: "238px" }}
-                  />
-                  <span className="font-bold text-[1.5rem]/[1.5rem]">
-                    {service.name}
-                  </span>
-                </div>
-                <span className="text-[1rem]/[2rem]">
-                  {service.description}
-                </span>
-              </div>
-            ))}
-          </div>
-        </section> */}
 				<section id="services" data-scroll className="relative overflow-hidden py-16 lg:py-24">
 					{/* Background decoration */}
 					<div className="absolute inset-0 opacity-40">
@@ -1254,56 +1172,6 @@ export default function AboutUs() {
 						</div>
 					</div>
 				</section>
-				{/* <section
-          id="awards"
-          data-scroll
-          className="flex flex-col gap-[30px] mx-[10px] p-[50px] text-[#396131]"
-        >
-          <div className="flex gap-[50px] items-center">
-            <div className="flex justify-center items-start w-1/2">
-              <FontAwesomeIcon
-                icon={faTrophy}
-                className="aspect-square"
-                style={{ width: "564px", height: "501px" }}
-              />
-            </div>
-            <div className="flex flex-col items-start justify-start gap-[30px] w-1/2">
-              <p className="text-[4rem]/[7rem] font-bold">
-                AWARDS & RECOGNITION
-              </p>
-              <div className="flex flex-col gap-[40px]">
-                <div className="flex flex-col gap-[20px]">
-                  <span className="text-[2rem]/[2rem] font-bold">RATED A+</span>
-                  <span className="text-[1rem]/[2rem]">
-                    By PhilRatings, a pioneer domestic credit rating agency
-                    recognized by the Bangko Sentral ng Pilipinas (BSP).{" "}
-                  </span>
-                </div>
-                <div className="flex flex-col gap-[20px]">
-                  <span className="text-[2rem]/[2rem] font-bold">
-                    EAGLE AWARD FOR MICROFINANCE{" "}
-                  </span>
-                  <span className="text-[1rem]/[2rem]">
-                    Bestowed by the U.S. Agency for International Development
-                    through the RBAP-implemented MABS, a program that assists
-                    rural banks in increasing their financial services to the
-                    microenterprise sector.
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-x-[50px] gap-y-[40px]">
-            {awards.map((award, index) => (
-              <div className="flex flex-col gap-[20px]" key={index}>
-                <span className="text-[2rem]/[2rem] font-bold">
-                  {award.header}
-                </span>
-                <span className="text-[1rem]/[2rem]">{award.description}</span>
-              </div>
-            ))}
-          </div>
-        </section> */}
 				<section id="awards" data-scroll className="relative bg-white/80 py-8 lg:py-12">
 					<div className="mx-auto max-w-5xl px-2 sm:px-4">
 						{/* Header & Trophy */}

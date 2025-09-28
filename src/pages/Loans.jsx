@@ -49,7 +49,7 @@ export default function Loans() {
 			route: '/loans/salary'
 		},
 		{
-			title: 'Small Business Loan (SBL)',
+			title: 'Small Business Loan',
 			subtitle: 'Fuel your business growth',
 			description:
 				'Easy-access loans to upgrade, expand, or boost working capital. Take your business to the next level hassle-free.',
@@ -59,7 +59,7 @@ export default function Loans() {
 			route: '/loans/small-business-loan'
 		},
 		{
-			title: 'Small and Medium Enterprise (SME)',
+			title: 'Small and Medium Enterprise',
 			subtitle: 'Scale your enterprise',
 			description:
 				'Take your SME to the next level with flexible financing, competitive rates, and support designed for business success.',
@@ -69,7 +69,7 @@ export default function Loans() {
 			route: '/loans/small-and-medium-enterprises'
 		},
 		{
-			title: 'Gold and Gems (GG) and Jewelry Business Loan (JBL)',
+			title: 'Gold and Gems & Jewelry Business Loan',
 			subtitle: 'Turn assets into instant cash',
 			description:
 				'Secure, hassle-free loans with low rates to meet your urgent financial needs. Your valuable assets can work for you.',
@@ -154,23 +154,7 @@ export default function Loans() {
 
 	return (
 		<>
-			<main className="flex flex-col gap-[40px] pb-[50px] lg:gap-[120px]">
-				<nav className="bg-opacity-50 fixed top-35 right-4 z-40 rounded-2xl bg-black p-2 backdrop-blur-lg">
-					<div className="flex flex-col gap-2">
-						{['main', 'loans'].map((section) => (
-							<button
-								key={section}
-								onClick={() => scrollToSection(section)}
-								className={`h-3 w-3 rounded-full transition-all duration-300 ${
-									activeSection === section
-										? 'scale-125 cursor-pointer bg-[#396131]'
-										: 'cursor-pointer bg-gray-500 hover:bg-gray-300'
-								}`}
-							/>
-						))}
-					</div>
-				</nav>
-
+			<main className="flex flex-col">
 				{/* Loans Carousel Hero Section */}
 				<CarouselSection
 					id="main"
@@ -218,11 +202,11 @@ export default function Loans() {
 													{/* Background decorative element */}
 
 													{/* Main image container */}
-													<div className="relative mx-auto h-40 w-40 overflow-hidden rounded-2xl bg-gradient-to-br from-white to-gray-50 shadow-xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
+													<div className="relative mx-auto h-40 w-40 overflow-hidden transition-all duration-300 group-hover:scale-105">
 														<img
 															src={loan.image}
 															alt={loan.title}
-															className="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
+															className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
 														/>
 													</div>
 												</div>

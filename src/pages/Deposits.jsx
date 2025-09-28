@@ -21,6 +21,7 @@ import {
 	faPaperPlane,
 	faUser
 } from '@fortawesome/free-solid-svg-icons';
+import img from '/src/assets/homepage/heroSectionImage.png';
 
 export default function Deposits() {
 	const [scrollY, setScrollY] = useState(0);
@@ -44,7 +45,7 @@ export default function Deposits() {
 				'ATM Savings',
 				'Student ATM Savings'
 			],
-			image: img1,
+			image: img,
 			imageAlt: 'Savings Account',
 			route: '/deposits/savings-account'
 		},
@@ -58,7 +59,7 @@ export default function Deposits() {
 				'Business/Corporate Checking Account',
 				'Premium Checking Account'
 			],
-			image: img2,
+			image: img,
 			imageAlt: 'Checking Account',
 			route: '/deposits/checking-account'
 		},
@@ -73,7 +74,7 @@ export default function Deposits() {
 				'SD Plus 1 Year',
 				'SD Plus 5 Years and 1 Day'
 			],
-			image: img3,
+			image: img,
 			imageAlt: 'Time Deposit',
 			route: '/deposits/time-deposit'
 		}
@@ -222,6 +223,67 @@ export default function Deposits() {
 		}
 	];
 
+	const products = [
+		{
+			id: 'savings-account',
+			title: 'Savings Account',
+			category: 'Personal Banking',
+			description:
+				'Choose from 9 different savings account types tailored to meet your specific financial goals and life stage. From regular savings to specialized accounts for students and kids.',
+			features: [
+				'Regular Savings',
+				'Kiddie & Teens Savings',
+				'SSD Regular Savings',
+				'SSD Microfinance Savings',
+				'SD Hendog Savings',
+				'Basic Deposit Account'
+			],
+			additionalInfo: '+ 3 more specialized accounts',
+			icon: PiggyBank,
+			image: img,
+			route: '/deposits/savings-account',
+			buttonText: 'Explore Savings Accounts',
+			layout: 'left' // content left, visual right
+		},
+		{
+			id: 'checking-account',
+			title: 'Checking Account',
+			category: 'Business Banking',
+			description:
+				'Professional checking solutions designed for businesses and individuals who need frequent transactions and check-writing capabilities. Perfect for daily business operations.',
+			features: [
+				'Personal Checking Account',
+				'Business/Corporate Checking Account',
+				'Premium Checking Account'
+			],
+			additionalInfo: null,
+			icon: CreditCard,
+			image: img,
+			route: '/deposits/checking-account',
+			buttonText: 'Explore Checking Accounts',
+			layout: 'right' // visual left, content right
+		},
+		{
+			id: 'time-deposit',
+			title: 'Time Deposit',
+			category: 'Investment',
+			description:
+				'Secure your future with fixed-term deposits offering competitive interest rates and guaranteed returns on your investment. Higher yields for your savings.',
+			features: [
+				'SD Plus 3 Months',
+				'SD Plus 6 Months',
+				'SD Plus 1 Year',
+				'SD Plus 5 Years and 1 Day'
+			],
+			additionalInfo: null,
+			icon: TrendingUp,
+			image: img,
+			route: '/deposits/time-deposit',
+			buttonText: 'Explore Time Deposits',
+			layout: 'left' // content left, visual right
+		}
+	];
+
 	useEffect(() => {
 		const handleScroll = () => setScrollY(window.scrollY);
 		window.addEventListener('scroll', handleScroll);
@@ -267,21 +329,6 @@ export default function Deposits() {
 	return (
 		<>
 			<main className="flex flex-col">
-				<nav className="bg-opacity-50 fixed top-35 right-4 z-40 rounded-2xl bg-black p-2 backdrop-blur-lg">
-					<div className="flex flex-col gap-2">
-						{['main', 'products', 'savings-deposit', 'checking-current-deposit'].map((section) => (
-							<button
-								key={section}
-								onClick={() => scrollToSection(section)}
-								className={`h-3 w-3 rounded-full transition-all duration-300 ${
-									activeSection === section
-										? 'scale-125 cursor-pointer bg-[#396131]'
-										: 'cursor-pointer bg-gray-500 hover:bg-gray-300'
-								}`}
-							/>
-						))}
-					</div>
-				</nav>
 				{/* Deposits Carousel Hero Section */}
 				<CarouselSection
 					id="main"
@@ -302,11 +349,13 @@ export default function Deposits() {
 					className="bg-gradient-to-br from-slate-50 via-white to-green-50 py-24"
 				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-						<div className="mb-20 text-center">
-							<h2 className="mb-6 text-4xl font-bold text-gray-900 sm:text-5xl lg:text-6xl">
-								Deposit Solutions
+						{/* Section Header */}
+						<div className="mb-16 text-center">
+							<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
+								DEPOSITS
 							</h2>
-							<p className="mx-auto max-w-3xl text-xl leading-relaxed text-gray-600">
+							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7a3f]"></div>
+							<p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
 								Choose the perfect deposit solution for your financial goals and start building your
 								wealth today
 							</p>
@@ -314,67 +363,6 @@ export default function Deposits() {
 
 						{/* Products Array */}
 						{(() => {
-							const products = [
-								{
-									id: 'savings-account',
-									title: 'Savings Account',
-									category: 'Personal Banking',
-									description:
-										'Choose from 9 different savings account types tailored to meet your specific financial goals and life stage. From regular savings to specialized accounts for students and kids.',
-									features: [
-										'Regular Savings',
-										'Kiddie & Teens Savings',
-										'SSD Regular Savings',
-										'SSD Microfinance Savings',
-										'SD Hendog Savings',
-										'Basic Deposit Account'
-									],
-									additionalInfo: '+ 3 more specialized accounts',
-									icon: PiggyBank,
-									image: img1,
-									route: '/deposits/savings-account',
-									buttonText: 'Explore Savings Accounts',
-									layout: 'left' // content left, visual right
-								},
-								{
-									id: 'checking-account',
-									title: 'Checking Account',
-									category: 'Business Banking',
-									description:
-										'Professional checking solutions designed for businesses and individuals who need frequent transactions and check-writing capabilities. Perfect for daily business operations.',
-									features: [
-										'Personal Checking Account',
-										'Business/Corporate Checking Account',
-										'Premium Checking Account'
-									],
-									additionalInfo: null,
-									icon: CreditCard,
-									image: img2,
-									route: '/deposits/checking-account',
-									buttonText: 'Explore Checking Accounts',
-									layout: 'right' // visual left, content right
-								},
-								{
-									id: 'time-deposit',
-									title: 'Time Deposit',
-									category: 'Investment',
-									description:
-										'Secure your future with fixed-term deposits offering competitive interest rates and guaranteed returns on your investment. Higher yields for your savings.',
-									features: [
-										'SD Plus 3 Months',
-										'SD Plus 6 Months',
-										'SD Plus 1 Year',
-										'SD Plus 5 Years and 1 Day'
-									],
-									additionalInfo: null,
-									icon: TrendingUp,
-									image: img3,
-									route: '/deposits/time-deposit',
-									buttonText: 'Explore Time Deposits',
-									layout: 'left' // content left, visual right
-								}
-							];
-
 							return (
 								<div className="space-y-16">
 									{products.map((product, index) => {
@@ -441,14 +429,14 @@ export default function Deposits() {
 													</div>
 													{/* Visual Side */}
 													<div
-														className={`relative flex items-center justify-center bg-gradient-to-br from-[#396131]/5 to-[#4a7c3a]/10 p-8 lg:p-12 ${isLeftLayout ? 'lg:order-2' : 'lg:order-1'}`}
+														className={`relative flex items-center justify-center p-8 lg:p-12 ${isLeftLayout ? 'lg:order-2' : 'lg:order-1'}`}
 													>
 														<div className="relative">
-															<div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#396131]/20 to-[#4a7c3a]/20 blur-3xl"></div>
+															<div className="absolute inset-0 rounded-3xl"></div>
 															<img
 																src={product.image}
 																alt={`${product.title} Visual`}
-																className="relative z-10 h-64 w-64 rounded-3xl object-cover shadow-2xl transition-transform duration-500 group-hover:scale-105"
+																className="relative z-10 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
 															/>
 														</div>
 													</div>
