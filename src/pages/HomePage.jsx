@@ -496,15 +496,6 @@ export default function HomePage() {
 								<h3 className="mb-4 text-2xl font-bold text-gray-900">{service.title}</h3>
 								<p className="mb-6 flex-1 leading-relaxed text-gray-600">{service.description}</p>
 
-								{/* <div className="mb-8 space-y-2">
-									{service.features.map((feature, featureIndex) => (
-										<div key={featureIndex} className="flex items-center text-sm text-gray-600">
-											<CheckCircle className="mr-3 h-4 w-4 flex-shrink-0 text-[#396131]" />
-											{feature}
-										</div>
-									))}
-								</div> */}
-
 								<NavLink
 									to={service.path}
 									className="group/btn mt-auto inline-flex items-center font-semibold text-[#396131] transition-colors hover:text-[#4a7c3a]"

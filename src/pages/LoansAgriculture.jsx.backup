@@ -7,115 +7,34 @@ import { NavLink } from 'react-router-dom';
 import img1 from '/src/assets/loans/agriculture/1.jpg';
 import img2 from '/src/assets/loans/agriculture/2.jpg';
 import { ShieldCheckIcon, ShovelIcon } from '@phosphor-icons/react/dist/ssr';
-import CarouselSection from '../components/CarouselSection';
-import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
-import img from '/src/assets/homepage/heroSectionImage.png';
 
 export default function LoansAgriculture() {
-	// Agriculture loan types for LoanSubcategoriesSection
-	const agricultureLoanTypes = [
-		{
-			title: 'Agri-Secured',
-			description:
-				'Intends to help farmers in cultivating, improvement and expansion of their farm land or other related activities. Perfect for established agricultural operations.',
-			features: [],
-			image: img,
-			route: '/contact-us'
-		},
-		{
-			title: 'Individual Secured',
-			description:
-				'For clients who seek financial assistance for personal purposes, either house renovation, house construction, placement fee or medical expenses.',
-			features: [],
-			image: img,
-			route: '/contact-us'
-		},
-		{
-			title: 'Chattel Financing',
-			description:
-				'Intends to help farmers in procuring farm equipment for greater yield and further agricultural activities. Equipment serves as collateral.',
-			features: [],
-			image: img,
-			route: '/contact-us'
-		}
-	];
-
-	// Carousel slides combining hero and agriculture loan types
-	const agricultureSlides = [
-		{
-			title: 'Agricultural Loans',
-			subtitle: 'Boost Your Farm Productivity',
-			description:
-				'Agricultural loans provide farmers with funds to buy equipment, supplies, improve land, cover costs, or recover from setbacks—helping boost productivity and growth.',
-			features: [],
-			image: img,
-			imageAlt: 'Agricultural Loans Overview',
-			route: '/contact-us',
-			buttonText: 'Apply Now',
-			showButton: false
-		},
-		{
-			title: 'Agri-Secured',
-			subtitle: 'Farm land cultivation and expansion',
-			description:
-				'Intends to help farmers in cultivating, improvement and expansion of their farm land or other related activities. Perfect for established agricultural operations looking to grow and improve their farming capabilities.',
-			features: [],
-			image: img,
-			imageAlt: 'Agri-Secured Loan',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		},
-		{
-			title: 'Individual Secured',
-			subtitle: 'Personal financial assistance',
-			description:
-				'For clients who seek financial assistance for personal purposes, either house renovation, house construction, placement fee or medical expenses. Flexible terms for various personal needs.',
-			features: [],
-			image: img,
-			imageAlt: 'Individual Secured Loan',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		},
-		{
-			title: 'Chattel Financing',
-			subtitle: 'Farm equipment procurement',
-			description:
-				'Intends to help farmers in procuring farm equipment for greater yield and further agricultural activities. The financed equipment serves as collateral for the loan.',
-			features: [],
-			image: img,
-			imageAlt: 'Chattel Financing',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		}
-	];
-
 	return (
 		<>
-			<main className="flex flex-col">
-				<CarouselSection
-					id="agriculture-carousel"
-					slides={agricultureSlides}
-					autoPlay={true}
-					autoPlayInterval={6000}
-					backgroundColor="from-green-50 via-white to-emerald-50"
-					brandColor="#396131"
-					brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
-					minHeight="min-h-[600px] lg:min-h-[700px]"
-					showLearnMoreButton={true}
-					learnMoreText="Apply Now"
-				/>
-
-				<LoanSubcategoriesSection
-					id="agriculture-loan-types"
-					sectionTitle="Agricultural Loan Types"
-					sectionSubtitle="Choose the agricultural loan that best fits your farming needs and goals"
-					tagText="Loan Categories"
-					loanTypes={agricultureLoanTypes}
-					ctaTitle="Need help choosing the right agricultural loan for your farm?"
-					ctaPrimaryText="Get Expert Consultation"
-					ctaSecondaryText="View All Loans"
-				/>
-				{/* <section id="description" className="px-[15px] text-white">
+			<main className="flex flex-col gap-[40px] pb-[50px] lg:gap-[80px]">
+				<section
+					id="main"
+					data-scroll
+					className="mx-[5px] flex flex-col-reverse rounded-[8px] bg-white p-[20px] text-[#396131] drop-shadow-lg lg:mx-[10px] lg:flex-row lg:py-[50px]"
+				>
+					<div className="mx-[10px] flex flex-col gap-[20px] lg:w-2/3 lg:px-[60px] lg:py-[80px]">
+						<span className="text-[2rem]/[2rem] font-bold lg:text-[4rem]/[4rem]">
+							Loans / Agriculture
+						</span>
+						<span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
+							These loans are meant to boost agricultural productivity by providing sufficient funds
+							that farmers need to finance their activities efficiently. Farmers can use the funds
+							for multiple purposes such as to buy farm equipment, purchase agricultural supplies,
+							cover land costs, make land improvements or repairs, cover operating costs, grow the
+							business, market the products to the vendors and the public, or rebuild following a
+							natural disaster or pandemic.
+						</span>
+					</div>
+					<div className="flex items-center justify-center lg:w-1/3">
+						<BarnIcon className="h-auto w-[60%]" />
+					</div>
+				</section>
+				<section id="description" className="px-[15px] text-white">
 					<div className="flex flex-col items-center justify-center gap-[20px] rounded-[8px] bg-[#396131] p-[20px] drop-shadow-lg lg:flex-row lg:gap-[80px] lg:px-[80px] lg:py-[60px]">
 						<div className="flex items-center justify-center lg:w-2/5">
 							<LeafIcon className="h-auto w-[10rem] lg:w-[60%]" />
@@ -133,8 +52,8 @@ export default function LoansAgriculture() {
 							</span>
 						</div>
 					</div>
-				</section> */}
-				{/* <section className="mx-[20px] flex flex-col-reverse justify-between gap-[20px] text-[#396131] lg:mx-[60px] lg:flex-row">
+				</section>
+				<section className="mx-[20px] flex flex-col-reverse justify-between gap-[20px] text-[#396131] lg:mx-[60px] lg:flex-row">
 					<div className="flex flex-col gap-[20px] lg:w-3/5 lg:gap-[50px]">
 						<span className="text-[1.5rem]/[2.25rem] font-semibold lg:text-[2.5rem]/[3rem]">
 							AGRICULTURAL LOANS SURPASS PROJECTED GROWTH
@@ -170,8 +89,8 @@ export default function LoansAgriculture() {
 					<div className="flex items-center justify-center lg:w-2/5">
 						<img src={img1} alt="" className="h-full w-2/3 rounded-[12px] object-cover" />
 					</div>
-				</section> */}
-				{/* <section
+				</section>
+				<section
 					id="kinds"
 					className="mx-[15px] flex flex-col gap-[20px] rounded-[8px] bg-[#396131] p-[30px] text-white drop-shadow-lg lg:gap-[40px] lg:p-[50px]"
 				>
@@ -212,7 +131,7 @@ export default function LoansAgriculture() {
 							</div>
 						))}
 					</div>
-				</section> */}
+				</section>
 				<section
 					id="story"
 					className="mx-[20px] flex flex-col-reverse justify-between gap-[32px] text-[#396131] lg:mx-[60px] lg:flex-row lg:gap-[60px]"
@@ -244,8 +163,8 @@ export default function LoansAgriculture() {
 								and expand from 1.5 to 7 hectares.
 							</p>
 							<blockquote className="rounded-md border-l-4 border-[#396131] bg-[#396131]/5 py-2 pl-4 text-[#396131] italic">
-								"Dako jud kaayo natabang ang 1st Valley Bank samoa kay tungod sa ila pagpautang
-								samoa nakabakod mi balik."
+								“Dako jud kaayo natabang ang 1st Valley Bank samoa kay tungod sa ila pagpautang
+								samoa nakabakod mi balik.”
 								<br />
 								<span className="text-[0.95em] text-[#396131]/80 not-italic">
 									(1st Valley Bank helped us a lot that we were able to rise again.)

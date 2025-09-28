@@ -61,17 +61,7 @@ export default function Navbar({ children }) {
 		{
 			navItem: 'CONSUMER PROTECTION',
 			path: '/consumer-protection',
-			subItems: [
-				// {
-				// 	subItem: 'Privacy Policy',
-				// 	path: '/consumer-protection/privacy-policy'
-				// },
-				// { subItem: '1VB Products', path: '/consumer-protection/1vb-products' },
-				// {
-				// 	subItem: 'Product Requirements',
-				// 	path: '/consumer-protection/product-requirements'
-				// }
-			]
+			subItems: []
 		},
 		{ navItem: 'ABOUT US', path: '/about-us', subItems: [] },
 		{ navItem: '1VB ADVISORY', path: '/1vb-advisory', subItems: [] },
@@ -111,28 +101,8 @@ export default function Navbar({ children }) {
 			path: '/loans',
 			subItems: [
 				{
-					subItem: 'Agriculture',
-					path: '/loans/agriculture',
-					subsubItems: []
-				},
-				{
-					subItem: 'Small and Medium Enterprises (SME)',
-					path: '/loans/small-and-medium-enterprises',
-					subsubItems: []
-				},
-				{
-					subItem: 'Microfinance',
-					path: '/loans/microfinance',
-					subsubItems: []
-				},
-				{
-					subItem: 'Supervised Credit (SUCRE)',
-					path: '/loans/supervised-credit',
-					subsubItems: []
-				},
-				{
-					subItem: 'Gold & Gems',
-					path: '/loans/gold-and-gems',
+					subItem: 'Salary Loans',
+					path: '/loans/salary',
 					subsubItems: []
 				},
 				{
@@ -141,8 +111,28 @@ export default function Navbar({ children }) {
 					subsubItems: []
 				},
 				{
-					subItem: 'Salary',
-					path: '/loans/salary',
+					subItem: 'Small and Medium Enterprise (SME)',
+					path: '/loans/small-and-medium-enterprises',
+					subsubItems: []
+				},
+				{
+					subItem: 'Gold & Gems (GG) and Jewelry Business Loan (JBL)',
+					path: '/loans/gold-and-gems',
+					subsubItems: []
+				},
+				{
+					subItem: 'Supervised Credit or Crop Production Loan',
+					path: '/loans/supervised-credit',
+					subsubItems: []
+				},
+				{
+					subItem: 'Agriculture Loan',
+					path: '/loans/agriculture',
+					subsubItems: []
+				},
+				{
+					subItem: 'Microfinance',
+					path: '/loans/microfinance',
 					subsubItems: []
 				}
 			]
@@ -253,7 +243,7 @@ export default function Navbar({ children }) {
 					onMouseLeave={() => setActiveItemHover('')}
 				>
 					{/* Left side gradient */}
-					<div className="flex h-[69px] w-full items-center justify-end bg-gradient-to-r from-[#5E9B55] to-[#31542B] px-4 py-[10px] xl:px-[40px]">
+					<div className="flex h-[69px] w-full items-center justify-end bg-gradient-to-r from-white via-[#386131] to-[#31542B] px-4 py-[10px] xl:px-[40px]">
 						<div className="relative z-10">
 							<NavLink to="/">
 								<img
@@ -699,7 +689,7 @@ export default function Navbar({ children }) {
 					)}
 				</div>
 
-				<div className="mt-16 md:mt-20 xl:mt-[133px]">{children}</div>
+				<div className="mt-16 md:mt-20">{children}</div>
 				<ChatBox />
 
 				{/* Footer remains the same */}

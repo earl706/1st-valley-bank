@@ -14,7 +14,6 @@ import img5 from '/src/assets/homepage/5.png';
 import img6 from '/src/assets/homepage/6.png';
 import HeroSection from '../components/HeroSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
-import CarouselSection from '../components/CarouselSection';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -87,79 +86,20 @@ export default function LoansSME() {
 		}
 	];
 
-	// Carousel slides combining hero and SME loan types
-	const smeSlides = [
-		{
-			title: 'Small and Medium Enterprise Loan',
-			subtitle: 'Boost Your Business Today',
-			description:
-				'Loan facility that funds small and medium enterprises engaged in legitimate wholesale or retail businesses. Funds can be used for financing business expansion, purchasing new heavy equipment or vehicle, constructing new warehouse or building, and trade check discounting.',
-			features: [],
-			image: img3,
-			imageAlt: 'SME Loan Overview',
-			route: '/contact-us',
-			buttonText: 'Apply Now',
-			showButton: false
-		},
-		{
-			title: 'SME Secured Loan',
-			subtitle: 'Collateral-based financing',
-			description:
-				'A secured loan option for established businesses requiring collateral such as real estate or equipment. Offers competitive interest rates and flexible terms for business growth and expansion.',
-			features: [],
-			image: img2,
-			imageAlt: 'SME Secured Loan',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		},
-		{
-			title: 'SME Chattel Financing',
-			subtitle: 'Equipment and vehicle financing',
-			description:
-				'Specialized financing for the acquisition of movable assets like vehicles, machinery, and equipment. The financed asset serves as collateral for the loan.',
-			features: [],
-			image: img4,
-			imageAlt: 'SME Chattel Financing',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		},
-		{
-			title: 'Check Rediscounting',
-			subtitle: 'Convert checks to cash flow',
-			description:
-				'A financing facility that allows businesses to convert their post-dated checks into immediate cash flow. Perfect for bridging short-term liquidity gaps.',
-			features: [],
-			image: img5,
-			imageAlt: 'Check Rediscounting',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		},
-		{
-			title: 'Back to Back Loan',
-			subtitle: 'Deposit-backed financing',
-			description:
-				'A loan arrangement backed by deposits or securities held by the bank. Provides financing while maintaining your existing investments and earning potential.',
-			features: [],
-			image: img6,
-			imageAlt: 'Back to Back Loan',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		}
-	];
-
 	return (
 		<>
-			<CarouselSection
-				id="sme-carousel"
-				slides={smeSlides}
-				autoPlay={true}
-				autoPlayInterval={6000}
-				backgroundColor="from-purple-50 via-white to-indigo-50"
-				brandColor="#396131"
-				brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
-				minHeight="min-h-[600px] lg:min-h-[700px]"
-				showLearnMoreButton={true}
-				learnMoreText="Apply Now"
+			<HeroSection
+				title="Small and Medium Enterprise Loan (SME)"
+				subtitle="Boost Your Business Today"
+				description="Loan facility that funds small and medium enterprises engaged in legitimate wholesale
+							or retail businesses. Funds can be used for (a) financing business expansion, (b)
+							purchasing new heavy equipment or vehicle, (c) constructing new warehouse or building,
+							(d) trade check discounting."
+				features={[]}
+				image={img3}
+				imageAlt="Small and Medium Enterprise Loan"
+				ctaText="Apply Now"
+				ctaLink="/contact-us"
 			/>
 
 			{/* SME Subcategories */}

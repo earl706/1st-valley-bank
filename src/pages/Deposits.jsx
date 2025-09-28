@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import CarouselSection from '../components/CarouselSection';
 import img1 from '/src/assets/homepage/1.png';
 import { PiggyBank, CreditCard, TrendingUp } from 'lucide-react';
 import img2 from '/src/assets/homepage/2.png';
@@ -25,6 +26,58 @@ export default function Deposits() {
 	const [scrollY, setScrollY] = useState(0);
 	const [isVisible, setIsVisible] = useState({});
 	const [activeSection, setActiveSection] = useState('');
+
+	const slides = [
+		{
+			title: 'Savings Account',
+			subtitle: 'Building your financial future',
+			description:
+				'Choose from 9 different savings account types tailored to meet your specific financial goals and life stage.',
+			features: [
+				'Regular Savings',
+				'Kiddie and Teens Savings',
+				'SSD Regular Savings',
+				'SSD Microfinance Savings',
+				'SD Handog Savings',
+				'Basic Deposit Account',
+				'Payroll Served',
+				'ATM Savings',
+				'Student ATM Savings'
+			],
+			image: img1,
+			imageAlt: 'Savings Account',
+			route: '/deposits/savings-account'
+		},
+		{
+			title: 'Checking Account',
+			subtitle: 'Convenient business banking',
+			description:
+				'Professional checking solutions designed for businesses and individuals who need frequent transactions and check-writing capabilities.',
+			features: [
+				'Personal Checking Account',
+				'Business/Corporate Checking Account',
+				'Premium Checking Account'
+			],
+			image: img2,
+			imageAlt: 'Checking Account',
+			route: '/deposits/checking-account'
+		},
+		{
+			title: 'Time Deposit',
+			subtitle: 'Higher returns, guaranteed',
+			description:
+				'Secure your future with fixed-term deposits offering competitive interest rates and guaranteed returns on your investment.',
+			features: [
+				'SD Plus 3 Months',
+				'SD Plus 6 Months',
+				'SD Plus 1 Year',
+				'SD Plus 5 Years and 1 Day'
+			],
+			image: img3,
+			imageAlt: 'Time Deposit',
+			route: '/deposits/time-deposit'
+		}
+	];
 
 	const features = [
 		{
@@ -230,364 +283,18 @@ export default function Deposits() {
 					</div>
 				</nav>
 				{/* Deposits Carousel Hero Section */}
-				<section
+				<CarouselSection
 					id="main"
-					data-scroll
-					className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-green-50"
-				>
-					{/* Background Elements */}
-					<div className="absolute inset-0">
-						<div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-gradient-to-br from-[#396131]/20 to-[#4a7c3a]/20 blur-3xl"></div>
-						<div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-gradient-to-tr from-green-400/20 to-[#396131]/20 blur-3xl"></div>
-					</div>
-
-					{/* Carousel Implementation */}
-					{(() => {
-						// Carousel data
-						const depositSlides = [
-							{
-								title: 'Savings Account',
-								subtitle: 'Building your financial future',
-								description:
-									'Choose from 9 different savings account types tailored to meet your specific financial goals and life stage.',
-								accountTypes: [
-									'Regular Savings',
-									'Kiddie and Teens Savings',
-									'SSD Regular Savings',
-									'SSD Microfinance Savings',
-									'SD Hendog Savings',
-									'Basic Deposit Account',
-									'Payroll Served',
-									'ATM Savings',
-									'Student ATM Savings'
-								],
-								image: img1,
-								gradient: 'from-[#396131] to-[#4a7c3a]'
-							},
-							{
-								title: 'Checking Account',
-								subtitle: 'Convenient business banking',
-								description:
-									'Professional checking solutions designed for businesses and individuals who need frequent transactions and check-writing capabilities.',
-								accountTypes: [
-									'Personal Checking Account',
-									'Business/Corporate Checking Account',
-									'Premium Checking Account'
-								],
-								image: img2,
-								gradient: 'from-[#396131] to-[#4a7c3a]'
-							},
-							{
-								title: 'Time Deposit',
-								subtitle: 'Higher returns, guaranteed',
-								description:
-									'Secure your future with fixed-term deposits offering competitive interest rates and guaranteed returns on your investment.',
-								accountTypes: [
-									'SD Plus 3 Months',
-									'SD Plus 6 Months',
-									'SD Plus 1 Year',
-									'SD Plus 5 Years and 1 Day'
-								],
-								image: img3,
-								gradient: 'from-[#396131] to-[#4a7c3a]'
-							}
-						];
-
-						// Carousel state management
-						const [carouselCurrent, setCarouselCurrent] = React.useState(0);
-						const [carouselIsTransitioning, setCarouselIsTransitioning] = React.useState(false);
-						const [carouselIsPaused, setCarouselIsPaused] = React.useState(false);
-						const touchStartX = React.useRef(0);
-						const touchEndX = React.useRef(0);
-						const autoPlayRef = React.useRef(null);
-
-						// Auto-play functionality
-						React.useEffect(() => {
-							if (carouselIsPaused || depositSlides.length <= 1) return;
-
-							autoPlayRef.current = setInterval(() => {
-								carouselNextSlide();
-							}, 5000);
-
-							return () => {
-								if (autoPlayRef.current) {
-									clearInterval(autoPlayRef.current);
-								}
-							};
-						}, [carouselCurrent, carouselIsPaused]);
-
-						// Enhanced slide change with transition control
-						const carouselChangeSlide = (newIndex) => {
-							if (carouselIsTransitioning || newIndex === carouselCurrent) return;
-
-							setCarouselIsTransitioning(true);
-							setCarouselCurrent(newIndex);
-
-							setTimeout(() => {
-								setCarouselIsTransitioning(false);
-							}, 500);
-						};
-
-						const carouselPrevSlide = () => {
-							const newIndex =
-								carouselCurrent === 0 ? depositSlides.length - 1 : carouselCurrent - 1;
-							carouselChangeSlide(newIndex);
-						};
-
-						const carouselNextSlide = () => {
-							const newIndex =
-								carouselCurrent === depositSlides.length - 1 ? 0 : carouselCurrent + 1;
-							carouselChangeSlide(newIndex);
-						};
-
-						// Touch handlers for swipe support
-						const handleTouchStart = (e) => {
-							touchStartX.current = e.touches[0].clientX;
-						};
-
-						const handleTouchMove = (e) => {
-							touchEndX.current = e.touches[0].clientX;
-						};
-
-						const handleTouchEnd = () => {
-							if (!touchStartX.current || !touchEndX.current) return;
-
-							const distance = touchStartX.current - touchEndX.current;
-							const isLeftSwipe = distance > 50;
-							const isRightSwipe = distance < -50;
-
-							if (isLeftSwipe) {
-								carouselNextSlide();
-							} else if (isRightSwipe) {
-								carouselPrevSlide();
-							}
-						};
-
-						// Keyboard navigation
-						React.useEffect(() => {
-							const handleKeyDown = (e) => {
-								if (e.key === 'ArrowLeft') {
-									carouselPrevSlide();
-								} else if (e.key === 'ArrowRight') {
-									carouselNextSlide();
-								}
-							};
-
-							window.addEventListener('keydown', handleKeyDown);
-							return () => window.removeEventListener('keydown', handleKeyDown);
-						}, [carouselCurrent]);
-
-						return (
-							<div
-								className="max-w-8xl relative mx-auto px-4 py-5 sm:px-6 lg:px-8 lg:py-8"
-								onMouseEnter={() => setCarouselIsPaused(true)}
-								onMouseLeave={() => setCarouselIsPaused(false)}
-								onTouchStart={handleTouchStart}
-								onTouchMove={handleTouchMove}
-								onTouchEnd={handleTouchEnd}
-							>
-								<div className="relative overflow-hidden">
-									{/* Slide Container */}
-									<div
-										className="flex transition-transform duration-500 ease-in-out"
-										style={{ transform: `translateX(-${carouselCurrent * 100}%)` }}
-									>
-										{depositSlides.map((slide, index) => (
-											<div
-												key={index}
-												className="w-full flex-shrink-0"
-												role="tabpanel"
-												aria-label={`Slide ${index + 1} of ${depositSlides.length}`}
-											>
-												<div className="mx-8 grid min-h-[560px] items-center gap-12 lg:mx-16 lg:min-h-[640px] lg:grid-cols-2">
-													{/* Icon/Visual */}
-													{/* <div className="relative order-0 flex h-full items-center justify-center lg:order-1">
-														<div className="relative z-10">
-															<img
-																src={slide.image}
-																alt={slide.title}
-																className={`mx-auto h-48 w-48 transform drop-shadow-2xl transition-all duration-700 lg:h-64 lg:w-64 ${
-																	index === carouselCurrent
-																		? 'scale-100 opacity-100'
-																		: 'scale-95 opacity-0'
-																}`}
-															/>{' '}
-														</div>
-													</div> */}
-													<div className="relative order-0 flex h-full items-center justify-center lg:order-1">
-														<div className="relative z-10">
-															<img
-																src={slide.image}
-																alt={''}
-																className={`mx-auto h-auto w-full max-w-lg transform drop-shadow-2xl transition-all duration-700 ${
-																	index === carouselCurrent
-																		? 'scale-100 opacity-100'
-																		: 'scale-95 opacity-0'
-																}`}
-															/>
-														</div>
-													</div>
-
-													{/* Content */}
-													<div className="order-1 flex h-full flex-col justify-center space-y-8 lg:order-0">
-														<div className="space-y-4">
-															<h1 className="text-4xl leading-tight font-bold text-gray-900 sm:text-5xl lg:text-6xl">
-																<span
-																	className={`block transform bg-gradient-to-r from-[#396131] via-[#4a7c3a] to-[#5a8c4a] bg-clip-text text-5xl leading-tight font-black text-transparent transition-all delay-100 duration-700 sm:text-6xl lg:text-7xl ${
-																		index === carouselCurrent
-																			? 'translate-y-0 opacity-100'
-																			: 'translate-y-4 opacity-0'
-																	}`}
-																>
-																	{slide.title}
-																</span>
-																<span
-																	className={`block transform bg-gradient-to-r from-[#396131] via-[#4a7c3a] to-[#5a8c4a] bg-clip-text text-2xl leading-tight font-bold text-transparent transition-all delay-200 duration-700 sm:text-3xl lg:text-4xl ${
-																		index === carouselCurrent
-																			? 'translate-y-0 opacity-100'
-																			: 'translate-y-4 opacity-0'
-																	}`}
-																>
-																	{slide.subtitle}
-																</span>
-															</h1>
-
-															<p
-																className={`max-w-2xl transform text-xl leading-relaxed text-gray-600 transition-all delay-300 duration-700 ${
-																	index === carouselCurrent
-																		? 'translate-y-0 opacity-100'
-																		: 'translate-y-4 opacity-0'
-																}`}
-															>
-																{slide.description}
-															</p>
-
-															{/* Account Types List */}
-															<div
-																className={`transform transition-all delay-400 duration-700 ${
-																	index === carouselCurrent
-																		? 'translate-y-0 opacity-100'
-																		: 'translate-y-4 opacity-0'
-																}`}
-															>
-																<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-																	{slide.accountTypes.map((accountType, typeIndex) => (
-																		<div key={typeIndex} className="flex items-center gap-2">
-																			<div className="h-2 w-2 rounded-full bg-[#396131]"></div>
-																			<span className="text-sm text-gray-700">{accountType}</span>
-																		</div>
-																	))}
-																</div>
-															</div>
-
-															{/* Learn More Button */}
-															<div
-																className={`transform pt-8 transition-all delay-500 duration-700 ${
-																	index === carouselCurrent
-																		? 'translate-y-0 opacity-100'
-																		: 'translate-y-4 opacity-0'
-																}`}
-															>
-																<NavLink
-																	to={`/deposits/${slide.title.toLowerCase().replace(/\s+/g, '-')}`}
-																	className="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-																>
-																	Learn More
-																	<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-																</NavLink>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										))}
-									</div>
-
-									{/* Carousel Controls */}
-									{depositSlides.length > 1 && (
-										<>
-											<button
-												onClick={carouselPrevSlide}
-												disabled={carouselIsTransitioning}
-												className={`absolute top-1/2 left-4 z-20 hidden -translate-x-[calc(100%+0.5rem)] -translate-y-1/2 cursor-pointer rounded-full bg-white/80 p-2 shadow transition-all duration-200 hover:bg-white sm:left-6 sm:flex md:left-8 lg:left-10 xl:left-12 ${
-													carouselIsTransitioning
-														? 'pointer-events-none opacity-50'
-														: 'hover:scale-110'
-												}`}
-												aria-label="Previous Slide"
-											>
-												<svg
-													className="h-6 w-6 text-[#396131]"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor"
-												>
-													<path
-														strokeLinecap="round"
-														strokeLinejoin="round"
-														strokeWidth={2}
-														d="M15 19l-7-7 7-7"
-													/>
-												</svg>
-											</button>
-											<button
-												onClick={carouselNextSlide}
-												disabled={carouselIsTransitioning}
-												className={`absolute top-1/2 right-4 z-20 hidden translate-x-[calc(100%+0.5rem)] -translate-y-1/2 cursor-pointer rounded-full bg-white/80 p-2 shadow transition-all duration-200 hover:bg-white sm:right-6 sm:flex md:right-8 lg:right-10 xl:right-12 ${
-													carouselIsTransitioning
-														? 'pointer-events-none opacity-50'
-														: 'hover:scale-110'
-												}`}
-												aria-label="Next Slide"
-											>
-												<svg
-													className="h-6 w-6 text-[#396131]"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor"
-												>
-													<path
-														strokeLinecap="round"
-														strokeLinejoin="round"
-														strokeWidth={2}
-														d="M9 5l7 7-7 7"
-													/>
-												</svg>
-											</button>
-
-											{/* Progress Dots */}
-											<div className="z-20 mt-6 flex justify-center gap-2 lg:mt-8 xl:absolute xl:bottom-4 xl:left-1/2 xl:mt-0 xl:-translate-x-1/2">
-												{depositSlides.map((_, idx) => (
-													<button
-														key={idx}
-														onClick={() => carouselChangeSlide(idx)}
-														disabled={carouselIsTransitioning}
-														className={`h-2 w-6 rounded-full transition-all duration-300 hover:scale-110 ${
-															carouselCurrent === idx
-																? 'w-8 bg-[#396131]'
-																: 'bg-gray-300 hover:bg-gray-400'
-														} ${carouselIsTransitioning ? 'pointer-events-none' : ''}`}
-														aria-label={`Go to slide ${idx + 1}`}
-													/>
-												))}
-											</div>
-
-											{/* Auto-play indicator */}
-											{!carouselIsPaused && (
-												<div className="absolute top-4 right-4 z-20 rounded-full bg-white/80 p-2 text-xs text-gray-600">
-													<div className="flex items-center gap-1">
-														<div className="h-2 w-2 animate-pulse rounded-full bg-[#396131]"></div>
-														Auto
-													</div>
-												</div>
-											)}
-										</>
-									)}
-								</div>
-							</div>
-						);
-					})()}
-				</section>
+					slides={slides}
+					autoPlay={true}
+					autoPlayInterval={5000}
+					backgroundColor="from-slate-50 via-white to-green-50"
+					brandColor="#396131"
+					brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
+					minHeight="min-h-[560px] lg:min-h-[640px]"
+					showLearnMoreButton={true}
+					learnMoreText="Learn More"
+				/>
 				{/* Products Showcase Section */}
 				<section
 					id="products"

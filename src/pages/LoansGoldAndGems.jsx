@@ -10,8 +10,11 @@ import {
 	TrendUpIcon
 } from '@phosphor-icons/react/dist/ssr';
 import img1 from '/src/assets/loans/gold-and-gems/1.jpg';
+import img3 from '/src/assets/homepage/3.png';
 import React from 'react';
 import { ShieldCheckIcon } from '@phosphor-icons/react';
+import HeroSection from '../components/HeroSection';
+import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 
 export default function LoansGoldAndGems() {
 	const advantages = [
@@ -51,28 +54,18 @@ export default function LoansGoldAndGems() {
 
 	return (
 		<>
-			<main className="flex flex-col gap-[40px] pb-[50px] lg:gap-[80px]">
-				<section
-					id="main"
-					data-scroll
-					className="mx-[10px] flex flex-col-reverse rounded-[8px] bg-white p-[20px] text-[#396131] drop-shadow-lg lg:flex-row lg:px-[80px] lg:py-[80px]"
-				>
-					<div className="flex flex-col gap-[20px] lg:w-3/5">
-						<span className="text-[2rem]/[2rem] font-bold lg:text-[4rem]/[4rem]">
-							Loans / Gold & Gems
-						</span>
-						<span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
-							Secure quick cash with 1st Valley Bank’s Gold and Gems Loan—a hassle-free lending
-							solution using your valuable jewelry as collateral. Enjoy low interest rates, fast
-							approval, and flexible terms. Perfect for urgent needs or personal expenses. Your
-							treasures stay safe while your finances stay strong.
-						</span>
-					</div>
-					<div className="flex justify-center lg:w-2/5">
-						<SketchLogoIcon className="h-auto w-[50%]" />
-					</div>
-				</section>
-				<section id="description" className="px-[15px] text-white">
+			<HeroSection
+				title="Gold & Gems"
+				subtitle="Secure Quick Cash"
+				description="Individual borrowers may pledge their genuine pieces of jewelry for instant cash for personal purposes. This is through the Gold & Gems jewelry loan. Interest rates are most affordable, and the term is guaranteed to be flexible."
+				features={[]}
+				image={img3}
+				imageAlt="Gold & Gems"
+				ctaText="Apply Now"
+				ctaLink="/contact-us"
+			/>
+			<main className="flex flex-col pb-[50px]">
+				{/* <section id="description" className="px-[15px] text-white">
 					<div className="flex flex-col rounded-[8px] bg-[#396131] p-[30px] drop-shadow-lg lg:flex-row lg:gap-[80px] lg:px-[80px] lg:py-[60px]">
 						<div className="flex justify-center lg:w-2/5">
 							<MoneyWavyIcon className="h-auto w-[50%]" />
@@ -100,67 +93,50 @@ export default function LoansGoldAndGems() {
 							</div>
 						</div>
 					</div>
-				</section>
+				</section> */}
+
 				<section
-					id="description-2"
-					className="mx-[20px] flex flex-col-reverse justify-between gap-[20px] text-[#396131] lg:mx-[60px] lg:flex-row lg:gap-0"
+					id="advantages"
+					className="relative overflow-hidden bg-gradient-to-br from-[#396131] to-[#2d4a26] py-20"
 				>
-					<div className="flex flex-col gap-[50px] lg:w-3/5">
-						<span className="text-[1.5rem]/[1.5rem] font-bold lg:text-[2.5rem]/[2.5rem]">
-							Gold & Gems Loan Shines Bright
-						</span>
-						<span className="text-[1rem]/[1rem] font-semibold lg:text-[2rem]/[2rem]">
-							Andre M. Ates, Product Manager
-						</span>
-						{[
-							{
-								header: '2023: Turnaround Year for Gold & Gems',
-								description:
-									'After the 3-year drought for Gold and Gems, where portfolio decreased, the product has recovered successfully with a 40M increase in 2023, its turnaround year. The increase was a result of the following: higher appraisal rate, innovative features, and concerted effort of the Gold & Gems team. '
-							},
-							{
-								header: 'Why Choose 1st Valley Bank',
-								description:
-									'Several good reasons. Foremost is that aside from the advantages, one is assured that the Bank wants the borrower to regain possession of the item/s submitted as pledge. '
-							},
-							{
-								header: 'Jewelry Business Loan',
-								description:
-									"This loan grants business funds to anyone with authentic jewelry pieces to submit as collateral. It's the fastest way to get credit. Just convert your idle jewelry pieces. Let them shine and sparkle in times of need."
-							}
-						].map((part, index) => (
-							<div className="flex flex-col gap-[10px] lg:gap-[20px]" key={index}>
-								<span className="text-[1rem]/[1rem] font-semibold lg:text-[1.5rem]/[2rem]">
-									{part.header}
-								</span>
-								<span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
-									{part.description}
-								</span>
-							</div>
-						))}
-					</div>
-					<div className="flex justify-center lg:w-2/5">
-						<img src={img1} alt="" className="h-full w-full rounded-[12px] object-cover lg:w-4/5" />
+					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+						<div className="mb-16 text-center">
+							<h2 className="mb-6 text-4xl leading-tight font-bold text-white md:text-5xl">
+								Advantages
+							</h2>
+						</div>
+
+						<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+							{advantages.map((advantage, index) => (
+								<div
+									key={index}
+									className="group relative rounded-2xl border border-white/20 bg-white/10 p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:bg-white/15"
+								>
+									<div className="text-center">
+										{/* Icon */}
+										<div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl text-white transition-transform duration-300 group-hover:scale-110">
+											{advantage.logo}
+										</div>
+
+										{/* Description */}
+										<p className="text-sm leading-relaxed text-white/80">{advantage.description}</p>
+									</div>
+								</div>
+							))}
+						</div>
 					</div>
 				</section>
-				<section
-					id="who-can-apply"
-					className="mx-[15px] flex flex-col gap-[50px] rounded-[10px] bg-[#396131] p-[30px] text-white drop-shadow-lg lg:p-[50px]"
-				>
-					<span className="text-center text-[1.5rem]/[1.5rem] font-bold lg:text-[2rem]/[2rem]">
-						Advantages
-					</span>
-					<div className="grid grid-cols-2 gap-x-[1.25rem] gap-y-[1.25rem] lg:grid-cols-4 lg:gap-y-[50px]">
-						{advantages.map((loan, index) => (
-							<div className="flex flex-col items-center gap-[10px]" key={index}>
-								<div className="flex">{loan.logo}</div>
-								<span className="text-center text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
-									{loan.description}
-								</span>
-							</div>
-						))}
-					</div>
-				</section>
+				<LoanSubcategoriesSection
+					id="gold-and-gems-types"
+					sectionTitle="Gold & Gems Loan Types"
+					sectionSubtitle="Choose the gold & gems loan that best fits your needs"
+					tagText="Loan Categories"
+					loanTypes={[]}
+					ctaOnly={true}
+					ctaTitle="Need help choosing the right Gold & Gems loan for you?"
+					ctaPrimaryText="Get Expert Consultation"
+					ctaSecondaryText="View All Loans"
+				/>
 			</main>
 		</>
 	);
