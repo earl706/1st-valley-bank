@@ -30,6 +30,7 @@ import LoansSalary from './pages/LoansSalary';
 import PropertiesForSaleVehicles from './pages/PropertiesForSaleVehicles';
 import PropertiesForSaleRealEstate from './pages/PropertiesForSaleRealEstate';
 import Effects from './pages/Effects';
+import LoanQualification from './pages/LoanQualification';
 
 function App() {
 	const [showSplash, setShowSplash] = useState(false);
@@ -143,7 +144,8 @@ function App() {
 		{
 			component: <Effects />,
 			route: '/effects'
-		}
+		},
+		{ component: <LoanQualification />, route: '/loan-qualification/:loanType' }
 	];
 
 	return (

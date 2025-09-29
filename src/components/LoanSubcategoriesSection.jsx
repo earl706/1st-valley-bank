@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import ProductModal from './ProductModal';
 
@@ -23,6 +23,7 @@ export default function LoanSubcategoriesSection({
 }) {
 	const [selectedProduct, setSelectedProduct] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const navigate = useNavigate();
 
 	const handleViewDetails = (e, product) => {
 		e.preventDefault();
@@ -33,6 +34,11 @@ export default function LoanSubcategoriesSection({
 	const handleCloseModal = () => {
 		setIsModalOpen(false);
 		setSelectedProduct(null);
+	};
+
+	const handleApplyNow = (loanType) => {
+		// Navigate to qualification page with loan type
+		navigate(`/loan-qualification/${loanType.title.toLowerCase().replace(/\s+/g, '-')}`);
 	};
 
 	// If ctaOnly is true, render only the CTA section
@@ -198,8 +204,8 @@ export default function LoanSubcategoriesSection({
 												)}
 
 												{showModal && (
-													<NavLink
-														to={type.route}
+													<button
+														onClick={() => handleApplyNow(type)}
 														className="inline-flex cursor-pointer items-center justify-center rounded-xl border-2 px-6 py-3 font-semibold transition-all duration-300 hover:scale-105 focus:ring-4 focus:outline-none"
 														style={{
 															borderColor: brandColor,
@@ -216,7 +222,7 @@ export default function LoanSubcategoriesSection({
 														}}
 													>
 														Apply Now
-													</NavLink>
+													</button>
 												)}
 											</div>
 										</div>

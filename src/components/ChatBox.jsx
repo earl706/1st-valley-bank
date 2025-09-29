@@ -125,20 +125,23 @@ export default function ChatBox() {
 		<>
 			{/* Chat Toggle Button */}
 			{!isOpen && (
-				<div className="group fixed right-8 bottom-8 z-50 flex items-center">
-					<span className="pointer-events-none mr-4 origin-right translate-x-2 scale-95 rounded-lg bg-white px-4 py-2 text-sm font-medium text-[#396131] opacity-0 shadow-lg transition-all duration-200 select-none group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100">
-						Chat with our AI Assistant
-					</span>
+				<div className={`group fixed right-8 bottom-8 z-50 flex items-center`}>
 					<button
 						onClick={toggleChat}
-						className="relative h-20 w-20 cursor-pointer rounded-full bg-gradient-to-br from-[#396131] via-[#4a7c3a] to-[#31542B] shadow-2xl transition-all duration-200 hover:scale-110 active:scale-95"
+						className="group relative h-20 w-20 cursor-pointer rounded-full bg-gradient-to-br from-[#396131] via-[#4a7c3a] to-[#31542B] shadow-2xl transition-all duration-200 hover:scale-110 active:scale-95"
 						aria-label="Open AI Chat Assistant"
 					>
+						{/* Tooltip - only shows when button is hovered */}
+						<span className="pointer-events-none absolute right-full mr-4 origin-right translate-x-2 scale-95 rounded-lg bg-white px-4 py-2 text-sm font-medium whitespace-nowrap text-[#396131] opacity-0 shadow-lg transition-all duration-200 select-none group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100">
+							Chat with our AI Assistant
+						</span>
+
 						{/* Animated green dot */}
 						<span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center">
 							<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60"></span>
 							<span className="relative inline-flex h-3 w-3 rounded-full bg-green-400"></span>
 						</span>
+
 						{/* Animated icon */}
 						<span className="flex h-full w-full items-center justify-center">
 							<MessageCircle className="animate-bounce-slow group-hover:animate-bounce-fast h-10 w-10 text-white drop-shadow-lg" />
@@ -264,22 +267,6 @@ export default function ChatBox() {
 					)}
 				</div>
 			)}
-			<style jsx>{`
-				@keyframes fade-in {
-					from {
-						opacity: 0;
-						transform: translateY(10px);
-					}
-					to {
-						opacity: 1;
-						transform: translateY(0);
-					}
-				}
-
-				.animate-fade-in {
-					animation: fade-in 0.3s ease-out;
-				}
-			`}</style>
 		</>
 	);
 }
