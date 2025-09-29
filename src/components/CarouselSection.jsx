@@ -126,7 +126,7 @@ export default function CarouselSection({
 										<div className="space-y-4">
 											<h1 className="text-3xl leading-tight font-bold text-gray-900 sm:text-4xl lg:text-5xl">
 												<span
-													className={`block transform bg-gradient-to-r ${brandGradient} bg-clip-text text-4xl leading-tight font-black text-transparent transition-all delay-100 duration-700 sm:text-5xl lg:text-6xl ${
+													className={`block transform bg-gradient-to-r ${brandGradient} bg-clip-text text-3xl leading-tight font-black text-transparent transition-all delay-100 duration-700 sm:text-4xl lg:text-5xl ${
 														index === current
 															? 'translate-y-0 opacity-100'
 															: 'translate-y-4 opacity-0'
@@ -136,7 +136,7 @@ export default function CarouselSection({
 												</span>
 												{slide.subtitle && (
 													<span
-														className={`block transform bg-gradient-to-r ${brandGradient} bg-clip-text text-xl leading-tight font-bold text-transparent transition-all delay-200 duration-700 sm:text-2xl lg:text-3xl ${
+														className={`block transform bg-gradient-to-r ${brandGradient} bg-clip-text text-lg leading-tight font-bold text-transparent transition-all delay-200 duration-700 sm:text-xl lg:text-2xl ${
 															index === current
 																? 'translate-y-0 opacity-100'
 																: 'translate-y-4 opacity-0'

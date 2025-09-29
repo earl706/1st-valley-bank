@@ -75,7 +75,7 @@ export default function Navbar({ children }) {
 			subItems: [
 				{
 					subItem: 'Savings Accounts',
-					path: '/deposits/savings',
+					path: '/deposits/savings-account',
 					subsubItems: [
 						{ subItem: 'SD PLUS', path: '/deposits/savings-account' },
 						{ subItem: 'SSD MICRO', path: '/deposits/savings-account' },
@@ -86,7 +86,7 @@ export default function Navbar({ children }) {
 				},
 				{
 					subItem: 'Checking Accounts',
-					path: '/deposits/checking',
+					path: '/deposits/checking-account',
 					subsubItems: [{ subItem: '1ST CHECKING ACCOUNT', path: '/deposits/checking-account' }]
 				},
 				{

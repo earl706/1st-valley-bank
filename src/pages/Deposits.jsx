@@ -22,6 +22,13 @@ import {
 	faUser
 } from '@fortawesome/free-solid-svg-icons';
 import img from '/src/assets/homepage/heroSectionImage.png';
+import carouselImg1 from '/src/assets/carousel/1.png';
+import carouselImg2 from '/src/assets/carousel/2.png';
+import carouselImg3 from '/src/assets/carousel/3.png';
+import carouselImg4 from '/src/assets/carousel/4.png';
+import carouselImg5 from '/src/assets/carousel/5.png';
+import carouselImg6 from '/src/assets/carousel/6.png';
+import carouselImg7 from '/src/assets/carousel/7.png';
 
 export default function Deposits() {
 	const [scrollY, setScrollY] = useState(0);
@@ -45,7 +52,7 @@ export default function Deposits() {
 				'ATM Savings',
 				'Student ATM Savings'
 			],
-			image: img,
+			image: carouselImg1,
 			imageAlt: 'Savings Account',
 			route: '/deposits/savings-account'
 		},
@@ -59,7 +66,7 @@ export default function Deposits() {
 				'Business/Corporate Checking Account',
 				'Premium Checking Account'
 			],
-			image: img,
+			image: carouselImg2,
 			imageAlt: 'Checking Account',
 			route: '/deposits/checking-account'
 		},
@@ -74,7 +81,7 @@ export default function Deposits() {
 				'SD Plus 1 Year',
 				'SD Plus 5 Years and 1 Day'
 			],
-			image: img,
+			image: carouselImg3,
 			imageAlt: 'Time Deposit',
 			route: '/deposits/time-deposit'
 		}
@@ -240,7 +247,7 @@ export default function Deposits() {
 			],
 			additionalInfo: '+ 3 more specialized accounts',
 			icon: PiggyBank,
-			image: img,
+			image: carouselImg1,
 			route: '/deposits/savings-account',
 			buttonText: 'Explore Savings Accounts',
 			layout: 'left' // content left, visual right
@@ -258,7 +265,7 @@ export default function Deposits() {
 			],
 			additionalInfo: null,
 			icon: CreditCard,
-			image: img,
+			image: carouselImg2,
 			route: '/deposits/checking-account',
 			buttonText: 'Explore Checking Accounts',
 			layout: 'right' // visual left, content right
@@ -277,7 +284,7 @@ export default function Deposits() {
 			],
 			additionalInfo: null,
 			icon: TrendingUp,
-			image: img,
+			image: carouselImg3,
 			route: '/deposits/time-deposit',
 			buttonText: 'Explore Time Deposits',
 			layout: 'left' // content left, visual right

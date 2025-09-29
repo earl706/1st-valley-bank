@@ -14,7 +14,9 @@ import img3 from '/src/assets/homepage/3.png';
 import React from 'react';
 import { ShieldCheckIcon } from '@phosphor-icons/react';
 import HeroSection from '../components/HeroSection';
+import img from '/src/assets/homepage/heroSectionImage.png';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
+import carouselImg1 from '/src/assets/carousel/1.png';
 
 export default function LoansGoldAndGems() {
 	const advantages = [
@@ -59,7 +61,7 @@ export default function LoansGoldAndGems() {
 				subtitle="Secure Quick Cash"
 				description="Individual borrowers may pledge their genuine pieces of jewelry for instant cash for personal purposes. This is through the Gold & Gems jewelry loan. Interest rates are most affordable, and the term is guaranteed to be flexible."
 				features={[]}
-				image={img3}
+				image={carouselImg1}
 				imageAlt="Gold & Gems"
 				ctaText="Apply Now"
 				ctaLink="/contact-us"

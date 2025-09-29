@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '/src/assets/logo.png';
+import logo from '/src/assets/logo-official.png';
 import { NavLink } from 'react-router-dom';
 import {
 	Phone,
@@ -165,7 +165,7 @@ const Footer = () => {
 			</section>
 
 			{/* Existing Footer Content */}
-			<div className="bg-[#31542B] text-white">
+			<div className="bg-[#5a8c4a] text-white">
 				<div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
 					{/* Main Footer Content */}
 					<div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
@@ -174,9 +174,8 @@ const Footer = () => {
 							<div className="group cursor-pointer">
 								<img
 									src={logo}
-									className="group-hover:bg-opacity-20 mb-4 flex h-32 w-32 items-center justify-center rounded-2xl p-2 transition-all duration-300 group-hover:scale-105"
+									className="group-hover:bg-opacity-20 mb-4 flex h-auto w-full items-center justify-center rounded-2xl p-2 transition-all duration-300 group-hover:scale-105"
 								/>
-								<h3 className="mb-3 text-xl font-bold">1st Valley Bank</h3>
 							</div>
 
 							<p className="text-sm leading-relaxed text-gray-200">
@@ -263,40 +262,6 @@ const Footer = () => {
 										);
 									})}
 								</div>
-							</div>
-						</div>
-					</div>
-
-					{/* Regulatory Agencies & Links */}
-					<div className="mb-8 border-t border-white/20 pt-8">
-						<div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-							<div className="flex items-center gap-6">
-								<span className="text-sm font-medium">Regulated by:</span>
-								<div className="flex items-center gap-3">
-									<div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white/10">
-										<span className="text-xs font-bold">BSP</span>
-									</div>
-									<div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white/10">
-										<span className="text-xs font-bold">PDIC</span>
-									</div>
-								</div>
-							</div>
-
-							<div className="flex items-center gap-4 text-sm text-gray-300">
-								<NavLink
-									to="/consumer-protection/privacy-policy"
-									className="transition-colors duration-200 hover:text-white"
-								>
-									Privacy Policy
-								</NavLink>
-								<span>•</span>
-								<a href="#" className="transition-colors duration-200 hover:text-white">
-									Terms
-								</a>
-								<span>•</span>
-								<a href="#" className="transition-colors duration-200 hover:text-white">
-									Sitemap
-								</a>
 							</div>
 						</div>
 					</div>

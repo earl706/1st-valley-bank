@@ -20,6 +20,13 @@ import { CpuIcon, LeafIcon } from '@phosphor-icons/react';
 import HeroSection from '../components/HeroSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import CarouselSection from '../components/CarouselSection';
+import carouselImg1 from '/src/assets/carousel/1.png';
+import carouselImg2 from '/src/assets/carousel/2.png';
+import carouselImg3 from '/src/assets/carousel/3.png';
+import carouselImg4 from '/src/assets/carousel/4.png';
+import carouselImg5 from '/src/assets/carousel/5.png';
+import carouselImg6 from '/src/assets/carousel/6.png';
+import carouselImg7 from '/src/assets/carousel/7.png';
 
 export default function LoansSUCRE() {
 	const disbursedLoans = [
@@ -78,7 +85,7 @@ export default function LoansSUCRE() {
 			title: 'Rice Production Loan',
 			description:
 				'Specialized financing for rice farmers to support planting, cultivation, and harvest activities. Get the funding you need to maximize your rice production with competitive rates and flexible terms.',
-			image: img,
+			image: carouselImg1,
 			route: '/contact-us',
 			features: []
 		},
@@ -86,7 +93,7 @@ export default function LoansSUCRE() {
 			title: 'Cassava Production Loan',
 			description:
 				'Dedicated funding for cassava cultivation to help farmers invest in quality planting materials, equipment, and farm inputs for optimal cassava production and yield.',
-			image: img,
+			image: carouselImg2,
 			route: '/contact-us',
 			features: []
 		},
@@ -94,7 +101,7 @@ export default function LoansSUCRE() {
 			title: 'Sugarcane Production Loan',
 			description:
 				'Comprehensive financing solution for sugarcane farmers covering all aspects of production from land preparation to harvest, designed to boost productivity and profitability.',
-			image: img,
+			image: carouselImg3,
 			route: '/contact-us',
 			features: []
 		}
@@ -108,7 +115,7 @@ export default function LoansSUCRE() {
 			description:
 				"Supervised Credit is a lending program that provides funds to farmers for the production of rice, corn, cacao, or sugarcane. This unsecured loan is also bundled with the provision of technical and marketing assistance to help improve the farmer's productivity and income.",
 			features: [],
-			image: img,
+			image: carouselImg1,
 			showButton: false,
 			imageAlt: 'Supervised Credit Overview',
 			route: '/contact-us',
@@ -120,7 +127,7 @@ export default function LoansSUCRE() {
 			description:
 				'Support your rice planting, cultivation, and harvest activities. Get the funding you need to maximize your rice production with competitive rates and flexible terms.',
 			features: [],
-			image: img,
+			image: carouselImg2,
 			imageAlt: 'Rice Production Loan',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
@@ -131,7 +138,7 @@ export default function LoansSUCRE() {
 			description:
 				'Help farmers invest in quality planting materials, equipment, and farm inputs for optimal cassava production and yield.',
 			features: [],
-			image: img,
+			image: carouselImg3,
 			imageAlt: 'Cassava Production Loan',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
@@ -142,7 +149,7 @@ export default function LoansSUCRE() {
 			description:
 				'Comprehensive financing solution for sugarcane farmers covering all aspects of production from land preparation to harvest, designed to boost productivity and profitability.',
 			features: [],
-			image: img,
+			image: carouselImg4,
 			imageAlt: 'Sugarcane Production Loan',
 			route: '/contact-us',
 			buttonText: 'Apply Now'

@@ -3,6 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { ArrowLeft, TrendingUp, Calendar, DollarSign, Clock, Shield } from 'lucide-react';
 import CarouselSection from '../components/CarouselSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
+import carouselImg1 from '/src/assets/carousel/1.png';
+import carouselImg2 from '/src/assets/carousel/2.png';
+import carouselImg3 from '/src/assets/carousel/3.png';
+import carouselImg4 from '/src/assets/carousel/4.png';
 
 export default function TimeDeposit() {
 	const [scrollY, setScrollY] = useState(0);
@@ -28,7 +32,7 @@ export default function TimeDeposit() {
 				'Liquidity after 3 months',
 				'Higher than savings rates'
 			],
-			image: img,
+			image: carouselImg1,
 			route: '/contact-us'
 		},
 		{
@@ -49,7 +53,7 @@ export default function TimeDeposit() {
 				'Planning for mid-term goals',
 				'Stable investment option'
 			],
-			image: img,
+			image: carouselImg2,
 			route: '/contact-us'
 		},
 		{
@@ -70,7 +74,7 @@ export default function TimeDeposit() {
 				'Compound interest growth',
 				'Financial goal achievement'
 			],
-			image: img,
+			image: carouselImg3,
 			route: '/contact-us'
 		},
 		{
@@ -91,7 +95,7 @@ export default function TimeDeposit() {
 				'Long-term wealth accumulation',
 				'Annual interest payments'
 			],
-			image: img,
+			image: carouselImg4,
 			route: '/contact-us'
 		}
 	];

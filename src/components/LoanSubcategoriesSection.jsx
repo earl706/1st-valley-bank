@@ -55,13 +55,13 @@ export default function LoanSubcategoriesSection({
 						<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
 							<NavLink
 								to={ctaPrimaryLink}
-								className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-8 py-4 font-semibold text-white transition-all duration-300 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none"
+								className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-8 py-4 font-semibold text-white transition-all duration-300 hover:bg-[#497141] focus:ring-4 focus:ring-blue-300 focus:outline-none"
 							>
 								{ctaPrimaryText}
 							</NavLink>
 							<NavLink
 								to={ctaSecondaryLink}
-								className="inline-flex items-center justify-center rounded-xl border-2 border-blue-600 px-8 py-4 font-semibold text-blue-600 transition-all duration-300 hover:bg-blue-600 hover:text-white focus:ring-4 focus:ring-blue-300 focus:outline-none"
+								className="inline-flex items-center justify-center rounded-xl border-2 border-[#396131] px-8 py-4 font-semibold text-[#396131] transition-all duration-300 hover:bg-[#396131] hover:text-white focus:ring-4 focus:ring-blue-300 focus:outline-none"
 							>
 								{ctaSecondaryText}
 							</NavLink>

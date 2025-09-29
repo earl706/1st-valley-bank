@@ -11,6 +11,10 @@ import CarouselSection from '../components/CarouselSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
+import carouselImg1 from '/src/assets/carousel/1.png';
+import carouselImg2 from '/src/assets/carousel/2.png';
+import carouselImg3 from '/src/assets/carousel/3.png';
+import carouselImg4 from '/src/assets/carousel/4.png';
 
 export default function LoansAgriculture() {
 	// Agriculture loan types for LoanSubcategoriesSection
@@ -20,7 +24,7 @@ export default function LoansAgriculture() {
 			description:
 				'Intends to help farmers in cultivating, improvement and expansion of their farm land or other related activities. Perfect for established agricultural operations.',
 			features: [],
-			image: img,
+			image: carouselImg1,
 			route: '/contact-us'
 		},
 		{
@@ -28,7 +32,7 @@ export default function LoansAgriculture() {
 			description:
 				'For clients who seek financial assistance for personal purposes, either house renovation, house construction, placement fee or medical expenses.',
 			features: [],
-			image: img,
+			image: carouselImg2,
 			route: '/contact-us'
 		},
 		{
@@ -36,7 +40,7 @@ export default function LoansAgriculture() {
 			description:
 				'Intends to help farmers in procuring farm equipment for greater yield and further agricultural activities. Equipment serves as collateral.',
 			features: [],
-			image: img,
+			image: carouselImg3,
 			route: '/contact-us'
 		}
 	];
@@ -49,7 +53,7 @@ export default function LoansAgriculture() {
 			description:
 				'Agricultural loans provide farmers with funds to buy equipment, supplies, improve land, cover costs, or recover from setbacks—helping boost productivity and growth.',
 			features: [],
-			image: img,
+			image: carouselImg1,
 			imageAlt: 'Agricultural Loans Overview',
 			route: '/contact-us',
 			buttonText: 'Apply Now',
@@ -61,7 +65,7 @@ export default function LoansAgriculture() {
 			description:
 				'Intends to help farmers in cultivating, improvement and expansion of their farm land or other related activities. Perfect for established agricultural operations looking to grow and improve their farming capabilities.',
 			features: [],
-			image: img,
+			image: carouselImg2,
 			imageAlt: 'Agri-Secured Loan',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
@@ -72,7 +76,7 @@ export default function LoansAgriculture() {
 			description:
 				'For clients who seek financial assistance for personal purposes, either house renovation, house construction, placement fee or medical expenses. Flexible terms for various personal needs.',
 			features: [],
-			image: img,
+			image: carouselImg3,
 			imageAlt: 'Individual Secured Loan',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
@@ -83,7 +87,7 @@ export default function LoansAgriculture() {
 			description:
 				'Intends to help farmers in procuring farm equipment for greater yield and further agricultural activities. The financed equipment serves as collateral for the loan.',
 			features: [],
-			image: img,
+			image: carouselImg4,
 			imageAlt: 'Chattel Financing',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
@@ -131,7 +135,6 @@ export default function LoansAgriculture() {
 					backgroundColor="from-green-50 via-white to-emerald-50"
 					brandColor="#396131"
 					brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
-					minHeight="min-h-[600px] lg:min-h-[700px]"
 					showLearnMoreButton={true}
 					learnMoreText="Apply Now"
 				/>

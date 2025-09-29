@@ -26,6 +26,13 @@ import {
 import img from '/src/assets/homepage/heroSectionImage.png';
 import HeroSection from '../components/HeroSection';
 import CarouselSection from '../components/CarouselSection';
+import carouselImg1 from '/src/assets/carousel/1.png';
+import carouselImg2 from '/src/assets/carousel/2.png';
+import carouselImg3 from '/src/assets/carousel/3.png';
+import carouselImg4 from '/src/assets/carousel/4.png';
+import carouselImg5 from '/src/assets/carousel/5.png';
+import carouselImg6 from '/src/assets/carousel/6.png';
+import carouselImg7 from '/src/assets/carousel/7.png';
 
 export default function SavingsAccount() {
 	const [scrollY, setScrollY] = useState(0);
@@ -40,7 +47,7 @@ export default function SavingsAccount() {
 			minimumBalance: '₱1,000.00',
 			interestRate: '0.10% - 0.15% per annum',
 			features: ['Personal savings', 'Age 18+', 'Monthly interest', 'ATM access'],
-			image: img,
+			image: carouselImg1,
 			route: '/contact-us'
 		},
 		{
@@ -55,7 +62,7 @@ export default function SavingsAccount() {
 				'Parent/guardian supervision',
 				'Transition to regular account'
 			],
-			image: img,
+			image: carouselImg2,
 			route: '/contact-us'
 		},
 		{
@@ -70,7 +77,7 @@ export default function SavingsAccount() {
 				'Higher interest potential',
 				'Premium services'
 			],
-			image: img,
+			image: carouselImg3,
 			route: '/contact-us'
 		},
 		{
@@ -85,7 +92,7 @@ export default function SavingsAccount() {
 				'Community banking',
 				'Financial inclusion'
 			],
-			image: img,
+			image: carouselImg4,
 			route: '/contact-us'
 		},
 		{
@@ -95,7 +102,7 @@ export default function SavingsAccount() {
 			minimumBalance: '₱1,000.00',
 			interestRate: '0.10% - 0.15% per annum',
 			features: ['Special features', 'Unique benefits', 'Targeted segments', 'Enhanced services'],
-			image: img,
+			image: carouselImg5,
 			route: '/contact-us'
 		},
 		{
@@ -110,7 +117,7 @@ export default function SavingsAccount() {
 				'Micro-entrepreneurs',
 				'Basic banking services'
 			],
-			image: img,
+			image: carouselImg6,
 			route: '/contact-us'
 		},
 		{
@@ -120,7 +127,7 @@ export default function SavingsAccount() {
 			minimumBalance: '₱1,000.00',
 			interestRate: '0.10% - 0.15% per annum',
 			features: ['Payroll services', 'Employer accounts', 'ATM access', 'Salary distribution'],
-			image: img,
+			image: carouselImg1,
 			route: '/contact-us'
 		},
 		{
@@ -130,7 +137,7 @@ export default function SavingsAccount() {
 			minimumBalance: '₱1,000.00',
 			interestRate: '0.10% - 0.15% per annum',
 			features: ['ATM access', 'Convenient banking', 'Cashless transactions', '24/7 access'],
-			image: img,
+			image: carouselImg2,
 			route: '/contact-us'
 		},
 		{
@@ -140,7 +147,7 @@ export default function SavingsAccount() {
 			minimumBalance: '₱500.00',
 			interestRate: '1.00% per annum',
 			features: ['Ages 7-19', 'Low initial deposit', 'Higher interest rate', 'Educational focus'],
-			image: img,
+			image: carouselImg3,
 			route: '/contact-us'
 		}
 	];

@@ -17,6 +17,13 @@ import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import CarouselSection from '../components/CarouselSection';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import carouselImg1 from '/src/assets/carousel/1.png';
+import carouselImg2 from '/src/assets/carousel/2.png';
+import carouselImg3 from '/src/assets/carousel/3.png';
+import carouselImg4 from '/src/assets/carousel/4.png';
+import carouselImg5 from '/src/assets/carousel/5.png';
+import carouselImg6 from '/src/assets/carousel/6.png';
+import carouselImg7 from '/src/assets/carousel/7.png';
 
 export default function LoansSME() {
 	const smeTypes = [
@@ -25,7 +32,7 @@ export default function LoansSME() {
 			description:
 				'A secured loan option for established businesses requiring collateral such as real estate or equipment. Offers competitive interest rates and flexible terms for business growth and expansion.',
 
-			image: img2,
+			image: carouselImg2,
 			route: '/contact-us'
 		},
 		{
@@ -33,7 +40,7 @@ export default function LoansSME() {
 			description:
 				'Specialized financing for the acquisition of movable assets like vehicles, machinery, and equipment. The financed asset serves as collateral for the loan.',
 
-			image: img4,
+			image: carouselImg4,
 			route: '/contact-us'
 		},
 		{
@@ -41,7 +48,7 @@ export default function LoansSME() {
 			description:
 				'A financing facility that allows businesses to convert their post-dated checks into immediate cash flow. Perfect for bridging short-term liquidity gaps.',
 
-			image: img5,
+			image: carouselImg5,
 			route: '/contact-us'
 		},
 		{
@@ -49,7 +56,7 @@ export default function LoansSME() {
 			description:
 				'A loan arrangement backed by deposits or securities held by the bank. Provides financing while maintaining your existing investments and earning potential.',
 
-			image: img6,
+			image: carouselImg6,
 			route: '/contact-us'
 		}
 	];
@@ -95,7 +102,7 @@ export default function LoansSME() {
 			description:
 				'Loan facility that funds small and medium enterprises engaged in legitimate wholesale or retail businesses. Funds can be used for financing business expansion, purchasing new heavy equipment or vehicle, constructing new warehouse or building, and trade check discounting.',
 			features: [],
-			image: img3,
+			image: carouselImg1,
 			imageAlt: 'SME Loan Overview',
 			route: '/contact-us',
 			buttonText: 'Apply Now',
@@ -107,7 +114,7 @@ export default function LoansSME() {
 			description:
 				'A secured loan option for established businesses requiring collateral such as real estate or equipment. Offers competitive interest rates and flexible terms for business growth and expansion.',
 			features: [],
-			image: img2,
+			image: carouselImg2,
 			imageAlt: 'SME Secured Loan',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
@@ -118,7 +125,7 @@ export default function LoansSME() {
 			description:
 				'Specialized financing for the acquisition of movable assets like vehicles, machinery, and equipment. The financed asset serves as collateral for the loan.',
 			features: [],
-			image: img4,
+			image: carouselImg3,
 			imageAlt: 'SME Chattel Financing',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
@@ -129,7 +136,7 @@ export default function LoansSME() {
 			description:
 				'A financing facility that allows businesses to convert their post-dated checks into immediate cash flow. Perfect for bridging short-term liquidity gaps.',
 			features: [],
-			image: img5,
+			image: carouselImg4,
 			imageAlt: 'Check Rediscounting',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
@@ -140,7 +147,7 @@ export default function LoansSME() {
 			description:
 				'A loan arrangement backed by deposits or securities held by the bank. Provides financing while maintaining your existing investments and earning potential.',
 			features: [],
-			image: img6,
+			image: carouselImg5,
 			imageAlt: 'Back to Back Loan',
 			route: '/contact-us',
 			buttonText: 'Apply Now'

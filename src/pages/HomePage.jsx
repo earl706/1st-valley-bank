@@ -27,11 +27,18 @@ import img6 from '/src/assets/homepage/6.png';
 import logo from '/src/assets/logo.png';
 import CarouselSection from '../components/CarouselSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
+import carouselImg1 from '/src/assets/carousel/1.png';
+import carouselImg2 from '/src/assets/carousel/2.png';
+import carouselImg3 from '/src/assets/carousel/3.png';
+import carouselImg4 from '/src/assets/carousel/4.png';
+import carouselImg5 from '/src/assets/carousel/5.png';
+import carouselImg6 from '/src/assets/carousel/6.png';
+import carouselImg7 from '/src/assets/carousel/7.png';
 
 export default function HomePage() {
 	const services = [
 		{
-			image: img1,
+			image: carouselImg1,
 			title: 'Savings & Deposits',
 			description:
 				'Secure your future with our comprehensive savings solutions designed to help you grow your wealth steadily.',
@@ -40,7 +47,7 @@ export default function HomePage() {
 			gradient: 'from-[#396131] to-[#4a7c3a]'
 		},
 		{
-			image: img2,
+			image: carouselImg2,
 			title: 'Loans & Credit',
 			description:
 				'Achieve your dreams with our flexible loan products tailored for businesses, agriculture, and personal needs.',
@@ -49,7 +56,7 @@ export default function HomePage() {
 			gradient: 'from-[#396131] to-[#4a7c3a]'
 		},
 		{
-			image: img3,
+			image: carouselImg3,
 			title: 'Properties',
 			description:
 				'Discover prime real estate and vehicle opportunities with our exclusive property listings and financing.',
@@ -61,21 +68,21 @@ export default function HomePage() {
 
 	const features = [
 		{
-			image: img,
+			image: carouselImg1,
 			title: 'Bank-Grade Security',
 			description:
 				'Your financial data is protected with industry-leading encryption and security measures.',
 			stats: '99.9% Uptime'
 		},
 		{
-			image: img,
+			image: carouselImg2,
 			title: 'Community Focused',
 			description:
 				'We understand local needs and provide personalized banking solutions for our community.',
 			stats: '82+ Branches'
 		},
 		{
-			image: img,
+			image: carouselImg4,
 			title: 'Growth Partner',
 			description:
 				'From startup to success, we support your business journey with tailored financial solutions.',
@@ -118,23 +125,12 @@ export default function HomePage() {
 	];
 
 	const heroSlides = [
-		// {
-		// 	title: 'Your Satisfaction is Our Mission',
-		// 	subtitle: '',
-		// 	description:
-		// 		'Experience banking that understands your dreams. From personal savings to business growth, we provide innovative solutions that help you achieve your financial goals.',
-		// 	image: logo,
-		// 	imageAlt: '1st Valley Bank',
-		// 	route: '/consumer-protection/1vb-products',
-		// 	buttonText: 'Explore Services',
-		// 	showButton: true
-		// },
 		{
 			title: 'Bank with ease, Bank with 1VB ATM',
 			subtitle: '',
 			description:
 				'Access your money anytime, anywhere with our reliable ATM network. Withdraw cash, check balances, and more—day or night.',
-			image: img,
+			image: carouselImg3,
 			imageAlt: 'ATM Services',
 			route: '/atm-services',
 			buttonText: 'Find an ATM',
@@ -145,7 +141,7 @@ export default function HomePage() {
 			subtitle: '',
 			description:
 				'Enjoy hassle-free banking with our Pickup-Deposit service. We come to you—schedule a pickup and deposit your funds without visiting a branch.',
-			image: img,
+			image: carouselImg2,
 			imageAlt: 'Pickup-Deposit Service',
 			route: '/pickup-deposit',
 			buttonText: 'Schedule a Pickup',
@@ -156,7 +152,7 @@ export default function HomePage() {
 			subtitle: '',
 			description:
 				'Link your account to GCash for seamless digital payments, fund transfers, and more. Experience the convenience of cashless banking.',
-			image: img,
+			image: carouselImg1,
 			imageAlt: 'GCash Services',
 			route: '/gcash-services',
 			buttonText: 'Learn More',
@@ -167,7 +163,7 @@ export default function HomePage() {
 			subtitle: '',
 			description:
 				'Start building your wealth today with our high-yield savings accounts and investment products designed to help you reach your financial goals faster.',
-			image: img,
+			image: carouselImg4,
 			imageAlt: 'Savings & Deposits',
 			route: '/deposits',
 			buttonText: 'Open Savings Account',
@@ -178,7 +174,7 @@ export default function HomePage() {
 			subtitle: '',
 			description:
 				'Get the funding you need to expand your business, purchase equipment, or invest in new opportunities with our competitive loan products.',
-			image: img,
+			image: carouselImg5,
 			imageAlt: 'Loans & Credit',
 			route: '/loans',
 			buttonText: 'Apply for Loan',
@@ -189,7 +185,7 @@ export default function HomePage() {
 			subtitle: '',
 			description:
 				'Browse our exclusive collection of prime real estate and vehicles. We offer flexible financing options to make your property dreams come true.',
-			image: img,
+			image: carouselImg6,
 			imageAlt: 'Properties for Sale',
 			route: '/properties-for-sale',
 			buttonText: 'Browse Properties',
@@ -231,16 +227,13 @@ export default function HomePage() {
 							>
 								{/* Service Image */}
 								<div className="relative mb-6">
-									<div className="h-48 w-full overflow-hidden rounded-xl bg-gradient-to-br from-[#396131]/5 to-[#4a7c3a]/10">
+									<div className="h-auto w-full overflow-hidden rounded-xl">
 										<img
 											src={service.image}
 											alt={service.title}
 											className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
 										/>
 									</div>
-									<div
-										className={`absolute inset-0 bg-gradient-to-r ${service.gradient} rounded-xl opacity-10`}
-									></div>
 								</div>
 
 								<h3 className="mb-4 text-2xl font-bold text-gray-900">{service.title}</h3>
@@ -344,13 +337,13 @@ export default function HomePage() {
 			</section>
 
 			{/* Newsletter Section */}
-			<section className="bg-gradient-to-r from-[#396131] to-[#4a7c3a] py-20">
+			<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div className="flex flex-col items-center gap-12 md:flex-row">
 						{/* Image Side */}
 						<div className="mb-8 flex w-full flex-shrink-0 justify-center md:mb-0 md:w-1/2">
 							<img
-								src={img}
+								src={carouselImg3}
 								alt="Newsletter illustration"
 								className="h-72 w-72 object-contain md:h-96 md:w-96"
 							/>
@@ -384,7 +377,7 @@ export default function HomePage() {
 						{/* Image Side */}
 						<div className="mb-8 flex w-full flex-shrink-0 justify-center md:mb-0 md:w-1/2">
 							<img
-								src={img}
+								src={carouselImg7}
 								alt="Financial journey illustration"
 								className="h-72 w-72 object-contain md:h-96 md:w-96"
 							/>

@@ -21,6 +21,14 @@ import img4 from '/src/assets/homepage/4.png';
 import img5 from '/src/assets/homepage/5.png';
 import img6 from '/src/assets/homepage/6.png';
 
+import carouselImg1 from '/src/assets/carousel/1.png';
+import carouselImg2 from '/src/assets/carousel/2.png';
+import carouselImg3 from '/src/assets/carousel/3.png';
+import carouselImg4 from '/src/assets/carousel/4.png';
+import carouselImg5 from '/src/assets/carousel/5.png';
+import carouselImg6 from '/src/assets/carousel/6.png';
+import carouselImg7 from '/src/assets/carousel/7.png';
+
 export default function LoansSBL() {
 	// Small Business Loan subcategories data
 	const sblTypes = [
@@ -30,7 +38,7 @@ export default function LoansSBL() {
 			description:
 				'Secure your business loan with collateral for better terms and higher loan amounts. Land titles or four-wheel vehicles can be used as collateral.',
 			features: [],
-			image: img1,
+			image: carouselImg1,
 			route: '/loans/sbl/collateral'
 		},
 		{
@@ -39,7 +47,7 @@ export default function LoansSBL() {
 			description:
 				'Get a business loan without collateral based on your business performance and creditworthiness. Perfect for established businesses with good track records.',
 			features: [],
-			image: img2,
+			image: carouselImg2,
 			route: '/loans/sbl/without-collateral'
 		}
 	];
@@ -107,7 +115,7 @@ export default function LoansSBL() {
 			description:
 				'Borrow up to ₱300,000 with ease at just 1.75% monthly interest on a diminishing balance. Enjoy flexible terms of up to 12 months, giving you time to grow your business and repay conveniently.',
 			features: [],
-			image: img3,
+			image: carouselImg3,
 			imageAlt: 'Small Business Loan Overview',
 			route: '/contact-us',
 			buttonText: 'Apply Now',
@@ -119,7 +127,7 @@ export default function LoansSBL() {
 			description:
 				'Secure your business loan with collateral for better terms and higher loan amounts. Land titles or four-wheel vehicles can be used as collateral for enhanced loan conditions.',
 			features: [],
-			image: img1,
+			image: carouselImg1,
 			imageAlt: 'Collateral',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
@@ -130,7 +138,7 @@ export default function LoansSBL() {
 			description:
 				'Get a business loan without collateral based on your business performance and creditworthiness. Perfect for established businesses with good track records and proven cash flow.',
 			features: [],
-			image: img2,
+			image: carouselImg2,
 			imageAlt: 'Non-Collateral SBL',
 			route: '/contact-us',
 			buttonText: 'Apply Now'

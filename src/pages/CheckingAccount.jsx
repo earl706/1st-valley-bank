@@ -3,6 +3,9 @@ import { NavLink } from 'react-router-dom';
 import { ArrowLeft, CreditCard, Building, User, DollarSign, CheckCircle } from 'lucide-react';
 import CarouselSection from '../components/CarouselSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
+import carouselImg1 from '/src/assets/carousel/1.png';
+import carouselImg2 from '/src/assets/carousel/2.png';
+import carouselImg3 from '/src/assets/carousel/3.png';
 
 export default function CheckingAccount() {
 	const [scrollY, setScrollY] = useState(0);
@@ -31,7 +34,7 @@ export default function CheckingAccount() {
 				'Overdraft protection available',
 				'24/7 account access'
 			],
-			image: img,
+			image: carouselImg1,
 			route: '/contact-us'
 		},
 		{
@@ -55,7 +58,7 @@ export default function CheckingAccount() {
 				'Dedicated relationship manager',
 				'Bulk transaction processing'
 			],
-			image: img,
+			image: carouselImg2,
 			route: '/contact-us'
 		},
 		{
@@ -79,7 +82,7 @@ export default function CheckingAccount() {
 				'Priority loan processing',
 				'Personalized financial planning'
 			],
-			image: img,
+			image: carouselImg3,
 			route: '/contact-us'
 		}
 	];
