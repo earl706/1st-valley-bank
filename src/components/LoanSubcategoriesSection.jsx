@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import ProductModal from './ProductModal';
 
 export default function LoanSubcategoriesSection({
 	id = 'loan-subcategories',
@@ -17,8 +18,23 @@ export default function LoanSubcategoriesSection({
 	ctaSecondaryLink = '/loans',
 	backgroundColor = 'from-slate-50 to-white',
 	brandColor = '#396131',
-	className = ''
+	className = '',
+	showModal = true // New prop to enable/disable modal functionality
 }) {
+	const [selectedProduct, setSelectedProduct] = useState(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const handleViewDetails = (e, product) => {
+		e.preventDefault();
+		setSelectedProduct(product);
+		setIsModalOpen(true);
+	};
+
+	const handleCloseModal = () => {
+		setIsModalOpen(false);
+		setSelectedProduct(null);
+	};
+
 	// If ctaOnly is true, render only the CTA section
 	if (ctaOnly && showCallToAction) {
 		return (
@@ -26,53 +42,20 @@ export default function LoanSubcategoriesSection({
 				id={id}
 				className={`relative overflow-hidden bg-gradient-to-br ${backgroundColor} py-20 ${className}`}
 			>
-				{/* Background Elements */}
-				<div className="absolute inset-0">
-					<div
-						className="absolute top-0 left-0 h-96 w-96 rounded-full blur-3xl"
-						style={{ backgroundColor: `${brandColor}1a` }}
-					></div>
-					<div
-						className="absolute right-0 bottom-0 h-80 w-80 rounded-full blur-3xl"
-						style={{ backgroundColor: `${brandColor}1a` }}
-					></div>
-				</div>
-
 				<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					{/* Call to Action Only */}
 					<div className="text-center">
-						<p className="mb-6 text-lg text-gray-600">{ctaTitle}</p>
+						<h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">{ctaTitle}</h2>
 						<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
 							<NavLink
 								to={ctaPrimaryLink}
-								className="inline-flex items-center justify-center rounded-xl px-8 py-4 font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105"
-								style={{ backgroundColor: brandColor }}
-								onMouseEnter={(e) => {
-									const shade = brandColor === '#396131' ? '#4a7a3f' : brandColor;
-									e.target.style.backgroundColor = shade;
-								}}
-								onMouseLeave={(e) => {
-									e.target.style.backgroundColor = brandColor;
-								}}
+								className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-8 py-4 font-semibold text-white transition-all duration-300 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none"
 							>
 								{ctaPrimaryText}
-								<ArrowRight className="ml-2 h-5 w-5" />
 							</NavLink>
 							<NavLink
 								to={ctaSecondaryLink}
-								className="inline-flex items-center justify-center rounded-xl border-2 px-8 py-4 font-semibold transition-all duration-200"
-								style={{
-									borderColor: brandColor,
-									color: brandColor
-								}}
-								onMouseEnter={(e) => {
-									e.target.style.backgroundColor = brandColor;
-									e.target.style.color = 'white';
-								}}
-								onMouseLeave={(e) => {
-									e.target.style.backgroundColor = 'transparent';
-									e.target.style.color = brandColor;
-								}}
+								className="inline-flex items-center justify-center rounded-xl border-2 border-blue-600 px-8 py-4 font-semibold text-blue-600 transition-all duration-300 hover:bg-blue-600 hover:text-white focus:ring-4 focus:ring-blue-300 focus:outline-none"
 							>
 								{ctaSecondaryText}
 							</NavLink>
@@ -83,184 +66,208 @@ export default function LoanSubcategoriesSection({
 		);
 	}
 
-	// If ctaOnly is true but showCallToAction is false, return null
-	if (ctaOnly && !showCallToAction) {
-		return null;
-	}
-
-	// Default: render the full component
 	return (
-		<section
-			id={id}
-			className={`relative overflow-hidden bg-gradient-to-br ${backgroundColor} py-20 ${className}`}
-		>
-			{/* Background Elements */}
-			<div className="absolute inset-0">
-				<div
-					className="absolute top-0 left-0 h-96 w-96 rounded-full blur-3xl"
-					style={{ backgroundColor: `${brandColor}1a` }}
-				></div>
-				<div
-					className="absolute right-0 bottom-0 h-80 w-80 rounded-full blur-3xl"
-					style={{ backgroundColor: `${brandColor}1a` }}
-				></div>
-			</div>
+		<>
+			<section
+				id={id}
+				className={`relative overflow-hidden bg-gradient-to-br ${backgroundColor} py-20 ${className}`}
+			>
+				<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+					{/* Section Header */}
+					<div className="mb-16 text-center">
+						<div className="mb-4">
+							<span
+								className="inline-block rounded-full px-4 py-2 text-sm font-semibold tracking-wider uppercase"
+								style={{
+									backgroundColor: `${brandColor}15`,
+									color: brandColor
+								}}
+							>
+								{tagText}
+							</span>
+						</div>
 
-			<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-				{/* Header */}
-				<div className="mb-16 text-center">
-					<div
-						className="mb-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold"
-						style={{
-							backgroundColor: `${brandColor}1a`,
-							color: brandColor
-						}}
-					>
-						<span
-							className="h-2 w-2 animate-pulse rounded-full"
-							style={{ backgroundColor: brandColor }}
-						></span>
-						{tagText}
+						<h2
+							className="mb-6 text-4xl leading-tight font-bold md:text-5xl"
+							style={{ color: brandColor }}
+						>
+							{sectionTitle}
+						</h2>
+
+						<p className="mx-auto max-w-3xl text-xl leading-relaxed text-gray-600">
+							{sectionSubtitle}
+						</p>
 					</div>
 
-					<h2
-						className="mb-6 text-4xl leading-tight font-bold md:text-5xl"
-						style={{ color: brandColor }}
-					>
-						{sectionTitle}
-					</h2>
-
-					<p className="mx-auto max-w-3xl text-xl leading-relaxed text-gray-600">
-						{sectionSubtitle}
-					</p>
-				</div>
-
-				{/* Loan Types Grid */}
-				<div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
-					{loanTypes.map((type, index) => (
-						<div
-							key={index}
-							className="group relative flex h-full transform flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
-						>
-							{/* Card gradient overlay */}
+					{/* Loan Types Grid */}
+					<div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
+						{loanTypes.map((type, index) => (
 							<div
-								className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-								style={{
-									background: `linear-gradient(to bottom right, transparent, transparent, ${brandColor}0d)`
-								}}
-							></div>
+								key={index}
+								className="group relative flex h-full transform flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+							>
+								{/* Card gradient overlay */}
+								<div
+									className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+									style={{
+										background: `linear-gradient(to bottom right, transparent, transparent, ${brandColor}0d)`
+									}}
+								></div>
 
-							<div className="relative flex flex-1 flex-col p-8 lg:p-10">
-								<div className="flex flex-1 flex-col items-center gap-6 sm:flex-row sm:items-start lg:gap-8">
-									{/* Image Container */}
-									<div className="relative mb-8">
-										{/* Main image container */}
-										<div className="relative mx-auto h-40 w-40 overflow-hidden transition-all duration-300 group-hover:scale-105">
-											<img
-												src={type.image}
-												alt={type.title}
-												className="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
-											/>
-										</div>
-									</div>
-
-									{/* Content */}
-									<div className="flex h-full flex-1 flex-col text-center sm:text-left">
-										<h3
-											className="mb-3 text-xl font-bold transition-colors duration-300 lg:text-2xl"
-											style={{ color: brandColor }}
-										>
-											{type.title}
-										</h3>
-										<p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600 lg:text-base">
-											{type.description}
-										</p>
-
-										{/* Features List (if provided) */}
-										{type.features && type.features.length > 0 && (
-											<div className="mb-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
-												{type.features.map((feature, featureIndex) => (
-													<div key={featureIndex} className="flex items-center gap-2">
-														<div
-															className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
-															style={{ backgroundColor: brandColor }}
-														></div>
-														<span className="text-xs text-gray-600">{feature}</span>
-													</div>
-												))}
+								<div className="relative flex flex-1 flex-col p-8 lg:p-10">
+									<div className="flex flex-1 flex-col items-center gap-6 sm:flex-row sm:items-start lg:gap-8">
+										{/* Image Container */}
+										<div className="relative mb-8">
+											{/* Main image container */}
+											<div className="relative mx-auto h-40 w-40 overflow-hidden transition-all duration-300 group-hover:scale-105">
+												<img
+													src={type.image}
+													alt={type.title}
+													className="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
+												/>
 											</div>
-										)}
+										</div>
 
-										{/* CTA Button */}
-										<div className="mt-auto">
-											<NavLink
-												to={type.route}
-												className="group/btn inline-flex transform items-center justify-center rounded-xl px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus:ring-4 focus:outline-none"
-												style={{
-													backgroundColor: brandColor,
-													'--tw-ring-color': `${brandColor}40`
-												}}
-												onMouseEnter={(e) => {
-													const shade = brandColor === '#396131' ? '#4a7a3f' : brandColor;
-													e.target.style.backgroundColor = shade;
-												}}
-												onMouseLeave={(e) => {
-													e.target.style.backgroundColor = brandColor;
-												}}
+										{/* Content */}
+										<div className="flex h-full flex-1 flex-col text-center sm:text-left">
+											<h3
+												className="mb-3 text-xl font-bold transition-colors duration-300 lg:text-2xl"
+												style={{ color: brandColor }}
 											>
-												<span className="mr-2">Learn More</span>
-												<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
-											</NavLink>
+												{type.title}
+											</h3>
+											<p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600 lg:text-base">
+												{type.description}
+											</p>
+
+											{/* Features List (if provided) */}
+											{type.features && type.features.length > 0 && (
+												<div className="mb-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
+													{type.features.map((feature, featureIndex) => (
+														<div key={featureIndex} className="flex items-center gap-2">
+															<div
+																className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
+																style={{ backgroundColor: brandColor }}
+															></div>
+															<span className="text-xs text-gray-600">{feature}</span>
+														</div>
+													))}
+												</div>
+											)}
+
+											{/* CTA Buttons */}
+											<div className="mt-auto flex gap-3 sm:flex-row lg:flex-col">
+												{showModal ? (
+													<button
+														onClick={(e) => handleViewDetails(e, type)}
+														className="group/btn inline-flex transform cursor-pointer items-center justify-center rounded-xl px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus:ring-4 focus:outline-none"
+														style={{
+															backgroundColor: brandColor,
+															'--tw-ring-color': `${brandColor}40`
+														}}
+														onMouseEnter={(e) => {
+															const shade = brandColor === '#396131' ? '#4a7a3f' : brandColor;
+															e.target.style.backgroundColor = shade;
+														}}
+														onMouseLeave={(e) => {
+															e.target.style.backgroundColor = brandColor;
+														}}
+													>
+														<span className="mr-2">View Details</span>
+														<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+													</button>
+												) : (
+													<NavLink
+														to={type.route}
+														className="group/btn inline-flex transform cursor-pointer items-center justify-center rounded-xl px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus:ring-4 focus:outline-none"
+														style={{
+															backgroundColor: brandColor,
+															'--tw-ring-color': `${brandColor}40`
+														}}
+														onMouseEnter={(e) => {
+															const shade = brandColor === '#396131' ? '#4a7a3f' : brandColor;
+															e.target.style.backgroundColor = shade;
+														}}
+														onMouseLeave={(e) => {
+															e.target.style.backgroundColor = brandColor;
+														}}
+													>
+														<span className="mr-2">Learn More</span>
+														<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+													</NavLink>
+												)}
+
+												{showModal && (
+													<NavLink
+														to={type.route}
+														className="inline-flex cursor-pointer items-center justify-center rounded-xl border-2 px-6 py-3 font-semibold transition-all duration-300 hover:scale-105 focus:ring-4 focus:outline-none"
+														style={{
+															borderColor: brandColor,
+															color: brandColor,
+															'--tw-ring-color': `${brandColor}40`
+														}}
+														onMouseEnter={(e) => {
+															e.target.style.backgroundColor = brandColor;
+															e.target.style.color = 'white';
+														}}
+														onMouseLeave={(e) => {
+															e.target.style.backgroundColor = 'transparent';
+															e.target.style.color = brandColor;
+														}}
+													>
+														Apply Now
+													</NavLink>
+												)}
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					))}
-				</div>
-
-				{/* Call to Action */}
-				{showCallToAction && (
-					<div className="mt-16 text-center">
-						<p className="mb-6 text-lg text-gray-600">{ctaTitle}</p>
-						<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-							<NavLink
-								to={ctaPrimaryLink}
-								className="inline-flex items-center justify-center rounded-xl px-8 py-4 font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105"
-								style={{ backgroundColor: brandColor }}
-								onMouseEnter={(e) => {
-									const shade = brandColor === '#396131' ? '#4a7a3f' : brandColor;
-									e.target.style.backgroundColor = shade;
-								}}
-								onMouseLeave={(e) => {
-									e.target.style.backgroundColor = brandColor;
-								}}
-							>
-								{ctaPrimaryText}
-								<ArrowRight className="ml-2 h-5 w-5" />
-							</NavLink>
-							<NavLink
-								to={ctaSecondaryLink}
-								className="inline-flex items-center justify-center rounded-xl border-2 px-8 py-4 font-semibold transition-all duration-200"
-								style={{
-									borderColor: brandColor,
-									color: brandColor
-								}}
-								onMouseEnter={(e) => {
-									e.target.style.backgroundColor = brandColor;
-									e.target.style.color = 'white';
-								}}
-								onMouseLeave={(e) => {
-									e.target.style.backgroundColor = 'transparent';
-									e.target.style.color = brandColor;
-								}}
-							>
-								{ctaSecondaryText}
-							</NavLink>
-						</div>
+						))}
 					</div>
-				)}
-			</div>
-		</section>
+
+					{/* Call to Action */}
+					{showCallToAction && (
+						<div className="mt-16 text-center">
+							<div className="mx-auto max-w-2xl">
+								<h3 className="mb-4 text-2xl font-bold text-gray-900">{ctaTitle}</h3>
+								<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+									<NavLink
+										to={ctaPrimaryLink}
+										className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-8 py-4 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#4a7a3f] focus:ring-4 focus:ring-[#39613140] focus:outline-none"
+									>
+										{ctaPrimaryText}
+									</NavLink>
+									<NavLink
+										to={ctaSecondaryLink}
+										className="inline-flex items-center justify-center rounded-xl border-2 border-[#396131] px-8 py-4 font-semibold text-[#396131] transition-all duration-300 hover:scale-105 hover:bg-[#396131] hover:text-white focus:ring-4 focus:ring-[#39613140] focus:outline-none"
+									>
+										{ctaSecondaryText}
+									</NavLink>
+								</div>
+							</div>
+						</div>
+					)}
+				</div>
+			</section>
+
+			{/* Product Modal */}
+			{showModal && selectedProduct && (
+				<ProductModal
+					isOpen={isModalOpen}
+					onClose={handleCloseModal}
+					title={selectedProduct.title}
+					description={selectedProduct.description}
+					features={selectedProduct.features || []}
+					image={selectedProduct.image}
+					price={selectedProduct.price}
+					brandColor={brandColor}
+					showInquireButton={true}
+					inquireButtonText="Inquire Now"
+					inquireButtonLink="/contact-us"
+					productType="loan"
+				/>
+			)}
+		</>
 	);
 }

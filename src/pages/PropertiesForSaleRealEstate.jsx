@@ -1,161 +1,107 @@
-import React, { useEffect, useState } from "react";
-import img1 from "/src/assets/properties-for-sale/1.jpeg";
-import img2 from "/src/assets/properties-for-sale/2.jpeg";
+import React, { useEffect, useState } from 'react';
+import img1 from '/src/assets/properties-for-sale/1.jpeg';
+import img2 from '/src/assets/properties-for-sale/2.jpeg';
+import { MapPin, Calendar, Hash, Eye, Heart, Share2, Home, Ruler } from 'lucide-react';
 import {
-  MapPin,
-  Calendar,
-  Hash,
-  Eye,
-  Heart,
-  Share2,
-  Home,
-  Ruler,
-} from "lucide-react";
-import {
-  faHouseCircleCheck,
-  faMoneyBillTrendUp,
-  faTags,
-  faTruck,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink } from "react-router-dom";
-import PropertyCard from "../components/PropertyCard";
+	faHouseCircleCheck,
+	faMoneyBillTrendUp,
+	faTags,
+	faTruck
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { NavLink } from 'react-router-dom';
+import PropertyCard from '../components/PropertyCard';
+import img from '/src/assets/homepage/heroSectionImage.png';
+import HeroSection from '../components/HeroSection';
 
 export default function PropertiesForSaleRealEstate() {
-  const sampleProperties = [
-    {
-      image: img2,
-      location: "Residential Land, Napoloan Pagadian City, Zamboanga del Sur",
-      date: "2018-12-4",
-      number: "TCT#1372020004737 / TCT#1372020004738",
-      price: 1950000.0,
-      area: 1262,
-      propertyCode: "K05-03",
-    },
-    {
-      image: img2,
-      location: "Residential Land, Napoloan Pagadian City, Zamboanga del Sur",
-      date: "2018-12-4",
-      number: "TCT#1372020004737 / TCT#1372020004738",
-      price: 1950000.0,
-      area: 1262,
-      propertyCode: "K05-03",
-    },
-    {
-      image: img2,
-      location: "Residential Land, Napoloan Pagadian City, Zamboanga del Sur",
-      date: "2018-12-4",
-      number: "TCT#1372020004737 / TCT#1372020004738",
-      price: 1950000.0,
-      area: 1262,
-      propertyCode: "K05-03",
-    },
-    {
-      image: img2,
-      location: "Residential Land, Napoloan Pagadian City, Zamboanga del Sur",
-      date: "2018-12-4",
-      number: "TCT#1372020004737 / TCT#1372020004738",
-      price: 1950000.0,
-      area: 1262,
-      propertyCode: "K05-03",
-    },
-    {
-      image: img2,
-      location: "Residential Land, Napoloan Pagadian City, Zamboanga del Sur",
-      date: "2018-12-4",
-      number: "TCT#1372020004737 / TCT#1372020004738",
-      price: 1950000.0,
-      area: 1262,
-      propertyCode: "K05-03",
-    },
-    {
-      image: img2,
-      location: "Residential Land, Napoloan Pagadian City, Zamboanga del Sur",
-      date: "2018-12-4",
-      number: "TCT#1372020004737 / TCT#1372020004738",
-      price: 1950000.0,
-      area: 1262,
-      propertyCode: "K05-03",
-    },
-    {
-      image: img2,
-      location: "Residential Land, Napoloan Pagadian City, Zamboanga del Sur",
-      date: "2018-12-4",
-      number: "TCT#1372020004737 / TCT#1372020004738",
-      price: 1950000.0,
-      area: 1262,
-      propertyCode: "K05-03",
-    },
-    {
-      image: img2,
-      location: "Residential Land, Napoloan Pagadian City, Zamboanga del Sur",
-      date: "2018-12-4",
-      number: "TCT#1372020004737 / TCT#1372020004738",
-      price: 1950000.0,
-      area: 1262,
-      propertyCode: "K05-03",
-    },
-    {
-      image: img2,
-      location: "Residential Land, Napoloan Pagadian City, Zamboanga del Sur",
-      date: "2018-12-4",
-      number: "TCT#1372020004737 / TCT#1372020004738",
-      price: 1950000.0,
-      area: 1262,
-      propertyCode: "K05-03",
-    },
-    {
-      image: img2,
-      location: "Residential Land, Napoloan Pagadian City, Zamboanga del Sur",
-      date: "2018-12-4",
-      number: "TCT#1372020004737 / TCT#1372020004738",
-      price: 1950000.0,
-      area: 1262,
-      propertyCode: "K05-03",
-    },
-  ];
+	const sampleProperties = [
+		{
+			image: img2,
+			additionalImages: [img2, img2, img2],
+			location: 'Residential Land, Napoloan Pagadian City, Zamboanga del Sur',
+			date: '2018-12-4',
+			number: 'TCT#1372020004737 / TCT#1372020004738',
+			price: 1950000.0,
+			area: 1262,
+			propertyCode: 'K05-03'
+		},
+		{
+			image: img2,
+			additionalImages: [img2, img2, img2],
+			location: 'Residential Land, Napoloan Pagadian City, Zamboanga del Sur',
+			date: '2018-12-4',
+			number: 'TCT#1372020004737 / TCT#1372020004738',
+			price: 1950000.0,
+			area: 1262,
+			propertyCode: 'K05-03'
+		},
+		{
+			image: img2,
+			additionalImages: [img2, img2, img2],
+			location: 'Residential Land, Napoloan Pagadian City, Zamboanga del Sur',
+			date: '2018-12-4',
+			number: 'TCT#1372020004737 / TCT#1372020004738',
+			price: 1950000.0,
+			area: 1262,
+			propertyCode: 'K05-03'
+		},
+		{
+			image: img2,
+			additionalImages: [img2, img2, img2],
+			location: 'Residential Land, Napoloan Pagadian City, Zamboanga del Sur',
+			date: '2018-12-4',
+			number: 'TCT#1372020004737 / TCT#1372020004738',
+			price: 1950000.0,
+			area: 1262,
+			propertyCode: 'K05-03'
+		},
+		{
+			image: img2,
+			additionalImages: [img2, img2, img2],
+			location: 'Residential Land, Napoloan Pagadian City, Zamboanga del Sur',
+			date: '2018-12-4',
+			number: 'TCT#1372020004737 / TCT#1372020004738',
+			price: 1950000.0,
+			area: 1262,
+			propertyCode: 'K05-03'
+		},
+		{
+			image: img2,
+			additionalImages: [img2, img2, img2],
+			location: 'Residential Land, Napoloan Pagadian City, Zamboanga del Sur',
+			date: '2018-12-4',
+			number: 'TCT#1372020004737 / TCT#1372020004738',
+			price: 1950000.0,
+			area: 1262,
+			propertyCode: 'K05-03'
+		}
+	];
 
-  return (
-    <>
-      <main className="flex flex-col gap-[120px] pb-[50px]">
-        <section
-          id="main"
-          data-scroll
-          className="flex flex-col-reverse lg:flex-row text-[#396131] bg-white drop-shadow-lg p-[20px] mx-[10px] rounded-[8px]"
-        >
-          <div className="flex flex-col gap-[20px] lg:py-[80px] lg:px-[60px] mx-[10px] lg:w-3/5">
-            <div className="flex flex-col gap-[20px]">
-              <span className="text-[1.5rem]/[1.5rem] lg:text-[4rem]/[4rem] font-bold">
-                Properties for Sale
-              </span>
-              <span className="text-[1rem]/[2rem] lg:text-[1.5rem]/[1.5rem] font-bold">
-                Real Estate and Other Properties Acquired for Sale
-              </span>
-            </div>
-            <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem]">
-              Explore 1st Valley Bank’s Properties for Sale—featuring real
-              estate and other acquired assets at great value! From residential
-              lots to commercial spaces and more, find the perfect property that
-              fits your needs and budget. With affordable terms and trusted
-              service, your next big opportunity starts here!
-            </span>
-          </div>
-          <div className="flex items-center justify-center lg:w-2/5">
-            <FontAwesomeIcon
-              icon={faHouseCircleCheck}
-              className="flex aspect-square"
-              style={{ width: "60%", height: "auto" }}
-            />
-          </div>
-        </section>
-        <section id="vehicles" className="mx-[10px] lg:mx-[80px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sampleProperties.map((property, index) => (
-              <PropertyCard key={index} property={property} />
-            ))}
-          </div>
-        </section>
-      </main>
-    </>
-  );
+	return (
+		<>
+			<main className="flex flex-col gap-[120px] pb-[50px]">
+				<HeroSection
+					title="Properties for Sale"
+					subtitle="Real Estate and Other Properties Acquired for Sale"
+					description="Discover great-value real estate and properties for sale at 1st Valley Bank. Find your ideal lot, home, or space—affordable, trusted, and ready for you!"
+					image={img}
+					imageAlt="Properties for Sale"
+					showCta={false}
+					className="mx-[10px] rounded-[8px] drop-shadow-lg"
+					backgroundColor="from-white via-white to-green-50"
+					titleColor="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
+				>
+					{/* Optionally, you could pass a custom icon as image if HeroSection supports it */}
+				</HeroSection>
+				<section id="vehicles" className="mx-[10px] lg:mx-[80px]">
+					<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+						{sampleProperties.map((property, index) => (
+							<PropertyCard key={index} property={property} />
+						))}
+					</div>
+				</section>
+			</main>
+		</>
+	);
 }

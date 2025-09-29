@@ -46,17 +46,17 @@ export default function HeroSection({
 					<div className="order-1 flex h-full flex-col justify-center space-y-8 lg:order-0">
 						<div className="space-y-4">
 							{/* Title */}
-							<h1 className="text-4xl leading-tight font-bold text-gray-900 sm:text-5xl lg:text-6xl">
+							<h1 className="text-2xl leading-tight font-bold text-gray-900 sm:text-3xl lg:text-4xl">
 								{title && (
 									<span
-										className={`block bg-gradient-to-r ${titleColor} bg-clip-text text-5xl leading-tight font-black text-transparent sm:text-6xl lg:text-7xl`}
+										className={`block bg-gradient-to-r ${titleColor} bg-clip-text text-3xl leading-tight font-black text-transparent sm:text-4xl lg:text-5xl`}
 									>
 										{title}
 									</span>
 								)}
 								{subtitle && (
 									<span
-										className={`block bg-gradient-to-r ${titleColor} bg-clip-text text-2xl leading-tight font-bold text-transparent sm:text-3xl lg:text-4xl`}
+										className={`block bg-gradient-to-r ${titleColor} bg-clip-text text-lg leading-tight font-bold text-transparent sm:text-xl lg:text-2xl`}
 									>
 										{subtitle}
 									</span>
@@ -65,7 +65,7 @@ export default function HeroSection({
 
 							{/* Description */}
 							{description && (
-								<p className="max-w-2xl text-xl leading-relaxed text-gray-600">{description}</p>
+								<p className="max-w-2xl text-base leading-relaxed text-gray-600">{description}</p>
 							)}
 
 							{/* Features List */}
@@ -75,7 +75,7 @@ export default function HeroSection({
 										{features.map((feature, index) => (
 											<div key={index} className="flex items-center gap-2">
 												<div className="h-2 w-2 rounded-full bg-[#396131]"></div>
-												<span className="text-sm text-gray-700">{feature}</span>
+												<span className="text-xs text-gray-700">{feature}</span>
 											</div>
 										))}
 									</div>
@@ -84,10 +84,10 @@ export default function HeroSection({
 
 							{/* CTA Button */}
 							{showCta && ctaLink && (
-								<div className="pt-8">
+								<div className="pt-6">
 									<NavLink
 										to={ctaLink}
-										className="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+										className="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-3 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 									>
 										{ctaText}
 										<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />

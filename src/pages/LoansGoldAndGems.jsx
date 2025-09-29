@@ -95,7 +95,7 @@ export default function LoansGoldAndGems() {
 					</div>
 				</section> */}
 
-				<section
+				{/* <section
 					id="advantages"
 					className="relative overflow-hidden bg-gradient-to-br from-[#396131] to-[#2d4a26] py-20"
 				>
@@ -113,19 +113,16 @@ export default function LoansGoldAndGems() {
 									className="group relative rounded-2xl border border-white/20 bg-white/10 p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:bg-white/15"
 								>
 									<div className="text-center">
-										{/* Icon */}
 										<div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl text-white transition-transform duration-300 group-hover:scale-110">
 											{advantage.logo}
 										</div>
-
-										{/* Description */}
 										<p className="text-sm leading-relaxed text-white/80">{advantage.description}</p>
 									</div>
 								</div>
 							))}
 						</div>
 					</div>
-				</section>
+				</section> */}
 				<LoanSubcategoriesSection
 					id="gold-and-gems-types"
 					sectionTitle="Gold & Gems Loan Types"

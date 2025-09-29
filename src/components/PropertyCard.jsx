@@ -1,114 +1,122 @@
-import React, { useState, useEffect } from "react";
-import {
-  MapPin,
-  Calendar,
-  Hash,
-  Eye,
-  Heart,
-  Share2,
-  Home,
-  Ruler,
-} from "lucide-react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { MapPin, Calendar, Hash, Eye, Heart, Share2, Home, Ruler } from 'lucide-react';
+import Modal from './Modal';
 
 export default function PropertyCard({ property }) {
-  const [imageLoaded, setImageLoaded] = useState(false);
+	const [imageLoaded, setImageLoaded] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleView = () => {
-    console.log("Viewing property:", property.propertyCode);
-    // Add your view logic here
-  };
+	const handleView = (e) => {
+		e.preventDefault();
+		setIsModalOpen(true);
+	};
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-  };
+	const handleCloseModal = () => {
+		setIsModalOpen(false);
+	};
 
-  return (
-    <div className="group relative bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-gray-200">
-      {/* Image Container */}
-      <div className="relative h-64 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-        {!imageLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin"></div>
-          </div>
-        )}
-        <img
-          src={property.image}
-          alt={`Property ${property.propertyCode}`}
-          className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ${
-            imageLoaded ? "opacity-100" : "opacity-0"
-          }`}
-          onLoad={() => setImageLoaded(true)}
-        />
+	const formatDate = (dateString) => {
+		return new Date(dateString).toLocaleDateString('en-US', {
+			month: 'short',
+			day: 'numeric',
+			year: 'numeric'
+		});
+	};
 
-        {/* Price Badge */}
-        <div className="absolute bottom-4 left-4">
-          <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-4 py-2 rounded-full shadow-lg">
-            <span className="text-lg font-bold">
-              ${property.price.toLocaleString()}
-            </span>
-          </div>
-        </div>
+	// Prepare additional details for the modal
+	const additionalDetails = [
+		{ label: 'Property Type', value: property.type || 'N/A' },
+		{ label: 'Area', value: property.area ? `${property.area} sqm` : 'N/A' },
+		{ label: 'Bedrooms', value: property.bedrooms || 'N/A' },
+		{ label: 'Bathrooms', value: property.bathrooms || 'N/A' },
+		{ label: 'Parking', value: property.parking || 'N/A' },
+		{ label: 'Furnished', value: property.furnished || 'N/A' },
+		{ label: 'Listed Date', value: formatDate(property.listedDate) }
+	];
 
-        {/* Property Code Badge */}
-        <div className="absolute top-4 left-4">
-          <div className="bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-mono">
-            #{property.propertyCode}
-          </div>
-        </div>
-      </div>
+	return (
+		<>
+			<div className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:border-gray-300 hover:shadow-md">
+				{/* Image Container */}
+				<div className="relative h-56 overflow-hidden bg-gray-100">
+					{!imageLoaded && (
+						<div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+							<div className="h-10 w-10 animate-spin rounded-full border-2 border-emerald-200 border-t-emerald-600"></div>
+						</div>
+					)}
+					<img
+						src={property.image}
+						alt={`Property ${property.propertyCode}`}
+						className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+							imageLoaded ? 'opacity-100' : 'opacity-0'
+						}`}
+						onLoad={() => setImageLoaded(true)}
+					/>
 
-      {/* Card Content */}
-      <div className="p-6">
-        {/* Property Details */}
-        <div className="space-y-3 mb-6">
-          <div className="flex items-center gap-3 text-gray-600">
-            <div className="p-2 bg-emerald-50 rounded-lg">
-              <MapPin size={16} className="text-emerald-600" />
-            </div>
-            <span className="font-medium">{property.location}</span>
-          </div>
+					{/* Price Badge */}
+					<div className="absolute bottom-3 left-3">
+						<div className="rounded-lg bg-white/90 px-3 py-1.5 text-gray-900 shadow backdrop-blur-sm">
+							<span className="text-base font-semibold tracking-tight">
+								₱{property.price.toLocaleString()}
+							</span>
+						</div>
+					</div>
+				</div>
 
-          <div className="flex items-center gap-3 text-gray-600">
-            <div className="p-2 bg-blue-50 rounded-lg">
-              <Calendar size={16} className="text-blue-600" />
-            </div>
-            <span className="font-medium">{formatDate(property.date)}</span>
-          </div>
+				{/* Card Content */}
+				<div className="p-5">
+					{/* Property Details */}
+					<div className="mb-5 space-y-2">
+						<div className="flex items-center gap-2 text-gray-500">
+							<MapPin size={16} className="text-gray-400" />
+							<span className="font-medium">{property.location}</span>
+						</div>
+						<div className="flex items-center gap-2 text-gray-500">
+							<Hash size={16} className="text-gray-400" />
+							<span className="font-mono font-medium">{property.propertyCode}</span>
+						</div>
+						<div className="flex items-center gap-2 text-gray-500">
+							<Home size={16} className="text-gray-400" />
+							<span className="font-medium">{property.date}</span>
+						</div>
+						<div className="flex items-center gap-2 text-gray-500">
+							<Ruler size={16} className="text-gray-400" />
+							<span className="font-medium">{property.area} sqm</span>
+						</div>
+					</div>
 
-          <div className="flex items-center gap-3 text-gray-600">
-            <div className="p-2 bg-orange-50 rounded-lg">
-              <Home size={16} className="text-orange-600" />
-            </div>
-            <span className="font-medium">{property.number}</span>
-          </div>
+					{/* Action Button */}
+					<button
+						onClick={handleView}
+						className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-200 bg-[#396131] px-4 py-2 font-medium text-white transition-all duration-150 hover:scale-105 hover:bg-[#4a7a3f] focus:outline-none"
+					>
+						<Eye size={18} className="transition-transform duration-150 group-hover:scale-110" />
+						View Details
+					</button>
+				</div>
+			</div>
 
-          <div className="flex items-center gap-3 text-gray-600">
-            <div className="p-2 bg-purple-50 rounded-lg">
-              <Ruler size={16} className="text-purple-600" />
-            </div>
-            <span className="font-medium">
-              {property.area.toLocaleString()} sq ft
-            </span>
-          </div>
-        </div>
-
-        {/* Action Button */}
-        <NavLink
-          onClick={handleView}
-          className="w-full bg-gradient-to-r from-emerald-900 to-emerald-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-emerald-700 hover:to-emerald-900 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group cursor-pointer"
-        >
-          <Eye
-            size={18}
-            className="group-hover:scale-110 transition-transform duration-200"
-          />
-          View Property
-        </NavLink>
-      </div>
-    </div>
-  );
+			{/* Modal */}
+			<Modal
+				isOpen={isModalOpen}
+				onClose={handleCloseModal}
+				title={`${property.type} - ${property.propertyCode}`}
+				content={
+					property.description ||
+					'This property is in excellent condition and ready for immediate occupancy. Contact us for more information and to schedule a viewing.'
+				}
+				image={property.image}
+				additionalImages={property.additionalImages || []} // Pass additional images
+				details={additionalDetails}
+				price={property.price}
+				location={property.location}
+				year={formatDate(property.listedDate)}
+				plateNumber={property.propertyCode}
+				brandColor="#396131"
+				showInquireButton={true}
+				inquireButtonText="Inquire Now"
+				inquireButtonLink="/contact-us"
+			/>
+		</>
+	);
 }

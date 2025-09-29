@@ -160,7 +160,6 @@ export default function LoansSUCRE() {
 					backgroundColor="from-green-50 via-white to-emerald-50"
 					brandColor="#396131"
 					brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
-					minHeight="min-h-[600px] lg:min-h-[700px]"
 					showLearnMoreButton={true}
 					learnMoreText="Apply Now"
 				/>

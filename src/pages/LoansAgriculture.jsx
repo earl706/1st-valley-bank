@@ -10,6 +10,7 @@ import { ShieldCheckIcon, ShovelIcon } from '@phosphor-icons/react/dist/ssr';
 import CarouselSection from '../components/CarouselSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
+import SuccessStoriesSection from '../components/SuccessStoriesSection';
 
 export default function LoansAgriculture() {
 	// Agriculture loan types for LoanSubcategoriesSection
@@ -86,6 +87,36 @@ export default function LoansAgriculture() {
 			imageAlt: 'Chattel Financing',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
+		}
+	];
+
+	// Agriculture success stories data
+	const agricultureSuccessStories = [
+		{
+			img: img2,
+			alt: 'Caneros Family',
+			name: 'Caneros Family',
+			location: 'Banana Growers, Digos',
+			description:
+				'Recovered from crop loss with the Agri Secured Loan, expanding their plantation and rebuilding their lives.',
+			route: '/success-stories/caneros'
+		},
+		{
+			img: img2,
+			alt: 'Santos Family',
+			name: 'Santos Family',
+			location: 'Rice Farmers, Bukidnon',
+			description:
+				'Used Chattel Financing to purchase new equipment, increasing their rice yield and income.',
+			route: '/success-stories/santos'
+		},
+		{
+			img: img2,
+			alt: 'Lopez Family',
+			name: 'Lopez Family',
+			location: 'Vegetable Growers, Misamis',
+			description: "Accessed Individual Secured Loan for farm expansion and children's education.",
+			route: '/success-stories/lopez'
 		}
 	];
 
@@ -213,58 +244,16 @@ export default function LoansAgriculture() {
 						))}
 					</div>
 				</section> */}
-				<section
-					id="story"
-					className="mx-[20px] flex flex-col-reverse justify-between gap-[32px] text-[#396131] lg:mx-[60px] lg:flex-row lg:gap-[60px]"
-				>
-					<div className="flex flex-col justify-center gap-[24px] lg:w-3/5 lg:gap-[40px]">
-						<div className="mb-2 flex flex-col">
-							<span className="text-[1.5rem]/[2rem] font-extrabold tracking-tight lg:text-[2.5rem]/[2.5rem]">
-								Fall 7 Times, Stand 8 Times
-							</span>
-							<span className="mt-1 text-[1rem]/[1.5rem] font-medium text-[#396131]/80 lg:text-[1.5rem]/[2rem]">
-								The Caneros Success Story
-							</span>
-						</div>
-						<div className="flex flex-col gap-[16px] lg:gap-[24px]">
-							<p className="text-[1rem]/[1.7rem] lg:text-[1.15rem]/[2.2rem]">
-								The Caneros family from Digos, Davao del Sur, built their lives around their
-								thriving banana plantation. Life was good—they sent their children to school and
-								steadily expanded their farm. But in 2018, disaster struck: Panama disease, a
-								devastating fungus, wiped out their crops and threatened their future.
-							</p>
-							<p className="text-[1rem]/[1.7rem] lg:text-[1.15rem]/[2.2rem]">
-								With mounting losses, the Caneros were forced to sell their properties. Hopelessness
-								set in as they watched their dreams slip away.
-							</p>
-							<p className="text-[1rem]/[1.7rem] lg:text-[1.15rem]/[2.2rem]">
-								Yet, with faith and determination, they persevered. At their lowest point, 1st
-								Valley Bank Digos introduced them to the Agri Secured Loan—specifically designed for
-								banana growers. This support enabled the Caneros to rehabilitate their plantation
-								and expand from 1.5 to 7 hectares.
-							</p>
-							<blockquote className="rounded-md border-l-4 border-[#396131] bg-[#396131]/5 py-2 pl-4 text-[#396131] italic">
-								"Dako jud kaayo natabang ang 1st Valley Bank samoa kay tungod sa ila pagpautang
-								samoa nakabakod mi balik."
-								<br />
-								<span className="text-[0.95em] text-[#396131]/80 not-italic">
-									(1st Valley Bank helped us a lot that we were able to rise again.)
-								</span>
-								<br />
-								<span className="mt-2 block font-semibold text-[#396131]/70">
-									— Mrs. Virginia Cameros Tobiano
-								</span>
-							</blockquote>
-						</div>
-					</div>
-					<div className="flex items-center justify-center lg:w-2/5">
-						<img
-							src={img2}
-							alt="Caneros Family Success Story"
-							className="h-full w-full max-w-[420px] rounded-[16px] border border-[#396131]/10 object-cover shadow-lg"
-						/>
-					</div>
-				</section>
+				{/*
+					Refactored to use an array and map. Enhanced button design. Each story has a `route` attribute.
+				*/}
+				<SuccessStoriesSection
+					id="agri-success-stories"
+					title="Agricultural Success Stories"
+					subtitle="Real stories from our clients who have grown with our agricultural loans."
+					stories={agricultureSuccessStories}
+					brandColor="#396131"
+				/>
 			</main>
 		</>
 	);

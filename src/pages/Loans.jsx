@@ -28,16 +28,16 @@ export default function Loans() {
 
 	// Carousel data for loans
 	const loanSlides = [
-		{
-			title: 'Loans',
-			subtitle: 'Fuel your dreams with smart financing',
-			description:
-				"Whether you're growing a business, investing in agriculture, or managing daily needs, our flexible loan options come with competitive rates and easy terms. Experience fast approval, personalized support, and financial solutions designed to help you succeed.",
-			features: [],
-			image: img,
-			imageAlt: 'Loans Overview',
-			route: '/loans'
-		},
+		// {
+		// 	title: 'Loans',
+		// 	subtitle: 'Fuel your dreams with smart financing',
+		// 	description:
+		// 		"Whether you're growing a business, investing in agriculture, or managing daily needs, our flexible loan options come with competitive rates and easy terms. Experience fast approval, personalized support, and financial solutions designed to help you succeed.",
+		// 	features: [],
+		// 	image: img,
+		// 	imageAlt: 'Loans Overview',
+		// 	route: '/loans'
+		// },
 		{
 			title: 'Salary Loans',
 			subtitle: 'Cash when you need it',
@@ -241,7 +241,7 @@ export default function Loans() {
 				</section>
 
 				{/* Loan Services Section */}
-				<section id="loan-services" className="bg-gray-50 py-20">
+				<section id="loan-services" className="py-20">
 					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						{/* Section Header */}
 						<div className="mb-16">

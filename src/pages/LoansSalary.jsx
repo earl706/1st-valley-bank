@@ -5,6 +5,7 @@ import img5 from '/src/assets/homepage/5.png';
 import img6 from '/src/assets/homepage/6.png';
 import CarouselSection from '../components/CarouselSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
+import img from '/src/assets/homepage/heroSectionImage.png';
 
 export default function LoansSalary() {
 	const salaryLoanTypes = [
@@ -14,8 +15,8 @@ export default function LoansSalary() {
 			description:
 				'Specially designed for government teachers with competitive rates and flexible terms tailored to the teaching profession.',
 			features: [],
-			image: img4,
-			route: '/loans/salary/government-teachers'
+			image: img,
+			route: '/contact-us'
 		},
 		{
 			id: 2,
@@ -23,8 +24,8 @@ export default function LoansSalary() {
 			description:
 				'Access funds through your ATM and secure loans against your expected bonuses with convenient withdrawal options.',
 			features: [],
-			image: img5,
-			route: '/loans/salary/atm-bonus'
+			image: img,
+			route: '/contact-us'
 		},
 		{
 			id: 3,
@@ -32,8 +33,8 @@ export default function LoansSalary() {
 			description:
 				'Designed for Local Government Unit employees with specialized terms and conditions that cater to public sector workers.',
 			features: [],
-			image: img6,
-			route: '/loans/salary/lgu'
+			image: img,
+			route: '/contact-us'
 		},
 		{
 			id: 4,
@@ -41,8 +42,8 @@ export default function LoansSalary() {
 			description:
 				'Community-focused loans for barangay officials and employees, supporting local governance with accessible financing options.',
 			features: [],
-			image: img3,
-			route: '/loans/salary/barangay'
+			image: img,
+			route: '/contact-us'
 		}
 	];
 	// Carousel slides combining hero and salary loan types
@@ -53,7 +54,7 @@ export default function LoansSalary() {
 			description:
 				"Need extra funds before payday? 1st Valley Bank's Salary Loan offers fast, convenient, and affordable financing for employed individuals. Enjoy low interest rates, quick approval, and flexible payment terms. Whether it's for bills, emergencies, or personal needs—get the support you need, right when you need it.",
 			features: [],
-			image: img3,
+			image: img,
 			showButton: false,
 			imageAlt: 'Salary Loans Overview',
 			route: '/contact-us',
@@ -65,7 +66,7 @@ export default function LoansSalary() {
 			description:
 				'Specially designed for government teachers with competitive rates and flexible terms tailored to the teaching profession. Get the financial support you need with terms that understand your unique employment structure.',
 			features: [],
-			image: img4,
+			image: img,
 			imageAlt: "Government Teacher's Loan",
 			route: '/contact-us',
 			buttonText: 'Apply Now'
@@ -76,7 +77,7 @@ export default function LoansSalary() {
 			description:
 				'Access funds through your ATM and secure loans against your expected bonuses with convenient withdrawal options. Perfect for immediate cash needs with easy repayment.',
 			features: [],
-			image: img5,
+			image: img,
 			imageAlt: 'ATM and Bonus Loans',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
@@ -87,7 +88,7 @@ export default function LoansSalary() {
 			description:
 				'Designed for Local Government Unit employees with specialized terms and conditions that cater to public sector workers. Supporting those who serve the community.',
 			features: [],
-			image: img6,
+			image: img,
 			imageAlt: 'LGU Loan',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
@@ -98,7 +99,7 @@ export default function LoansSalary() {
 			description:
 				'Community-focused loans for barangay officials and employees, supporting local governance with accessible financing options. Empowering grassroots leadership.',
 			features: [],
-			image: img3,
+			image: img,
 			imageAlt: 'Barangay Loan',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
