@@ -121,20 +121,6 @@ export default function SplashScreen({ onComplete }) {
 					<p className="mt-2 text-xs text-white/60 sm:text-sm">Your Trusted Financial Partner</p>
 				</div>
 
-				{/* Loading progress bar */}
-				<div className="w-64 sm:w-80">
-					<div className="mb-2 flex justify-between text-xs text-white/70">
-						<span>Loading</span>
-						<span>{progress}%</span>
-					</div>
-					<div className="h-1 overflow-hidden rounded-full bg-white/20">
-						<div
-							className="h-full bg-white transition-all duration-300 ease-out"
-							style={{ width: `${progress}%` }}
-						></div>
-					</div>
-				</div>
-
 				{/* Loading dots animation */}
 				<div className="flex space-x-2">
 					{[0, 1, 2].map((index) => (
@@ -156,7 +142,7 @@ export default function SplashScreen({ onComplete }) {
 				style={{ opacity: textOpacity }}
 			>
 				<p className="text-xs text-white/50 sm:text-sm">
-					© 2024 1st Valley Bank. All rights reserved.
+					© 2025 1st Valley Bank. All rights reserved.
 				</p>
 			</div>
 		</div>
