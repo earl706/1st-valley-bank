@@ -261,8 +261,8 @@ export default function Navbar({ children }) {
 											to={navItem.path}
 											className={({ isActive }) =>
 												isActive
-													? 'flex transform flex-col items-center text-[1.1rem] font-extrabold transition-all duration-200 hover:scale-105 hover:text-[#396131]/90 xl:text-[1.125rem]'
-													: 'flex transform flex-col items-center text-[1.1rem] font-extrabold transition-all duration-200 hover:scale-105 hover:text-[#396131]/90 xl:text-[1.125rem]'
+													? 'flex transform flex-col items-center text-[1.1rem] font-bold transition-all duration-200 hover:scale-105 hover:text-[#396131]/90 xl:text-[1.125rem]'
+													: 'flex transform flex-col items-center text-[1.1rem] font-bold transition-all duration-200 hover:scale-105 hover:text-[#396131]/90 xl:text-[1.125rem]'
 											}
 										>
 											{navItem.subItems.length > 0 ? (
