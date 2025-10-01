@@ -327,7 +327,7 @@ export default function HomePage() {
 									))}
 								</div>
 
-								<blockquote className="text-base leading-relaxed text-gray-600 italic">
+								<blockquote className="text-sm leading-relaxed text-gray-600 italic">
 									"{testimonial.content}"
 								</blockquote>
 							</div>
@@ -373,17 +373,9 @@ export default function HomePage() {
 			{/* CTA Section */}
 			<section className="bg-white py-20">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-					<div className="flex flex-col items-center gap-12 md:flex-row">
-						{/* Image Side */}
-						<div className="mb-8 flex w-full flex-shrink-0 justify-center md:mb-0 md:w-1/2">
-							<img
-								src={carouselImg7}
-								alt="Financial journey illustration"
-								className="h-72 w-72 object-contain md:h-96 md:w-96"
-							/>
-						</div>
+					<div className="flex flex-col-reverse items-center gap-12 lg:flex-row">
 						{/* Content Side */}
-						<div className="flex w-full flex-col items-center space-y-6 text-center md:w-1/2 md:items-start md:text-left">
+						<div className="flex w-full flex-1 flex-col items-center space-y-6 text-center md:w-1/2 md:items-start md:text-left">
 							<div className="mb-2 inline-flex rounded-full bg-gradient-to-r from-[#396131] to-[#4a7c3a] p-3">
 								<Handshake className="h-8 w-8 text-white" />
 							</div>
@@ -402,13 +394,15 @@ export default function HomePage() {
 									Get Started Today
 									<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
 								</NavLink>
-								<NavLink
-									to="/about-us"
-									className="inline-flex items-center justify-center rounded-xl border-2 border-gray-300 px-8 py-4 text-base font-semibold text-gray-700 transition-all duration-300 hover:border-[#396131] hover:text-[#396131]"
-								>
-									Learn About Us
-								</NavLink>
 							</div>
+						</div>
+						{/* Image Side */}
+						<div className="mb-8 flex w-full flex-shrink-0 justify-center md:mb-0 md:w-1/2">
+							<img
+								src={carouselImg7}
+								alt="Financial journey illustration"
+								className="h-72 w-72 object-contain md:h-96 md:w-96"
+							/>
 						</div>
 					</div>
 				</div>
@@ -417,7 +411,7 @@ export default function HomePage() {
 			{/* Need More Help Section */}
 			<section className="bg-gradient-to-br from-gray-50 to-green-50 py-20">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-					<div className="grid grid-cols-2 items-center gap-12">
+					<div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
 						{/* Left Side - Content */}
 						{/*
 							Refactored: Help options are now defined in an array and rendered via map.
@@ -475,7 +469,7 @@ export default function HomePage() {
 							];
 
 							return (
-								<div className="space-y-8">
+								<div className="order-1 space-y-8 lg:order-0">
 									{/* Accent Line */}
 									<div className="h-1 w-16 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7c3a]"></div>
 
@@ -493,7 +487,7 @@ export default function HomePage() {
 											<NavLink
 												key={option.title}
 												to={option.to}
-												className="group flex items-center space-x-4 rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:border-[#396131] hover:shadow-lg"
+												className="group flex items-center space-x-4 p-3 transition-all duration-300 hover:border-[#396131]"
 											>
 												<div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a]">
 													{option.icon}

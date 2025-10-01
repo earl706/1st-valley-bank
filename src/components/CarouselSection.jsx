@@ -7,14 +7,12 @@ export default function CarouselSection({
 	slides = [],
 	autoPlay = true,
 	autoPlayInterval = 5000,
-	backgroundColor = 'from-slate-50 via-white to-green-50',
 	brandColor = '#396131',
 	brandGradient = 'from-[#396131] via-[#4a7c3a] to-[#5a8c4a]',
 	minHeight = 'min-h-[560px] lg:min-h-[640px]',
 	showLearnMoreButton = true,
 	learnMoreText = 'Learn More',
-	excludeLearnMoreForTitles = [],
-	className = ''
+	excludeLearnMoreForTitles = []
 }) {
 	const [current, setCurrent] = useState(0);
 	const [isPaused, setIsPaused] = useState(false);
@@ -114,7 +112,7 @@ export default function CarouselSection({
 											<img
 												src={slide.image}
 												alt={slide.imageAlt || slide.title || ''}
-												className={`mx-auto h-auto w-full max-w-lg transform drop-shadow-2xl transition-all duration-700 ${
+												className={`mx-auto h-auto w-full max-w-lg transform drop-shadow-lg transition-all duration-700 hover:scale-110 hover:drop-shadow-2xl ${
 													index === current ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
 												}`}
 											/>
@@ -149,7 +147,7 @@ export default function CarouselSection({
 
 											{slide.description && (
 												<p
-													className={`max-w-2xl transform text-lg leading-relaxed text-gray-600 transition-all delay-300 duration-700 ${
+													className={`max-w-2xl transform text-base leading-relaxed text-gray-600 transition-all delay-300 duration-700 ${
 														index === current
 															? 'translate-y-0 opacity-100'
 															: 'translate-y-4 opacity-0'
@@ -219,7 +217,7 @@ export default function CarouselSection({
 							<button
 								onClick={prevSlide}
 								disabled={isTransitioning}
-								className={`absolute top-1/2 left-4 z-20 hidden -translate-x-[calc(100%+0.5rem)] -translate-y-1/2 cursor-pointer rounded-full bg-white/80 p-2 shadow transition-all duration-200 hover:bg-white sm:left-6 sm:flex md:left-8 lg:left-10 xl:left-12 ${
+								className={`absolute top-1/2 left-4 z-20 hidden -translate-x-[calc(100%+0.5rem)] -translate-y-1/2 cursor-pointer rounded-full bg-white/80 p-2 shadow transition-all duration-200 hover:bg-white hover:shadow-lg sm:left-6 sm:flex md:left-8 lg:left-10 xl:left-12 ${
 									isTransitioning ? 'pointer-events-none opacity-50' : 'hover:scale-110'
 								}`}
 								aria-label="Previous Slide"
@@ -242,7 +240,7 @@ export default function CarouselSection({
 							<button
 								onClick={nextSlide}
 								disabled={isTransitioning}
-								className={`absolute top-1/2 right-4 z-20 hidden translate-x-[calc(100%+0.5rem)] -translate-y-1/2 cursor-pointer rounded-full bg-white/80 p-2 shadow transition-all duration-200 hover:bg-white sm:right-6 sm:flex md:right-8 lg:right-10 xl:right-12 ${
+								className={`absolute top-1/2 right-4 z-20 hidden translate-x-[calc(100%+0.5rem)] -translate-y-1/2 cursor-pointer rounded-full bg-white/80 p-2 shadow transition-all duration-200 hover:bg-white hover:shadow-lg sm:right-6 sm:flex md:right-8 lg:right-10 xl:right-12 ${
 									isTransitioning ? 'pointer-events-none opacity-50' : 'hover:scale-110'
 								}`}
 								aria-label="Next Slide"
@@ -270,8 +268,8 @@ export default function CarouselSection({
 										key={idx}
 										onClick={() => changeSlide(idx)}
 										disabled={isTransitioning}
-										className={`h-2 w-6 cursor-pointer rounded-full transition-all duration-300 hover:scale-110 ${
-											current === idx ? 'w-8' : 'bg-gray-300 hover:bg-gray-400'
+										className={`h-2 w-4 cursor-pointer rounded-full transition-all duration-300 hover:scale-110 ${
+											current === idx ? 'w-10' : 'bg-gray-300 hover:bg-gray-400'
 										} ${isTransitioning ? 'pointer-events-none' : ''}`}
 										style={{
 											backgroundColor: current === idx ? brandColor : undefined

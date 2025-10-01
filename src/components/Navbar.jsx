@@ -234,7 +234,7 @@ export default function Navbar({ children }) {
 				{/* UNIFIED RESPONSIVE NAVBAR */}
 				<div className="fixed z-49 w-full bg-white" onMouseLeave={() => setActiveItemHover('')}>
 					{/* Primary Navigation Section */}
-					<div className="flex w-full items-center justify-between bg-white px-4 py-4 md:justify-end xl:px-[40px]">
+					<div className="flex w-full items-center justify-between border-b-1 border-gray-100 bg-white px-[40px] py-4 md:justify-end">
 						{/* Logo */}
 						<div className="relative z-10">
 							<NavLink to="/">
@@ -381,7 +381,7 @@ export default function Navbar({ children }) {
 												<span className="text-[10px] xl:text-sm">{navItem.navItem}</span>
 												<FontAwesomeIcon
 													icon={faAngleUp}
-													className={`transition-all duration-300 xl:${
+													className={`transition-all duration-300 ${
 														activeDropdown === index ? 'rotate-180' : ''
 													}`}
 												/>

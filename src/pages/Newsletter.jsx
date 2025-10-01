@@ -25,7 +25,7 @@ const newsletters = [
 		image: img1,
 		views: '3.2k',
 		readTime: '5 min',
-		learnMoreText: 'Read Full Story',
+		buttonText: 'Read Full Story',
 		route: '/newsletter'
 	},
 	{
@@ -39,7 +39,7 @@ const newsletters = [
 		image: img2,
 		views: '3.2k',
 		readTime: '5 min',
-		learnMoreText: 'Read Full Story',
+		buttonText: 'Read Full Story',
 		route: '/newsletter'
 	},
 	{
@@ -53,7 +53,7 @@ const newsletters = [
 		image: img3,
 		views: '3.2k',
 		readTime: '5 min',
-		learnMoreText: 'Read Full Story',
+		buttonText: 'Read Full Story',
 		route: '/newsletter'
 	},
 	{
@@ -67,7 +67,7 @@ const newsletters = [
 		image: img4,
 		views: '3.2k',
 		readTime: '5 min',
-		learnMoreText: 'Read Full Story',
+		buttonText: 'Read Full Story',
 		route: '/newsletter'
 	},
 	{
@@ -81,7 +81,7 @@ const newsletters = [
 		image: img5,
 		views: '3.2k',
 		readTime: '5 min',
-		learnMoreText: 'Read Full Story',
+		buttonText: 'Read Full Story',
 		route: '/newsletter'
 	},
 	{
@@ -95,7 +95,7 @@ const newsletters = [
 		image: img6,
 		views: '3.2k',
 		readTime: '5 min',
-		learnMoreText: 'Read Full Story',
+		buttonText: 'Read Full Story',
 		route: '/newsletter'
 	}
 ];
@@ -196,7 +196,7 @@ const NewsletterGrid = () => {
 
 				{/* Load More Section */}
 				<div className="mt-12 text-center">
-					<button className="transform rounded-2xl border-2 border-[#396131] bg-white px-8 py-4 font-semibold text-[#396131] shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#396131] hover:text-white">
+					<button className="transform cursor-pointer rounded-2xl border-2 border-[#396131] bg-white px-8 py-4 font-semibold text-[#396131] shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#396131] hover:text-white">
 						Load More Articles
 					</button>
 				</div>

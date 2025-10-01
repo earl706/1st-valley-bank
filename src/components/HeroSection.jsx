@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import carouselImg1 from '/src/assets/carousel/1.png';
 
 export default function HeroSection({
 	title,
@@ -32,11 +33,11 @@ export default function HeroSection({
 					{/* Image/Visual */}
 					<div className="relative order-0 flex h-full items-center justify-center lg:order-1">
 						<div className="relative z-10">
-							{image && (
+							{carouselImg1 && (
 								<img
-									src={image}
+									src={carouselImg1}
 									alt={imageAlt}
-									className="mx-auto h-auto w-full max-w-2xl transform drop-shadow-2xl transition-all duration-700"
+									className="mx-auto h-auto w-full max-w-2xl transform drop-shadow-lg transition-all duration-700 hover:scale-110 hover:drop-shadow-2xl"
 								/>
 							)}
 						</div>

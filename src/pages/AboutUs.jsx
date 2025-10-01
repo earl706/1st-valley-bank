@@ -1052,7 +1052,7 @@ export default function AboutUs() {
 											className="h-[48px] w-[48px] rounded-full bg-white object-cover shadow transition-transform duration-300 group-hover:scale-105"
 										/>
 										<div className="flex flex-col items-center">
-											<span className="text-[0.85rem] font-semibold text-white/90 group-hover:text-emerald-200 lg:text-[0.95rem]">
+											<span className="text-[0.85rem] font-semibold text-white/90 lg:text-[0.95rem]">
 												{officer.name}
 											</span>
 											<span className="text-[0.6rem] font-medium tracking-wide text-white/80 uppercase group-hover:text-white/80 lg:text-[0.8rem]">
@@ -1114,7 +1114,6 @@ export default function AboutUs() {
 										alt={report.title}
 										className="h-60 w-full object-cover transition-transform duration-300 group-hover:scale-105"
 									/>
-									<div className="absolute inset-0 bg-gradient-to-t from-[#396131]/60 via-transparent to-transparent opacity-80"></div>
 									<span className="absolute bottom-4 left-1/2 w-[90%] -translate-x-1/2 rounded-lg bg-white/90 px-4 py-2 text-center text-lg font-bold text-[#396131] shadow-md backdrop-blur-sm sm:text-xl">
 										{report.title}
 									</span>

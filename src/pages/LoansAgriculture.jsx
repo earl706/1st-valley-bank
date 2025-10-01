@@ -103,7 +103,13 @@ export default function LoansAgriculture() {
 			location: 'Banana Growers, Digos',
 			description:
 				'Recovered from crop loss with the Agri Secured Loan, expanding their plantation and rebuilding their lives.',
-			route: '/success-stories/caneros'
+			route: '/success-stories/caneros',
+			paragraphs: [
+				'The Caneros is a humble family from Digos, Davao del Sur whose source of living is their banana plantation. They were able to live a normal and happy life, send their kids to school, and expand their plantation as well. Then came their nightmare in 2018—the Panama disease, a destructive disease of bananas caused by the soil-inhabiting fungus species.',
+				'Suffering from devastating losses, the Caneros were forced to sell their properties. They were on the brink of hopelessness, seeing their future crumble before their eyes.',
+				'With the remaining land that they had and their faith in God, they did their best to recover from the tragedy. It was during this time that 1VB Digos introduced them to our Agri Secured Loan with a scheme tailor-fitted for banana growers. Through this product, the Caneros obtained the funds they needed to rehabilitate their plantation. They were able to expand their plantation from 1.5 hectares to 7 hectares.',
+				'"Dako jud kaayo natabang ang 1st Valley Bank samoa kay tungod sa ila pagpautang samoa nakabakod mi balik." (1st Valley Bank helped us a lot that we were able to rise again.), said Mrs. Virginia Cameros Tobiano.'
+			]
 		},
 		{
 			img: img2,
@@ -112,7 +118,12 @@ export default function LoansAgriculture() {
 			location: 'Rice Farmers, Bukidnon',
 			description:
 				'Used Chattel Financing to purchase new equipment, increasing their rice yield and income.',
-			route: '/success-stories/santos'
+			route: '/success-stories/santos',
+			paragraphs: [
+				'The Santos family, rice farmers from Bukidnon, faced challenges in keeping up with modern farming techniques due to outdated equipment. Their yields were limited, and income was barely enough to sustain their needs.',
+				'Through Chattel Financing, they were able to purchase new farm equipment, which significantly improved their productivity and efficiency in the field.',
+				'With increased rice yield and better income, the Santos family was able to provide more for their household and invest further in their farm’s future.'
+			]
 		},
 		{
 			img: img2,
@@ -120,7 +131,12 @@ export default function LoansAgriculture() {
 			name: 'Lopez Family',
 			location: 'Vegetable Growers, Misamis',
 			description: "Accessed Individual Secured Loan for farm expansion and children's education.",
-			route: '/success-stories/lopez'
+			route: '/success-stories/lopez',
+			paragraphs: [
+				'The Lopez family from Misamis has been growing vegetables for years, but dreamed of expanding their farm and supporting their children’s education.',
+				'With the help of the Individual Secured Loan, they were able to acquire additional land and invest in better seeds and tools.',
+				'The increased harvest not only improved their livelihood but also enabled them to send their children to school, fulfilling their aspirations for a brighter future.'
+			]
 		}
 	];
 

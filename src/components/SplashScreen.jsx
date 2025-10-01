@@ -52,7 +52,7 @@ export default function SplashScreen({ onComplete }) {
 				}
 				return prev + 2;
 			});
-		}, 50);
+		}, 30);
 
 		return () => {
 			clearTimeout(logoTimer);
@@ -120,6 +120,20 @@ export default function SplashScreen({ onComplete }) {
 					<p className="text-sm text-white/80 sm:text-base lg:text-lg">A Development Bank</p>
 					<p className="mt-2 text-xs text-white/60 sm:text-sm">Your Trusted Financial Partner</p>
 				</div>
+
+				{/* Loading progress bar */}
+				{/* <div className="w-64 sm:w-80">
+					<div className="mb-2 flex justify-between text-xs text-white/70">
+						<span>Loading</span>
+						<span>{progress}%</span>
+					</div>
+					<div className="h-1 overflow-hidden rounded-full bg-white/20">
+						<div
+							className="h-full bg-white transition-all duration-300 ease-out"
+							style={{ width: `${progress}%` }}
+						></div>
+					</div>
+				</div> */}
 
 				{/* Loading dots animation */}
 				<div className="flex space-x-2">

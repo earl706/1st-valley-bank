@@ -165,7 +165,7 @@ const Footer = () => {
 			</section>
 
 			{/* Existing Footer Content */}
-			<div className="bg-[#5a8c4a] text-white">
+			<div className="bg-gradient-to-l from-[#396131] to-[#5a8c4a] text-white">
 				<div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
 					{/* Main Footer Content */}
 					<div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
