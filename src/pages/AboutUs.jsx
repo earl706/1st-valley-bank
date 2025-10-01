@@ -567,14 +567,14 @@ export default function AboutUs() {
 			<main className="flex flex-col">
 				{/* Hero Carousel Section */}
 				<section id="description" data-scroll className="bg-white py-12">
-					<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
-							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-1/3">
-								<div className="flex h-72 w-72 items-center justify-center">
+							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-2/5">
+								<div className="flex h-auto w-full items-center justify-center">
 									<img
 										src={carouselImg4}
 										alt="1st Valley Bank Building"
-										className="h-64 w-64 object-cover transition-transform duration-300 hover:scale-105"
+										className="h-auto w-full object-cover transition-transform duration-300 hover:scale-105"
 									/>
 								</div>
 							</div>
@@ -610,7 +610,7 @@ export default function AboutUs() {
 					</div>
 				</section>{' '}
 				<section id="history" data-scroll className="bg-white py-12">
-					<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col-reverse items-center gap-8 lg:flex-row">
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
@@ -657,12 +657,12 @@ export default function AboutUs() {
 									<strong className="text-[#396131]">78 branches and branch lites</strong>.
 								</p>
 							</div>
-							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-1/3">
-								<div className="flex h-72 w-72 items-center justify-center">
+							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-2/5">
+								<div className="flex h-auto w-full items-center justify-center">
 									<img
 										src={carouselImg7}
 										alt="1st Valley Bank Building"
-										className="h-64 w-64 object-cover transition-transform duration-300 hover:scale-105"
+										className="h-auto w-full object-cover transition-transform duration-300 hover:scale-105"
 									/>
 								</div>
 							</div>
@@ -670,9 +670,9 @@ export default function AboutUs() {
 					</div>
 				</section>
 				<section id="marketing" data-scroll className="bg-white py-16">
-					<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
-							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-1/3">
+							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-2/5">
 								<div className="flex h-72 w-72 items-center justify-center">
 									<img
 										src={carouselImg4}
@@ -718,7 +718,7 @@ export default function AboutUs() {
 												return (
 													<li key={idx} className="flex items-center gap-3">
 														<Icon className="h-4 w-4 text-[#396131]" />
-														<span className="text-sm text-gray-700">{item.text}</span>
+														<span className="text-base text-gray-700">{item.text}</span>
 													</li>
 												);
 											})}
