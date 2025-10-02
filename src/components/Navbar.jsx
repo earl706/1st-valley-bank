@@ -108,37 +108,60 @@ export default function Navbar({ children }) {
 				{
 					subItem: 'Salary Loans',
 					path: '/loans/salary',
-					subsubItems: []
+					subsubItems: [
+						{ subItem: 'Government Employees', path: '/loans/salary/government-employees' },
+						{ subItem: 'Private Employees', path: '/loans/salary/private-employees' }
+					]
 				},
 				{
 					subItem: 'Small Business Loan (SBL)',
 					path: '/loans/small-business-loan',
-					subsubItems: []
+					subsubItems: [
+						{ subItem: 'Micro Business', path: '/loans/small-business-loan/micro' },
+						{ subItem: 'Small Business', path: '/loans/small-business-loan/small' }
+					]
 				},
 				{
 					subItem: 'Small and Medium Enterprise (SME)',
 					path: '/loans/small-and-medium-enterprises',
-					subsubItems: []
+					subsubItems: [
+						{ subItem: 'SME Term Loan', path: '/loans/small-and-medium-enterprises/term-loan' },
+						{ subItem: 'SME Credit Line', path: '/loans/small-and-medium-enterprises/credit-line' }
+					]
 				},
 				{
 					subItem: 'Gold & Gems (GG) and Jewelry Business Loan (JBL)',
 					path: '/loans/gold-and-gems',
-					subsubItems: []
+					subsubItems: [
+						{ subItem: 'Gold & Gems Loan', path: '/loans/gold-and-gems/gold-gems' },
+						{ subItem: 'Jewelry Business Loan', path: '/loans/gold-and-gems/jewelry-business' }
+					]
 				},
 				{
 					subItem: 'Supervised Credit or Crop Production Loan',
 					path: '/loans/supervised-credit',
-					subsubItems: []
+					subsubItems: [
+						{ subItem: 'Rice Production', path: '/loans/supervised-credit/rice' },
+						{ subItem: 'Corn Production', path: '/loans/supervised-credit/corn' },
+						{ subItem: 'High Value Crops', path: '/loans/supervised-credit/high-value-crops' }
+					]
 				},
 				{
 					subItem: 'Agriculture Loan',
 					path: '/loans/agriculture',
-					subsubItems: []
+					subsubItems: [
+						{ subItem: 'Agri Machinery', path: '/loans/agriculture/machinery' },
+						{ subItem: 'Livestock', path: '/loans/agriculture/livestock' },
+						{ subItem: 'Fisheries', path: '/loans/agriculture/fisheries' }
+					]
 				},
 				{
 					subItem: 'Microfinance',
 					path: '/loans/microfinance',
-					subsubItems: []
+					subsubItems: [
+						{ subItem: 'Group Loan', path: '/loans/microfinance/group-loan' },
+						{ subItem: 'Individual Loan', path: '/loans/microfinance/individual-loan' }
+					]
 				}
 			]
 		},
