@@ -1,7 +1,6 @@
 import { ChartBarHorizontalIcon, ChartPieSliceIcon } from '@phosphor-icons/react/dist/ssr';
 import React from 'react';
 import HeroSection from '../components/HeroSection';
-
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 

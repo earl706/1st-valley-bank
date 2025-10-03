@@ -482,7 +482,7 @@ export default function AboutUs() {
 				'From agriculture and microfinance to salary loans and SME financing, we offer a full range of loan products designed to help you achieve your financial goals with competitive rates and flexible terms.',
 			image: carouselImg3,
 			imageAlt: 'Loan Services',
-			route: '#loans',
+			route: '/loans',
 			buttonText: 'View All Loans',
 			showButton: true,
 			onButtonClick: () => scrollToSection('#loans')
@@ -494,7 +494,7 @@ export default function AboutUs() {
 				'Protect and grow your wealth with our comprehensive deposit products. From regular savings to special deposits, we offer high interest rates, flexible terms, and the security you can trust.',
 			image: carouselImg4,
 			imageAlt: 'Deposit Services',
-			route: '#deposits',
+			route: '/deposits',
 			buttonText: 'Explore Deposits',
 			showButton: true,
 			onButtonClick: () => scrollToSection('#deposits')

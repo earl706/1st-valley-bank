@@ -109,58 +109,58 @@ export default function Navbar({ children }) {
 					subItem: 'Salary Loans',
 					path: '/loans/salary',
 					subsubItems: [
-						{ subItem: 'Government Employees', path: '/loans/salary/government-employees' },
-						{ subItem: 'Private Employees', path: '/loans/salary/private-employees' }
+						{ subItem: 'Government Employees', path: '/loans/salary' },
+						{ subItem: 'Private Employees', path: '/loans/salary' }
 					]
 				},
 				{
 					subItem: 'Small Business Loan (SBL)',
 					path: '/loans/small-business-loan',
 					subsubItems: [
-						{ subItem: 'Micro Business', path: '/loans/small-business-loan/micro' },
-						{ subItem: 'Small Business', path: '/loans/small-business-loan/small' }
+						{ subItem: 'Micro Business', path: '/loans/small-business-loan' },
+						{ subItem: 'Small Business', path: '/loans/small-business-loan' }
 					]
 				},
 				{
 					subItem: 'Small and Medium Enterprise (SME)',
 					path: '/loans/small-and-medium-enterprises',
 					subsubItems: [
-						{ subItem: 'SME Term Loan', path: '/loans/small-and-medium-enterprises/term-loan' },
-						{ subItem: 'SME Credit Line', path: '/loans/small-and-medium-enterprises/credit-line' }
+						{ subItem: 'SME Term Loan', path: '/loans/small-and-medium-enterprises' },
+						{ subItem: 'SME Credit Line', path: '/loans/small-and-medium-enterprises' }
 					]
 				},
 				{
 					subItem: 'Gold & Gems (GG) and Jewelry Business Loan (JBL)',
 					path: '/loans/gold-and-gems',
 					subsubItems: [
-						{ subItem: 'Gold & Gems Loan', path: '/loans/gold-and-gems/gold-gems' },
-						{ subItem: 'Jewelry Business Loan', path: '/loans/gold-and-gems/jewelry-business' }
+						{ subItem: 'Gold & Gems Loan', path: '/loans/gold-and-gems' },
+						{ subItem: 'Jewelry Business Loan', path: '/loans/gold-and-gems' }
 					]
 				},
 				{
 					subItem: 'Supervised Credit or Crop Production Loan',
 					path: '/loans/supervised-credit',
 					subsubItems: [
-						{ subItem: 'Rice Production', path: '/loans/supervised-credit/rice' },
-						{ subItem: 'Corn Production', path: '/loans/supervised-credit/corn' },
-						{ subItem: 'High Value Crops', path: '/loans/supervised-credit/high-value-crops' }
+						{ subItem: 'Rice Production', path: '/loans/supervised-credit' },
+						{ subItem: 'Corn Production', path: '/loans/supervised-credit' },
+						{ subItem: 'High Value Crops', path: '/loans/supervised-credit' }
 					]
 				},
 				{
 					subItem: 'Agriculture Loan',
 					path: '/loans/agriculture',
 					subsubItems: [
-						{ subItem: 'Agri Machinery', path: '/loans/agriculture/machinery' },
-						{ subItem: 'Livestock', path: '/loans/agriculture/livestock' },
-						{ subItem: 'Fisheries', path: '/loans/agriculture/fisheries' }
+						{ subItem: 'Agri Machinery', path: '/loans/agriculture' },
+						{ subItem: 'Livestock', path: '/loans/agriculture' },
+						{ subItem: 'Fisheries', path: '/loans/agriculture' }
 					]
 				},
 				{
 					subItem: 'Microfinance',
 					path: '/loans/microfinance',
 					subsubItems: [
-						{ subItem: 'Group Loan', path: '/loans/microfinance/group-loan' },
-						{ subItem: 'Individual Loan', path: '/loans/microfinance/individual-loan' }
+						{ subItem: 'Group Loan', path: '/loans/microfinance' },
+						{ subItem: 'Individual Loan', path: '/loans/microfinance' }
 					]
 				}
 			]
@@ -257,7 +257,7 @@ export default function Navbar({ children }) {
 				{/* UNIFIED RESPONSIVE NAVBAR */}
 				<div className="fixed z-49 w-full bg-white" onMouseLeave={() => setActiveItemHover('')}>
 					{/* Primary Navigation Section */}
-					<div className="flex w-full items-center justify-between border-b-1 border-gray-100 bg-white px-[40px] py-4 md:justify-end">
+					<div className="flex w-full items-center justify-between border-b-1 border-gray-100 bg-white px-[40px] py-4 xl:justify-end">
 						{/* Logo */}
 						<div className="relative z-10">
 							<NavLink to="/">
@@ -270,7 +270,7 @@ export default function Navbar({ children }) {
 						</div>
 
 						{/* Desktop/Tablet Navigation Menu */}
-						<div className="hidden w-full max-w-screen items-center justify-end gap-4 py-4 text-[#396131] md:flex xl:gap-[30px]">
+						<div className="hidden w-full max-w-screen items-center justify-end gap-4 py-4 text-[#396131] xl:flex xl:gap-[30px]">
 							<ul className="flex gap-3 md:gap-4 xl:gap-[30px]">
 								{navbarNavigationItems.map((navItem, index) => (
 									<li
@@ -376,7 +376,7 @@ export default function Navbar({ children }) {
 						{/* Mobile Menu Button */}
 						<button
 							onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-							className="touch-manipulation p-2 text-[#31542B] md:hidden"
+							className="touch-manipulation p-2 text-[#31542B] md:block xl:hidden"
 						>
 							{isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
 						</button>
@@ -510,7 +510,7 @@ export default function Navbar({ children }) {
 					{/* Mobile Menu Overlay */}
 					{isMobileMenuOpen && (
 						<div
-							className="bg-opacity-50 fixed inset-0 z-50 bg-black md:hidden"
+							className="bg-opacity-50 fixed inset-0 z-50 bg-black md:block xl:hidden"
 							onClick={closeMobileMenu}
 						>
 							<div
@@ -672,7 +672,7 @@ export default function Navbar({ children }) {
 					)}
 				</div>
 
-				<div className="mt-[64px] md:mt-[91px] xl:mt-[102px]">{children}</div>
+				<div className="mt-[64px] md:mt-[64px] xl:mt-[102px]">{children}</div>
 				<ChatBox />
 
 				{/* Footer remains the same */}
