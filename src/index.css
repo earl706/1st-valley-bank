@@ -1,16 +1,1 @@
 @import 'tailwindcss';
-
-/* Fix for iPhone image orientation issues */
-img {
-	image-orientation: from-image;
-	object-fit: contain;
-}
-
-/* Ensure proper image display on mobile devices */
-@media (max-width: 768px) {
-	img {
-		max-width: 100%;
-		height: auto;
-		image-orientation: from-image;
-	}
-}
