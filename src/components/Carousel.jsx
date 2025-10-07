@@ -133,7 +133,10 @@ const Carousel = () => {
 									onLoad={idx === 0 ? () => setLoading(false) : undefined}
 									loading={idx === 0 ? 'eager' : 'lazy'}
 									draggable={false}
-									style={{ userSelect: 'none' }}
+									style={{
+										userSelect: 'none',
+										imageOrientation: 'from-image'
+									}}
 								/>
 							</div>
 						);
@@ -203,7 +206,10 @@ const Carousel = () => {
 							className="h-full w-full object-cover object-center"
 							loading="lazy"
 							draggable={false}
-							style={{ userSelect: 'none' }}
+							style={{
+								userSelect: 'none',
+								imageOrientation: 'from-image'
+							}}
 						/>
 					</button>
 				))}

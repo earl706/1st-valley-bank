@@ -41,6 +41,9 @@ export default function VehicleCard({ vehicle }) {
 						className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
 							imageLoaded ? 'opacity-100' : 'opacity-0'
 						}`}
+						style={{
+							imageOrientation: 'from-image'
+						}}
 						onLoad={() => setImageLoaded(true)}
 					/>
 

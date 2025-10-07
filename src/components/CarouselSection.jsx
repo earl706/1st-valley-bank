@@ -113,6 +113,10 @@ export default function CarouselSection({
 											className={`mx-auto h-auto w-full max-w-lg transform drop-shadow-lg transition-all duration-700 hover:scale-110 hover:drop-shadow-2xl ${
 												index === current ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
 											}`}
+											style={{
+												imageOrientation: 'from-image',
+												objectFit: 'contain'
+											}}
 										/>
 									</div>
 								) : (
@@ -128,6 +132,10 @@ export default function CarouselSection({
 													className={`mx-auto h-auto w-full max-w-lg transform drop-shadow-lg transition-all duration-700 hover:scale-110 hover:drop-shadow-2xl ${
 														index === current ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
 													}`}
+													style={{
+														imageOrientation: 'from-image',
+														objectFit: 'contain'
+													}}
 												/>
 											</div>
 										</div>

@@ -51,6 +51,9 @@ export default function PropertyCard({ property }) {
 							imageLoaded ? 'opacity-100' : 'opacity-0'
 						}`}
 						onLoad={() => setImageLoaded(true)}
+						style={{
+							imageOrientation: 'from-image'
+						}}
 					/>
 
 					{/* Price Badge */}
