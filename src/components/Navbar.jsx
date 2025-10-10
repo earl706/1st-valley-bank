@@ -12,7 +12,7 @@ import ctb from '/src/assets/image-removebg-preview (2).png';
 import pdic from '/src/assets/image-removebg-preview.png';
 import usaid from '/src/assets/Seal_of_the_United_States_Agency_for_International_Development.svg.png';
 
-import lightLogo from '/src/assets/1VB Logo/1VB-light-hd.png';
+import lightLogo from '/src/assets/1VB LOGO/1VB-light-hd.png';
 import mobileLightlogo from '/src/assets/logo-light.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
