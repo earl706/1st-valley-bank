@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { CaretDownIcon } from '@phosphor-icons/react';
 import Footer from './Footer';
 import ChatBox from './ChatBox';
+import { Search, TextSearch } from 'lucide-react';
 
 import logo from '/src/assets/logo-official.png';
 import gcash from '/src/assets/gcash-logo-png_seeklogo-522261-removebg-preview.png';
@@ -10,6 +11,10 @@ import bsp from '/src/assets/image-removebg-preview (1).png';
 import ctb from '/src/assets/image-removebg-preview (2).png';
 import pdic from '/src/assets/image-removebg-preview.png';
 import usaid from '/src/assets/Seal_of_the_United_States_Agency_for_International_Development.svg.png';
+
+import lightLogo from '/src/assets/1VB Logo/1VB-light-hd.png';
+import mobileLightlogo from '/src/assets/logo-light.svg';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faFacebook,
@@ -34,6 +39,7 @@ import { ChevronDown, ChevronRight, Menu, X } from 'lucide-react';
 
 export default function Navbar({ children }) {
 	const [scrollY, setScrollY] = useState(0);
+	const [searchTerm, setSearchTerm] = useState('');
 	// Primary navbar states
 	const [activeItemHover, setActiveItemHover] = useState('');
 	const [activeSubItemHover, setActiveSubItemHover] = useState('');
@@ -58,14 +64,9 @@ export default function Navbar({ children }) {
 
 	const navbarNavigationItems = [
 		{ navItem: 'HOME', path: '/', subItems: [] },
-		{
-			navItem: 'CONSUMER PROTECTION',
-			path: '/consumer-protection',
-			subItems: []
-		},
 		{ navItem: 'ABOUT US', path: '/about-us', subItems: [] },
-		{ navItem: '1VB ADVISORY', path: '/1vb-advisory', subItems: [] },
-		{ navItem: 'NEWSLETTER', path: '/newsletter', subItems: [] }
+		{ navItem: 'BRANCHES', path: '/branches', subItems: [] },
+		{ navItem: 'CONTACT US', path: '/contact-us', subItems: [] }
 	];
 
 	const secondaryNavbarItems = [
@@ -180,6 +181,27 @@ export default function Navbar({ children }) {
 					subsubItems: []
 				}
 			]
+		},
+		// Inserted as single direct links, not dropdowns
+		{
+			navItem: '1VB ADVISORY',
+			path: '/1vb-advisory',
+			subItems: []
+		},
+		{
+			navItem: 'NEWSLETTER',
+			path: '/newsletter',
+			subItems: []
+		},
+		{
+			navItem: 'CONSUMER PROTECTION',
+			path: '/consumer-protection',
+			subItems: []
+		},
+		{
+			navItem: 'ATM LOCATOR',
+			path: '/atm-locator',
+			subItems: []
 		}
 	];
 
@@ -255,23 +277,28 @@ export default function Navbar({ children }) {
 		<>
 			<div className="font-poppins flex h-full w-full flex-col scroll-smooth">
 				{/* UNIFIED RESPONSIVE NAVBAR */}
-				<div className="fixed z-49 w-full bg-white" onMouseLeave={() => setActiveItemHover('')}>
+				<div className="fixed z-49 w-full bg-[#396131]" onMouseLeave={() => setActiveItemHover('')}>
 					{/* Primary Navigation Section */}
-					<div className="flex w-full items-center justify-between border-b-1 border-gray-100 bg-white px-[40px] py-4 xl:justify-end">
+					<div className="flex w-full items-center justify-between border-b-1 border-white bg-transparent px-[40px] py-4 xl:justify-between">
 						{/* Logo */}
-						<div className="relative z-10">
+						<div className="flex items-center">
 							<NavLink to="/">
 								<img
-									src={logo}
-									className="h-[32px] transition-transform duration-200 hover:scale-105 md:h-[35px] xl:h-[40px]"
+									src={lightLogo}
+									className="hidden transition-transform duration-200 hover:scale-105 md:hidden lg:block lg:h-[48px]"
+									alt=""
+								/>
+								<img
+									src={mobileLightlogo}
+									className="block h-[36px] transition-transform duration-200 hover:scale-105 lg:hidden"
 									alt=""
 								/>
 							</NavLink>
 						</div>
 
 						{/* Desktop/Tablet Navigation Menu */}
-						<div className="hidden w-full max-w-screen items-center justify-end gap-4 py-4 text-[#396131] xl:flex xl:gap-[30px]">
-							<ul className="flex gap-3 md:gap-4 xl:gap-[30px]">
+						<div className="hidden items-center justify-center gap-4 py-4 text-white xl:flex xl:gap-[30px]">
+							<ul className="flex h-full justify-center gap-3 md:gap-4 xl:gap-[30px]">
 								{navbarNavigationItems.map((navItem, index) => (
 									<li
 										key={index}
@@ -284,8 +311,8 @@ export default function Navbar({ children }) {
 											to={navItem.path}
 											className={({ isActive }) =>
 												isActive
-													? 'flex transform flex-col items-center text-[1.1rem] font-bold transition-all duration-200 hover:scale-105 hover:text-[#396131]/90 xl:text-[1.125rem]'
-													: 'flex transform flex-col items-center text-[1.1rem] font-bold transition-all duration-200 hover:scale-105 hover:text-[#396131]/90 xl:text-[1.125rem]'
+													? 'flex h-full transform flex-col items-center text-[1.1rem] font-bold text-white transition-all duration-200 hover:scale-105 hover:text-[#d1ffdc] xl:text-[1.125rem]'
+													: 'flex h-full transform flex-col items-center text-[1.1rem] font-bold text-white transition-all duration-200 hover:scale-105 hover:text-[#d1ffdc] xl:text-[1.125rem]'
 											}
 										>
 											{navItem.subItems.length > 0 ? (
@@ -293,11 +320,11 @@ export default function Navbar({ children }) {
 													<span className="flex">{navItem.navItem}</span>
 													<FontAwesomeIcon
 														icon={faAngleUp}
-														className={
+														className={`${
 															activeItemHover == navItem.path
-																? 'rotate-180 transition-all duration-300'
-																: 'transition-all duration-300'
-														}
+																? 'rotate-180 text-white transition-all duration-300'
+																: 'text-white transition-all duration-300'
+														}`}
 													/>
 												</div>
 											) : (
@@ -307,7 +334,7 @@ export default function Navbar({ children }) {
 										<div
 											className={`${
 												navItem.path == location || activeItemHover == navItem.path
-													? 'w-full bg-[#396131]'
+													? 'w-full bg-white'
 													: 'w-0 bg-transparent'
 											} h-1 rounded-full transition-all duration-300 ease-in-out`}
 										></div>
@@ -316,8 +343,8 @@ export default function Navbar({ children }) {
 										{activeItemHover == navItem.path &&
 											navItem.subItems.length > 0 &&
 											window.innerWidth >= 1280 && (
-												<div className="absolute left-0 z-100 mt-[82px] flex w-full max-w-screen bg-white text-[0.9rem] text-black opacity-100 shadow-xl transition-all duration-300 ease-in-out">
-													<div className="h-full min-h-[200px] min-w-[250px] bg-[#31542B] pt-[20px] pr-[30px] pl-[20px]">
+												<div className="absolute left-0 z-100 mt-[82px] flex w-full max-w-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] text-[0.9rem] text-white opacity-100 shadow-xl transition-all duration-300 ease-in-out">
+													<div className="h-full min-h-[200px] min-w-[250px] bg-[#31542B]/80 pt-[20px] pr-[30px] pl-[20px]">
 														<span className="font-bold text-white capitalize">
 															{navItem.navItem}
 														</span>
@@ -329,17 +356,17 @@ export default function Navbar({ children }) {
 																onMouseLeave={() => setActiveSubItemHover('')}
 																to={subItem.path}
 																key={index}
-																className="flex w-full items-center gap-[10px] font-bold text-[#396131] transition-all duration-200 hover:translate-x-2"
+																className="flex w-full items-center gap-[10px] font-bold text-white transition-all duration-200 hover:translate-x-2 hover:text-[#d1ffdc]"
 															>
 																<div className="h-[25px] w-[25px] rounded-[5px] bg-[#31542B] transition-all duration-200 hover:bg-[#396131]"></div>
 																<div className="flex flex-col">
-																	<span className="transition-colors duration-200 hover:text-[#396131]">
+																	<span className="transition-colors duration-200 hover:text-[#d1ffdc]">
 																		{subItem.subItem}
 																	</span>
 																	<div
 																		className={`${
 																			navItem.path == location || activeSubItemHover == subItem.path
-																				? 'w-full bg-[#31542B]'
+																				? 'w-full bg-white'
 																				: 'w-0 bg-transparent'
 																		} h-[3px] rounded-full transition-all duration-300 ease-in-out`}
 																	></div>
@@ -357,38 +384,108 @@ export default function Navbar({ children }) {
 									<li key={index} className="block md:block xl:hidden">
 										<NavLink
 											to={navItem.path}
-											className="text-[0.7rem] font-bold transition-all duration-200 hover:scale-105 hover:text-gray-200 md:text-white"
+											className="text-[0.7rem] font-bold text-white transition-all duration-200 hover:scale-105 hover:text-[#c8f5cb]"
 										>
 											{navItem.navItem}
 										</NavLink>
 									</li>
 								))}
 							</ul>
+						</div>
+						{/* --- Search Bar (Desktop/Tablet) --- */}
+						<div className="hidden w-full max-w-[300px] items-center xl:flex">
+							<form
+								onSubmit={(e) => {
+									e.preventDefault();
+									if (searchTerm.trim()) {
+										navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
+										setIsMobileMenuOpen(false);
+										setActiveDropdown(null);
+										setActiveSubDropdown(null);
+										setActiveSubSubDropdown(null);
+										setActiveItemHover('');
+									}
+								}}
+								className="flex w-full overflow-hidden rounded-[5px] shadow-md"
+							>
+								<div className="absolute py-2 pl-4">
+									<TextSearch className="h-5 w-5 text-[#396131]" />
+								</div>
+								<input
+									type="text"
+									value={searchTerm}
+									onChange={(e) => setSearchTerm(e.target.value)}
+									className="h-full w-full border-0 bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-0"
+									aria-label="Search query"
+									placeholder="Search..."
+								/>
+								<button
+									type="submit"
+									className="flex cursor-pointer items-center justify-center rounded-r-[5px] bg-[#396131] px-4 text-xs font-bold text-white transition-colors duration-200 hover:bg-[#27481e]"
+									aria-label="Search"
+								>
+									SEARCH
+								</button>
+							</form>
+						</div>
 
-							{/* Contact Us Button */}
-							<NavLink to="/contact-us">
-								<span className="transform cursor-pointer rounded-[8px] bg-white px-3 py-2 text-[0.7rem] font-bold text-[#396131] transition-all duration-300 hover:scale-105 hover:bg-[#396131] hover:text-white md:rounded-[10px] md:px-4 md:py-[12px] md:text-[0.8rem] md:drop-shadow-lg xl:px-[20px] xl:text-[0.875rem]">
-									Contact Us
-								</span>
-							</NavLink>
+						{/* --- Search Bar (Tablet) --- */}
+						<div className="mx-2 hidden w-1/3 max-w-xs items-center md:flex xl:hidden">
+							<form
+								onSubmit={(e) => {
+									e.preventDefault();
+									if (searchTerm.trim()) {
+										navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
+										setIsMobileMenuOpen(false);
+										setActiveDropdown(null);
+										setActiveSubDropdown(null);
+										setActiveSubSubDropdown(null);
+										setActiveItemHover('');
+									}
+								}}
+								className="flex w-full overflow-hidden rounded-[5px] shadow-md"
+							>
+								<div className="absolute py-2 pl-4">
+									<TextSearch className="h-5 w-5 text-[#396131]" />
+								</div>
+								<input
+									type="text"
+									value={searchTerm}
+									onChange={(e) => setSearchTerm(e.target.value)}
+									className="h-full w-full border-0 bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-0"
+									aria-label="Search query"
+									placeholder="Search..."
+								/>
+								<button
+									type="submit"
+									className="flex cursor-pointer items-center justify-center rounded-r-[5px] bg-[#396131] px-4 text-xs font-bold text-white transition-colors duration-200 hover:bg-[#27481e]"
+									aria-label="Search"
+								>
+									SEARCH
+								</button>
+							</form>
 						</div>
 
 						{/* Mobile Menu Button */}
 						<button
 							onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-							className="touch-manipulation p-2 text-[#31542B] md:block xl:hidden"
+							className="touch-manipulation p-2 text-white md:block xl:hidden"
 						>
-							{isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+							{isMobileMenuOpen ? (
+								<X className="h-6 w-6 text-white" />
+							) : (
+								<Menu className="h-6 w-6 text-white" />
+							)}
 						</button>
 					</div>
 
 					{/* Secondary Navigation Section - Desktop Only */}
 					<div
-						className="hidden w-full gap-3 bg-white px-4 py-3 text-[12px] font-bold drop-shadow-lg xl:flex xl:gap-[20px] xl:px-[95px] xl:py-[15px] xl:text-[14px]"
+						className="hidden w-full justify-between gap-3 bg-transparent px-4 py-3 text-[12px] font-bold drop-shadow-lg xl:flex xl:gap-[20px] xl:px-[95px] xl:py-[15px] xl:text-[14px]"
 						onMouseLeave={handleSecondaryNavItemLeave}
 					>
-						<ul className="flex gap-3 text-[#396131] xl:gap-[30px]">
-							{secondaryNavbarItems.map((navItem, index) => (
+						<ul className="flex gap-3 text-white xl:gap-[30px]">
+							{secondaryNavbarItems.slice(0, 3).map((navItem, index) => (
 								<li
 									key={index}
 									onMouseEnter={() => {
@@ -400,17 +497,15 @@ export default function Navbar({ children }) {
 								>
 									<NavLink to={navItem.path} className="group">
 										{navItem.subItems.length > 0 ? (
-											<div className="flex items-center gap-[5px] transition-all duration-200 hover:text-[#396131]/80">
+											<div className="flex items-center gap-[5px] transition-all duration-200 hover:text-[#b8f2bf]">
 												<span className="text-[10px] xl:text-sm">{navItem.navItem}</span>
 												<FontAwesomeIcon
 													icon={faAngleUp}
-													className={`transition-all duration-300 ${
-														activeDropdown === index ? 'rotate-180' : ''
-													}`}
+													className={`transition-all duration-300 ${activeDropdown === index ? 'rotate-180 text-white' : 'text-white'}`}
 												/>
 											</div>
 										) : (
-											<span className="text-[10px] transition-all duration-200 hover:text-[#396131]/80 xl:text-sm">
+											<span className="text-[10px] transition-all duration-200 hover:text-[#b8f2bf] xl:text-sm">
 												{navItem.navItem}
 											</span>
 										)}
@@ -418,7 +513,7 @@ export default function Navbar({ children }) {
 											className={`${
 												navItem.path == location ||
 												(activeDropdown === index && window.innerWidth >= 1280)
-													? 'w-full bg-[#396131]'
+													? 'w-full bg-white'
 													: 'w-0 bg-transparent'
 											} h-[3px] rounded-full transition-all duration-300 ease-in-out`}
 										></div>
@@ -428,10 +523,10 @@ export default function Navbar({ children }) {
 									{activeDropdown === index &&
 										navItem.subItems.length > 0 &&
 										window.innerWidth >= 1280 && (
-											<div className="absolute left-0 z-40 mt-[16px] w-full max-w-screen bg-white text-[0.9rem] text-black opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
+											<div className="absolute left-0 z-40 mt-[16px] w-full max-w-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] text-[0.9rem] text-white opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
 												<div className="flex">
 													{/* Left Sidebar for SubItems */}
-													<div className="flex min-h-[300px] min-w-[280px] flex-col bg-[#31542B]">
+													<div className="flex min-h-[300px] min-w-[280px] flex-col bg-[#31542B]/80">
 														{navItem.subItems.map((subItem, subIndex) => (
 															<NavLink
 																to={subItem.path}
@@ -446,7 +541,10 @@ export default function Navbar({ children }) {
 																	<div className="flex items-center justify-between">
 																		<span className="text-sm xl:text-base">{subItem.subItem}</span>
 																		{subItem.subsubItems.length > 0 && (
-																			<FontAwesomeIcon icon={faAngleRight} className="text-sm" />
+																			<FontAwesomeIcon
+																				icon={faAngleRight}
+																				className="text-sm text-white"
+																			/>
 																		)}
 																	</div>
 																</button>
@@ -458,7 +556,7 @@ export default function Navbar({ children }) {
 													<div className="flex-1 p-[30px]">
 														{activeSubDropdown !== null && navItem.subItems[activeSubDropdown] && (
 															<div className="transition-all duration-300 ease-in-out">
-																<h3 className="mb-[20px] border-b-2 border-[#31542B] pb-2 text-lg font-bold text-[#31542B]">
+																<h3 className="mb-[20px] border-b-2 border-white pb-2 text-lg font-bold text-white">
 																	{navItem.subItems[activeSubDropdown].subItem}
 																</h3>
 
@@ -469,21 +567,21 @@ export default function Navbar({ children }) {
 																				<NavLink
 																					key={subsubIndex}
 																					to={subsubItem.path}
-																					className="group flex items-center gap-[15px] rounded-lg border border-transparent p-[15px] transition-all duration-200 hover:border-[#31542B] hover:bg-gray-50"
+																					className="group flex items-center gap-[15px] rounded-lg border border-transparent p-[15px] transition-all duration-200 hover:border-white hover:bg-[#4a7c3a]/40"
 																				>
-																					<div className="h-[12px] w-[12px] rounded-full bg-[#31542B] transition-colors duration-200 group-hover:bg-[#396131]"></div>
+																					<div className="h-[12px] w-[12px] rounded-full bg-white transition-colors duration-200 group-hover:bg-[#396131]"></div>
 																					<div className="flex flex-col">
-																						<span className="font-semibold text-[#31542B] transition-colors duration-200 group-hover:text-[#396131]">
+																						<span className="font-semibold text-white transition-colors duration-200 group-hover:text-[#b8f2bf]">
 																							{subsubItem.subItem}
 																						</span>
-																						<div className="h-[2px] w-0 bg-[#396131] transition-all duration-300 ease-in-out group-hover:w-full"></div>
+																						<div className="h-[2px] w-0 bg-[#b8f2bf] transition-all duration-300 ease-in-out group-hover:w-full"></div>
 																					</div>
 																				</NavLink>
 																			)
 																		)}
 																	</div>
 																) : (
-																	<div className="text-gray-500 italic">
+																	<div className="text-gray-300 italic">
 																		Navigate to {navItem.subItems[activeSubDropdown].subItem} for
 																		more information.
 																	</div>
@@ -492,7 +590,126 @@ export default function Navbar({ children }) {
 														)}
 
 														{activeSubDropdown === null && (
-															<div className="mt-[50px] text-center text-gray-400">
+															<div className="mt-[50px] text-center text-gray-200">
+																<p className="text-lg">
+																	Hover over a category to see available options
+																</p>
+															</div>
+														)}
+													</div>
+												</div>
+											</div>
+										)}
+								</li>
+							))}
+						</ul>
+						<ul className="flex gap-3 text-white xl:gap-[30px]">
+							{secondaryNavbarItems.slice(3, 7).map((navItem, index) => (
+								<li
+									key={index}
+									onMouseEnter={() => {
+										if (window.innerWidth >= 1280) {
+											handleSecondaryNavItemHover(index + 3);
+											setActiveItemHover('');
+										}
+									}}
+								>
+									<NavLink to={navItem.path} className="group">
+										{navItem.subItems.length > 0 ? (
+											<div className="flex items-center gap-[5px] transition-all duration-200 hover:text-[#b8f2bf]">
+												<span className="text-[10px] xl:text-sm">{navItem.navItem}</span>
+												<FontAwesomeIcon
+													icon={faAngleUp}
+													className={`transition-all duration-300 ${activeDropdown === index + 3 ? 'rotate-180 text-white' : 'text-white'}`}
+												/>
+											</div>
+										) : (
+											<span className="text-[10px] transition-all duration-200 hover:text-[#b8f2bf] xl:text-sm">
+												{navItem.navItem}
+											</span>
+										)}
+										<div
+											className={`${
+												navItem.path == location ||
+												(activeDropdown === index + 3 && window.innerWidth >= 1280)
+													? 'w-full bg-white'
+													: 'w-0 bg-transparent'
+											} h-[3px] rounded-full transition-all duration-300 ease-in-out`}
+										></div>
+									</NavLink>
+
+									{/* Multi-Level Dropdown - Desktop Only */}
+									{activeDropdown === index &&
+										navItem.subItems.length > 0 &&
+										window.innerWidth >= 1280 && (
+											<div className="absolute left-0 z-40 mt-[16px] w-full max-w-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] text-[0.9rem] text-white opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
+												<div className="flex">
+													{/* Left Sidebar for SubItems */}
+													<div className="flex min-h-[300px] min-w-[280px] flex-col bg-[#31542B]/80">
+														{navItem.subItems.map((subItem, subIndex) => (
+															<NavLink
+																to={subItem.path}
+																key={subIndex}
+																className="relative"
+																onMouseEnter={() => handleSubItemHover(subIndex)}
+															>
+																<button
+																	onClick={() => {}}
+																	className="w-full cursor-pointer border-l-4 border-transparent px-[20px] py-[15px] text-left leading-[1.4rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-white hover:bg-[#396131]"
+																>
+																	<div className="flex items-center justify-between">
+																		<span className="text-sm xl:text-base">{subItem.subItem}</span>
+																		{subItem.subsubItems.length > 0 && (
+																			<FontAwesomeIcon
+																				icon={faAngleRight}
+																				className="text-sm text-white"
+																			/>
+																		)}
+																	</div>
+																</button>
+															</NavLink>
+														))}
+													</div>
+
+													{/* Right Content Area */}
+													<div className="flex-1 p-[30px]">
+														{activeSubDropdown !== null && navItem.subItems[activeSubDropdown] && (
+															<div className="transition-all duration-300 ease-in-out">
+																<h3 className="mb-[20px] border-b-2 border-white pb-2 text-lg font-bold text-white">
+																	{navItem.subItems[activeSubDropdown].subItem}
+																</h3>
+
+																{navItem.subItems[activeSubDropdown].subsubItems.length > 0 ? (
+																	<div className="grid grid-cols-1 gap-[20px] md:grid-cols-2">
+																		{navItem.subItems[activeSubDropdown].subsubItems.map(
+																			(subsubItem, subsubIndex) => (
+																				<NavLink
+																					key={subsubIndex}
+																					to={subsubItem.path}
+																					className="group flex items-center gap-[15px] rounded-lg border border-transparent p-[15px] transition-all duration-200 hover:border-white hover:bg-[#4a7c3a]/40"
+																				>
+																					<div className="h-[12px] w-[12px] rounded-full bg-white transition-colors duration-200 group-hover:bg-[#396131]"></div>
+																					<div className="flex flex-col">
+																						<span className="font-semibold text-white transition-colors duration-200 group-hover:text-[#b8f2bf]">
+																							{subsubItem.subItem}
+																						</span>
+																						<div className="h-[2px] w-0 bg-[#b8f2bf] transition-all duration-300 ease-in-out group-hover:w-full"></div>
+																					</div>
+																				</NavLink>
+																			)
+																		)}
+																	</div>
+																) : (
+																	<div className="text-gray-300 italic">
+																		Navigate to {navItem.subItems[activeSubDropdown].subItem} for
+																		more information.
+																	</div>
+																)}
+															</div>
+														)}
+
+														{activeSubDropdown === null && (
+															<div className="mt-[50px] text-center text-gray-200">
 																<p className="text-lg">
 																	Hover over a category to see available options
 																</p>
@@ -518,11 +735,57 @@ export default function Navbar({ children }) {
 								onClick={(e) => e.stopPropagation()}
 							>
 								{/* Menu Header */}
-								<div className="flex items-center justify-between bg-[#31542B] p-4 text-white">
+								<div className="flex items-center justify-between bg-gradient-to-l from-[#396131] to-[#4a7c3a] p-4 text-white">
 									<h2 className="text-lg font-bold">Menu</h2>
 									<button onClick={closeMobileMenu} className="touch-manipulation p-2">
-										<X className="h-6 w-6" />
+										<X className="h-6 w-6 text-white" />
 									</button>
+								</div>
+
+								{/* --- Mobile Search Bar --- */}
+								<div className="border-b border-[#eaf7ec] p-4">
+									<form
+										onSubmit={(e) => {
+											e.preventDefault();
+											if (searchTerm.trim()) {
+												navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
+												setIsMobileMenuOpen(false);
+												setActiveDropdown(null);
+												setActiveSubDropdown(null);
+												setActiveSubSubDropdown(null);
+												setActiveItemHover('');
+											}
+										}}
+										className="relative w-full"
+									>
+										<input
+											type="text"
+											placeholder="Search..."
+											value={searchTerm}
+											onChange={(e) => setSearchTerm(e.target.value)}
+											className="w-full rounded-full border border-[#b7ddb2] py-2 pr-10 pl-4 text-base text-[#204216] placeholder-[#b7ddb2] transition-all focus:border-[#396131] focus:outline-none"
+										/>
+										<button
+											type="submit"
+											className="absolute top-1/2 right-2 -translate-y-1/2 text-[#31542b] hover:text-[#396131]"
+											aria-label="Search"
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												className="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth={2}
+													d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
+												/>
+											</svg>
+										</button>
+									</form>
 								</div>
 
 								{/* Menu Content */}
@@ -534,7 +797,7 @@ export default function Navbar({ children }) {
 												<div className="flex items-center justify-between">
 													<NavLink
 														to={navItem.path}
-														className="flex-1 touch-manipulation rounded-lg px-3 py-3 text-sm font-semibold text-[#31542B] transition-colors duration-200 hover:bg-gray-50"
+														className="flex-1 touch-manipulation rounded-lg px-3 py-3 text-sm font-semibold text-[#396131] transition-colors duration-200 hover:bg-[#f2fbf0] hover:text-[#204216]"
 														onClick={closeMobileMenu}
 													>
 														{navItem.navItem}
@@ -542,11 +805,13 @@ export default function Navbar({ children }) {
 													{navItem.subItems.length > 0 && (
 														<button
 															onClick={() => handleDropdownToggle(`primary-${index}`)}
-															className="touch-manipulation rounded-lg p-2 text-[#31542B] hover:bg-gray-50"
+															className="touch-manipulation rounded-lg p-2 text-[#396131] hover:bg-[#e4f9ea]"
 														>
 															<ChevronDown
 																className={`h-4 w-4 transition-transform duration-200 ${
-																	activeDropdown === `primary-${index}` ? 'rotate-180' : ''
+																	activeDropdown === `primary-${index}`
+																		? 'rotate-180 text-[#396131]'
+																		: 'text-[#396131]'
 																}`}
 															/>
 														</button>
@@ -560,7 +825,7 @@ export default function Navbar({ children }) {
 															<NavLink
 																key={subIndex}
 																to={subItem.path}
-																className="block touch-manipulation rounded-lg px-3 py-2 text-sm text-gray-600 transition-colors duration-200 hover:bg-gray-50 hover:text-[#31542B]"
+																className="block touch-manipulation rounded-lg px-3 py-2 text-sm text-[#2b4a1d] transition-colors duration-200 hover:bg-[#e4f9ea] hover:text-[#396131]"
 																onClick={closeMobileMenu}
 															>
 																{subItem.subItem}
@@ -574,7 +839,7 @@ export default function Navbar({ children }) {
 
 									{/* Secondary Navigation */}
 									<div className="mb-6">
-										<h3 className="mb-3 text-sm font-bold tracking-wide text-gray-500 uppercase">
+										<h3 className="mb-3 text-sm font-bold tracking-wide text-[#31542b] uppercase">
 											Categories
 										</h3>
 										{secondaryNavbarItems.map((navItem, index) => (
@@ -582,7 +847,7 @@ export default function Navbar({ children }) {
 												<div className="flex items-center justify-between">
 													<NavLink
 														to={navItem.path}
-														className="flex-1 touch-manipulation rounded-lg px-3 py-3 text-sm font-semibold text-[#31542B] transition-colors duration-200 hover:bg-gray-50"
+														className="flex-1 touch-manipulation rounded-lg px-3 py-3 text-sm font-semibold text-[#396131] transition-colors duration-200 hover:bg-[#e1f5e7] hover:text-[#204216]"
 														onClick={closeMobileMenu}
 													>
 														{navItem.navItem}
@@ -590,11 +855,13 @@ export default function Navbar({ children }) {
 													{navItem.subItems.length > 0 && (
 														<button
 															onClick={() => handleDropdownToggle(`secondary-${index}`)}
-															className="touch-manipulation rounded-lg p-2 text-[#31542B] hover:bg-gray-50"
+															className="touch-manipulation rounded-lg p-2 text-[#396131] hover:bg-[#e4f9ea]"
 														>
 															<ChevronDown
 																className={`h-4 w-4 transition-transform duration-200 ${
-																	activeDropdown === `secondary-${index}` ? 'rotate-180' : ''
+																	activeDropdown === `secondary-${index}`
+																		? 'rotate-180 text-[#396131]'
+																		: 'text-[#396131]'
 																}`}
 															/>
 														</button>
@@ -609,7 +876,7 @@ export default function Navbar({ children }) {
 																<div className="flex items-center justify-between">
 																	<NavLink
 																		to={subItem.path}
-																		className="flex-1 touch-manipulation rounded-lg px-3 py-2 text-sm text-gray-600 transition-colors duration-200 hover:bg-gray-50 hover:text-[#31542B]"
+																		className="flex-1 touch-manipulation rounded-lg px-3 py-2 text-sm text-[#28541f] transition-colors duration-200 hover:bg-[#e1f5e7] hover:text-[#396131]"
 																		onClick={closeMobileMenu}
 																	>
 																		{subItem.subItem}
@@ -619,13 +886,13 @@ export default function Navbar({ children }) {
 																			onClick={() =>
 																				handleSubDropdownToggle(`${index}-${subIndex}`)
 																			}
-																			className="touch-manipulation p-1 text-gray-400 hover:text-[#31542B]"
+																			className="touch-manipulation p-1 text-[#adcebb] hover:text-[#396131]"
 																		>
 																			<ChevronRight
 																				className={`h-3 w-3 transition-transform duration-200 ${
 																					activeSubDropdown === `${index}-${subIndex}`
-																						? 'rotate-90'
-																						: ''
+																						? 'rotate-90 text-[#396131]'
+																						: 'text-[#adcebb]'
 																				}`}
 																			/>
 																		</button>
@@ -640,7 +907,7 @@ export default function Navbar({ children }) {
 																				<NavLink
 																					key={subsubIndex}
 																					to={subsubItem.path}
-																					className="block touch-manipulation rounded-lg px-3 py-2 text-sm text-gray-500 transition-colors duration-200 hover:bg-gray-50 hover:text-[#31542B]"
+																					className="block touch-manipulation rounded-lg px-3 py-2 text-sm text-[#396131] transition-colors duration-200 hover:bg-[#eaf8ef] hover:text-[#28541f]"
 																					onClick={closeMobileMenu}
 																				>
 																					• {subsubItem.subItem}
@@ -657,10 +924,10 @@ export default function Navbar({ children }) {
 									</div>
 
 									{/* Contact Button */}
-									<div className="border-t border-gray-200 pt-4">
+									<div className="border-t border-[#cce8d6] pt-4">
 										<NavLink
 											to="/contact-us"
-											className="block w-full touch-manipulation rounded-lg bg-[#31542B] px-4 py-3 text-center text-sm font-semibold text-white transition-colors duration-200 hover:bg-[#396131]"
+											className="block w-full touch-manipulation rounded-lg bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-4 py-3 text-center text-sm font-semibold text-white transition-colors duration-200 hover:bg-[#396131]"
 											onClick={closeMobileMenu}
 										>
 											Contact Us
@@ -672,7 +939,7 @@ export default function Navbar({ children }) {
 					)}
 				</div>
 
-				<div className="mt-[64px] md:mt-[64px] xl:mt-[102px]">{children}</div>
+				<div className="mt-[64px] md:mt-[64px] xl:mt-37">{children}</div>
 				<ChatBox />
 
 				{/* Footer remains the same */}

@@ -211,19 +211,17 @@ export default function HomePage() {
 			/>
 
 			{/* Services Section */}
-			<section className="bg-white py-20">
+			<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20 text-white">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div className="mb-16 text-center">
-						<h2 className="mb-4 text-4xl font-bold text-gray-900">
-							Your Lifetime Friend in Banking
-						</h2>
+						<h2 className="mb-4 text-4xl font-bold text-white">Your Lifetime Friend in Banking</h2>
 					</div>
 
 					<div className="grid gap-8 md:grid-cols-3">
 						{services.map((service, index) => (
 							<div
 								key={index}
-								className="group relative flex flex-col rounded-2xl border border-gray-100 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+								className="group relative flex flex-col rounded-2xl border border-white/10 bg-white/10 p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 							>
 								{/* Service Image */}
 								<div className="relative mb-6">
@@ -236,14 +234,14 @@ export default function HomePage() {
 									</div>
 								</div>
 
-								<h3 className="mb-4 text-2xl font-bold text-gray-900">{service.title}</h3>
-								<p className="mb-6 flex-1 text-base leading-relaxed text-gray-600">
+								<h3 className="mb-4 text-2xl font-bold text-white">{service.title}</h3>
+								<p className="mb-6 flex-1 text-base leading-relaxed text-white/80">
 									{service.description}
 								</p>
 
 								<NavLink
 									to={service.path}
-									className="group/btn mt-auto inline-flex items-center text-base font-semibold text-[#396131] transition-colors hover:text-[#4a7c3a]"
+									className="group/btn mt-auto inline-flex items-center text-base font-semibold text-white transition-colors hover:text-[#ffe37d]"
 								>
 									Learn More
 									<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
@@ -255,7 +253,7 @@ export default function HomePage() {
 			</section>
 
 			{/* Features Section */}
-			<section className="bg-gradient-to-br from-gray-50 to-green-50 py-20">
+			<section className="bg-[#E9F2EA] py-20">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div className="mb-16 text-center">
 						<h2 className="mb-4 text-4xl font-bold text-gray-900">
@@ -290,17 +288,17 @@ export default function HomePage() {
 			</section>
 
 			{/* Testimonials Section */}
-			<section className="bg-white py-20">
+			<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div className="mb-16 text-center">
-						<h2 className="mb-4 text-4xl font-bold text-gray-900">Trusted by Our Community</h2>
+						<h2 className="mb-4 text-4xl font-bold text-white">Trusted by Our Community</h2>
 					</div>
 
 					<div className="grid gap-8 md:grid-cols-3">
 						{testimonials.map((testimonial, index) => (
 							<div
 								key={index}
-								className="rounded-2xl border border-gray-100 bg-white p-8 shadow-lg transition-all duration-300 hover:shadow-xl"
+								className="rounded-2xl border border-white/10 bg-white/10 p-8 shadow-lg backdrop-blur transition-all duration-300 hover:shadow-xl"
 							>
 								<div className="mb-6 flex items-center">
 									<div className="flex-shrink-0">
@@ -313,11 +311,11 @@ export default function HomePage() {
 										</div>
 									</div>
 									<div className="ml-4">
-										<h4 className="text-base font-semibold text-gray-900">{testimonial.name}</h4>
-										<p className="text-sm text-gray-600">{testimonial.role}</p>
+										<h4 className="text-base font-semibold text-white">{testimonial.name}</h4>
+										<p className="text-sm text-white/70">{testimonial.role}</p>
 									</div>
 									<div className="ml-auto">
-										<Quote className="h-8 w-8 text-[#396131]/30" />
+										<Quote className="h-8 w-8 text-gray-100/30" />
 									</div>
 								</div>
 
@@ -327,7 +325,7 @@ export default function HomePage() {
 									))}
 								</div>
 
-								<blockquote className="text-sm leading-relaxed text-gray-600 italic">
+								<blockquote className="text-sm leading-relaxed text-white italic">
 									"{testimonial.content}"
 								</blockquote>
 							</div>
@@ -337,7 +335,7 @@ export default function HomePage() {
 			</section>
 
 			{/* Newsletter Section */}
-			<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20">
+			<section className="bg-[#E9F2EA] py-20">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div className="flex flex-col items-center gap-12 md:flex-row">
 						{/* Image Side */}
@@ -350,17 +348,17 @@ export default function HomePage() {
 						</div>
 						{/* Content Side */}
 						<div className="flex w-full flex-col items-center space-y-6 text-center md:w-1/2 md:items-start md:text-left">
-							<div className="mb-2 inline-flex rounded-full bg-white/20 p-3 backdrop-blur-sm">
+							<div className="mb-2 inline-flex rounded-full bg-[#396131] p-3 backdrop-blur-sm">
 								<Mail className="h-8 w-8 text-white" />
 							</div>
-							<h2 className="text-4xl font-bold text-white">Stay Connected</h2>
-							<p className="max-w-xl text-base text-green-100">
+							<h2 className="text-4xl font-bold text-gray-900">Stay Connected</h2>
+							<p className="max-w-xl text-base text-gray-700">
 								Get the latest financial tips, market insights, and exclusive offers delivered
 								straight to your inbox.
 							</p>
 							<NavLink
 								to="/newsletter"
-								className="group inline-flex transform items-center rounded-xl bg-white px-8 py-4 text-base font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+								className="group inline-flex transform items-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 							>
 								Subscribe to Newsletter
 								<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -371,25 +369,25 @@ export default function HomePage() {
 			</section>
 
 			{/* CTA Section */}
-			<section className="bg-white py-20">
+			<section className="bg-gradient-to-l from-[#4a7c3a] to-[#396131] py-20">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div className="flex flex-col-reverse items-center gap-12 lg:flex-row">
 						{/* Content Side */}
 						<div className="flex w-full flex-1 flex-col items-center space-y-6 text-center md:w-1/2 md:items-start md:text-left">
-							<div className="mb-2 inline-flex rounded-full bg-gradient-to-r from-[#396131] to-[#4a7c3a] p-3">
+							<div className="mb-2 inline-flex rounded-full bg-white/20 p-3">
 								<Handshake className="h-8 w-8 text-white" />
 							</div>
-							<h2 className="text-4xl font-bold text-gray-900">
+							<h2 className="text-4xl font-bold text-white">
 								Ready to Start Your Financial Journey?
 							</h2>
-							<p className="max-w-xl text-base text-gray-600">
+							<p className="max-w-xl text-base text-white/90">
 								Join thousands of satisfied customers who trust 1st Valley Bank with their financial
 								future. Let's build success together.
 							</p>
 							<div className="flex flex-col justify-center gap-4 sm:flex-row">
 								<NavLink
 									to="/contact-us"
-									className="group inline-flex transform items-center justify-center rounded-xl bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+									className="group inline-flex transform items-center justify-center rounded-xl bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-white/20 hover:shadow-xl"
 								>
 									Get Started Today
 									<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -409,7 +407,7 @@ export default function HomePage() {
 			</section>
 
 			{/* Need More Help Section */}
-			<section className="bg-gradient-to-br from-gray-50 to-green-50 py-20">
+			<section className="bg-[#E9F2EA] py-20">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
 						{/* Left Side - Content */}
@@ -482,7 +480,7 @@ export default function HomePage() {
 									</div>
 
 									{/* Help Options Grid */}
-									<div className="grid gap-6 sm:grid-cols-1 lg:grid-cols-2">
+									<div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
 										{helpOptions.map((option, idx) => (
 											<NavLink
 												key={option.title}

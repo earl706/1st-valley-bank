@@ -4,11 +4,12 @@ import SplashScreen from './components/SplashScreen';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import './App.css';
+import AboutUs from './pages/AboutUs';
 import ConsumerProtection from './pages/ConsumerProtection';
 import ConsumerProtectionPrivacyPolicy from './pages/ConsumerProtectionPrivacyPolicy';
 import ConsumerProtection1VBProducts from './pages/ConsumerProtection1VBProducts';
 import ConsumerProtectionProductRequirements from './pages/ConsumerProtectionProductRequirements';
-import AboutUs from './pages/AboutUs';
+import ConsumerProtectionHub from './pages/ConsumerProtectionHub';
 import OneVBAdvisory from './pages/OneVBAdvisory';
 import Newsletter from './pages/Newsletter';
 import Deposits from './pages/Deposits';
@@ -31,7 +32,9 @@ import PropertiesForSaleVehicles from './pages/PropertiesForSaleVehicles';
 import PropertiesForSaleRealEstate from './pages/PropertiesForSaleRealEstate';
 import Effects from './pages/Effects';
 import LoanQualification from './pages/LoanQualification';
-import ConsumerProtectionHub from './pages/ConsumerProtectionHub';
+import Branches from './pages/Branches';
+import ATMLocator from './pages/ATMLocator';
+import SearchResults from './pages/SearchResults';
 
 function App() {
 	const [showSplash, setShowSplash] = useState(false);
@@ -147,7 +150,10 @@ function App() {
 			route: '/effects'
 		},
 		{ component: <LoanQualification />, route: '/loan-qualification/:loanType' },
-		{ component: <ConsumerProtectionHub />, route: '/consumer-protection-hub' }
+		{ component: <ConsumerProtectionHub />, route: '/consumer-protection-hub' },
+		{ component: <Branches />, route: '/branches' },
+		{ component: <ATMLocator />, route: '/atm-locator' },
+		{ component: <SearchResults />, route: '/search' }
 	];
 
 	return (

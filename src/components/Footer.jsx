@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from '/src/assets/logo-official.png';
+import logolight from '/src/assets/1VB Logo/1VB-light-hd.png';
 import { NavLink } from 'react-router-dom';
 import {
 	Phone,
@@ -25,12 +26,10 @@ const Footer = () => {
 	const footerNavigationItems = [
 		{ navItem: 'Home', link: '/' },
 		{ navItem: 'Deposits', link: '/deposits' },
-		{ navItem: 'About Us', link: '/about-us' },
 		{ navItem: 'Loans', link: '/loans' },
 		{ navItem: 'Properties for Sale', link: '/properties-for-sale' },
-		{ navItem: '1VB Advisory', link: '/1vb-advisory' },
-		{ navItem: 'Consumer Protection', link: '/consumer-protection' },
-		{ navItem: 'Newsletter', link: '/newsletter' }
+		{ navItem: 'Downloadable Forms', link: '/downloadable-forms' },
+		{ navItem: 'ATM/Branch Locator', link: '/atm-branch-locator' }
 	];
 
 	const socialLinks = [
@@ -165,7 +164,7 @@ const Footer = () => {
 			</section>
 
 			{/* Existing Footer Content */}
-			<div className="bg-gradient-to-l from-[#396131] to-[#5a8c4a] text-white">
+			<div className="bg-[#396131] text-white">
 				<div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
 					{/* Main Footer Content */}
 					<div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
@@ -173,7 +172,7 @@ const Footer = () => {
 						<div className="space-y-6">
 							<div className="group cursor-pointer">
 								<img
-									src={logo}
+									src={logolight}
 									className="group-hover:bg-opacity-20 mb-4 flex h-auto w-full items-center justify-center rounded-2xl p-2 transition-all duration-300 group-hover:scale-105"
 								/>
 							</div>
