@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import logo from '/src/assets/logo-official.png';
-import logolight from '/src/assets/1VB Logo/1VB-light-hd.png';
+import logolight from '/src/assets/1VB LOGO/1VB-light-hd.png';
 import { NavLink } from 'react-router-dom';
 import {
 	Phone,
