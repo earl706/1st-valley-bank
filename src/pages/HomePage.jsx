@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
 	ArrowRight,
@@ -15,7 +15,9 @@ import {
 	Home,
 	Shield,
 	Users,
-	TrendingUp
+	TrendingUp,
+	ChevronUp,
+	ChevronDown
 } from 'lucide-react';
 
 import img1 from '/src/assets/homepage/1.png';
@@ -34,6 +36,124 @@ import carouselImg4 from '/src/assets/carousel/4.png';
 import carouselImg5 from '/src/assets/carousel/5.png';
 import carouselImg6 from '/src/assets/carousel/6.png';
 import carouselImg7 from '/src/assets/carousel/7.png';
+
+// Utility to find links in plain text and convert them to <a> tags.
+function renderAnswer(answer) {
+	// If already a React node (advanced usage), just return.
+	if (React.isValidElement(answer)) return answer;
+
+	const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+	// Split at URLs, keep URLs in result
+	const parts = answer.split(urlRegex);
+
+	return parts.map((part, idx) => {
+		if (urlRegex.test(part)) {
+			// Optionally you could provide rel and target
+			return (
+				<a
+					key={idx}
+					href={part}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="break-all text-[#396131] underline hover:text-[#24581c]"
+				>
+					{part}
+				</a>
+			);
+		}
+		// Replace \n with <br />
+		const withLinebreaks = [];
+		part.split('\n').forEach((p, i, arr) => {
+			withLinebreaks.push(p);
+			if (i < arr.length - 1) withLinebreaks.push(<br key={i} />);
+		});
+		return <React.Fragment key={idx}>{withLinebreaks}</React.Fragment>;
+	});
+}
+
+function FAQSection({ faqs }) {
+	const [openIdx, setOpenIdx] = React.useState(null);
+
+	const toggleIdx = (idx) => {
+		setOpenIdx(idx === openIdx ? null : idx);
+	};
+
+	return (
+		<div className="space-y-4">
+			{faqs.map((faq, idx) => (
+				<div key={faq.question}>
+					<button
+						onClick={() => toggleIdx(idx)}
+						className="flex w-full items-center justify-between rounded-lg bg-[#F4F8F4] px-5 py-4 text-left text-lg font-semibold text-[#396131] shadow transition hover:bg-[#e5efe6]"
+						aria-expanded={openIdx === idx}
+						aria-controls={`faq-body-${idx}`}
+					>
+						<span>{faq.question}</span>
+						<span className="ml-4 text-[#396131]">
+							{openIdx === idx ? (
+								<ChevronUp className="h-5 w-5" />
+							) : (
+								<ChevronDown className="h-5 w-5" />
+							)}
+						</span>
+					</button>
+					<div
+						id={`faq-body-${idx}`}
+						className={`overflow-auto rounded-b-md border-l-4 border-[#396131] bg-white px-5 text-gray-700 transition-all duration-300 ${openIdx === idx ? 'max-h-40 py-3 opacity-100' : 'max-h-0 py-0 opacity-0'} `}
+						aria-hidden={openIdx !== idx}
+					>
+						{renderAnswer(faq.answer)}
+					</div>
+				</div>
+			))}
+		</div>
+	);
+}
+
+// Example FAQ data for 3 topics: Accounts, Online Banking, Loans
+const faqs = [
+	// Topic: Accounts
+	{
+		question: 'How can I pay my 1st Valley Bank loan through GCash?',
+		answer:
+			'You can conveniently pay your 1st Valley Bank loan through GCash Bank Transfer by following these steps:\n1. Open the GCash App.\n2. Tap Bank Transfer and select Local.\n3. Choose BDO or Chinabank as the recipient bank, then enter the official 1st Valley Bank account details; BDO: 00322-001071-1 or Chinabank: 1161-0000-6594.\nPlease ensure payments are made only to these official accounts, as transactions sent to personal GCash numbers or unofficial accounts will not be acknowledged or accepted. \n For more information, please visit this link: https://www.facebook.com/1stValleyBank/posts/1069427195303924?rdid=riGbbaYG48sPOthu'
+	},
+	{
+		question: 'How can I pay my 1st Valley Bank loan online?',
+		answer:
+			'Online Fund Transfer (BDO Online / GCash Bank Transfer)\n\nSTEPS:\n1. Log in to your BDO Online Banking or Mobile App.\n2. Transfer funds to our official BDO account: 00322-001071-1.\n   Alternatively, you may use GCash Bank Transfer and send your payment to:\n   • BDO: 00322-001071-1\n   • Chinabank: 1161-0000-6594\n3. Enter your Promissory Note Number and Account Name in the remarks section.\n4. Confirm the transaction and take a screenshot or save your receipt as proof of payment.\n\n⚠️ Please ensure that payments are made only to these official accounts.\nTransactions sent to personal GCash numbers or unofficial accounts will not be acknowledged or accepted. \n For more information, please visit this link: https://www.facebook.com/1stValleyBank/posts/924469796466332?rdid=OrVPGhmXmfCssfYT#'
+	},
+	{
+		question: 'How do I open a new account at 1st Valley Bank?',
+		answer:
+			'Opening a new account is easy! Visit your nearest 1st Valley Bank branch with a valid ID and proof of address. Our friendly staff will guide you through the application process. You can also begin the process online on our website.'
+	},
+	{
+		question: 'Is there a minimum balance required to maintain my account?',
+		answer:
+			'Yes, most of our accounts require a maintaining balance of PHP 1,000. Some account types may have different requirements, so please check our Deposits page or contact customer service for complete details.'
+	},
+
+	// Topic: Online Banking
+	{
+		question: 'How can I enroll in online banking?',
+		answer:
+			'Currently, online banking is not yet available with 1st Valley Bank. Please visit your nearest branch or contact our customer service team for any account needs or inquiries.'
+	},
+	{
+		question: 'Is digital banking with 1st Valley Bank secure?',
+		answer:
+			'Digital banking is not yet offered by 1st Valley Bank. Rest assured, all existing customer transactions and data remain protected using strict bank-level security protocols. For updates on future services, please follow our official channels.'
+	},
+
+	// Topic: Loans
+	{
+		question: 'What types of loans does 1st Valley Bank offer?',
+		answer:
+			'We offer a range of loans including personal, business, agricultural, and property loans. Whatever your goal, we’re here to help you achieve it! Check our Loans page to learn more and see current offers.'
+	}
+];
 
 export default function HomePage() {
 	const services = [
@@ -406,8 +526,20 @@ export default function HomePage() {
 				</div>
 			</section>
 
+			{/* FAQ Section with Dropdowns */}
+			<section className="bg-white py-20">
+				<div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+					<h2 className="mb-10 text-center text-3xl font-bold text-[#396131]">
+						Frequently Asked Questions
+					</h2>
+
+					{/* FAQ Dropdowns */}
+					<FAQSection faqs={faqs} />
+				</div>
+			</section>
+
 			{/* Need More Help Section */}
-			<section className="bg-[#E9F2EA] py-20">
+			<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
 						{/* Left Side - Content */}
@@ -469,12 +601,12 @@ export default function HomePage() {
 							return (
 								<div className="order-1 space-y-8 lg:order-0">
 									{/* Accent Line */}
-									<div className="h-1 w-16 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7c3a]"></div>
+									<div className="h-1 w-16 rounded-full bg-gradient-to-r from-white/90 to-white/30"></div>
 
 									{/* Heading */}
 									<div className="space-y-4">
-										<h2 className="text-4xl font-bold text-gray-900">Need more help?</h2>
-										<p className="text-base text-gray-600">
+										<h2 className="text-4xl font-bold text-white">Need more help?</h2>
+										<p className="text-base text-white/80">
 											Get all the help for your banking needs.
 										</p>
 									</div>
@@ -485,17 +617,17 @@ export default function HomePage() {
 											<NavLink
 												key={option.title}
 												to={option.to}
-												className="group flex items-center space-x-4 p-3 transition-all duration-300 hover:border-[#396131]"
+												className="group flex items-center space-x-4 rounded-2xl border border-white/10 bg-white/10 p-3 shadow-lg transition-all duration-300 hover:scale-101 hover:shadow-xl"
 											>
-												<div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a]">
+												<div className="flex h-12 w-12 items-center justify-center">
 													{option.icon}
 												</div>
 												<div className="flex-1">
-													<h3 className="text-base font-semibold text-gray-900 transition-colors group-hover:text-[#396131]">
+													<h3 className="text-base font-semibold text-white transition-colors group-hover:text-[#F4F8F4]">
 														{option.title}
 													</h3>
 												</div>
-												<ArrowRight className="h-5 w-5 text-gray-400 transition-colors group-hover:text-[#396131]" />
+												<ArrowRight className="h-5 w-5 text-white/80 transition-colors group-hover:text-white" />
 											</NavLink>
 										))}
 									</div>
@@ -503,7 +635,7 @@ export default function HomePage() {
 									{/* CTA Button */}
 									<NavLink
 										to="/contact-us"
-										className="group inline-flex transform items-center justify-center rounded-xl bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+										className="group inline-flex transform items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-101 hover:shadow-xl"
 									>
 										EXPLORE HELP & SUPPORT
 										<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />

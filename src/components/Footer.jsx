@@ -29,7 +29,7 @@ const Footer = () => {
 		{ navItem: 'Loans', link: '/loans' },
 		{ navItem: 'Properties for Sale', link: '/properties-for-sale' },
 		{ navItem: 'Downloadable Forms', link: '/downloadable-forms' },
-		{ navItem: 'ATM/Branch Locator', link: '/atm-branch-locator' }
+		{ navItem: 'ATM/Branch Locator', link: '/atm-locator' }
 	];
 
 	const socialLinks = [
