@@ -194,14 +194,18 @@ const NewsletterGrid = () => {
 
 								{/* Action Button */}
 								<button
-									className="group/btn mt-4 flex w-full transform cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#396131] px-4 py-3 text-base font-bold text-white transition-all duration-200 hover:scale-105 hover:bg-[#2d4d26] hover:shadow-lg active:scale-95"
+									className="group inline-flex transform cursor-pointer items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 									onClick={() => openPDF(newsletter.pdf, newsletter.title)}
 								>
-									<span className="text-base font-bold">{newsletter.see_full_article_button}</span>
-									<ArrowRight
-										size={18}
-										className="transition-transform duration-300 group-hover/btn:translate-x-1"
-									/>
+									<span className="flex w-full items-center justify-center gap-2">
+										<span className="text-base font-semibold">
+											{newsletter.see_full_article_button}
+										</span>
+										<ArrowRight
+											size={18}
+											className="transition-transform duration-300 group-hover:translate-x-1"
+										/>
+									</span>
 								</button>
 							</div>
 						</div>
@@ -212,31 +216,29 @@ const NewsletterGrid = () => {
 				<div className="mt-12 flex flex-col items-center gap-4">
 					<div className="flex items-center gap-2">
 						<button
-							className="cursor-pointer rounded-lg border border-white bg-[#3e7a3e] px-3 py-2 text-base font-bold text-white transition-all duration-200 hover:bg-white hover:text-[#396131] disabled:opacity-50"
+							className="group inline-flex transform cursor-pointer items-center rounded-xl bg-[#396131] px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:opacity-50"
 							onClick={() => handlePageChange(currentPage - 1)}
 							disabled={currentPage === 1}
 						>
-							<span className="text-base font-bold">Previous</span>
+							<span className="text-sm font-bold">Previous</span>
 						</button>
 						{Array.from({ length: totalPages }, (_, idx) => (
 							<button
 								key={idx + 1}
-								className={`cursor-pointer rounded-lg border px-3 py-2 text-base font-bold ${
-									currentPage === idx + 1
-										? 'border-white bg-[#396131] text-white'
-										: 'border-white bg-white text-[#396131] hover:bg-[#396131] hover:text-white'
-								} transition-all duration-200`}
+								className={`group inline-flex transform cursor-pointer items-center rounded-xl px-4 py-2 text-sm font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+									currentPage === idx + 1 ? 'bg-[#396131] text-white' : 'bg-white text-[#396131]'
+								}`}
 								onClick={() => handlePageChange(idx + 1)}
 							>
-								<span className="text-base font-bold">{idx + 1}</span>
+								<span className="text-sm font-bold">{idx + 1}</span>
 							</button>
 						))}
 						<button
-							className="cursor-pointer rounded-lg border border-white bg-[#3e7a3e] px-3 py-2 text-base font-bold text-white transition-all duration-200 hover:bg-white hover:text-[#396131] disabled:opacity-50"
+							className="group inline-flex transform cursor-pointer items-center rounded-xl bg-[#396131] px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:opacity-50"
 							onClick={() => handlePageChange(currentPage + 1)}
 							disabled={currentPage === totalPages}
 						>
-							<span className="text-base font-bold">Next</span>
+							<span className="text-sm font-bold">Next</span>
 						</button>
 					</div>
 					<div className="text-xs leading-relaxed font-normal text-white/80">

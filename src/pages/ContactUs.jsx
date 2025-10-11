@@ -2,7 +2,7 @@ import { faTty } from '@fortawesome/free-solid-svg-icons/faTty';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useEffect } from 'react';
 import ContactPageMap from '../components/ContactPageMap';
-import { MapPin, User, Mail, Phone, MessageSquare, FileText, Map } from 'lucide-react';
+import { MapPin, User, Mail, Phone, MessageSquare, FileText, Map, ArrowRight } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 
@@ -106,7 +106,7 @@ const ContactUsForm = () => {
 
 	return (
 		<div className="min-h-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-4 py-24 sm:px-6 lg:px-8">
-			<div className="mx-auto max-w-6xl">
+			<div className="mx-auto max-w-7xl">
 				<div className="overflow-hidden rounded-3xl bg-white/90 shadow-2xl">
 					<div className="grid grid-cols-1 gap-0 lg:grid-cols-2">
 						{/* Form Section */}
@@ -258,9 +258,12 @@ const ContactUsForm = () => {
 								{/* Submit Button */}
 								<button
 									type="submit"
-									className="w-full transform cursor-pointer rounded-xl bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-4 text-xl leading-tight font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:from-[#2d4d26] hover:to-[#447c43] hover:shadow-xl active:scale-[0.98]"
+									className="group inline-flex w-full transform cursor-pointer items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 								>
-									Send Message
+									<span className="flex items-center">
+										Send Message
+										<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+									</span>
 								</button>
 							</form>
 						</div>

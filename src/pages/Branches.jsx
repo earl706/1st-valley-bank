@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPinned, Building2, Landmark, X, CreditCard } from 'lucide-react';
+import { MapPinned, Building2, Landmark, X, CreditCard, ArrowRight } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import { Link } from 'react-router-dom';
 
@@ -108,10 +108,13 @@ function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 			</div>
 			<Link
 				to="/contact-us"
-				className="mt-auto flex cursor-pointer rounded-md bg-[#396131] px-4 py-2 text-base leading-relaxed font-semibold text-white shadow transition hover:bg-[#28541f]"
+				className="group mt-auto inline-flex transform items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 				aria-label={`Contact ${name}`}
 			>
-				Contact Us
+				<span className="flex items-center">
+					Contact Us
+					<ArrowRight className="ml-3 h-5 w-5" />
+				</span>
 			</Link>
 		</div>
 	);
@@ -121,11 +124,11 @@ function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 function AllBranchesModal({ title, branches, icon: Icon, onContact, onClose }) {
 	return (
 		<div className="fixed inset-0 z-99 flex items-center justify-center bg-black/40">
-			<div className="relative w-full max-w-2xl rounded-xl bg-gradient-to-l from-[#396131] to-[#4a7c3a] p-8 shadow-2xl">
+			<div className="relative w-full max-w-7xl rounded-xl bg-gradient-to-l from-[#396131] to-[#4a7c3a] p-8 shadow-2xl">
 				<button
 					onClick={onClose}
 					aria-label="Close"
-					className="absolute top-4 right-4 cursor-pointer rounded-full bg-white/10 p-2 transition hover:bg-white/20"
+					className="group absolute top-6 right-6 inline-flex transform cursor-pointer items-center justify-center text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-110"
 				>
 					<X className="h-5 w-5 text-white" />
 				</button>
@@ -217,10 +220,14 @@ export default function Branches() {
 							</h2>
 							{mindanaoBranches.length > 3 && (
 								<button
-									className="cursor-pointer rounded-md border border-white/20 bg-[#396131] px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-[#28541f]"
+									className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 									onClick={() => setVisibleModal('mindanao')}
+									type="button"
 								>
-									See All
+									<span className="flex items-center">
+										See All
+										<ArrowRight className="ml-3 h-5 w-5" />
+									</span>
 								</button>
 							)}
 						</div>
@@ -237,10 +244,14 @@ export default function Branches() {
 							</h2>
 							{visayasBranches.length > 3 && (
 								<button
-									className="cursor-pointer rounded-md border border-white/20 bg-[#396131] px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-[#28541f]"
+									className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 									onClick={() => setVisibleModal('visayas')}
+									type="button"
 								>
-									See All
+									<span className="flex items-center">
+										See All
+										<ArrowRight className="ml-3 h-5 w-5" />
+									</span>
 								</button>
 							)}
 						</div>
@@ -257,10 +268,14 @@ export default function Branches() {
 							</h2>
 							{regionalCenters.length > 3 && (
 								<button
-									className="rounded-md border border-white/20 bg-[#396131] px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-[#28541f]"
+									className="group inline-flex transform items-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 									onClick={() => setVisibleModal('regional')}
+									type="button"
 								>
-									See All
+									<span className="flex items-center">
+										See All
+										<ArrowRight className="ml-3 h-5 w-5" />
+									</span>
 								</button>
 							)}
 						</div>

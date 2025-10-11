@@ -57,15 +57,17 @@ export default function LoanSubcategoriesSection({
 						<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
 							<NavLink
 								to={ctaPrimaryLink}
-								className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 text-base leading-relaxed font-semibold text-[#396131] transition-all duration-300 hover:bg-[#edf8ee] focus:ring-4 focus:ring-blue-300 focus:outline-none"
+								className="group inline-flex transform cursor-pointer items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 							>
-								{ctaPrimaryText}
+								<span className="text-center">{ctaPrimaryText}</span>
+								<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
 							</NavLink>
 							<NavLink
 								to={ctaSecondaryLink}
-								className="inline-flex items-center justify-center rounded-xl border-2 border-white px-8 py-4 text-base leading-relaxed font-semibold text-white transition-all duration-300 hover:bg-white hover:text-[#396131] focus:ring-4 focus:ring-blue-300 focus:outline-none"
+								className="group inline-flex transform cursor-pointer items-center justify-center rounded-xl border border-[#396131] bg-white/80 px-8 py-4 text-base font-semibold text-[#185027] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 							>
-								{ctaSecondaryText}
+								<span className="text-center">{ctaSecondaryText}</span>
+								<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
 							</NavLink>
 						</div>
 					</div>
@@ -106,7 +108,7 @@ export default function LoanSubcategoriesSection({
 						{loanTypes.map((type, index) => (
 							<div
 								key={index}
-								className="group relative flex h-full transform flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/90 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+								className="group relative flex h-full transform flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/90 shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl"
 							>
 								{/* Card gradient overlay */}
 								<div
@@ -162,62 +164,28 @@ export default function LoanSubcategoriesSection({
 												{showModal ? (
 													<button
 														onClick={(e) => handleViewDetails(e, type)}
-														className="group/btn inline-flex transform cursor-pointer items-center justify-center rounded-xl px-6 py-3 text-base leading-relaxed font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus:ring-4 focus:outline-none"
-														style={{
-															backgroundColor: brandColor,
-															'--tw-ring-color': `${brandColor}40`
-														}}
-														onMouseEnter={(e) => {
-															const shade = brandColor === '#396131' ? '#4a7a3f' : brandColor;
-															e.target.style.backgroundColor = shade;
-														}}
-														onMouseLeave={(e) => {
-															e.target.style.backgroundColor = brandColor;
-														}}
+														className="group inline-flex transform cursor-pointer items-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 													>
-														<span className="mr-2">View Details</span>
-														<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+														<span className="mx-auto text-center">View Details</span>
+														<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
 													</button>
 												) : (
 													<NavLink
 														to={type.route}
-														className="group/btn inline-flex transform cursor-pointer items-center justify-center rounded-xl px-6 py-3 text-base leading-relaxed font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus:ring-4 focus:outline-none"
-														style={{
-															backgroundColor: brandColor,
-															'--tw-ring-color': `${brandColor}40`
-														}}
-														onMouseEnter={(e) => {
-															const shade = brandColor === '#396131' ? '#4a7a3f' : brandColor;
-															e.target.style.backgroundColor = shade;
-														}}
-														onMouseLeave={(e) => {
-															e.target.style.backgroundColor = brandColor;
-														}}
+														className="group inline-flex transform cursor-pointer items-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 													>
-														<span className="mr-2">Learn More</span>
-														<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+														<span className="mx-auto text-center">Learn More</span>
+														<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
 													</NavLink>
 												)}
 
 												{showModal && (
 													<button
 														onClick={() => handleApplyNow(type)}
-														className="inline-flex cursor-pointer items-center justify-center rounded-xl border-2 px-6 py-3 text-base leading-relaxed font-semibold transition-all duration-300 hover:scale-105 focus:ring-4 focus:outline-none"
-														style={{
-															borderColor: brandColor,
-															color: brandColor,
-															'--tw-ring-color': `${brandColor}40`
-														}}
-														onMouseEnter={(e) => {
-															e.target.style.backgroundColor = brandColor;
-															e.target.style.color = 'white';
-														}}
-														onMouseLeave={(e) => {
-															e.target.style.backgroundColor = 'transparent';
-															e.target.style.color = brandColor;
-														}}
+														className="group inline-flex transform cursor-pointer items-center rounded-xl border border-[#396131] bg-transparent px-8 py-4 text-base font-semibold text-[#185027] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 													>
-														Apply Now
+														<span className="mx-auto text-center">Apply Now</span>
+														<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
 													</button>
 												)}
 											</div>
@@ -238,15 +206,17 @@ export default function LoanSubcategoriesSection({
 								<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
 									<NavLink
 										to={ctaPrimaryLink}
-										className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base leading-relaxed font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#4a7a3f] focus:ring-4 focus:ring-[#39613140] focus:outline-none"
+										className="group inline-flex transform items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 									>
-										{ctaPrimaryText}
+										<span className="text-center">{ctaPrimaryText}</span>
+										<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
 									</NavLink>
 									<NavLink
 										to={ctaSecondaryLink}
-										className="inline-flex items-center justify-center rounded-xl border-2 border-[#396131] px-8 py-4 text-base leading-relaxed font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#396131] hover:text-white focus:ring-4 focus:ring-[#39613140] focus:outline-none"
+										className="group inline-flex transform cursor-pointer items-center rounded-xl border border-[#396131] bg-white/80 px-8 py-4 text-base font-semibold text-[#185027] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 									>
-										{ctaSecondaryText}
+										<span className="text-center">{ctaSecondaryText}</span>
+										<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
 									</NavLink>
 								</div>
 							</div>

@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ArrowLeft, CreditCard, Building, User, DollarSign, CheckCircle } from 'lucide-react';
+import {
+	ArrowLeft,
+	CreditCard,
+	Building,
+	User,
+	DollarSign,
+	CheckCircle,
+	ArrowRight
+} from 'lucide-react';
 import CarouselSection from '../components/CarouselSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import carouselImg1 from '/src/assets/carousel/1.png';
@@ -222,9 +230,14 @@ export default function CheckingAccount() {
 										</div>
 										<NavLink
 											to={account.route}
-											className="mt-auto flex w-full cursor-pointer items-center justify-center rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-3 text-base font-bold text-white transition-all duration-300 hover:shadow-lg lg:w-auto"
+											className="group mt-auto flex flex-col items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 										>
-											Open Account
+											<div className="flex items-center justify-center">
+												<span className="text-center">Open Account</span>
+												<span className="ml-3 flex items-center justify-center">
+													<ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+												</span>
+											</div>
 										</NavLink>
 									</div>
 								</div>

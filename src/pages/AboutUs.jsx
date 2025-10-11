@@ -6,7 +6,7 @@ import logo from '/src/assets/logo.png';
 import img8 from '/src/assets/about-us/8.jpg';
 import img9 from '/src/assets/about-us/9.jpg';
 import { NavLink } from 'react-router-dom';
-import { Clock, User, HandCoins, Smartphone } from 'lucide-react';
+import { Clock, User, HandCoins, Smartphone, ArrowRight } from 'lucide-react';
 import {
 	faArrowUpRightDots,
 	faBuilding,
@@ -771,12 +771,15 @@ export default function AboutUs() {
 												{service.description}
 											</p>
 											<div className="mt-auto flex p-4">
-												<NavLink
-													to={service.link || '#'}
-													className="inline-block w-full cursor-pointer rounded-lg bg-[#396131] px-5 py-2 text-base font-semibold text-white shadow transition-all duration-300 hover:bg-[#4a7a3f] focus:ring-2 focus:ring-[#396131]/50 focus:outline-none"
-												>
-													Learn More
-												</NavLink>
+												<div className="flex w-full justify-center">
+													<NavLink
+														to={service.link || '#'}
+														className="group inline-flex w-full transform items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-center text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+													>
+														Learn More
+														<ArrowRight className="ml-3 h-5 w-5" />
+													</NavLink>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -1162,12 +1165,15 @@ export default function AboutUs() {
 											</ul>
 										</div>
 									</div>
-									<div className="mt-auto flex">
+									<div className="mt-auto flex justify-center">
 										<NavLink
 											to=""
-											className="w-full rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7a3f] py-3 text-center text-xl font-bold text-white shadow transition-all duration-200 hover:from-white hover:to-white hover:text-[#396131] hover:shadow-lg hover:ring-2 hover:ring-[#396131]"
+											className="group inline-flex w-full transform items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-center text-xl font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 										>
-											See Full Report
+											<span className="flex w-full items-center justify-center">
+												<span>See Full Report</span>
+												<ArrowRight className="ml-3 h-5 w-5" />
+											</span>
 										</NavLink>
 									</div>
 								</div>

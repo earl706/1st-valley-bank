@@ -91,10 +91,12 @@ export default function PropertyCard({ property }) {
 					{/* Action Button */}
 					<button
 						onClick={handleView}
-						className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-200 bg-[#396131] px-4 py-2 font-medium text-white transition-all duration-150 hover:scale-105 hover:bg-[#4a7a3f] focus:outline-none"
+						className="group inline-flex w-full transform cursor-pointer items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 					>
-						<Eye size={18} className="transition-transform duration-150 group-hover:scale-110" />
-						View Details
+						<span className="flex w-full items-center justify-center gap-2">
+							<Eye size={18} className="transition-transform duration-300 group-hover:scale-110" />
+							<span className="text-center">View Details</span>
+						</span>
 					</button>
 				</div>
 			</div>

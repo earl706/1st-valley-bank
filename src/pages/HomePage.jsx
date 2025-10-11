@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
+	Calendar,
 	ArrowRight,
+	MessageCircle,
 	Star,
 	CheckCircle,
 	Mail,
@@ -36,6 +38,12 @@ import carouselImg4 from '/src/assets/carousel/4.png';
 import carouselImg5 from '/src/assets/carousel/5.png';
 import carouselImg6 from '/src/assets/carousel/6.png';
 import carouselImg7 from '/src/assets/carousel/7.png';
+import {
+	DarkPrimaryButton,
+	LightPrimaryButton,
+	LightSecondaryButton,
+	DarkSecondaryButton
+} from '../components/Buttons';
 
 // Utility to find links in plain text and convert them to <a> tags.
 function renderAnswer(answer) {
@@ -352,13 +360,14 @@ export default function HomePage() {
 									{service.description}
 								</p>
 
-								<NavLink
+								<DarkPrimaryButton
 									to={service.path}
-									className="group/btn mt-auto inline-flex items-center text-base font-semibold text-white transition-colors hover:text-[#ffe37d]"
+									secondaryIcon={
+										<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+									}
 								>
 									Learn More
-									<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-								</NavLink>
+								</DarkPrimaryButton>
 							</div>
 						))}
 					</div>
@@ -481,13 +490,14 @@ export default function HomePage() {
 								Get the latest financial tips, market insights, and exclusive offers delivered
 								straight to your inbox.
 							</p>
-							<NavLink
-								to="/newsletter"
-								className="group inline-flex transform items-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+							<LightPrimaryButton
+								to={'/newsletter'}
+								secondaryIcon={
+									<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+								}
 							>
 								Subscribe to Newsletter
-								<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-							</NavLink>
+							</LightPrimaryButton>
 						</div>
 					</div>
 				</div>
@@ -510,13 +520,14 @@ export default function HomePage() {
 								future. Let's build success together.
 							</p>
 							<div className="flex flex-col justify-center gap-4 sm:flex-row">
-								<NavLink
-									to="/contact-us"
-									className="group inline-flex transform items-center justify-center rounded-xl bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-white/20 hover:shadow-xl"
+								<DarkPrimaryButton
+									to={'/contact-us'}
+									secondaryIcon={
+										<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+									}
 								>
 									Get Started Today
-									<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-								</NavLink>
+								</DarkPrimaryButton>
 							</div>
 						</div>
 						{/* Image Side */}
@@ -554,28 +565,14 @@ export default function HomePage() {
 						{(() => {
 							const helpOptions = [
 								{
-									to: '/contact-us',
-									icon: (
-										<svg
-											className="h-6 w-6 text-white"
-											fill="none"
-											viewBox="0 0 24 24"
-											stroke="currentColor"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-											/>
-										</svg>
-									),
-									title: 'Give feedback'
+									to: '/consumer-protection',
+									icon: <MessageCircle className="h-6 w-6 text-white" />,
+									title: 'Feedback'
 								},
 								{
-									to: '/contact-us',
+									to: '/branches',
 									icon: <MapPin className="h-6 w-6 text-white" />,
-									title: 'Find a branch/ATM'
+									title: 'Branches'
 								},
 								{
 									to: '/contact-us',
@@ -584,22 +581,8 @@ export default function HomePage() {
 								},
 								{
 									to: '/newsletter',
-									icon: (
-										<svg
-											className="h-6 w-6 text-white"
-											fill="none"
-											viewBox="0 0 24 24"
-											stroke="currentColor"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-											/>
-										</svg>
-									),
-									title: 'View scheduled maintenance'
+									icon: <Calendar className="h-6 w-6 text-white" />,
+									title: 'Maintenance'
 								}
 							];
 
@@ -621,34 +604,37 @@ export default function HomePage() {
 									{/* Help Options Grid */}
 									<div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
 										{helpOptions.map((option, idx) => (
-											<NavLink
+											<DarkPrimaryButton
 												key={option.title}
 												to={option.to}
-												className="group flex items-center space-x-4 rounded-2xl border border-white/10 bg-white/10 p-3 shadow-lg transition-all duration-300 hover:scale-101 hover:shadow-xl"
+												className="px-4 py-4"
+												primaryIcon={
+													<span className="mr-4 flex h-12 w-12 items-center justify-center">
+														{option.icon}
+													</span>
+												}
+												secondaryIcon={
+													<ArrowRight className="h-5 w-5 text-white/80 transition-colors group-hover:text-white" />
+												}
 											>
-												<div className="flex h-12 w-12 items-center justify-center">
-													{option.icon}
-												</div>
-												<div className="flex-1">
-													<h3 className="text-xl leading-tight font-bold text-white transition-colors group-hover:text-[#F4F8F4]">
-														{option.title}
-													</h3>
-												</div>
-												<ArrowRight className="h-5 w-5 text-white/80 transition-colors group-hover:text-white" />
-											</NavLink>
+												<span className="text-lg leading-tight font-bold text-white transition-colors group-hover:text-[#F4F8F4]">
+													{option.title}
+												</span>
+											</DarkPrimaryButton>
 										))}
 									</div>
-
 									{/* CTA Button */}
-									<NavLink
+									<DarkPrimaryButton
 										to="/contact-us"
-										className="group inline-flex transform items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-101 hover:shadow-xl"
+										className="px-8 py-4"
+										secondaryIcon={
+											<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+										}
 									>
 										<span className="text-base leading-tight font-semibold tracking-wide">
 											EXPLORE HELP & SUPPORT
 										</span>
-										<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-									</NavLink>
+									</DarkPrimaryButton>
 								</div>
 							);
 						})()}

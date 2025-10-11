@@ -115,23 +115,19 @@ export default function SuccessStoriesSection({
 						{showButton && (
 							<button
 								type="button"
-								className={`mt-auto inline-flex cursor-pointer items-center gap-2 rounded-lg border border-solid px-5 py-2.5 font-semibold transition-colors duration-200 hover:text-white ${
-									openModalIndex === index
-										? `bg-[${brandColor}] text-white border-[${brandColor}]`
-										: `text-[${brandColor}] border-[${brandColor}] hover:bg-[${brandColor}] hover:text-white focus-visible:bg-[${brandColor}] focus-visible:text-white`
-								} `}
+								className="group mt-auto inline-flex transform cursor-pointer items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 								onClick={() => handleOpenModal(index)}
 							>
-								<span className="text-base leading-tight font-semibold">{buttonText}</span>
-								<ArrowRight
-									size={16}
-									strokeWidth={2}
-									className={
-										openModalIndex === index
-											? 'stroke-white'
-											: `stroke-[${brandColor}] group-hover:stroke-white group-focus-visible:stroke-white`
-									}
-								/>
+								<span className="text-center text-base leading-tight font-semibold">
+									{buttonText}
+								</span>
+								<span className="ml-2 flex items-center justify-center">
+									<ArrowRight
+										size={16}
+										strokeWidth={2}
+										className="stroke-white transition-transform duration-300 group-hover:translate-x-1"
+									/>
+								</span>
 							</button>
 						)}
 						{openModalIndex === index && (

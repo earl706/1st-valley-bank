@@ -202,10 +202,12 @@ export default function Loans() {
 													<div className="mt-auto">
 														<NavLink
 															to={loan.route}
-															className="group/btn inline-flex transform items-center justify-center rounded-xl bg-[#396131] px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[#4a7a3f] hover:shadow-xl focus:ring-4 focus:ring-[#396131]/25 focus:outline-none"
+															className="group inline-flex w-full transform items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 														>
-															<span className="mr-2 text-base font-semibold">Learn More</span>
-															<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+															<span className="text-center">Learn More</span>
+															<span className="ml-3 flex items-center justify-center">
+																<ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+															</span>
 														</NavLink>
 													</div>
 												</div>
@@ -247,9 +249,12 @@ export default function Loans() {
 
 								<div className="flex items-center justify-between">
 									<div className="flex-1"></div>
-									<button className="group/btn inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-all duration-300 hover:bg-[#396131]">
+									<NavLink
+										to="/contact-us"
+										className="group/btn inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-all duration-300 hover:bg-[#396131]"
+									>
 										<ArrowRight className="h-5 w-5 text-gray-600 transition-colors duration-300 group-hover/btn:text-white" />
-									</button>
+									</NavLink>
 								</div>
 							</div>
 
@@ -267,9 +272,12 @@ export default function Loans() {
 
 								<div className="flex items-center justify-between">
 									<div className="flex-1"></div>
-									<button className="group/btn inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-all duration-300 hover:bg-[#396131]">
+									<NavLink
+										to="/contact-us"
+										className="group/btn inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-all duration-300 hover:bg-[#396131]"
+									>
 										<ArrowRight className="h-5 w-5 text-gray-600 transition-colors duration-300 group-hover/btn:text-white" />
-									</button>
+									</NavLink>
 								</div>
 							</div>
 
@@ -287,9 +295,12 @@ export default function Loans() {
 
 								<div className="flex items-center justify-between">
 									<div className="flex-1"></div>
-									<button className="group/btn inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-all duration-300 hover:bg-[#396131]">
+									<NavLink
+										to="/contact-us"
+										className="group/btn inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-all duration-300 hover:bg-[#396131]"
+									>
 										<ArrowRight className="h-5 w-5 text-gray-600 transition-colors duration-300 group-hover/btn:text-white" />
-									</button>
+									</NavLink>
 								</div>
 							</div>
 						</div>
@@ -303,10 +314,12 @@ export default function Loans() {
 							</p>
 							<NavLink
 								to="/contact-us"
-								className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#4a7a3f]"
+								className="group inline-flex items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1"
 							>
-								Get Professional Advice
-								<ArrowRight className="ml-2 h-5 w-5" />
+								<span className="text-center">Get Professional Advice</span>
+								<span className="ml-2 flex items-center justify-center">
+									<ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+								</span>
 							</NavLink>
 						</div>
 					</div>

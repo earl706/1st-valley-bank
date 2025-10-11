@@ -102,7 +102,7 @@ Would you recommend 1st Valley Bank to Others?: ${form.recommend}
 				<h3 className="text-lg font-bold text-[#396131]">Feedback Form</h3>
 				<button
 					onClick={onClose}
-					className="rounded px-3 py-1 text-gray-500 hover:bg-gray-100"
+					className="group inline-flex transform cursor-pointer items-center text-base font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:scale-105"
 					type="button"
 					aria-label="Close Form"
 				>
@@ -277,14 +277,16 @@ Would you recommend 1st Valley Bank to Others?: ${form.recommend}
 						type="button"
 						onClick={onClose}
 						disabled={submitting}
-						className="rounded bg-gray-100 px-4 py-2 font-semibold text-gray-600 hover:bg-gray-200"
+						className="group inline-flex transform cursor-pointer items-center rounded-xl border-1 border-[#396131] bg-white px-8 py-4 text-base font-semibold text-[#204927] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-[#396131] hover:text-white hover:shadow-xl"
 					>
 						Cancel
 					</button>
 					<button
 						type="submit"
 						disabled={submitting}
-						className={`rounded px-6 py-2 font-semibold text-white ${submitting ? 'bg-gray-400' : 'bg-[#396131] hover:bg-[#20411b]'}`}
+						className={`group inline-flex transform cursor-pointer items-center rounded-xl px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+							submitting ? 'bg-gray-400' : 'bg-[#396131]'
+						}`}
 					>
 						{submitting ? 'Sending...' : 'Send Feedback'}
 					</button>
@@ -347,7 +349,7 @@ Suggested Resolution/Action: ${form.resolution}
 				<h3 className="text-lg font-bold text-[#396131]">Customer Complaint Form</h3>
 				<button
 					onClick={onClose}
-					className="rounded px-3 py-1 text-gray-500 hover:bg-gray-100"
+					className="group inline-flex transform cursor-pointer items-center text-base font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:scale-105"
 					type="button"
 					aria-label="Close Form"
 				>
@@ -424,14 +426,16 @@ Suggested Resolution/Action: ${form.resolution}
 						type="button"
 						onClick={onClose}
 						disabled={submitting}
-						className="rounded bg-gray-100 px-4 py-2 font-semibold text-gray-600 hover:bg-gray-200"
+						className="group inline-flex transform cursor-pointer items-center rounded-xl border-1 border-[#396131] bg-white px-8 py-4 text-base font-semibold text-[#204927] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-[#396131] hover:text-white hover:shadow-xl"
 					>
 						Cancel
 					</button>
 					<button
 						type="submit"
 						disabled={submitting}
-						className={`rounded px-6 py-2 font-semibold text-white ${submitting ? 'bg-gray-400' : 'bg-[#396131] hover:bg-[#20411b]'}`}
+						className={`group inline-flex transform cursor-pointer items-center rounded-xl px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+							submitting ? 'bg-gray-400' : 'bg-[#396131]'
+						}`}
 					>
 						{submitting ? 'Sending...' : 'Submit Complaint'}
 					</button>
@@ -905,7 +909,7 @@ export default function ConsumerProtectionPrivacyPolicy() {
 						</p>
 						<div className="mb-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
 							<button
-								className={`inline-flex min-w-[170px] items-center justify-center rounded-lg bg-[#396131] px-6 py-3 text-base font-semibold text-white transition-all duration-200 hover:scale-105 hover:bg-[#20411b]`}
+								className={`group inline-flex min-w-[170px] transform cursor-pointer items-center justify-center rounded-xl px-8 py-4 text-center text-base font-semibold shadow-lg transition-all duration-300 hover:shadow-xl ${showFeedbackForm ? 'bg-[#284421] text-white' : 'border border-[#396131] bg-white text-[#284421]'} `}
 								onClick={() => {
 									setShowComplaintForm(false);
 									setShowFeedbackForm(true);
@@ -915,7 +919,7 @@ export default function ConsumerProtectionPrivacyPolicy() {
 								Send Feedback
 							</button>
 							<button
-								className={`inline-flex min-w-[170px] items-center justify-center rounded-lg border-2 border-[#396131] px-6 py-3 text-base font-semibold text-[#396131] transition-all duration-200 hover:bg-[#396131] hover:text-white`}
+								className={`group inline-flex min-w-[170px] transform cursor-pointer items-center justify-center rounded-xl px-8 py-4 text-center text-base font-semibold shadow-lg transition-all duration-300 hover:shadow-xl ${showComplaintForm ? 'bg-[#284421] text-white' : 'border border-[#396131] bg-white text-[#284421]'} `}
 								onClick={() => {
 									setShowComplaintForm(true);
 									setShowFeedbackForm(false);

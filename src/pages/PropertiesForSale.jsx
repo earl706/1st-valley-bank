@@ -233,14 +233,16 @@ export default function PropertiesForSale() {
 					<div className="h-8 lg:h-12" />
 					<NavLink
 						to="/properties-for-sale/vehicles"
-						className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#396131] px-6 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:bg-[#4a7a3f] hover:shadow-lg focus:ring-2 focus:ring-[#396131]/40 focus:outline-none"
+						className="group inline-flex transform items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 						style={{ letterSpacing: '0.01em' }}
 					>
-						<Eye
-							size={20}
-							className="opacity-80 transition-transform duration-200 group-hover:scale-110"
-						/>
-						<span className="tracking-tight">See More</span>
+						<span className="flex w-full items-center justify-center gap-2 text-center">
+							<Eye
+								size={20}
+								className="opacity-80 transition-transform duration-300 group-hover:scale-110"
+							/>
+							<span className="text-center tracking-tight">See More</span>
+						</span>
 					</NavLink>
 					{/* Add bottom spacing after the section */}
 					<div className="h-8 lg:h-12" />
@@ -267,11 +269,13 @@ export default function PropertiesForSale() {
 					</div>
 					<NavLink
 						to="/properties-for-sale/real-estate-and-other-properties-acquired-for-sale"
-						className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#396131] px-6 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:bg-[#4a7a3f] hover:shadow-lg focus:ring-2 focus:ring-[#396131]/40 focus:outline-none"
+						className="group inline-flex transform items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 						style={{ letterSpacing: '0.01em' }}
 					>
-						<Eye size={18} className="transition-transform duration-200 group-hover:scale-110" />
-						See More
+						<span className="flex w-full items-center justify-center gap-2 text-center">
+							<Eye size={18} className="transition-transform duration-300 group-hover:scale-110" />
+							<span className="text-center">See More</span>
+						</span>
 					</NavLink>
 				</section>
 			</main>

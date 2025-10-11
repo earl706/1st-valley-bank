@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ArrowLeft, TrendingUp, Calendar, DollarSign, Clock, Shield } from 'lucide-react';
+import {
+	ArrowLeft,
+	TrendingUp,
+	Calendar,
+	DollarSign,
+	Clock,
+	Shield,
+	ArrowRight
+} from 'lucide-react';
 import CarouselSection from '../components/CarouselSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import carouselImg1 from '/src/assets/carousel/1.png';
@@ -239,9 +247,12 @@ export default function TimeDeposit() {
 
 										<NavLink
 											to={deposit.route}
-											className="mt-auto flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-5 py-2.5 text-sm leading-snug font-bold text-white transition-all duration-300 hover:shadow-lg"
+											className="group inline-flex transform items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 										>
-											Open Time Deposit
+											<span className="text-center">Open Account</span>
+											<span className="ml-3 flex items-center justify-center">
+												<ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+											</span>
 										</NavLink>
 									</div>
 								</div>

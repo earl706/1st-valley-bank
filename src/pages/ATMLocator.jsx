@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import HeroSection from '../components/HeroSection';
-import { MapPin, MapPinned, Building2, Landmark, X, CreditCard } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { MapPin, MapPinned, Building2, Landmark, X, CreditCard, Contact2 } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
 
 const mindanaoBranches = [
 	{
@@ -105,13 +105,14 @@ function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 					<p className="text-base leading-relaxed font-normal text-white/80">{address}</p>
 				</div>
 			</div>
-			<Link
+			<NavLink
 				to="/contact-us"
-				className="mt-auto flex cursor-pointer rounded-md bg-[#396131] px-4 py-2 text-base leading-tight font-semibold text-white shadow transition hover:bg-[#28541f]"
+				className="group mt-auto inline-flex transform items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 				aria-label={`Contact ${name}`}
 			>
-				Contact Us
-			</Link>
+				<Contact2 className="mr-2 h-5 w-5" />
+				<span>Contact Us</span>
+			</NavLink>
 		</div>
 	);
 }
@@ -212,7 +213,7 @@ export default function ATMLocator() {
 							</h2>
 							{mindanaoBranches.length > 3 && (
 								<button
-									className="cursor-pointer rounded-md border border-white/20 bg-[#396131] px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-[#28541f]"
+									className="group inline-flex transform cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 									onClick={() => setVisibleModal('mindanao')}
 								>
 									See All
@@ -232,7 +233,7 @@ export default function ATMLocator() {
 							</h2>
 							{visayasBranches.length > 3 && (
 								<button
-									className="cursor-pointer rounded-md border border-white/20 bg-[#396131] px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-[#28541f]"
+									className="group inline-flex transform cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 									onClick={() => setVisibleModal('visayas')}
 								>
 									See All
