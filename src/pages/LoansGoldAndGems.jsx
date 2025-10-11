@@ -1,56 +1,40 @@
-import {
-	CreditCardIcon,
-	DetectiveIcon,
-	MoneyWavyIcon,
-	PlusMinusIcon,
-	ProjectorScreenChartIcon,
-	ShareNetworkIcon,
-	SketchLogoIcon,
-	TrendDownIcon,
-	TrendUpIcon
-} from '@phosphor-icons/react/dist/ssr';
+import React from 'react';
 import img1 from '/src/assets/loans/gold-and-gems/1.jpg';
 import img3 from '/src/assets/homepage/3.png';
-import React from 'react';
-import { ShieldCheckIcon } from '@phosphor-icons/react';
 import HeroSection from '../components/HeroSection';
-import img from '/src/assets/homepage/heroSectionImage.png';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
+import SuccessStoriesSection from '../components/SuccessStoriesSection';
 
 export default function LoansGoldAndGems() {
-	const advantages = [
+	// Success stories for Gold & Gems
+	const goldAndGemsSuccessStories = [
 		{
-			logo: <TrendUpIcon size={100} />,
-			description: 'High Appraisal'
+			img: img1,
+			alt: 'Sofia with Jewelry',
+			name: 'Sofia Reyes',
+			location: 'Entrepreneur, Iligan City',
+			description:
+				'Sofia quickly got the cash she needed for a family emergency by pawning her jewelry through 1st Valley Bank’s Gold & Gems Loan.',
+			route: '/success-stories/sofia-reyes',
+			paragraphs: [
+				'Sofia needed urgent funds for a hospital bill. With 1VB’s Gold & Gems loan, she was able to get a high appraisal on her jewelry and walked out with cash in less than an hour.',
+				'"The appraisal was higher than anywhere else, and the low interest gave me peace of mind."',
+				'She reclaimed her jewelry after completing easy repayments, grateful for the flexibility and security.'
+			]
 		},
 		{
-			logo: <TrendDownIcon size={100} />,
-			description: 'Lowest Interest Rate'
-		},
-		{
-			logo: <ProjectorScreenChartIcon size={100} />,
-			description: 'Longer Term'
-		},
-		{
-			logo: <ShareNetworkIcon size={100} />,
-			description: 'Flexible Repayment Term'
-		},
-		{
-			logo: <PlusMinusIcon size={100} />,
-			description: 'No Service Charge'
-		},
-		{
-			logo: <ShieldCheckIcon size={100} />,
-			description: 'Safety'
-		},
-		{
-			logo: <DetectiveIcon size={100} />,
-			description: 'Confidentiality'
-		},
-		{
-			logo: <CreditCardIcon size={100} />,
-			description: 'Remote Payment'
+			img: img3,
+			alt: 'Alvin at Jewelry Counter',
+			name: 'Alvin Lim',
+			location: 'Business Owner, Oroquieta',
+			description:
+				'Alvin used his family’s gold jewelry to take out a Gold & Gems Loan, growing his buy and sell venture with instant funds.',
+			route: '/success-stories/alvin-lim',
+			paragraphs: [
+				'Business opportunities can’t wait. Alvin leveraged the Gold & Gems facility to inject much-needed working capital into his inventory—no collateral except his jewelry.',
+				'"It was confidential, very safe, and I liked the remote payment option so I never missed a due date."'
+			]
 		}
 	];
 
@@ -67,64 +51,6 @@ export default function LoansGoldAndGems() {
 				ctaLink="/contact-us"
 			/>
 			<main className="flex flex-col pb-[50px]">
-				{/* <section id="description" className="px-[15px] text-white">
-					<div className="flex flex-col rounded-[8px] bg-[#396131] p-[30px] drop-shadow-lg lg:flex-row lg:gap-[80px] lg:px-[80px] lg:py-[60px]">
-						<div className="flex justify-center lg:w-2/5">
-							<MoneyWavyIcon className="h-auto w-[50%]" />
-						</div>
-						<div className="flex flex-col items-start justify-start gap-[20px] lg:w-3/5 lg:gap-[50px]">
-							<div className="flex flex-col gap-[20px]">
-								<span className="text-[1.5rem]/[1.5rem] font-bold text-white lg:text-[3rem]/[3rem]">
-									Gold & Gems
-								</span>
-								<span className="text-[0.8rem]/[2.4rem] text-white">
-									Individual borrowers may pledge their genuine pieces of jewelry for instant cash
-									for personal purposes. This is through the Gold & Gems jewelry loan. Interest
-									rates are most affordable, and the term is guaranteed to be flexible.
-								</span>
-							</div>
-							<div className="flex flex-col gap-[20px]">
-								<span className="text-[1.5rem]/[1.5rem] font-bold text-white lg:text-[3rem]/[3rem]">
-									Jewelry Loan
-								</span>
-								<span className="text-[0.8rem]/[2.4rem] text-white">
-									For quick cash, borrowers may find their emergency fix in 1VB's jewelry business
-									loan. All clients need are authentic jewelry items. Clients may exchange these
-									items for cash that they can use to expand their businesses.
-								</span>
-							</div>
-						</div>
-					</div>
-				</section> */}
-
-				{/* <section
-					id="advantages"
-					className="relative overflow-hidden bg-gradient-to-br from-[#396131] to-[#2d4a26] py-20"
-				>
-					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-						<div className="mb-16 text-center">
-							<h2 className="mb-6 text-4xl leading-tight font-bold text-white md:text-5xl">
-								Advantages
-							</h2>
-						</div>
-
-						<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-							{advantages.map((advantage, index) => (
-								<div
-									key={index}
-									className="group relative rounded-2xl border border-white/20 bg-white/10 p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:bg-white/15"
-								>
-									<div className="text-center">
-										<div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl text-white transition-transform duration-300 group-hover:scale-110">
-											{advantage.logo}
-										</div>
-										<p className="text-sm leading-relaxed text-white/80">{advantage.description}</p>
-									</div>
-								</div>
-							))}
-						</div>
-					</div>
-				</section> */}
 				<LoanSubcategoriesSection
 					id="gold-and-gems-types"
 					sectionTitle="Gold & Gems Loan Types"
@@ -135,6 +61,13 @@ export default function LoansGoldAndGems() {
 					ctaTitle="Need help choosing the right Gold & Gems loan for you?"
 					ctaPrimaryText="Get Expert Consultation"
 					ctaSecondaryText="View All Loans"
+				/>
+				<SuccessStoriesSection
+					id="gold-and-gems-success-stories"
+					title="Gold & Gems Success Stories"
+					subtitle="Read real stories from clients who secured what they needed—fast"
+					stories={goldAndGemsSuccessStories}
+					brandColor="#396131"
 				/>
 			</main>
 		</>

@@ -5,6 +5,7 @@ import img5 from '/src/assets/homepage/5.png';
 import img6 from '/src/assets/homepage/6.png';
 import CarouselSection from '../components/CarouselSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
+import SuccessStoriesSection from '../components/SuccessStoriesSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
@@ -53,6 +54,7 @@ export default function LoansSalary() {
 			route: '/contact-us'
 		}
 	];
+
 	// Carousel slides combining hero and salary loan types
 	const salaryLoanSlides = [
 		{
@@ -113,6 +115,51 @@ export default function LoansSalary() {
 		}
 	];
 
+	// Success stories data for Salary Loans
+	const salarySuccessStories = [
+		{
+			img: img3,
+			alt: 'Teacher Maria',
+			name: 'Maria Dela Cruz',
+			location: 'Government Teacher, Misamis Oriental',
+			description:
+				"Maria was able to renovate her home and pay for her children's school expenses comfortably with a Government Teacher's Loan.",
+			route: '/success-stories/teacher-maria',
+			paragraphs: [
+				"As a dedicated public school teacher, Maria found it hard to cover both home improvements and her children's needs. Through the Government Teacher's Loan at 1st Valley Bank, she received the support she needed with affordable terms.",
+				'"The application was easy and my monthly deduction fit my salary. It was such a relief!"',
+				"Now, Maria's children are in school, and their house is safer and more comfortable."
+			]
+		},
+		{
+			img: img4,
+			alt: 'LGU Employee Ramon',
+			name: 'Ramon Santos',
+			location: 'LGU Employee, Cagayan de Oro',
+			description:
+				'Ramon managed an unexpected medical emergency in his family with quick financial support from the LGU Loan.',
+			route: '/success-stories/ramon-santos',
+			paragraphs: [
+				"Ramon, an LGU staffer, faced a family medical emergency. He needed funds fast, but couldn't wait for payday.",
+				'With the LGU Loan from 1st Valley Bank, Ramon received approval within the same day and settled hospital bills on time.',
+				'"I appreciated the bank’s understanding and the way they treated government employees," Ramon said.'
+			]
+		},
+		{
+			img: img5,
+			alt: 'Elsa from Barangay',
+			name: 'Elsa Mendoza',
+			location: 'Barangay Secretary, Lanao del Norte',
+			description: 'Elsa expanded her small sari-sari store with a convenient Barangay Loan.',
+			route: '/success-stories/elsa-mendoza',
+			paragraphs: [
+				"Elsa wanted to grow her barangay store to supplement her family's income, but needed capital. The Barangay Loan helped make this possible.",
+				'She secured funds with simple requirements, and was able to buy more inventory and increase her income.',
+				'"Salamat 1st Valley Bank! Now I can support my family better and serve my community."'
+			]
+		}
+	];
+
 	return (
 		<>
 			<main className="flex flex-col pb-[50px]">
@@ -137,6 +184,13 @@ export default function LoansSalary() {
 					ctaTitle="Need help choosing the right salary loan for you?"
 					ctaPrimaryText="Get Expert Consultation"
 					ctaSecondaryText="View All Loans"
+				/>
+				<SuccessStoriesSection
+					id="salary-success-stories"
+					title="Salary Loan Success Stories"
+					subtitle="Hear from our clients how salary loans made a difference."
+					stories={salarySuccessStories}
+					brandColor="#396131"
 				/>
 			</main>
 		</>

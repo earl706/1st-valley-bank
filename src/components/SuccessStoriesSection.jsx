@@ -1,30 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, X } from 'lucide-react';
 
 function StoryModal({ open, onClose, story, brandColor }) {
 	if (!open || !story) return null;
 
 	return (
 		<div
-			className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+			className="fixed inset-0 z-99 flex items-center justify-center overflow-y-auto bg-black/40"
 			aria-modal="true"
 			role="dialog"
 			tabIndex={-1}
+			onClick={onClose}
 		>
-			<div className="relative w-full max-w-7xl rounded-xl bg-white p-8 shadow-2xl">
+			<div
+				className="relative mx-auto max-h-[90vh] max-w-7xl overflow-y-auto rounded-xl bg-white p-8 shadow-2xl md:max-h-[80vh]"
+				onClick={(e) => e.stopPropagation()}
+			>
 				<button
 					onClick={onClose}
 					className="absolute top-4 right-4 text-gray-400 hover:text-gray-700"
 					aria-label="Close"
 				>
-					<svg
-						className="h-6 w-6"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth="2"
-						viewBox="0 0 24 24"
-					>
-						<path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-					</svg>
+					<X className="h-6 w-6" />
 				</button>
 				<div className="flex flex-col items-center">
 					<img
@@ -32,11 +29,13 @@ function StoryModal({ open, onClose, story, brandColor }) {
 						alt={story.alt || story.name}
 						className="mb-4 h-40 w-full max-w-[220px] rounded-lg border border-gray-200 object-cover"
 					/>
-					<span className="mb-1 text-lg font-bold" style={{ color: brandColor }}>
+					<span className="mb-1 text-xl leading-tight font-bold" style={{ color: brandColor }}>
 						{story.name || story.title}
 					</span>
-					<span className="mb-2 text-sm text-gray-500">{story.location || story.subtitle}</span>
-					<div className="mb-4 flex flex-col gap-3 text-base text-gray-700">
+					<span className="mb-2 text-sm leading-tight text-gray-500">
+						{story.location || story.subtitle}
+					</span>
+					<div className="mb-4 flex flex-col gap-3 text-base leading-relaxed font-normal text-gray-700">
 						{Array.isArray(story.paragraphs) && story.paragraphs.length > 0 ? (
 							story.paragraphs.map((para, idx) => (
 								<p key={idx} className="whitespace-pre-line">
@@ -72,13 +71,26 @@ export default function SuccessStoriesSection({
 	const handleOpenModal = (idx) => setOpenModalIndex(idx);
 	const handleCloseModal = () => setOpenModalIndex(null);
 
+	// Disable scroll on body when modal is open
+	useEffect(() => {
+		if (openModalIndex !== null) {
+			const originalStyle = window.getComputedStyle(document.body).overflow;
+			document.body.style.overflow = 'hidden';
+			return () => {
+				document.body.style.overflow = originalStyle;
+			};
+		}
+	}, [openModalIndex]);
+
 	return (
-		<section id={id} className={`${containerClassName} ${className}`}>
+		<section id={id} className={`${containerClassName} ${className} py-24`}>
 			<header className="mb-8 text-center">
-				<h2 className="text-2xl font-bold md:text-3xl" style={{ color: brandColor }}>
+				<h2 className="text-3xl leading-tight font-bold md:text-5xl" style={{ color: brandColor }}>
 					{title}
 				</h2>
-				<p className="mt-2 text-base text-gray-600 md:text-lg">{subtitle}</p>
+				<p className="mt-2 text-2xl leading-tight font-normal text-gray-600 md:text-3xl">
+					{subtitle}
+				</p>
 			</header>
 			<div className={gridClassName}>
 				{stories.map((story, index) => (
@@ -91,41 +103,35 @@ export default function SuccessStoriesSection({
 							alt={story.alt || story.name}
 							className="mb-4 h-40 w-full max-w-[220px] rounded-lg border border-gray-200 object-cover"
 						/>
-						<span className="mb-1 text-lg font-bold" style={{ color: brandColor }}>
+						<span className="mb-1 text-xl leading-tight font-bold" style={{ color: brandColor }}>
 							{story.name || story.title}
 						</span>
-						<span className="mb-2 text-sm text-gray-500">{story.location || story.subtitle}</span>
-						<p className="mb-4 text-center text-sm text-gray-700">{story.description}</p>
+						<span className="mb-2 text-sm leading-tight text-gray-500">
+							{story.location || story.subtitle}
+						</span>
+						<p className="mb-4 text-center text-base leading-relaxed font-normal text-gray-700">
+							{story.description}
+						</p>
 						{showButton && (
 							<button
 								type="button"
-								className={`mt-auto inline-flex cursor-pointer items-center gap-2 rounded-lg border border-[#396131] px-5 py-2.5 font-semibold text-[#396131] transition-all duration-200 hover:bg-[#396131] hover:text-white focus:ring-2 focus:outline-none`}
+								className={`mt-auto inline-flex cursor-pointer items-center gap-2 rounded-lg border border-solid px-5 py-2.5 font-semibold transition-colors duration-200 hover:text-white ${
+									openModalIndex === index
+										? `bg-[${brandColor}] text-white border-[${brandColor}]`
+										: `text-[${brandColor}] border-[${brandColor}] hover:bg-[${brandColor}] hover:text-white focus-visible:bg-[${brandColor}] focus-visible:text-white`
+								} `}
 								onClick={() => handleOpenModal(index)}
 							>
-								<span
-									className="transition-colors duration-200"
-									style={{
-										color: 'inherit'
-									}}
-								>
-									{buttonText}
-								</span>
-								<svg
-									className="h-4 w-4"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="2"
-									viewBox="0 0 24 24"
-								>
-									<path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-								</svg>
-								<style>{`
-									[data-tw="success-story-btn"]:hover, 
-									[data-tw="success-story-btn"]:focus-visible {
-										background-color: ${brandColor} !important;
-										color: white !important;
+								<span className="text-base leading-tight font-semibold">{buttonText}</span>
+								<ArrowRight
+									size={16}
+									strokeWidth={2}
+									className={
+										openModalIndex === index
+											? 'stroke-white'
+											: `stroke-[${brandColor}] group-hover:stroke-white group-focus-visible:stroke-white`
 									}
-								`}</style>
+								/>
 							</button>
 						)}
 						{openModalIndex === index && (

@@ -15,6 +15,7 @@ import img6 from '/src/assets/homepage/6.png';
 import HeroSection from '../components/HeroSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import CarouselSection from '../components/CarouselSection';
+import SuccessStoriesSection from '../components/SuccessStoriesSection';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import carouselImg1 from '/src/assets/carousel/1.png';
@@ -154,6 +155,50 @@ export default function LoansSME() {
 		}
 	];
 
+	// SME success stories data
+	const smeSuccessStories = [
+		{
+			img: img1,
+			alt: 'Golden Sunrise Eatery',
+			name: 'Jenny Uy',
+			location: 'Owner, Golden Sunrise Eatery, Iligan',
+			description:
+				'Jenny transformed her small carinderia into a thriving family eatery thanks to an SME Chattel Financing loan from 1st Valley Bank.',
+			route: '/success-stories/golden-sunrise-eatery',
+			paragraphs: [
+				"Running a carinderia was never easy for Jenny Uy until she accessed 1st Valley Bank's SME Chattel Financing. With new kitchen equipment and a delivery van, she was able to serve more customers and expand into catering services.",
+				'"1st Valley Bank understood my needs and offered flexible payment terms. My family business is now thriving more than ever."',
+				'Jenny has since opened a second branch and employs 7 staff from her local community.'
+			]
+		},
+		{
+			img: img2,
+			alt: 'TechParts Distributor',
+			name: 'Rodolfo Sarmiento',
+			location: 'Proprietor, TechParts Distributor, CDO',
+			description:
+				'Rodolfo scaled up his electronics parts distribution business, improving inventory and logistics with an SME Term Loan.',
+			route: '/success-stories/techparts-distributor',
+			paragraphs: [
+				'Rodolfo saw demand surging for affordable electronics parts in Northern Mindanao, but cash flow was tight. A Term Loan from 1st Valley Bank let him bulk-purchase inventory and upgrade his warehouse.',
+				'He reports, "The bank became a real partner. Now I can deliver bigger orders to clients on time, and revenues have doubled since last year."'
+			]
+		},
+		{
+			img: img3,
+			alt: 'Moments Flower Shop',
+			name: 'Clarissa Bustamante',
+			location: 'Owner, Moments Flower Shop, Pagadian',
+			description:
+				'Clarissa turned her passion for flowers into a full-service shop with upgraded delivery and cool storage, thanks to SME financing.',
+			route: '/success-stories/moments-flower-shop',
+			paragraphs: [
+				'Clarissa operated her flower stall in the public market for years. Through 1st Valley Bank and an SME loan, she bought her first delivery motorcycle and invested in a small cold room, extending product freshness.',
+				'"Customers now rely on us for weddings, anniversaries and even online orders. This loan was a game changer!"'
+			]
+		}
+	];
+
 	return (
 		<>
 			<CarouselSection
@@ -179,6 +224,14 @@ export default function LoansSME() {
 				ctaTitle="Need help choosing the right SME loan for your business?"
 				ctaPrimaryText="Get Expert Consultation"
 				ctaSecondaryText="View All Loans"
+			/>
+
+			<SuccessStoriesSection
+				id="sme-success-stories"
+				title="SME Success Stories"
+				subtitle="Discover how our SME loan clients achieved their goals"
+				stories={smeSuccessStories}
+				brandColor="#396131"
 			/>
 
 			<main className="flex flex-col gap-[80px] pb-[50px]">
