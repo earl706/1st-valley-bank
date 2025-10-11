@@ -16,8 +16,7 @@ export default function TimeDeposit() {
 	const timeDeposits = [
 		{
 			title: '3 Months',
-			description:
-				'Short-term investment option with competitive rates for those who want to park their funds for a brief period.',
+			description: 'Short-term investment with competitive rates.',
 			initialAmount: '₱5,000.00',
 			interestRate: '4.00% gross (renewal) / 4.50% gross (new)',
 			features: [
@@ -37,8 +36,7 @@ export default function TimeDeposit() {
 		},
 		{
 			title: '6 Months',
-			description:
-				'Medium-term investment with attractive rates, perfect for those planning for near-future expenses or goals.',
+			description: 'Medium-term investment with attractive rates.',
 			initialAmount: '₱5,000.00',
 			interestRate: '4.75% gross (renewal) / 4.50% gross (new)',
 			features: [
@@ -58,8 +56,7 @@ export default function TimeDeposit() {
 		},
 		{
 			title: '1 Year',
-			description:
-				'Annual investment with excellent rates, ideal for long-term savings goals and wealth building.',
+			description: 'Annual investment for long-term savings goals.',
 			initialAmount: '₱50,000.00',
 			interestRate: '6.00% gross (renewal) / 4.50% gross (new)',
 			features: [
@@ -78,9 +75,8 @@ export default function TimeDeposit() {
 			route: '/contact-us'
 		},
 		{
-			title: '5 Years and 1 Day',
-			description:
-				'Long-term investment with the highest rates, perfect for retirement planning and long-term wealth accumulation.',
+			title: '5 Years',
+			description: 'Long-term investment with the highest rates.',
 			initialAmount: '₱50,000.00',
 			interestRate: '6.0% net (credited annually) / 6.0% net (credited upon maturity)',
 			features: [
@@ -144,7 +140,7 @@ export default function TimeDeposit() {
 
 	return (
 		<>
-			<main className="flex flex-col gap-[40px] pb-[50px] lg:gap-[120px]">
+			<main className="flex flex-col">
 				<CarouselSection
 					id="main"
 					title={
@@ -185,89 +181,65 @@ export default function TimeDeposit() {
 				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+							<h2 className="mb-4 text-5xl leading-tight font-bold text-white md:text-5xl lg:text-6xl">
 								TIME DEPOSIT
 							</h2>
 							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/90 to-[#aee3b7]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
+							<p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed font-normal text-white/80">
 								Choose the term that matches your investment goals
 							</p>
 						</div>
-						<div className="grid gap-8 lg:grid-cols-1">
+						<div className="grid gap-8 lg:grid-cols-4">
 							{timeDeposits.map((deposit, index) => (
 								<div
 									key={index}
-									className="group relative flex flex-col rounded-2xl border border-white/10 bg-white/90 p-8 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl lg:flex-row"
+									className="group relative flex h-full flex-col rounded-2xl border border-white/10 bg-white/90 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 								>
 									{/* Image Container */}
-									<div className="mb-6 flex items-center justify-center lg:mr-8 lg:mb-0 lg:w-1/3">
+									<div className="mb-2 flex items-center justify-center">
 										<img
 											src={deposit.image}
 											alt={`${deposit.title} visual`}
-											className="h-56 w-56 object-contain lg:h-80 lg:w-80"
+											className="h-44 w-44 object-contain lg:h-56 lg:w-56"
 										/>
 									</div>
 									{/* Content Container */}
 									<div className="flex flex-1 flex-col">
-										<div className="mb-6 flex items-center justify-between">
+										<div className="mb-4 flex items-center justify-between">
 											<div>
-												<h3 className="text-2xl font-bold text-[#185027]">{deposit.title}</h3>
-												<p className="text-sm text-[#35603e]/90">Term Period</p>
+												<h3 className="text-xl leading-snug font-bold text-[#185027]">
+													{deposit.title}
+												</h3>
+												<p className="text-xs leading-snug font-normal text-[#35603e]/90">
+													Term Period
+												</p>
 											</div>
 											<div className="text-right">
-												<div className="text-2xl font-bold text-[#396131]">
+												<div className="text-xl leading-snug font-bold text-[#396131]">
 													{deposit.interestRate.split(' ')[0]}
 												</div>
-												<div className="text-sm text-[#35603e]/90">Interest Rate</div>
+												<div className="text-xs leading-snug font-normal text-[#35603e]/90">
+													Interest Rate
+												</div>
 											</div>
 										</div>
 
-										<p className="mb-6 leading-relaxed text-[#35603e]">{deposit.description}</p>
+										<p className="mb-4 text-sm leading-relaxed font-normal text-[#35603e]">
+											{deposit.description}
+										</p>
 
-										<div className="mb-6 rounded-lg bg-white/80 p-4">
-											<div className="text-sm font-medium text-[#35603e]/90">
+										<div className="mb-4 rounded-lg bg-white/80 p-3">
+											<div className="text-xs leading-snug font-normal text-[#35603e]/90">
 												Minimum Initial Amount
 											</div>
-											<div className="text-xl font-semibold text-[#396131]">
+											<div className="text-lg leading-snug font-bold text-[#396131]">
 												{deposit.initialAmount}
 											</div>
 										</div>
 
-										{/* <div className="mb-6 grid grid-cols-1 gap-4">
-											<div>
-												<h4 className="mb-3 text-sm font-semibold text-[#185027]">Features:</h4>
-												<ul className="space-y-2">
-													{deposit.features.map((feature, featureIndex) => (
-														<li
-															key={featureIndex}
-															className="flex items-center gap-2 text-sm text-[#35603e]"
-														>
-															<div className="h-1.5 w-1.5 rounded-full bg-[#396131]"></div>
-															{feature}
-														</li>
-													))}
-												</ul>
-											</div>
-										</div>
-
-										<div className="mb-6">
-											<h4 className="mb-3 text-sm font-semibold text-[#185027]">Benefits:</h4>
-											<ul className="space-y-2">
-												{deposit.benefits.map((benefit, benefitIndex) => (
-													<li
-														key={benefitIndex}
-														className="flex items-center gap-2 text-sm text-[#35603e]"
-													>
-														<div className="h-1.5 w-1.5 rounded-full bg-[#396131]"></div>
-														{benefit}
-													</li>
-												))}
-											</ul>
-										</div> */}
-
 										<NavLink
 											to={deposit.route}
-											className="flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-3 font-semibold text-white transition-all duration-300 hover:shadow-lg"
+											className="mt-auto flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-5 py-2.5 text-sm leading-snug font-bold text-white transition-all duration-300 hover:shadow-lg"
 										>
 											Open Time Deposit
 										</NavLink>
@@ -282,32 +254,44 @@ export default function TimeDeposit() {
 				<section id="requirements" data-scroll className="bg-white text-gray-900">
 					<div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
 						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-3xl font-bold sm:text-4xl">Time Deposit Requirements</h2>
-							<p className="text-xl text-gray-500">What you need to open a time deposit account</p>
+							<h2 className="mb-4 text-3xl leading-tight font-bold sm:text-4xl">
+								Time Deposit Requirements
+							</h2>
+							<p className="text-base leading-relaxed font-normal text-gray-500">
+								What you need to open a time deposit account
+							</p>
 						</div>
 
 						<div className="grid gap-8 md:grid-cols-2">
 							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
 								<div className="mb-6 flex items-center gap-4">
 									<DollarSign className="h-8 w-8 text-gray-400" />
-									<h3 className="text-xl font-bold">Investment Requirements</h3>
+									<h3 className="text-2xl leading-tight font-bold">Investment Requirements</h3>
 								</div>
 								<ul className="space-y-4">
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Minimum initial deposit amount</span>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
+										<span className="text-base leading-relaxed font-normal">
+											Minimum initial deposit amount
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Valid government-issued ID</span>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
+										<span className="text-base leading-relaxed font-normal">
+											Valid government-issued ID
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Proof of income or source of funds</span>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
+										<span className="text-base leading-relaxed font-normal">
+											Proof of income or source of funds
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Completed application form</span>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
+										<span className="text-base leading-relaxed font-normal">
+											Completed application form
+										</span>
 									</li>
 								</ul>
 							</div>
@@ -315,28 +299,38 @@ export default function TimeDeposit() {
 							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
 								<div className="mb-6 flex items-center gap-4">
 									<Shield className="h-8 w-8 text-gray-400" />
-									<h3 className="text-xl font-bold">Terms & Conditions</h3>
+									<h3 className="text-2xl leading-tight font-bold">Terms & Conditions</h3>
 								</div>
 								<ul className="space-y-4">
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Fixed term commitment</span>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
+										<span className="text-base leading-relaxed font-normal">
+											Fixed term commitment
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Early withdrawal penalties apply</span>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
+										<span className="text-base leading-relaxed font-normal">
+											Early withdrawal penalties apply
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Interest credited at maturity</span>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
+										<span className="text-base leading-relaxed font-normal">
+											Interest credited at maturity
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Automatic renewal option available</span>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
+										<span className="text-base leading-relaxed font-normal">
+											Automatic renewal option available
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
-										<div className="mt-1 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>PDIC insured up to ₱500,000</span>
+										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
+										<span className="text-base leading-relaxed font-normal">
+											PDIC insured up to ₱500,000
+										</span>
 									</li>
 								</ul>
 							</div>

@@ -208,7 +208,7 @@ const OptimizedImageGallery = () => {
 export default function OneVBAdvisory() {
 	return (
 		<>
-			<main className="flex flex-col gap-[40px] pb-[50px] lg:gap-[80px]">
+			<main className="flex flex-col">
 				<HeroSection
 					title="1VB Advisory"
 					subtitle=""
@@ -217,23 +217,17 @@ export default function OneVBAdvisory() {
 					image={carouselImg1}
 					imageAlt="1VB Advisory"
 				/>
-
-				{/* <section id="advisory-gallery" className="mx-auto max-w-6xl px-4 py-8">
-					<h2 className="mb-6 text-center text-2xl font-bold text-[#396131]">Advisory Gallery</h2>
-					<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-						{images.map((img, idx) => (
-							<GalleryImage key={idx} img={img} idx={idx} />
-						))}
-					</div>
-				</section> */}
-				<section id="advisory-gallery" className="mx-auto">
+				<section
+					id="advisory-gallery"
+					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-4 py-8"
+				>
 					{/* Section Header */}
 					<div className="mb-16 text-center">
-						<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
+						<h2 className="mb-4 pt-16 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
 							1VB Advisory Gallery
 						</h2>
-						<div className="mx-auto h-1 w-24 rounded-full bg-[#396131]/90"></div>
-						<p className="mx-auto mt-6 max-w-2xl text-lg text-[#396131]/90">
+						<div className="mx-auto h-1 w-24 rounded-full bg-white/80"></div>
+						<p className="mx-auto mt-6 max-w-2xl text-lg text-white/90">
 							Explore moments from our advisory engagements, where expertise meets personalized
 							service to empower your financial future.
 						</p>

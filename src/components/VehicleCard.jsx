@@ -50,7 +50,7 @@ export default function VehicleCard({ vehicle }) {
 					{/* Price Badge */}
 					<div className="absolute bottom-3 left-3">
 						<div className="rounded-lg bg-white/90 px-3 py-1.5 text-gray-900 shadow backdrop-blur-sm">
-							<span className="text-base font-semibold tracking-tight">
+							<span className="text-base font-bold tracking-tight">
 								₱{vehicle.price.toLocaleString()}
 							</span>
 						</div>
@@ -63,22 +63,24 @@ export default function VehicleCard({ vehicle }) {
 					<div className="mb-5 space-y-2">
 						<div className="flex items-center gap-2 text-gray-500">
 							<MapPin size={16} className="text-gray-400" />
-							<span className="font-medium">{vehicle.location}</span>
+							<span className="text-base leading-relaxed font-normal">{vehicle.location}</span>
 						</div>
 						<div className="flex items-center gap-2 text-gray-500">
 							<Calendar size={16} className="text-gray-400" />
-							<span className="font-medium">{vehicle.year}</span>
+							<span className="text-base leading-relaxed font-normal">{vehicle.year}</span>
 						</div>
 						<div className="flex items-center gap-2 text-gray-500">
 							<Hash size={16} className="text-gray-400" />
-							<span className="font-mono font-medium">{vehicle.plateNumber}</span>
+							<span className="font-mono text-base leading-relaxed font-normal">
+								{vehicle.plateNumber}
+							</span>
 						</div>
 					</div>
 
 					{/* Action Button */}
 					<button
 						onClick={handleView}
-						className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-200 bg-[#396131] px-4 py-2 font-medium text-white transition-all duration-150 hover:scale-105 hover:bg-[#4a7a3f] focus:outline-none"
+						className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-200 bg-[#396131] px-4 py-2 text-base leading-relaxed font-bold text-white transition-all duration-150 hover:scale-105 hover:bg-[#4a7a3f] focus:outline-none"
 					>
 						<Eye size={18} className="transition-transform duration-150 group-hover:scale-110" />
 						View Details

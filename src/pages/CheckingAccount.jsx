@@ -15,8 +15,7 @@ export default function CheckingAccount() {
 	const checkingAccounts = [
 		{
 			title: 'Personal Checking Account',
-			description:
-				'Perfect for individuals who need frequent access to their funds with check-writing capabilities and convenient banking services.',
+			description: 'A flexible account for individuals with check-writing and banking access.',
 			initialDeposit: '₱5,000.00',
 			minimumBalance: '₱10,000.00',
 			interestRate: '0.10% - 0.15% per annum',
@@ -38,9 +37,8 @@ export default function CheckingAccount() {
 			route: '/contact-us'
 		},
 		{
-			title: 'Business/Corporate Checking Account',
-			description:
-				'Designed for businesses and corporations that require comprehensive banking services with multiple signatories and enhanced features.',
+			title: 'Business Checking Account',
+			description: 'For businesses needing multiple signatories and advanced services.',
 			initialDeposit: '₱10,000.00',
 			minimumBalance: '₱10,000.00',
 			interestRate: '0.10% - 0.15% per annum',
@@ -63,8 +61,7 @@ export default function CheckingAccount() {
 		},
 		{
 			title: 'Premium Checking Account',
-			description:
-				'Our premium checking account offers enhanced benefits, higher transaction limits, and exclusive services for high-value customers.',
+			description: 'Get exclusive perks, higher limits, and premium services.',
 			initialDeposit: '₱25,000.00',
 			minimumBalance: '₱25,000.00',
 			interestRate: '0.15% - 0.25% per annum',
@@ -169,91 +166,63 @@ export default function CheckingAccount() {
 				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+							<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
 								CHECKING ACCOUNTS
 							</h2>
 							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/80 to-[#a8ffc2]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
+							<p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed font-normal text-white/80">
 								Choose the checking account that fits your needs
 							</p>
 						</div>
-
-						<div className="grid gap-8 lg:grid-cols-1">
+						<div className="grid gap-8 lg:grid-cols-3">
 							{checkingAccounts.map((account, index) => (
 								<div
 									key={index}
-									className="group relative flex flex-col rounded-2xl border border-white/10 bg-white/90 p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl lg:flex-row lg:gap-8"
+									className="group relative flex flex-col rounded-2xl border border-white/10 bg-white/90 p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl lg:gap-8"
 								>
-									<div className="mb-6 flex items-center justify-center lg:mb-0 lg:w-1/4">
+									<div className="mb-6 flex items-center justify-center">
 										<img
 											src={account.image}
 											alt={`${account.title} visual`}
 											className="h-48 w-auto object-contain lg:h-64"
 										/>
 									</div>
-
-									<div className="flex-1">
-										<h3 className="mb-4 text-2xl font-bold text-[#185027]">{account.title}</h3>
-
-										<p className="mb-6 leading-relaxed text-[#35603e]">{account.description}</p>
-
-										<div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+									<div className="flex h-full flex-col">
+										<h3 className="mb-4 text-2xl leading-tight font-bold text-[#185027]">
+											{account.title}
+										</h3>
+										<p className="mb-6 text-base leading-relaxed font-normal text-[#35603e]">
+											{account.description}
+										</p>
+										<div className="mb-6 grid grid-cols-1 gap-4">
 											<div className="rounded-lg bg-white/80 p-4">
-												<div className="text-sm font-medium text-[#396131]/80">Initial Deposit</div>
-												<div className="text-lg font-semibold text-[#236c36]">
+												<div className="text-sm leading-tight font-normal text-[#396131]/80">
+													Initial Deposit
+												</div>
+												<div className="text-base leading-tight font-bold text-[#236c36]">
 													{account.initialDeposit}
 												</div>
 											</div>
 											<div className="rounded-lg bg-white/80 p-4">
-												<div className="text-sm font-medium text-[#396131]/80">Minimum Balance</div>
-												<div className="text-lg font-semibold text-[#236c36]">
+												<div className="text-sm leading-tight font-normal text-[#396131]/80">
+													Minimum Balance
+												</div>
+												<div className="text-base leading-tight font-bold text-[#236c36]">
 													{account.minimumBalance}
 												</div>
 											</div>
 											<div className="rounded-lg bg-white/80 p-4">
-												<div className="text-sm font-medium text-[#396131]/80">Interest Rate</div>
-												<div className="text-lg font-semibold text-[#236c36]">
+												<div className="text-sm leading-tight font-normal text-[#396131]/80">
+													Interest Rate
+												</div>
+												<div className="text-base leading-tight font-bold text-[#236c36]">
 													{account.interestRate}
 												</div>
 											</div>
 										</div>
-
-										{/* 
-										<div className="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
-											<div>
-												<h4 className="mb-3 text-sm font-semibold text-[#185027]">Features:</h4>
-												<ul className="space-y-2">
-													{account.features.map((feature, featureIndex) => (
-														<li
-															key={featureIndex}
-															className="flex items-center gap-2 text-sm text-[#35603e]"
-														>
-															<div className="h-1.5 w-1.5 rounded-full bg-[#396131]"></div>
-															{feature}
-														</li>
-													))}
-												</ul>
-											</div>
-											<div>
-												<h4 className="mb-3 text-sm font-semibold text-[#185027]">Benefits:</h4>
-												<ul className="space-y-2">
-													{account.benefits.map((benefit, benefitIndex) => (
-														<li
-															key={benefitIndex}
-															className="flex items-center gap-2 text-sm text-[#35603e]"
-														>
-															<div className="h-1.5 w-1.5 rounded-full bg-[#396131]"></div>
-															{benefit}
-														</li>
-													))}
-												</ul>
-											</div>
-										</div>
-										*/}
-
 										<NavLink
 											to={account.route}
-											className="flex w-full cursor-pointer items-center justify-center rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-3 font-semibold text-white transition-all duration-300 hover:shadow-lg lg:w-auto"
+											className="mt-auto flex w-full cursor-pointer items-center justify-center rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-3 text-base font-bold text-white transition-all duration-300 hover:shadow-lg lg:w-auto"
 										>
 											Open Account
 										</NavLink>
@@ -268,65 +237,85 @@ export default function CheckingAccount() {
 				<section id="requirements" data-scroll className="border-gray-200 bg-white text-gray-900">
 					<div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
 						<div className="mb-12 text-center">
-							<h2 className="mb-2 text-3xl font-bold sm:text-4xl">Account Opening Requirements</h2>
-							<p className="text-lg text-gray-500">What you need to open a checking account</p>
+							<h2 className="mb-2 text-3xl leading-tight font-bold md:text-5xl">
+								Account Opening Requirements
+							</h2>
+							<p className="text-base leading-relaxed font-normal text-gray-500">
+								What you need to open a checking account
+							</p>
 						</div>
-
 						<div className="grid gap-8 md:grid-cols-2">
 							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
 								<div className="mb-6 flex items-center gap-4">
 									<User className="h-8 w-8 text-gray-400" />
-									<h3 className="text-xl font-bold">Individual Requirements</h3>
+									<h3 className="text-xl leading-tight font-bold">Individual Requirements</h3>
 								</div>
 								<ul className="space-y-4">
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Colored photocopy of 2 Valid IDs</span>
+										<span className="text-base leading-relaxed font-normal">
+											Colored photocopy of 2 Valid IDs
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Three pieces 2x2 pictures</span>
+										<span className="text-base leading-relaxed font-normal">
+											Three pieces 2x2 pictures
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Proof of income (payslip, ITR, etc.)</span>
+										<span className="text-base leading-relaxed font-normal">
+											Proof of income (payslip, ITR, etc.)
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Initial deposit amount</span>
+										<span className="text-base leading-relaxed font-normal">
+											Initial deposit amount
+										</span>
 									</li>
 								</ul>
 							</div>
-
 							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
 								<div className="mb-6 flex items-center gap-4">
 									<Building className="h-8 w-8 text-gray-400" />
-									<h3 className="text-xl font-bold">Business Requirements</h3>
+									<h3 className="text-xl leading-tight font-bold">Business Requirements</h3>
 								</div>
 								<ul className="space-y-4">
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>SEC Certificate of Registration</span>
+										<span className="text-base leading-relaxed font-normal">
+											SEC Certificate of Registration
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Articles of Incorporation</span>
+										<span className="text-base leading-relaxed font-normal">
+											Articles of Incorporation
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Board Resolution for account opening</span>
+										<span className="text-base leading-relaxed font-normal">
+											Board Resolution for account opening
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Valid IDs of authorized signatories</span>
+										<span className="text-base leading-relaxed font-normal">
+											Valid IDs of authorized signatories
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Business Permit</span>
+										<span className="text-base leading-relaxed font-normal">Business Permit</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Financial statements (if applicable)</span>
+										<span className="text-base leading-relaxed font-normal">
+											Financial statements (if applicable)
+										</span>
 									</li>
 								</ul>
 							</div>

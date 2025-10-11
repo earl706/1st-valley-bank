@@ -3,51 +3,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuildingColumns } from '@fortawesome/free-solid-svg-icons/faBuildingColumns';
 import logo from '/src/assets/logo.png';
 
-import img1 from '/src/assets/about-us/1.jpg';
-import img2 from '/src/assets/about-us/2.png';
-import img3 from '/src/assets/about-us/3.png';
-import img4 from '/src/assets/about-us/4.png';
-import img5 from '/src/assets/about-us/5.jpg';
-import img6 from '/src/assets/about-us/6.png';
-import img7 from '/src/assets/about-us/7.jpg';
 import img8 from '/src/assets/about-us/8.jpg';
 import img9 from '/src/assets/about-us/9.jpg';
 import { NavLink } from 'react-router-dom';
-import { faWheatAwn } from '@fortawesome/free-solid-svg-icons/faWheatAwn';
-import img from '/src/assets/homepage/heroSectionImage.png';
 import { Clock, User, HandCoins, Smartphone } from 'lucide-react';
-import CorporateProfile from '../components/CorporateProfile';
 import {
 	faArrowUpRightDots,
-	faBreadSlice,
 	faBuilding,
 	faBuildingFlag,
 	faCashRegister,
 	faCodeBranch,
-	faCoins,
-	faCommentsDollar,
-	faCreditCard,
-	faFileInvoiceDollar,
-	faGem,
-	faGraduationCap,
-	faHandHoldingHand,
-	faHandsHoldingChild,
-	faHandSparkles,
-	faHouseLaptop,
 	faLeaf,
 	faLightbulb,
-	faMagnifyingGlassDollar,
+	faHandHoldingHand,
+	faHandSparkles,
 	faMobile,
-	faMoneyBillTransfer,
-	faMoneyBillTrendUp,
-	faMoneyBillWheat,
-	faNetworkWired,
-	faPhone,
-	faPiggyBank,
-	faPlusCircle,
-	faSackDollar,
 	faSeedling,
-	faTractor,
 	faTrophy,
 	faUsersGear
 } from '@fortawesome/free-solid-svg-icons';
@@ -590,10 +561,12 @@ export default function AboutUs() {
 							</div>
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
-									<FontAwesomeIcon icon={faBuilding} className="h-4 w-4 text-white" />
-									<span className="text-2xl font-semibold text-white">Bank Overview</span>
+									<FontAwesomeIcon icon={faBuilding} className="h-5 w-5 text-white" />
+									<span className="text-2xl leading-tight font-bold text-white md:text-3xl">
+										Bank Overview
+									</span>
 								</div>
-								<p className="mb-4 text-sm leading-relaxed text-white/90">
+								<p className="mb-4 text-base leading-relaxed font-normal text-white/90">
 									<strong>1st Valley Bank (1VB)</strong> is one of the largest independent
 									developmental banks dedicated to funding development projects and businesses
 									through the provision of loan capital. While the Bank's primary clients are
@@ -601,14 +574,13 @@ export default function AboutUs() {
 									barangay officials, regular employees of local government units, as well as
 									individuals who are in need of fast cash.
 								</p>
-								<p className="mb-4 text-sm leading-relaxed text-white/90">
+								<p className="mb-4 text-base leading-relaxed font-normal text-white/90">
 									On <strong>27 December 2019</strong>, the merger between 1st Valley Bank (1VB),
 									Sugbuanon Rural Bank, Inc. (SRBI), and D'Asian Hills Bank, Inc. (DAHBI) was
 									declared official, with 1VB as the surviving entity. With the completion of the
 									merger, clients can expect greater customer service satisfaction.
 								</p>
-
-								<p className="text-sm leading-relaxed text-white/90">
+								<p className="text-base leading-relaxed font-normal text-white/90">
 									1st Valley Bank ranks <strong>3rd in terms of assets</strong> and is considered
 									one of the fastest-growing development banks in the country. Its audited financial
 									statements show that as of December 2019, the Bank has a total of Php10B+ in
@@ -623,15 +595,17 @@ export default function AboutUs() {
 						<div className="flex flex-col-reverse items-center gap-8 lg:flex-row">
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
-									<FontAwesomeIcon icon={faBuildingColumns} className="h-4 w-4 text-[#396131]" />
-									<span className="text-2xl font-semibold text-[#396131]">Brief History</span>
+									<FontAwesomeIcon icon={faBuildingColumns} className="h-5 w-5 text-[#396131]" />
+									<span className="text-2xl leading-tight font-bold text-[#396131] md:text-3xl">
+										Brief History
+									</span>
 								</div>
-								<p className="mb-4 text-sm leading-relaxed text-gray-700">
+								<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
 									<strong className="text-[#396131]">1st Valley Bank</strong>, a rapidly growing
 									development bank in Mindanao and Visayas, traces its roots in the rural banking
 									industry.
 								</p>
-								<p className="mb-4 text-sm leading-relaxed text-gray-700">
+								<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
 									1st Valley Bank was formerly known as the{' '}
 									<strong className="text-[#396131]">
 										Rural Bank of Kapatagan Valley (RUBANKA)
@@ -642,11 +616,11 @@ export default function AboutUs() {
 									<strong className="text-[#396131]">November 24, 1956</strong> and became the 75th
 									rural bank in the country.
 								</p>
-								<p className="mb-4 text-sm leading-relaxed text-gray-700">
+								<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
 									On <strong className="text-[#396131]">April 5, 1957</strong>, the Bank earned its
 									prestigious membership in the Rural Bank Association of the Philippines (RBAP).
 								</p>
-								<p className="mb-4 text-sm leading-relaxed text-gray-700">
+								<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
 									In <strong className="text-[#396131]">April 2004</strong>, Kapatagan Valley Bank
 									entered into a consolidation agreement with Rural Bank of Sinacaban. On{' '}
 									<strong className="text-[#396131]">August 30, 2005</strong>, the Securities and
@@ -654,13 +628,13 @@ export default function AboutUs() {
 									of Incorporation to the merging institutions. This official merger gave birth to
 									1st Valley Bank.
 								</p>
-								<p className="mb-4 text-sm leading-relaxed text-gray-700">
+								<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
 									On <strong className="text-[#396131]">August 1, 2013</strong>, 1st Valley Bank
 									progressed into a development bank. It seeks to provide sufficient loan capital
 									for productive investment along with technical assistance to help guarantee the
 									success of its borrowers.
 								</p>
-								<p className="text-sm leading-relaxed text-gray-700">
+								<p className="text-base leading-relaxed font-normal text-gray-700">
 									Today, following the successful completion of its merger with SRBI and DAHBI,{' '}
 									<strong className="text-[#396131]">1VB</strong> is operating on a vast network of{' '}
 									<strong className="text-[#396131]">78 branches and branch lites</strong>.
@@ -696,8 +670,10 @@ export default function AboutUs() {
 							</div>
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
-									<FontAwesomeIcon icon={faBuildingColumns} className="h-4 w-4 text-white" />
-									<span className="text-2xl font-semibold text-white">Why Choose Us</span>
+									<FontAwesomeIcon icon={faBuildingColumns} className="h-5 w-5 text-white" />
+									<span className="text-2xl leading-tight font-bold text-white md:text-3xl">
+										Why Choose Us
+									</span>
 								</div>
 								{(() => {
 									const whyChooseUsItems = [
@@ -724,15 +700,17 @@ export default function AboutUs() {
 												const Icon = item.icon;
 												return (
 													<li key={idx} className="flex items-center gap-3">
-														<Icon className="h-4 w-4 text-white" />
-														<span className="text-base text-white">{item.text}</span>
+														<Icon className="h-5 w-5 text-white" />
+														<span className="text-base leading-relaxed font-normal text-white">
+															{item.text}
+														</span>
 													</li>
 												);
 											})}
 										</ul>
 									);
 								})()}
-								<p className="text-base font-medium text-white">
+								<p className="text-base leading-relaxed font-normal text-white">
 									Experience the difference of a bank that puts your needs first, with a legacy of
 									excellence and a commitment to your financial success.
 								</p>
@@ -751,11 +729,11 @@ export default function AboutUs() {
 					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						{/* Section Header */}
 						<div className="mb-16 text-center lg:mb-20">
-							<h2 className="mb-6 text-2xl font-bold text-[#396131] md:text-3xl lg:text-4xl">
+							<h2 className="mb-6 text-3xl leading-tight font-bold tracking-tight text-[#396131] md:text-5xl">
 								SERVICES
 							</h2>
 							<div className="mx-auto mb-6 h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7a3f]"></div>
-							<p className="mx-auto max-w-2xl text-base text-gray-600">
+							<p className="mx-auto max-w-2xl text-base leading-relaxed font-normal text-gray-600">
 								Comprehensive financial solutions designed to meet all your banking needs
 							</p>
 						</div>
@@ -769,10 +747,8 @@ export default function AboutUs() {
 								>
 									{/* Card gradient overlay */}
 									<div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-[#396131]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-
 									{/* Decorative corner accent */}
 									<div className="absolute top-0 right-0 h-16 w-16 rounded-bl-3xl bg-gradient-to-br from-[#396131]/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-
 									<div className="relative flex h-full flex-col text-center">
 										{/* Icon Container */}
 										<div className="mb-8 lg:mb-10">
@@ -785,23 +761,19 @@ export default function AboutUs() {
 												</div>
 											</div>
 										</div>
-
 										{/* Content */}
 										<div className="flex h-full flex-col space-y-4 lg:space-y-6">
-											<h3 className="text-lg font-bold text-[#396131] transition-colors duration-300 group-hover:text-[#4a7a3f] lg:text-xl">
+											<h3 className="text-xl leading-tight font-bold text-[#396131] transition-colors duration-300 group-hover:text-[#4a7a3f]">
 												{service.name}
 											</h3>
-
 											<div className="mx-auto h-0.5 w-12 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7a3f] opacity-60 transition-all duration-300 group-hover:w-16 group-hover:opacity-100"></div>
-
-											<p className="text-xs leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-gray-700 lg:text-sm">
+											<p className="text-base leading-relaxed font-normal text-gray-600 transition-colors duration-300 group-hover:text-gray-700">
 												{service.description}
 											</p>
-
 											<div className="mt-auto flex p-4">
 												<NavLink
 													to={service.link || '#'}
-													className="inline-block w-full cursor-pointer rounded-lg bg-[#396131] px-5 py-2 text-xs font-semibold text-white shadow transition-all duration-300 hover:bg-[#4a7a3f] focus:ring-2 focus:ring-[#396131]/50 focus:outline-none"
+													className="inline-block w-full cursor-pointer rounded-lg bg-[#396131] px-5 py-2 text-base font-semibold text-white shadow transition-all duration-300 hover:bg-[#4a7a3f] focus:ring-2 focus:ring-[#396131]/50 focus:outline-none"
 												>
 													Learn More
 												</NavLink>
@@ -823,7 +795,7 @@ export default function AboutUs() {
 						<div className="flex flex-col-reverse items-center gap-6 md:flex-row md:gap-8">
 							{/* Content */}
 							<div className="flex-1 text-center md:text-left">
-								<h2 className="mb-2 text-2xl font-bold text-white sm:text-3xl">
+								<h2 className="mb-2 text-3xl leading-tight font-bold tracking-tight text-white md:text-5xl">
 									Awards & Recognition
 								</h2>
 								<div className="mx-auto mb-4 h-1 w-16 rounded-full bg-white/60 md:mx-0"></div>
@@ -831,26 +803,26 @@ export default function AboutUs() {
 								<div className="flex flex-col gap-4">
 									<div className="flex items-start gap-3 p-4">
 										<div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/80">
-											<span className="text-base font-bold text-[#396131]">A+</span>
+											<span className="text-xl font-bold text-[#396131]">A+</span>
 										</div>
 										<div>
-											<span className="mb-1 block text-base font-semibold text-white">
+											<span className="mb-1 block text-2xl leading-tight font-bold text-white">
 												RATED A+
 											</span>
-											<p className="text-sm text-white">
+											<p className="text-base leading-relaxed font-normal text-white">
 												By PhilRatings, a BSP-recognized credit rating agency.
 											</p>
 										</div>
 									</div>
 									<div className="flex items-start gap-3 p-4">
 										<div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/80">
-											<FontAwesomeIcon icon={faTrophy} className="text-base text-[#396131]" />
+											<FontAwesomeIcon icon={faTrophy} className="text-xl text-[#396131]" />
 										</div>
 										<div>
-											<span className="mb-1 block text-base font-semibold text-white">
+											<span className="mb-1 block text-2xl leading-tight font-bold text-white">
 												EAGLE AWARD FOR MICROFINANCE
 											</span>
-											<p className="text-sm text-white">
+											<p className="text-base leading-relaxed font-normal text-white">
 												From USAID via MABS, for expanding rural microfinance services.
 											</p>
 										</div>
@@ -862,7 +834,7 @@ export default function AboutUs() {
 								<div className="flex h-24 w-24 items-center justify-center rounded-full bg-white/80 shadow-lg md:h-32 md:w-32">
 									<FontAwesomeIcon
 										icon={faTrophy}
-										className="text-4xl text-[#396131] md:text-6xl"
+										className="text-5xl text-[#396131] md:text-7xl"
 									/>
 								</div>
 							</div>
@@ -870,7 +842,9 @@ export default function AboutUs() {
 						{/* Additional Awards Grid */}
 						<div className="mt-8 p-4">
 							<div className="mb-4 text-center">
-								<h3 className="mb-1 text-lg font-bold text-white">More Achievements</h3>
+								<h3 className="mb-1 text-xl leading-tight font-bold text-white">
+									More Achievements
+								</h3>
 								<div className="mx-auto h-0.5 w-10 rounded-full bg-white/60"></div>
 							</div>
 							<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
@@ -880,11 +854,15 @@ export default function AboutUs() {
 										className="group flex items-start gap-3 p-3 transition-all duration-200"
 									>
 										<div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-white/80 transition-transform duration-200 group-hover:scale-105">
-											<FontAwesomeIcon icon={faTrophy} className="text-xs text-[#396131]" />
+											<FontAwesomeIcon icon={faTrophy} className="text-base text-[#396131]" />
 										</div>
 										<div className="flex-1">
-											<span className="block text-sm font-semibold text-white">{award.header}</span>
-											<p className="text-xs text-white">{award.description}</p>
+											<span className="block text-base leading-tight font-semibold text-white">
+												{award.header}
+											</span>
+											<p className="text-sm leading-relaxed font-normal text-white">
+												{award.description}
+											</p>
 										</div>
 									</div>
 								))}
@@ -898,20 +876,20 @@ export default function AboutUs() {
 						<div className="flex flex-col-reverse items-center gap-8 md:flex-row md:gap-10">
 							{/* Content */}
 							<div className="flex-1 text-center md:text-left">
-								<h2 className="mb-3 text-2xl font-bold text-[#396131] sm:text-3xl">
+								<h2 className="mb-3 text-3xl leading-tight font-bold tracking-tight text-[#396131] md:text-5xl">
 									Vision & Mission
 								</h2>
 								<div className="mx-auto mb-4 h-1 w-16 rounded-full bg-[#396131] md:mx-0"></div>
 								<div className="flex flex-col gap-4">
 									<div className="flex items-start gap-3 p-4">
 										<div className="flex h-9 w-9 items-center justify-center">
-											<FontAwesomeIcon icon={faLightbulb} className="text-lg text-[#396131]" />
+											<FontAwesomeIcon icon={faLightbulb} className="text-2xl text-[#396131]" />
 										</div>
 										<div>
-											<span className="mb-1 block text-base font-semibold text-[#396131]">
+											<span className="mb-1 block text-2xl leading-tight font-bold text-[#396131]">
 												Vision
 											</span>
-											<p className="text-sm text-gray-700">
+											<p className="text-base leading-relaxed font-normal text-gray-700">
 												We envision to be the preferred banking institution in delivering innovative
 												and customer-centered services.
 											</p>
@@ -919,13 +897,13 @@ export default function AboutUs() {
 									</div>
 									<div className="flex items-start gap-3 p-4">
 										<div className="flex h-9 w-9 items-center justify-center">
-											<FontAwesomeIcon icon={faLeaf} className="text-lg text-[#396131]" />
+											<FontAwesomeIcon icon={faLeaf} className="text-2xl text-[#396131]" />
 										</div>
 										<div>
-											<span className="mb-1 block text-base font-semibold text-[#396131]">
+											<span className="mb-1 block text-2xl leading-tight font-bold text-[#396131]">
 												Mission
 											</span>
-											<p className="text-sm text-gray-700">
+											<p className="text-base leading-relaxed font-normal text-gray-700">
 												Committed to delivering exceptional banking services while fostering growth
 												for our customers, employees, stakeholders, and communities.
 											</p>
@@ -945,7 +923,7 @@ export default function AboutUs() {
 						<div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
 							{/* Mission Points */}
 							<div className="flex flex-col gap-4 p-5">
-								<h3 className="mb-2 text-center text-xl font-bold text-[#396131]">
+								<h3 className="mb-2 text-center text-xl leading-tight font-bold text-[#396131]">
 									Mission Points
 								</h3>
 								<div className="flex flex-col gap-3">
@@ -969,13 +947,15 @@ export default function AboutUs() {
 									].map((point, idx) => (
 										<div key={idx} className="flex items-start gap-3 p-3">
 											<div className="flex h-8 w-8 items-center justify-center rounded">
-												<FontAwesomeIcon icon={point[2]} className="text-base text-[#396131]" />
+												<FontAwesomeIcon icon={point[2]} className="text-xl text-[#396131]" />
 											</div>
 											<div>
-												<span className="block text-sm font-semibold text-[#396131]">
+												<span className="block text-base leading-tight font-semibold text-[#396131]">
 													{point[0]}
 												</span>
-												<p className="text-xs text-gray-700">{point[1]}</p>
+												<p className="text-sm leading-relaxed font-normal text-gray-700">
+													{point[1]}
+												</p>
 											</div>
 										</div>
 									))}
@@ -983,7 +963,9 @@ export default function AboutUs() {
 							</div>
 							{/* Core Values */}
 							<div className="flex flex-col gap-4 p-5">
-								<h3 className="mb-2 text-center text-xl font-bold text-[#396131]">Core Values</h3>
+								<h3 className="mb-2 text-center text-xl leading-tight font-bold text-[#396131]">
+									Core Values
+								</h3>
 								<div className="flex flex-col gap-3">
 									{[
 										[
@@ -1004,13 +986,15 @@ export default function AboutUs() {
 									].map((value, idx) => (
 										<div key={idx} className="flex items-start gap-3 rounded-lg bg-white/80 p-3">
 											<div className="flex h-8 w-8 items-center justify-center rounded">
-												<FontAwesomeIcon icon={value[2]} className="text-base text-[#396131]" />
+												<FontAwesomeIcon icon={value[2]} className="text-xl text-[#396131]" />
 											</div>
 											<div>
-												<span className="block text-sm font-semibold text-[#396131]">
+												<span className="block text-base leading-tight font-semibold text-[#396131]">
 													{value[0]}
 												</span>
-												<p className="text-xs text-gray-700">{value[1]}</p>
+												<p className="text-sm leading-relaxed font-normal text-gray-700">
+													{value[1]}
+												</p>
 											</div>
 										</div>
 									))}
@@ -1024,50 +1008,50 @@ export default function AboutUs() {
 					data-scroll
 					className="relative flex flex-col gap-6 bg-gradient-to-l from-[#396131] to-[#4a7c3a] p-4 text-white shadow-2xl ring-1 ring-emerald-900/10 backdrop-blur-md sm:p-6 md:p-8 lg:p-10 xl:p-12"
 				>
-					<span className="text-center text-[1.5rem]/[2rem] font-extrabold tracking-tight text-white drop-shadow-lg lg:text-[2.2rem]/[2.7rem]">
+					<span className="text-center text-3xl leading-tight font-bold tracking-tight text-white drop-shadow-lg md:text-5xl">
 						Corporate Profile
 					</span>
-					<div className="flex flex-col gap-[28px]">
+					<div className="flex flex-col gap-7">
 						{/* Senior Management Modernized */}
-						<div className="flex flex-col gap-[14px]">
-							<span className="text-center text-[1rem] font-semibold tracking-wider text-white/80 uppercase">
+						<div className="flex flex-col gap-5">
+							<span className="text-center text-xl leading-tight font-bold tracking-wider text-white/80 uppercase">
 								Senior Management
 							</span>
-							<div className="flex flex-col items-center gap-[10px]">
-								<div className="relative flex flex-col items-center justify-center gap-[8px]">
+							<div className="flex flex-col items-center gap-3">
+								<div className="relative flex flex-col items-center justify-center gap-2">
 									<div className="relative">
 										<img
 											src={logo}
 											alt="Atty. Nicolas J. Lim"
-											className="h-[72px] w-[72px] rounded-full bg-white object-cover shadow-lg transition-transform duration-300 hover:scale-105"
+											className="h-20 w-20 rounded-full bg-white object-cover shadow-lg transition-transform duration-300 hover:scale-105"
 										/>
 									</div>
 									<div className="flex flex-col items-center">
-										<span className="text-center text-[1rem] font-bold tracking-tight text-white lg:text-[1.1rem]">
+										<span className="text-center text-xl font-bold tracking-tight text-white">
 											Atty. Nicolas J. Lim
 										</span>
-										<span className="text-[0.6rem] font-medium tracking-wide text-white/80 uppercase group-hover:text-white lg:text-[0.8rem]">
+										<span className="text-xs font-medium tracking-wide text-white/80 uppercase group-hover:text-white">
 											PRESIDENT
 										</span>
 									</div>
 								</div>
 							</div>
-							<div className="grid grid-cols-2 gap-x-[8px] gap-y-[14px] text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-x-[16px] lg:gap-y-[24px]">
+							<div className="grid grid-cols-2 gap-x-2 gap-y-5 text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-x-4 lg:gap-y-6">
 								{corporateProfile.senior_management.map((officer, index) => (
 									<div
-										className="group flex flex-col items-center justify-center gap-[8px] rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-white/20 hover:shadow-lg"
+										className="group flex flex-col items-center justify-center gap-2 rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-white/20 hover:shadow-lg"
 										key={index}
 									>
 										<img
 											src={officer.image || logo}
 											alt={officer.name}
-											className="h-[48px] w-[48px] rounded-full bg-white object-cover shadow transition-transform duration-300 group-hover:scale-105"
+											className="h-12 w-12 rounded-full bg-white object-cover shadow transition-transform duration-300 group-hover:scale-105"
 										/>
 										<div className="flex flex-col items-center">
-											<span className="text-[0.85rem] font-semibold text-white lg:text-[0.95rem]">
+											<span className="text-base leading-tight font-semibold text-white">
 												{officer.name}
 											</span>
-											<span className="text-[0.6rem] font-medium tracking-wide text-white/70 uppercase group-hover:text-white lg:text-[0.8rem]">
+											<span className="text-xs font-medium tracking-wide text-white/70 uppercase group-hover:text-white">
 												{officer.position}
 											</span>
 										</div>
@@ -1076,26 +1060,26 @@ export default function AboutUs() {
 							</div>
 						</div>
 						{/* Product & Area Management Modernized */}
-						<div className="flex flex-col gap-[16px]">
-							<span className="text-center text-[1rem] font-semibold tracking-wider text-white/80 uppercase">
+						<div className="flex flex-col gap-6">
+							<span className="text-center text-xl leading-tight font-bold tracking-wider text-white/80 uppercase">
 								Product &amp; Area Management
 							</span>
-							<div className="grid grid-cols-2 gap-x-[8px] gap-y-[14px] text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-x-[16px] lg:gap-y-[24px]">
+							<div className="grid grid-cols-2 gap-x-2 gap-y-5 text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-x-4 lg:gap-y-6">
 								{corporateProfile.product_management.map((officer, index) => (
 									<div
-										className="group flex flex-col items-center justify-center gap-[8px] rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-white/20 hover:shadow-lg"
+										className="group flex flex-col items-center justify-center gap-2 rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-white/20 hover:shadow-lg"
 										key={index}
 									>
 										<img
 											src={officer.image || logo}
 											alt={officer.name}
-											className="h-[48px] w-[48px] rounded-full bg-white object-cover shadow transition-transform duration-300 group-hover:scale-105"
+											className="h-12 w-12 rounded-full bg-white object-cover shadow transition-transform duration-300 group-hover:scale-105"
 										/>
 										<div className="flex flex-col items-center">
-											<span className="text-[0.85rem] font-semibold text-white group-hover:text-white lg:text-[0.95rem]">
+											<span className="text-base leading-tight font-semibold text-white group-hover:text-white">
 												{officer.name}
 											</span>
-											<span className="text-[0.6rem] font-medium tracking-wide text-white/70 uppercase group-hover:text-white lg:text-[0.8rem]">
+											<span className="text-xs font-medium tracking-wide text-white/70 uppercase group-hover:text-white">
 												{officer.position}
 											</span>
 										</div>
@@ -1110,10 +1094,9 @@ export default function AboutUs() {
 					data-scroll
 					className="relative flex flex-col items-center justify-center gap-12 px-4 py-12 text-[#396131] lg:px-12 lg:py-20"
 				>
-					<h2 className="mb-2 text-center text-3xl font-extrabold tracking-tight text-[#396131] sm:text-4xl lg:text-5xl">
+					<h2 className="mb-2 text-center text-3xl leading-tight font-bold tracking-tight text-[#396131] md:text-5xl">
 						Annual Reports
 					</h2>
-
 					<div className="grid w-full max-w-7xl grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
 						{annualReports.map((report, index) => (
 							<div
@@ -1126,48 +1109,54 @@ export default function AboutUs() {
 										alt={report.title}
 										className="h-60 w-full object-cover transition-transform duration-300 group-hover:scale-105"
 									/>
-									<span className="absolute bottom-4 left-1/2 w-[90%] -translate-x-1/2 rounded-lg bg-white/90 px-4 py-2 text-center text-lg font-bold text-[#396131] shadow-md backdrop-blur-sm sm:text-xl">
+									<span className="absolute bottom-4 left-1/2 w-[90%] -translate-x-1/2 rounded-lg bg-white/90 px-4 py-2 text-center text-xl font-bold text-[#396131] shadow-md backdrop-blur-sm md:text-2xl">
 										{report.title}
 									</span>
 								</div>
 								<div className="flex flex-1 flex-col gap-6 px-6 py-6">
 									<div>
-										<span className="mb-2 block text-base font-semibold text-[#396131]">
+										<span className="mb-2 block text-xl leading-tight font-bold text-[#396131]">
 											Corporate Highlights
 										</span>
 										<ul className="flex flex-col gap-2">
 											{report.corporate_highlights.map((highlight, idx) => (
 												<li key={idx} className="flex items-center gap-3">
 													<span className="inline-block h-4 w-4 flex-shrink-0 rounded bg-gradient-to-br from-[#396131] to-[#4a7a3f]"></span>
-													<span className="text-sm text-gray-700">{highlight}</span>
+													<span className="text-base leading-relaxed font-normal text-gray-700">
+														{highlight}
+													</span>
 												</li>
 											))}
 										</ul>
 									</div>
 									<div>
-										<span className="mb-2 block text-base font-semibold text-[#396131]">
+										<span className="mb-2 block text-xl leading-tight font-bold text-[#396131]">
 											Financial Performance
 										</span>
 										<div className="mb-3">
-											<span className="block text-sm font-bold text-[#396131]">Key Figures</span>
+											<span className="block text-base font-bold text-[#396131]">Key Figures</span>
 											<ul className="mt-1 flex flex-col gap-1">
 												{report.key_figures.map((figure, idx) => (
 													<li key={idx} className="flex items-center gap-2">
 														<span className="inline-block h-3 w-3 flex-shrink-0 rounded bg-[#396131]"></span>
-														<span className="text-xs text-gray-700">{figure}</span>
+														<span className="text-xs leading-relaxed font-normal text-gray-700">
+															{figure}
+														</span>
 													</li>
 												))}
 											</ul>
 										</div>
 										<div>
-											<span className="block text-sm font-bold text-[#396131]">
+											<span className="block text-base font-bold text-[#396131]">
 												Comparative Growth
 											</span>
 											<ul className="mt-1 flex flex-col gap-1">
 												{report.comparative_growth.map((growth, idx) => (
 													<li key={idx} className="flex items-center gap-2">
 														<span className="inline-block h-3 w-3 flex-shrink-0 rounded bg-[#4a7a3f]"></span>
-														<span className="text-xs text-gray-700">{growth}</span>
+														<span className="text-xs leading-relaxed font-normal text-gray-700">
+															{growth}
+														</span>
 													</li>
 												))}
 											</ul>
@@ -1176,7 +1165,7 @@ export default function AboutUs() {
 									<div className="mt-auto flex">
 										<NavLink
 											to=""
-											className="w-full rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7a3f] py-3 text-center text-base font-bold text-white shadow transition-all duration-200 hover:from-white hover:to-white hover:text-[#396131] hover:shadow-lg hover:ring-2 hover:ring-[#396131]"
+											className="w-full rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7a3f] py-3 text-center text-xl font-bold text-white shadow transition-all duration-200 hover:from-white hover:to-white hover:text-[#396131] hover:shadow-lg hover:ring-2 hover:ring-[#396131]"
 										>
 											See Full Report
 										</NavLink>

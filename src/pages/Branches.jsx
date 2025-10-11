@@ -91,7 +91,7 @@ function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 	return (
 		<div className="group relative flex flex-col items-start gap-4 rounded-xl border border-white/10 bg-white/10 p-5 shadow transition hover:shadow-md">
 			{atm && (
-				<p className="absolute top-3 right-3 rounded bg-green-100 px-1 py-0.5 text-[0.5rem] text-green-700 lg:text-xs">
+				<p className="absolute top-3 right-3 flex items-center gap-1 rounded bg-green-100 px-2 py-0.5 text-xs leading-relaxed font-normal text-green-700">
 					<CreditCard className="inline h-4 w-4" /> ATM
 				</p>
 			)}
@@ -100,13 +100,15 @@ function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 					<Icon className="h-6 w-6 text-white transition group-hover:scale-110" />
 				</span>
 				<div>
-					<h4 className="flex items-center gap-2 text-lg font-bold text-white">{name}</h4>
-					<p className="text-sm text-white/80">{address}</p>
+					<h4 className="flex items-center gap-2 text-xl leading-tight font-bold text-white">
+						{name}
+					</h4>
+					<p className="text-base leading-relaxed font-normal text-white/80">{address}</p>
 				</div>
 			</div>
 			<Link
 				to="/contact-us"
-				className="mt-auto flex cursor-pointer rounded-md bg-[#396131] px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-[#28541f]"
+				className="mt-auto flex cursor-pointer rounded-md bg-[#396131] px-4 py-2 text-base leading-relaxed font-semibold text-white shadow transition hover:bg-[#28541f]"
 				aria-label={`Contact ${name}`}
 			>
 				Contact Us
@@ -127,8 +129,8 @@ function AllBranchesModal({ title, branches, icon: Icon, onContact, onClose }) {
 				>
 					<X className="h-5 w-5 text-white" />
 				</button>
-				<h2 className="mb-6 flex items-center gap-2 text-2xl font-bold text-white">
-					<Icon className="h-6 w-6 text-white" />
+				<h2 className="mb-6 flex items-center gap-2 text-3xl leading-tight font-bold text-white md:text-5xl">
+					<Icon className="h-8 w-8 text-white" />
 					{title}
 				</h2>
 				<div className="grid grid-cols-1 gap-6 sm:grid-cols-2">

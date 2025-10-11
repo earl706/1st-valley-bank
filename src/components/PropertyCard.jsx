@@ -72,19 +72,19 @@ export default function PropertyCard({ property }) {
 					<div className="mb-5 space-y-2">
 						<div className="flex items-center gap-2 text-gray-500">
 							<MapPin size={16} className="text-gray-400" />
-							<span className="font-medium">{property.location}</span>
+							<span className="text-base leading-relaxed font-normal">{property.location}</span>
 						</div>
 						<div className="flex items-center gap-2 text-gray-500">
 							<Hash size={16} className="text-gray-400" />
-							<span className="font-mono font-medium">{property.propertyCode}</span>
+							<span className="text-base leading-relaxed font-normal">{property.propertyCode}</span>
 						</div>
 						<div className="flex items-center gap-2 text-gray-500">
 							<Home size={16} className="text-gray-400" />
-							<span className="font-medium">{property.date}</span>
+							<span className="text-base leading-relaxed font-normal">{property.date}</span>
 						</div>
 						<div className="flex items-center gap-2 text-gray-500">
 							<Ruler size={16} className="text-gray-400" />
-							<span className="font-medium">{property.area} sqm</span>
+							<span className="text-base leading-relaxed font-normal">{property.area} sqm</span>
 						</div>
 					</div>
 

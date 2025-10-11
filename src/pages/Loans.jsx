@@ -28,21 +28,10 @@ export default function Loans() {
 
 	// Carousel data for loans
 	const loanSlides = [
-		// {
-		// 	title: 'Loans',
-		// 	subtitle: 'Fuel your dreams with smart financing',
-		// 	description:
-		// 		"Whether you're growing a business, investing in agriculture, or managing daily needs, our flexible loan options come with competitive rates and easy terms. Experience fast approval, personalized support, and financial solutions designed to help you succeed.",
-		// 	features: [],
-		// 	image: img,
-		// 	imageAlt: 'Loans Overview',
-		// 	route: '/loans'
-		// },
 		{
 			title: 'Salary Loans',
 			subtitle: 'Cash when you need it',
-			description:
-				'Need cash before payday? Get quick approval, low rates, and flexible terms with our convenient salary loans.',
+			description: 'Quick, low-rate cash before payday.',
 			features: [],
 			image: img,
 			imageAlt: 'Salary Loans',
@@ -51,8 +40,7 @@ export default function Loans() {
 		{
 			title: 'Small Business Loan',
 			subtitle: 'Fuel your business growth',
-			description:
-				'Easy-access loans to upgrade, expand, or boost working capital. Take your business to the next level hassle-free.',
+			description: 'Simple loans to grow or fund your business.',
 			features: [],
 			image: img,
 			imageAlt: 'Small Business Loan',
@@ -61,8 +49,7 @@ export default function Loans() {
 		{
 			title: 'Small and Medium Enterprise',
 			subtitle: 'Scale your enterprise',
-			description:
-				'Take your SME to the next level with flexible financing, competitive rates, and support designed for business success.',
+			description: 'Flexible financing for SMEs to expand.',
 			features: [],
 			image: img,
 			imageAlt: 'SME Loans',
@@ -71,8 +58,7 @@ export default function Loans() {
 		{
 			title: 'Gold and Gems & Jewelry Business Loan',
 			subtitle: 'Turn assets into instant cash',
-			description:
-				'Secure, hassle-free loans with low rates to meet your urgent financial needs. Your valuable assets can work for you.',
+			description: 'Hassle-free loans using your assets.',
 			features: [],
 			image: img,
 			imageAlt: 'Gold and Gems Loans',
@@ -81,8 +67,7 @@ export default function Loans() {
 		{
 			title: 'Supervised Credit or Crop Production Loan',
 			subtitle: 'Supervised credit for success',
-			description:
-				'Grow your farm smarter! Agri loans with funds, technical help, and flexible repayment to boost your harvest and income.',
+			description: 'Agri loans with support, funds, and guidance.',
 			features: [],
 			image: img,
 			imageAlt: 'Supervised Credit Loans',
@@ -91,8 +76,7 @@ export default function Loans() {
 		{
 			title: 'Agricultural Loans',
 			subtitle: 'Sow success with smart financing',
-			description:
-				'Fast funds, low rates, and support to help your farm thrive! Get the financing you need to grow your agricultural business.',
+			description: 'Fast funds to help your farm grow.',
 			features: [],
 			image: img,
 			imageAlt: 'Agricultural Loans',
@@ -101,8 +85,7 @@ export default function Loans() {
 		{
 			title: 'Microfinance',
 			subtitle: 'Start small, dream big',
-			description:
-				'Get fast, affordable microfinance loans to jumpstart and grow your small business with confidence and support.',
+			description: 'Quick micro loans for small businesses.',
 			features: [],
 			image: img,
 			imageAlt: 'Microfinance Loans',
@@ -173,15 +156,17 @@ export default function Loans() {
 					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						{/* Section Header */}
 						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">LOANS</h2>
+							<h2 className="mb-4 text-5xl leading-tight font-bold text-white md:text-5xl lg:text-5xl">
+								LOANS
+							</h2>
 							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/80 to-[#a8ffc2]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-lg text-white/90">
+							<p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed font-normal text-white/90">
 								Discover our comprehensive loan solutions designed to meet your financial needs
 							</p>
 						</div>
 
 						{/* Loans Grid */}
-						<div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
+						<div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-3 lg:gap-12">
 							{loanSlides.map((loan, index) =>
 								loan.title == 'Loans' ? (
 									''
@@ -190,15 +175,12 @@ export default function Loans() {
 										key={index}
 										className="group relative flex h-full transform flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/90 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 									>
-										{/* Card gradient overlay */}
-										<div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-[#396131]/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-
 										<div className="relative flex flex-1 flex-col p-8 lg:p-10">
-											<div className="flex flex-1 flex-col items-center gap-6 sm:flex-row sm:items-start lg:gap-8">
+											<div className="flex flex-1 flex-col items-center gap-6 sm:items-start lg:gap-8">
 												{/* Improved Image Container */}
-												<div className="relative mb-8">
+												<div className="relative mb-4">
 													{/* Main image container */}
-													<div className="relative mx-auto h-40 w-40 overflow-hidden transition-all duration-300 group-hover:scale-105">
+													<div className="relative h-full w-full overflow-hidden transition-all duration-300 group-hover:scale-105">
 														<img
 															src={loan.image}
 															alt={loan.title}
@@ -209,10 +191,10 @@ export default function Loans() {
 
 												{/* Content */}
 												<div className="flex h-full flex-1 flex-col text-center sm:text-left">
-													<h3 className="mb-3 text-xl font-bold text-[#396131] transition-colors duration-300 group-hover:text-[#4a7a3f] lg:text-2xl">
+													<h3 className="mb-3 text-2xl leading-tight font-bold text-[#396131] transition-colors duration-300 group-hover:text-[#4a7a3f]">
 														{loan.title}
 													</h3>
-													<p className="mb-6 flex-1 text-sm leading-relaxed text-[#2e4935] lg:text-base">
+													<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-[#2e4935]">
 														{loan.description}
 													</p>
 
@@ -222,7 +204,7 @@ export default function Loans() {
 															to={loan.route}
 															className="group/btn inline-flex transform items-center justify-center rounded-xl bg-[#396131] px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[#4a7a3f] hover:shadow-xl focus:ring-4 focus:ring-[#396131]/25 focus:outline-none"
 														>
-															<span className="mr-2">Learn More</span>
+															<span className="mr-2 text-base font-semibold">Learn More</span>
 															<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
 														</NavLink>
 													</div>
@@ -243,7 +225,9 @@ export default function Loans() {
 						<div className="mb-16">
 							<div className="mb-6 flex items-center gap-4">
 								<div className="h-1 w-16 rounded-full bg-[#396131]"></div>
-								<h2 className="text-3xl font-bold text-gray-900 md:text-4xl">Loan services</h2>
+								<h2 className="text-3xl leading-tight font-bold text-gray-900 md:text-3xl">
+									Loan Services
+								</h2>
 							</div>
 						</div>
 
@@ -255,8 +239,10 @@ export default function Loans() {
 									<div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-xl bg-gray-100 transition-colors duration-300 group-hover:bg-[#396131]/10">
 										<Building2 className="h-8 w-8 text-gray-600 transition-colors duration-300 group-hover:text-[#396131]" />
 									</div>
-									<div className="mb-2 text-sm text-gray-500">Policy</div>
-									<h3 className="mb-4 text-xl font-bold text-gray-900">Legal policy for loans</h3>
+									<div className="mb-2 text-sm font-normal text-gray-500">Policy</div>
+									<h3 className="mb-4 text-2xl leading-tight font-bold text-gray-900">
+										Legal Policy for Loans
+									</h3>
 								</div>
 
 								<div className="flex items-center justify-between">
@@ -273,8 +259,10 @@ export default function Loans() {
 									<div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-xl bg-gray-100 transition-colors duration-300 group-hover:bg-[#396131]/10">
 										<Sprout className="h-8 w-8 text-gray-600 transition-colors duration-300 group-hover:text-[#396131]" />
 									</div>
-									<div className="mb-2 text-sm text-gray-500">Auto loan</div>
-									<h3 className="mb-4 text-xl font-bold text-gray-900">After sales service</h3>
+									<div className="mb-2 text-sm font-normal text-gray-500">Auto Loan</div>
+									<h3 className="mb-4 text-2xl leading-tight font-bold text-gray-900">
+										After Sales Service
+									</h3>
 								</div>
 
 								<div className="flex items-center justify-between">
@@ -291,8 +279,10 @@ export default function Loans() {
 									<div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-xl bg-gray-100 transition-colors duration-300 group-hover:bg-[#396131]/10">
 										<DollarSign className="h-8 w-8 text-gray-600 transition-colors duration-300 group-hover:text-[#396131]" />
 									</div>
-									<div className="mb-2 text-sm text-gray-500">Housing loan</div>
-									<h3 className="mb-4 text-xl font-bold text-gray-900">Payment solutions</h3>
+									<div className="mb-2 text-sm font-normal text-gray-500">Housing Loan</div>
+									<h3 className="mb-4 text-2xl leading-tight font-bold text-gray-900">
+										Payment Solutions
+									</h3>
 								</div>
 
 								<div className="flex items-center justify-between">
@@ -306,14 +296,14 @@ export default function Loans() {
 
 						{/* Additional Information */}
 						<div className="mt-16 text-center">
-							<p className="mx-auto mb-8 max-w-2xl text-gray-600">
+							<p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed font-normal text-gray-600">
 								Our comprehensive loan services extend beyond just lending. We provide complete
 								support throughout your loan journey with professional guidance and flexible
 								solutions.
 							</p>
 							<NavLink
 								to="/contact-us"
-								className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-8 py-4 font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#4a7a3f]"
+								className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#4a7a3f]"
 							>
 								Get Professional Advice
 								<ArrowRight className="ml-2 h-5 w-5" />

@@ -117,9 +117,7 @@ const NewsletterGrid = () => {
 			)}
 			<div className="mx-auto max-w-7xl">
 				<div className="mb-16 text-center">
-					<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
-						Latest Newsletter Issues
-					</h2>
+					<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">Newsletter</h2>
 					<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white to-white/80"></div>
 					<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
 						Stay updated with our curated collection of insights, trends, and innovations across
@@ -146,7 +144,7 @@ const NewsletterGrid = () => {
 								{/* Category Badge */}
 								<div className="absolute top-4 left-4">
 									<div className="rounded-full bg-white/90 px-3 py-1 shadow-lg backdrop-blur-sm">
-										<span className="text-xs font-semibold tracking-wide text-[#396131] uppercase">
+										<span className="text-xs font-bold tracking-wide text-[#396131] uppercase">
 											{newsletter.title}
 										</span>
 									</div>
@@ -157,7 +155,7 @@ const NewsletterGrid = () => {
 									<div className="rounded-full bg-[#396131]/90 px-3 py-1 shadow-lg backdrop-blur-sm">
 										<div className="flex items-center gap-1 text-white">
 											<Calendar size={12} />
-											<time className="text-xs font-medium">
+											<time className="text-xs leading-tight font-normal">
 												{new Date(newsletter.datetime).toLocaleDateString('en-US', {
 													month: 'short',
 													day: 'numeric'
@@ -171,37 +169,37 @@ const NewsletterGrid = () => {
 							{/* Content Section */}
 							<div className="flex flex-grow flex-col p-6">
 								<div className="flex flex-grow flex-col">
-									{/* Header */}
-									<h2 className="mb-3 text-xl leading-tight font-bold text-[#396131] transition-colors duration-200 group-hover:text-[#4a7a3f]">
+									{/* Section (Card) Header */}
+									<h2 className="mb-3 text-2xl leading-tight font-bold text-[#396131] transition-colors duration-200 group-hover:text-[#4a7a3f] md:text-2xl">
 										{newsletter.title}
 									</h2>
 
 									{/* Opening Paragraph */}
-									<p className="mb-4 line-clamp-3 text-sm leading-relaxed text-[#204927]">
+									<p className="mb-4 line-clamp-3 text-base leading-relaxed font-normal text-[#204927]">
 										{newsletter.description}
 									</p>
 
 									{/* Meta Info */}
-									<div className="mt-auto mb-6 flex items-center gap-4 text-xs text-[#32653f]/80">
+									<div className="mt-auto mb-6 flex items-center gap-4 text-sm leading-relaxed text-[#32653f]/80">
 										<div className="flex items-center gap-1">
-											<Eye size={14} />
-											<span>{newsletter.views}</span>
+											<Eye size={16} />
+											<span className="font-normal">{newsletter.views}</span>
 										</div>
 										<div className="flex items-center gap-1">
-											<Clock size={14} />
-											<span>{newsletter.readTime} read</span>
+											<Clock size={16} />
+											<span className="font-normal">{newsletter.readTime} read</span>
 										</div>
 									</div>
 								</div>
 
 								{/* Action Button */}
 								<button
-									className="group/btn mt-4 flex w-full transform cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#396131] px-4 py-3 font-semibold text-white transition-all duration-200 hover:scale-105 hover:bg-[#2d4d26] hover:shadow-lg active:scale-95"
+									className="group/btn mt-4 flex w-full transform cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#396131] px-4 py-3 text-base font-bold text-white transition-all duration-200 hover:scale-105 hover:bg-[#2d4d26] hover:shadow-lg active:scale-95"
 									onClick={() => openPDF(newsletter.pdf, newsletter.title)}
 								>
-									<span className="text-sm">{newsletter.see_full_article_button}</span>
+									<span className="text-base font-bold">{newsletter.see_full_article_button}</span>
 									<ArrowRight
-										size={16}
+										size={18}
 										className="transition-transform duration-300 group-hover/btn:translate-x-1"
 									/>
 								</button>
@@ -214,34 +212,34 @@ const NewsletterGrid = () => {
 				<div className="mt-12 flex flex-col items-center gap-4">
 					<div className="flex items-center gap-2">
 						<button
-							className="cursor-pointer rounded-lg border border-white bg-[#3e7a3e] px-3 py-2 font-semibold text-white transition-all duration-200 hover:bg-white hover:text-[#396131] disabled:opacity-50"
+							className="cursor-pointer rounded-lg border border-white bg-[#3e7a3e] px-3 py-2 text-base font-bold text-white transition-all duration-200 hover:bg-white hover:text-[#396131] disabled:opacity-50"
 							onClick={() => handlePageChange(currentPage - 1)}
 							disabled={currentPage === 1}
 						>
-							Previous
+							<span className="text-base font-bold">Previous</span>
 						</button>
 						{Array.from({ length: totalPages }, (_, idx) => (
 							<button
 								key={idx + 1}
-								className={`cursor-pointer rounded-lg border px-3 py-2 font-semibold ${
+								className={`cursor-pointer rounded-lg border px-3 py-2 text-base font-bold ${
 									currentPage === idx + 1
 										? 'border-white bg-[#396131] text-white'
 										: 'border-white bg-white text-[#396131] hover:bg-[#396131] hover:text-white'
 								} transition-all duration-200`}
 								onClick={() => handlePageChange(idx + 1)}
 							>
-								{idx + 1}
+								<span className="text-base font-bold">{idx + 1}</span>
 							</button>
 						))}
 						<button
-							className="cursor-pointer rounded-lg border border-white bg-[#3e7a3e] px-3 py-2 font-semibold text-white transition-all duration-200 hover:bg-white hover:text-[#396131] disabled:opacity-50"
+							className="cursor-pointer rounded-lg border border-white bg-[#3e7a3e] px-3 py-2 text-base font-bold text-white transition-all duration-200 hover:bg-white hover:text-[#396131] disabled:opacity-50"
 							onClick={() => handlePageChange(currentPage + 1)}
 							disabled={currentPage === totalPages}
 						>
-							Next
+							<span className="text-base font-bold">Next</span>
 						</button>
 					</div>
-					<div className="text-xs text-white/80">
+					<div className="text-xs leading-relaxed font-normal text-white/80">
 						Page {currentPage} of {totalPages}
 					</div>
 				</div>

@@ -90,7 +90,7 @@ function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 	return (
 		<div className="group relative flex flex-col items-start gap-4 rounded-xl border border-white/10 bg-white/10 p-5 shadow transition hover:shadow-md">
 			{atm && (
-				<p className="absolute top-3 right-3 rounded bg-green-100 px-1 py-0.5 text-[0.5rem] text-green-700 lg:text-xs">
+				<p className="absolute top-3 right-3 rounded bg-green-100 px-1 py-0.5 text-xs leading-tight font-normal text-green-700 lg:text-xs">
 					<CreditCard className="inline h-4 w-4" /> ATM
 				</p>
 			)}
@@ -99,13 +99,15 @@ function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 					<Icon className="h-6 w-6 text-white transition group-hover:scale-110" />
 				</span>
 				<div>
-					<h4 className="flex items-center gap-2 text-lg font-bold text-white">{name}</h4>
-					<p className="text-sm text-white/80">{address}</p>
+					<h4 className="flex items-center gap-2 text-xl leading-tight font-bold text-white">
+						{name}
+					</h4>
+					<p className="text-base leading-relaxed font-normal text-white/80">{address}</p>
 				</div>
 			</div>
 			<Link
 				to="/contact-us"
-				className="mt-auto flex cursor-pointer rounded-md bg-[#396131] px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-[#28541f]"
+				className="mt-auto flex cursor-pointer rounded-md bg-[#396131] px-4 py-2 text-base leading-tight font-semibold text-white shadow transition hover:bg-[#28541f]"
 				aria-label={`Contact ${name}`}
 			>
 				Contact Us
@@ -118,7 +120,7 @@ function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 function AllBranchesModal({ title, branches, icon: Icon, onContact, onClose }) {
 	return (
 		<div className="fixed inset-0 z-99 flex items-center justify-center bg-black/40">
-			<div className="relative w-full max-w-2xl rounded-xl bg-gradient-to-l from-[#396131] to-[#4a7c3a] p-8 shadow-2xl">
+			<div className="relative w-full max-w-7xl rounded-xl bg-gradient-to-l from-[#396131] to-[#4a7c3a] p-8 shadow-2xl">
 				<button
 					onClick={onClose}
 					aria-label="Close"
@@ -126,7 +128,7 @@ function AllBranchesModal({ title, branches, icon: Icon, onContact, onClose }) {
 				>
 					<X className="h-5 w-5 text-white" />
 				</button>
-				<h2 className="mb-6 flex items-center gap-2 text-2xl font-bold text-white">
+				<h2 className="mb-6 flex items-center gap-2 text-3xl leading-tight font-bold text-white md:text-5xl">
 					<Icon className="h-6 w-6 text-white" />
 					{title}
 				</h2>
@@ -192,11 +194,11 @@ export default function ATMLocator() {
 			/>
 			<div className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-4 py-20">
 				<div className="mb-16 text-center">
-					<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+					<h1 className="mb-4 text-5xl leading-tight font-bold text-white md:text-6xl">
 						ATM LOCATOR
-					</h2>
+					</h1>
 					<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white to-[#E9F2EA]"></div>
-					<p className="mx-auto mt-6 max-w-2xl text-lg text-gray-200">
+					<p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed font-normal text-gray-200">
 						See which branches offer ATM facilities – across Mindanao, Visayas, and the regions.
 					</p>
 				</div>
@@ -204,8 +206,8 @@ export default function ATMLocator() {
 					{/* Mindanao Section */}
 					<section>
 						<div className="mb-5 flex items-center justify-between">
-							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
-								<MapPinned className="h-6 w-6 text-white" />
+							<h2 className="flex items-center gap-2 text-3xl leading-tight font-bold text-white md:text-5xl">
+								<MapPinned className="h-7 w-7 text-white" />
 								Mindanao Branches
 							</h2>
 							{mindanaoBranches.length > 3 && (
@@ -224,8 +226,8 @@ export default function ATMLocator() {
 					{/* Visayas Section */}
 					<section>
 						<div className="mb-5 flex items-center justify-between">
-							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
-								<MapPinned className="h-6 w-6 text-white" />
+							<h2 className="flex items-center gap-2 text-3xl leading-tight font-bold text-white md:text-5xl">
+								<MapPinned className="h-7 w-7 text-white" />
 								Visayas Branches
 							</h2>
 							{visayasBranches.length > 3 && (

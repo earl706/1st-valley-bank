@@ -396,83 +396,84 @@ export default function LoanQualification() {
 
 	if (showResults && qualificationResult) {
 		return (
-			<div className="mt-8 min-h-screen py-12 lg:mt-12">
-				<div className="max -w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div className="min-h-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-12">
+				<div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
 					{/* Header */}
-					<div className="mb-8 text-center">
+					<div className="mb-10 text-center">
 						<button
 							onClick={() => navigate(-1)}
-							className="cursor-pointermb-4 inline-flex items-center gap-2 text-[#396131] transition hover:underline"
+							className="mb-4 inline-flex items-center gap-2 text-sm leading-tight font-normal text-white transition hover:underline"
 						>
 							<ArrowLeft size={20} />
-							<span className="font-medium">Back to Loans</span>
+							<span className="font-normal">Back to Loans</span>
 						</button>
-						<h1 className="text-3xl font-bold text-[#396131] md:text-4xl">
+						<h1 className="text-3xl leading-tight font-bold text-white md:text-5xl">
 							Loan Qualification Results
 						</h1>
-						<p className="mt-2 text-lg text-[#396131] opacity-80">
+						<p className="mt-3 text-base leading-relaxed font-normal text-white opacity-80">
 							Assessment for {loanType?.replace('-', ' ').toUpperCase()} Loan
 						</p>
 					</div>
 
 					{/* Results Card */}
-					<div className="rounded-xl border border-[#e5eae5] bg-white p-8 shadow">
+					<div className="rounded-xl border border-white/20 bg-white/10 p-8 shadow">
 						<div className="text-center">
 							{qualificationResult.qualified ? (
-								<CheckCircle size={72} className="mx-auto text-[#396131]" />
+								<CheckCircle size={72} className="mx-auto text-white" />
 							) : (
-								<XCircle size={72} className="mx-auto text-[#396131] opacity-40" />
+								<XCircle size={72} className="mx-auto text-white opacity-40" />
 							)}
 
 							<h2
-								className={`mt-4 text-2xl font-bold ${
-									qualificationResult.qualified ? 'text-[#396131]' : 'text-[#396131] opacity-60'
+								className={`mt-4 text-2xl leading-tight font-bold md:text-3xl ${
+									qualificationResult.qualified ? 'text-white' : 'text-white opacity-60'
 								}`}
 							>
 								{qualificationResult.qualified ? 'QUALIFIED' : 'NOT QUALIFIED'}
 							</h2>
 
 							<div className="mt-4">
-								<div className="text-4xl font-bold text-[#396131]">
+								<div className="text-5xl leading-tight font-bold text-white">
 									{Math.round(qualificationResult.score)}%
 								</div>
-								<div className="text-sm text-[#396131] opacity-60">Qualification Score</div>
+								<div className="text-xs leading-tight font-normal text-white opacity-60">
+									Qualification Score
+								</div>
 							</div>
 
-							<p className="mt-6 text-lg text-[#396131] opacity-90">
+							<p className="mt-6 text-base leading-relaxed font-normal text-white opacity-90">
 								{qualificationResult.message}
 							</p>
 						</div>
 
 						{/* Recommendations */}
-						<div className="mt-8">
-							<h3 className="mb-4 text-xl font-semibold text-[#396131]">Recommendations</h3>
+						<div className="mt-10">
+							<h3 className="mb-4 text-xl leading-tight font-bold text-white">Recommendations</h3>
 							<ul className="space-y-2">
 								{qualificationResult.recommendations.map((rec, index) => (
 									<li key={index} className="flex items-start gap-3">
-										<AlertCircle
-											size={20}
-											className="mt-0.5 flex-shrink-0 text-[#396131] opacity-70"
-										/>
-										<span className="text-[#396131] opacity-90">{rec}</span>
+										<AlertCircle size={20} className="mt-0.5 flex-shrink-0 text-white opacity-70" />
+										<span className="text-base leading-relaxed font-normal text-white opacity-90">
+											{rec}
+										</span>
 									</li>
 								))}
 							</ul>
 						</div>
 
 						{/* Action Buttons */}
-						<div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
+						<div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
 							{qualificationResult.qualified ? (
 								<>
 									<button
 										onClick={() => navigate('/contact-us')}
-										className="rounded-lg bg-[#396131] px-8 py-3 font-semibold text-white transition-all hover:bg-[#31542B] focus:ring-2 focus:ring-[#396131] focus:outline-none"
+										className="rounded-lg bg-white/90 px-8 py-3 text-base leading-tight font-bold text-[#396131] transition-all hover:bg-white focus:ring-2 focus:ring-white focus:outline-none"
 									>
 										Apply for Loan
 									</button>
 									<button
 										onClick={resetAssessment}
-										className="rounded-lg border border-[#396131] bg-white px-8 py-3 font-semibold text-[#396131] transition-all hover:bg-[#f7faf7] focus:ring-2 focus:ring-[#396131] focus:outline-none"
+										className="rounded-lg border border-white bg-transparent px-8 py-3 text-base leading-tight font-bold text-white transition-all hover:bg-white/10 focus:ring-2 focus:ring-white focus:outline-none"
 									>
 										Retake Assessment
 									</button>
@@ -481,13 +482,13 @@ export default function LoanQualification() {
 								<>
 									<button
 										onClick={() => navigate('/contact-us')}
-										className="cursor-pointer rounded-lg bg-[#396131] px-8 py-3 font-semibold text-white transition-all hover:bg-[#31542B] focus:ring-2 focus:ring-[#396131] focus:outline-none"
+										className="cursor-pointer rounded-lg bg-white/90 px-8 py-3 text-base leading-tight font-bold text-[#396131] transition-all hover:bg-white focus:ring-2 focus:ring-white focus:outline-none"
 									>
 										Consult with Expert
 									</button>
 									<button
 										onClick={resetAssessment}
-										className="cursor-pointer rounded-lg border border-[#396131] bg-white px-8 py-3 font-semibold text-[#396131] transition-all hover:bg-[#f7faf7] focus:ring-2 focus:ring-[#396131] focus:outline-none"
+										className="cursor-pointer rounded-lg border border-white bg-transparent px-8 py-3 text-base leading-tight font-bold text-white transition-all hover:bg-white/10 focus:ring-2 focus:ring-white focus:outline-none"
 									>
 										Retake Assessment
 									</button>
@@ -501,21 +502,21 @@ export default function LoanQualification() {
 	}
 
 	return (
-		<div className="mt-8 min-h-screen py-12 lg:mt-12">
+		<div className="min-h-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-12">
 			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 				{/* Header */}
-				<div className="mb-8 text-center">
+				<div className="mb-10 text-center">
 					<button
 						onClick={() => navigate(-1)}
-						className="mb-4 inline-flex cursor-pointer items-center gap-2 text-[#396131] transition hover:underline"
+						className="mb-4 inline-flex cursor-pointer items-center gap-2 text-sm leading-tight font-normal text-white transition hover:underline"
 					>
 						<ArrowLeft size={20} />
-						<span className="font-medium">Back to Loans</span>
+						<span className="font-normal">Back to Loans</span>
 					</button>
-					<h1 className="text-3xl font-bold text-[#396131] md:text-4xl">
+					<h1 className="text-3xl leading-tight font-bold text-white md:text-5xl">
 						Loan Qualification Assessment
 					</h1>
-					<p className="mt-2 text-lg text-[#396131] opacity-80">
+					<p className="mt-3 text-base leading-relaxed font-normal text-white opacity-80">
 						Answer a few questions to determine your eligibility for{' '}
 						{loanType?.replace('-', ' ').toUpperCase()} Loan
 					</p>
@@ -523,33 +524,35 @@ export default function LoanQualification() {
 
 				{/* Progress Bar */}
 				<div className="mb-8">
-					<div className="mb-2 flex items-center justify-between text-sm text-[#396131] opacity-80">
+					<div className="mb-2 flex items-center justify-between text-xs leading-tight font-normal text-white opacity-80">
 						<span>
 							Question {currentStep + 1} of {questions.length}
 						</span>
 						<span>{Math.round(((currentStep + 1) / questions.length) * 100)}% Complete</span>
 					</div>
-					<div className="h-2 w-full rounded-full bg-[#e5eae5]">
+					<div className="h-2 w-full rounded-full bg-white/20">
 						<div
-							className="h-2 rounded-full bg-[#396131] transition-all duration-300"
+							className="h-2 rounded-full bg-white transition-all duration-300"
 							style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
 						></div>
 					</div>
 				</div>
 
 				{/* Question Card */}
-				<div className="rounded-xl border border-[#e5eae5] bg-white p-8 shadow">
-					<h2 className="mb-6 text-xl font-semibold text-[#396131]">{currentQuestion.question}</h2>
+				<div className="rounded-xl border border-white/20 bg-white/10 p-8 shadow">
+					<h2 className="mb-6 text-2xl leading-tight font-bold text-white">
+						{currentQuestion.question}
+					</h2>
 
 					<div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
 						{currentQuestion.options.map((option) => (
 							<button
 								key={option.value}
 								onClick={() => handleAnswer(option.value)}
-								className={`w-full cursor-pointer rounded-lg border-2 p-4 text-left transition-all ${
+								className={`w-full cursor-pointer rounded-lg border-2 p-4 text-left text-base leading-relaxed font-normal transition-all ${
 									answers[currentQuestion.id] === option.value
-										? 'border-[#396131] bg-[#f7faf7] font-semibold text-[#396131]'
-										: 'border-[#e5eae5] text-[#396131] hover:border-[#396131] hover:bg-[#f7faf7]'
+										? 'border-white bg-white/20 font-bold text-white'
+										: 'border-white/20 text-white hover:border-white hover:bg-white/10'
 								}`}
 							>
 								{option.label}
@@ -562,7 +565,7 @@ export default function LoanQualification() {
 						<button
 							onClick={prevStep}
 							disabled={currentStep === 0}
-							className="cursor-pointer rounded-lg border border-[#e5eae5] bg-white px-6 py-3 font-semibold text-[#396131] transition-all hover:bg-[#f7faf7] focus:ring-2 focus:ring-[#396131] focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+							className="cursor-pointer rounded-lg border border-white/20 bg-transparent px-6 py-3 text-base leading-tight font-bold text-white transition-all hover:bg-white/10 focus:ring-2 focus:ring-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
 						>
 							Previous
 						</button>
@@ -570,7 +573,7 @@ export default function LoanQualification() {
 						<button
 							onClick={nextStep}
 							disabled={!answers[currentQuestion.id]}
-							className="cursor-pointer rounded-lg bg-[#396131] px-6 py-3 font-semibold text-white transition-all hover:bg-[#31542B] focus:ring-2 focus:ring-[#396131] focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+							className="cursor-pointer rounded-lg bg-white/90 px-6 py-3 text-base leading-tight font-bold text-[#396131] transition-all hover:bg-white focus:ring-2 focus:ring-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
 						>
 							{currentStep === questions.length - 1 ? 'Get Results' : 'Next'}
 						</button>

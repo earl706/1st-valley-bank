@@ -234,11 +234,11 @@ export default function SavingsAccount() {
 				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+							<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
 								SAVINGS ACCOUNTS
 							</h2>
 							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/90 to-[#aee3b7]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
+							<p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed font-normal text-white/80">
 								Find the perfect savings account for your needs
 							</p>
 						</div>
@@ -258,46 +258,46 @@ export default function SavingsAccount() {
 										/>
 									</div>
 									<div className="flex w-full flex-1 flex-col p-8">
-										<h3 className="mt-2 mb-4 text-center text-xl font-bold text-[#185027]">
+										<h3 className="mt-2 mb-4 text-center text-2xl leading-tight font-bold text-[#185027]">
 											{account.title}
 										</h3>
-										<p className="mb-6 text-center leading-relaxed text-[#35603e]">
+										<p className="mb-6 text-center text-base leading-relaxed font-normal text-[#35603e]">
 											{account.description}
 										</p>
 										<div className="mb-6 space-y-3">
 											<div className="flex justify-between">
-												<span className="text-sm font-medium text-[#396131]/80">
+												<span className="text-sm leading-relaxed font-normal text-[#396131]/80">
 													Initial Deposit:
 												</span>
-												<span className="text-sm font-semibold text-[#236c36]">
+												<span className="text-sm leading-relaxed font-bold text-[#236c36]">
 													{account.initialDeposit}
 												</span>
 											</div>
 											<div className="flex justify-between">
-												<span className="text-sm font-medium text-[#396131]/80">
+												<span className="text-sm leading-relaxed font-normal text-[#396131]/80">
 													Minimum Balance:
 												</span>
-												<span className="text-sm font-semibold text-[#236c36]">
+												<span className="text-sm leading-relaxed font-bold text-[#236c36]">
 													{account.minimumBalance}
 												</span>
 											</div>
 											<div className="flex justify-between">
-												<span className="text-sm font-medium text-[#396131]/80">
+												<span className="text-sm leading-relaxed font-normal text-[#396131]/80">
 													Interest Rate:
 												</span>
-												<span className="text-sm font-semibold text-[#236c36]">
+												<span className="text-sm leading-relaxed font-bold text-[#236c36]">
 													{account.interestRate}
 												</span>
 											</div>
 										</div>
 										{/* 
 										<div className="mb-6">
-											<h4 className="mb-3 text-sm font-semibold text-[#185027]">Key Features:</h4>
+											<h4 className="mb-3 text-base font-bold leading-tight text-[#185027]">Key Features:</h4>
 											<ul className="space-y-2">
 												{account.features.map((feature, featureIndex) => (
 													<li
 														key={featureIndex}
-														className="flex items-center gap-2 text-sm text-[#35603e]"
+														className="flex items-center gap-2 text-sm text-[#35603e] leading-relaxed font-normal"
 													>
 														<div className="h-1.5 w-1.5 rounded-full bg-[#396131]"></div>
 														{feature}
@@ -307,7 +307,7 @@ export default function SavingsAccount() {
 										</div> */}
 										<NavLink
 											to={account.route}
-											className="mt-auto flex w-full cursor-pointer items-center justify-center rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-3 text-center font-semibold text-white transition-all duration-300 hover:from-[#335d2b] hover:to-[#3b8a4a] hover:shadow-lg"
+											className="mt-auto flex w-full cursor-pointer items-center justify-center rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-3 text-center text-base leading-tight font-bold text-white transition-all duration-300 hover:from-[#335d2b] hover:to-[#3b8a4a] hover:shadow-lg"
 										>
 											Open Account
 										</NavLink>
@@ -322,28 +322,38 @@ export default function SavingsAccount() {
 				<section id="requirements" data-scroll className="bg-white text-gray-900">
 					<div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
 						<div className="mb-12 text-center">
-							<h2 className="mb-2 text-3xl font-bold sm:text-4xl">Account Opening Requirements</h2>
-							<p className="text-lg text-gray-500">What you need to open a savings account</p>
+							<h2 className="mb-2 text-3xl leading-tight font-bold text-gray-900 md:text-5xl">
+								Account Opening Requirements
+							</h2>
+							<p className="text-base leading-relaxed font-normal text-gray-500">
+								What you need to open a savings account
+							</p>
 						</div>
 
 						<div className="grid gap-8 md:grid-cols-2">
 							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
 								<div className="mb-6 flex items-center gap-4">
 									<User className="h-8 w-8 text-gray-400" />
-									<h3 className="text-xl font-bold">Individual Requirements</h3>
+									<h3 className="text-2xl leading-tight font-bold">Individual Requirements</h3>
 								</div>
 								<ul className="space-y-4">
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Colored photocopy of 2 Valid IDs</span>
+										<span className="text-base leading-relaxed font-normal">
+											Colored photocopy of 2 Valid IDs
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Three pieces 2x2 pictures</span>
+										<span className="text-base leading-relaxed font-normal">
+											Three pieces 2x2 pictures
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>If you have business - Business Permit, DTI Permit</span>
+										<span className="text-base leading-relaxed font-normal">
+											If you have business - Business Permit, DTI Permit
+										</span>
 									</li>
 								</ul>
 							</div>
@@ -351,32 +361,42 @@ export default function SavingsAccount() {
 							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
 								<div className="mb-6 flex items-center gap-4">
 									<Building className="h-8 w-8 text-gray-400" />
-									<h3 className="text-xl font-bold">Corporate Requirements</h3>
+									<h3 className="text-2xl leading-tight font-bold">Corporate Requirements</h3>
 								</div>
 								<ul className="space-y-4">
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>SEC Certificate of Registration</span>
+										<span className="text-base leading-relaxed font-normal">
+											SEC Certificate of Registration
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Notarized Secretary Certificate</span>
+										<span className="text-base leading-relaxed font-normal">
+											Notarized Secretary Certificate
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Articles Of Incorporation & By-Laws</span>
+										<span className="text-base leading-relaxed font-normal">
+											Articles Of Incorporation & By-Laws
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Notarized Board Resolution</span>
+										<span className="text-base leading-relaxed font-normal">
+											Notarized Board Resolution
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Two Valid IDs of Signatories</span>
+										<span className="text-base leading-relaxed font-normal">
+											Two Valid IDs of Signatories
+										</span>
 									</li>
 									<li className="flex items-start gap-3">
 										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span>Business Permit</span>
+										<span className="text-base leading-relaxed font-normal">Business Permit</span>
 									</li>
 								</ul>
 							</div>

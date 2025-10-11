@@ -51,17 +51,19 @@ export default function LoanSubcategoriesSection({
 				<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					{/* Call to Action Only */}
 					<div className="text-center">
-						<h2 className="mb-6 text-2xl font-bold text-white md:text-3xl">{ctaTitle}</h2>
+						<h2 className="mb-6 text-3xl leading-tight font-bold text-white md:text-5xl">
+							{ctaTitle}
+						</h2>
 						<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
 							<NavLink
 								to={ctaPrimaryLink}
-								className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 font-semibold text-[#396131] transition-all duration-300 hover:bg-[#edf8ee] focus:ring-4 focus:ring-blue-300 focus:outline-none"
+								className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 text-base leading-relaxed font-semibold text-[#396131] transition-all duration-300 hover:bg-[#edf8ee] focus:ring-4 focus:ring-blue-300 focus:outline-none"
 							>
 								{ctaPrimaryText}
 							</NavLink>
 							<NavLink
 								to={ctaSecondaryLink}
-								className="inline-flex items-center justify-center rounded-xl border-2 border-white px-8 py-4 font-semibold text-white transition-all duration-300 hover:bg-white hover:text-[#396131] focus:ring-4 focus:ring-blue-300 focus:outline-none"
+								className="inline-flex items-center justify-center rounded-xl border-2 border-white px-8 py-4 text-base leading-relaxed font-semibold text-white transition-all duration-300 hover:bg-white hover:text-[#396131] focus:ring-4 focus:ring-blue-300 focus:outline-none"
 							>
 								{ctaSecondaryText}
 							</NavLink>
@@ -82,19 +84,19 @@ export default function LoanSubcategoriesSection({
 					{/* Section Header */}
 					<div className="mb-16 text-center">
 						<div className="mb-4">
-							<span className="inline-block rounded-full bg-white/20 px-4 py-2 text-sm font-semibold tracking-wider text-white uppercase">
+							<span className="inline-block rounded-full bg-white/20 px-4 py-2 text-xs font-semibold tracking-wider text-white uppercase">
 								{tagText}
 							</span>
 						</div>
 
 						<h2
-							className="mb-6 text-4xl leading-tight font-bold md:text-5xl"
+							className="mb-6 text-3xl leading-tight font-bold md:text-5xl"
 							style={{ color: '#fff' }}
 						>
 							{sectionTitle}
 						</h2>
 
-						<p className="mx-auto max-w-3xl text-xl leading-relaxed text-white/90">
+						<p className="mx-auto max-w-3xl text-base leading-relaxed font-normal text-white/90">
 							{sectionSubtitle}
 						</p>
 					</div>
@@ -131,12 +133,12 @@ export default function LoanSubcategoriesSection({
 										{/* Content */}
 										<div className="flex h-full flex-1 flex-col text-center sm:text-left">
 											<h3
-												className="mb-3 text-xl font-bold transition-colors duration-300 lg:text-2xl"
+												className="mb-3 text-2xl leading-tight font-bold transition-colors duration-300"
 												style={{ color: brandColor }}
 											>
 												{type.title}
 											</h3>
-											<p className="mb-6 flex-1 text-sm leading-relaxed text-[#185027] lg:text-base">
+											<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-[#185027]">
 												{type.description}
 											</p>
 
@@ -149,7 +151,7 @@ export default function LoanSubcategoriesSection({
 																className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
 																style={{ backgroundColor: brandColor }}
 															></div>
-															<span className="text-xs text-[#185027]">{feature}</span>
+															<span className="text-xs font-normal text-[#185027]">{feature}</span>
 														</div>
 													))}
 												</div>
@@ -160,7 +162,7 @@ export default function LoanSubcategoriesSection({
 												{showModal ? (
 													<button
 														onClick={(e) => handleViewDetails(e, type)}
-														className="group/btn inline-flex transform cursor-pointer items-center justify-center rounded-xl px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus:ring-4 focus:outline-none"
+														className="group/btn inline-flex transform cursor-pointer items-center justify-center rounded-xl px-6 py-3 text-base leading-relaxed font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus:ring-4 focus:outline-none"
 														style={{
 															backgroundColor: brandColor,
 															'--tw-ring-color': `${brandColor}40`
@@ -179,7 +181,7 @@ export default function LoanSubcategoriesSection({
 												) : (
 													<NavLink
 														to={type.route}
-														className="group/btn inline-flex transform cursor-pointer items-center justify-center rounded-xl px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus:ring-4 focus:outline-none"
+														className="group/btn inline-flex transform cursor-pointer items-center justify-center rounded-xl px-6 py-3 text-base leading-relaxed font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus:ring-4 focus:outline-none"
 														style={{
 															backgroundColor: brandColor,
 															'--tw-ring-color': `${brandColor}40`
@@ -200,7 +202,7 @@ export default function LoanSubcategoriesSection({
 												{showModal && (
 													<button
 														onClick={() => handleApplyNow(type)}
-														className="inline-flex cursor-pointer items-center justify-center rounded-xl border-2 px-6 py-3 font-semibold transition-all duration-300 hover:scale-105 focus:ring-4 focus:outline-none"
+														className="inline-flex cursor-pointer items-center justify-center rounded-xl border-2 px-6 py-3 text-base leading-relaxed font-semibold transition-all duration-300 hover:scale-105 focus:ring-4 focus:outline-none"
 														style={{
 															borderColor: brandColor,
 															color: brandColor,
@@ -230,19 +232,19 @@ export default function LoanSubcategoriesSection({
 					{showCallToAction && (
 						<div className="mt-16 text-center">
 							<div className="mx-auto max-w-2xl">
-								<h3 className="mb-4 text-2xl font-bold text-[#185027] dark:text-white">
+								<h3 className="mb-4 text-2xl leading-tight font-bold text-[#185027] dark:text-white">
 									{ctaTitle}
 								</h3>
 								<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
 									<NavLink
 										to={ctaPrimaryLink}
-										className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-8 py-4 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#4a7a3f] focus:ring-4 focus:ring-[#39613140] focus:outline-none"
+										className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base leading-relaxed font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#4a7a3f] focus:ring-4 focus:ring-[#39613140] focus:outline-none"
 									>
 										{ctaPrimaryText}
 									</NavLink>
 									<NavLink
 										to={ctaSecondaryLink}
-										className="inline-flex items-center justify-center rounded-xl border-2 border-[#396131] px-8 py-4 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#396131] hover:text-white focus:ring-4 focus:ring-[#39613140] focus:outline-none"
+										className="inline-flex items-center justify-center rounded-xl border-2 border-[#396131] px-8 py-4 text-base leading-relaxed font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#396131] hover:text-white focus:ring-4 focus:ring-[#39613140] focus:outline-none"
 									>
 										{ctaSecondaryText}
 									</NavLink>

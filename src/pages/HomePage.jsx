@@ -323,7 +323,9 @@ export default function HomePage() {
 			<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20 text-white">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div className="mb-16 text-center">
-						<h2 className="mb-4 text-4xl font-bold text-white">Your Lifetime Friend in Banking</h2>
+						<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
+							Your Lifetime Friend in Banking
+						</h2>
 					</div>
 
 					<div className="grid gap-8 md:grid-cols-3">
@@ -343,8 +345,10 @@ export default function HomePage() {
 									</div>
 								</div>
 
-								<h3 className="mb-4 text-2xl font-bold text-white">{service.title}</h3>
-								<p className="mb-6 flex-1 text-base leading-relaxed text-white/80">
+								<h3 className="mb-4 text-2xl leading-tight font-bold text-white">
+									{service.title}
+								</h3>
+								<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-white/80">
 									{service.description}
 								</p>
 
@@ -365,7 +369,7 @@ export default function HomePage() {
 			<section className="bg-[#E9F2EA] py-20">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div className="mb-16 text-center">
-						<h2 className="mb-4 text-4xl font-bold text-gray-900">
+						<h2 className="mb-4 text-3xl leading-tight font-bold text-gray-900 md:text-5xl">
 							Banking That Stays by Your Side
 						</h2>
 					</div>
@@ -385,11 +389,15 @@ export default function HomePage() {
 									</div>
 								</div>
 
-								<h3 className="mb-4 text-2xl font-bold text-gray-900">{feature.title}</h3>
-								<p className="mb-4 flex-1 text-base leading-relaxed text-gray-600">
+								<h3 className="mb-4 text-2xl leading-tight font-bold text-gray-900">
+									{feature.title}
+								</h3>
+								<p className="mb-4 flex-1 text-base leading-relaxed font-normal text-gray-600">
 									{feature.description}
 								</p>
-								<div className="mt-auto text-2xl font-bold text-[#396131]">{feature.stats}</div>
+								<div className="mt-auto text-xl leading-tight font-bold text-[#396131]">
+									{feature.stats}
+								</div>
 							</div>
 						))}
 					</div>
@@ -400,7 +408,9 @@ export default function HomePage() {
 			<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<div className="mb-16 text-center">
-						<h2 className="mb-4 text-4xl font-bold text-white">Trusted by Our Community</h2>
+						<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
+							Trusted by Our Community
+						</h2>
 					</div>
 
 					<div className="grid gap-8 md:grid-cols-3">
@@ -420,8 +430,12 @@ export default function HomePage() {
 										</div>
 									</div>
 									<div className="ml-4">
-										<h4 className="text-base font-semibold text-white">{testimonial.name}</h4>
-										<p className="text-sm text-white/70">{testimonial.role}</p>
+										<h4 className="text-xl leading-tight font-bold text-white">
+											{testimonial.name}
+										</h4>
+										<p className="text-sm leading-snug font-normal text-white/70">
+											{testimonial.role}
+										</p>
 									</div>
 									<div className="ml-auto">
 										<Quote className="h-8 w-8 text-gray-100/30" />
@@ -434,7 +448,7 @@ export default function HomePage() {
 									))}
 								</div>
 
-								<blockquote className="text-sm leading-relaxed text-white italic">
+								<blockquote className="text-sm leading-relaxed font-normal text-white italic">
 									"{testimonial.content}"
 								</blockquote>
 							</div>
@@ -460,8 +474,10 @@ export default function HomePage() {
 							<div className="mb-2 inline-flex rounded-full bg-[#396131] p-3 backdrop-blur-sm">
 								<Mail className="h-8 w-8 text-white" />
 							</div>
-							<h2 className="text-4xl font-bold text-gray-900">Stay Connected</h2>
-							<p className="max-w-xl text-base text-gray-700">
+							<h2 className="text-3xl leading-tight font-bold text-gray-900 md:text-5xl">
+								Stay Connected
+							</h2>
+							<p className="max-w-xl text-base leading-relaxed font-normal text-gray-700">
 								Get the latest financial tips, market insights, and exclusive offers delivered
 								straight to your inbox.
 							</p>
@@ -486,10 +502,10 @@ export default function HomePage() {
 							<div className="mb-2 inline-flex rounded-full bg-white/20 p-3">
 								<Handshake className="h-8 w-8 text-white" />
 							</div>
-							<h2 className="text-4xl font-bold text-white">
+							<h2 className="text-3xl leading-tight font-bold text-white md:text-5xl">
 								Ready to Start Your Financial Journey?
 							</h2>
-							<p className="max-w-xl text-base text-white/90">
+							<p className="max-w-xl text-base leading-relaxed font-normal text-white/90">
 								Join thousands of satisfied customers who trust 1st Valley Bank with their financial
 								future. Let's build success together.
 							</p>
@@ -518,7 +534,7 @@ export default function HomePage() {
 			{/* FAQ Section with Dropdowns */}
 			<section className="bg-white py-20">
 				<div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-					<h2 className="mb-10 text-center text-3xl font-bold text-[#396131]">
+					<h2 className="mb-10 text-center text-3xl leading-tight font-bold text-[#396131] md:text-5xl">
 						Frequently Asked Questions
 					</h2>
 
@@ -594,8 +610,10 @@ export default function HomePage() {
 
 									{/* Heading */}
 									<div className="space-y-4">
-										<h2 className="text-4xl font-bold text-white">Need more help?</h2>
-										<p className="text-base text-white/80">
+										<h2 className="text-3xl leading-tight font-bold text-white md:text-5xl">
+											Need more help?
+										</h2>
+										<p className="text-base leading-relaxed font-normal text-white/80">
 											Get all the help for your banking needs.
 										</p>
 									</div>
@@ -612,7 +630,7 @@ export default function HomePage() {
 													{option.icon}
 												</div>
 												<div className="flex-1">
-													<h3 className="text-base font-semibold text-white transition-colors group-hover:text-[#F4F8F4]">
+													<h3 className="text-xl leading-tight font-bold text-white transition-colors group-hover:text-[#F4F8F4]">
 														{option.title}
 													</h3>
 												</div>
@@ -626,7 +644,9 @@ export default function HomePage() {
 										to="/contact-us"
 										className="group inline-flex transform items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-101 hover:shadow-xl"
 									>
-										EXPLORE HELP & SUPPORT
+										<span className="text-base leading-tight font-semibold tracking-wide">
+											EXPLORE HELP & SUPPORT
+										</span>
 										<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
 									</NavLink>
 								</div>

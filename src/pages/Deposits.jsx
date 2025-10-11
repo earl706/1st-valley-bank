@@ -358,11 +358,11 @@ export default function Deposits() {
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						{/* Section Header */}
 						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+							<h2 className="mb-4 text-5xl leading-tight font-bold text-white md:text-5xl lg:text-5xl">
 								DEPOSITS
 							</h2>
 							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/90 to-[#b1ffc2]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
+							<p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed font-normal text-white/80">
 								Choose the perfect deposit solution for your financial goals and start building your
 								wealth today
 							</p>
@@ -391,19 +391,19 @@ export default function Deposits() {
 																<IconComponent className="h-8 w-8 text-white" />
 															</div>
 															<div>
-																<div className="text-sm font-semibold tracking-wider text-[#396131] uppercase">
+																<div className="text-sm leading-tight font-semibold tracking-wider text-[#396131] uppercase">
 																	{product.category}
 																</div>
-																<h3 className="text-3xl font-bold text-[#0e2a09] lg:text-4xl">
+																<h3 className="text-3xl leading-tight font-bold text-[#0e2a09] md:text-3xl">
 																	{product.title}
 																</h3>
 															</div>
 														</div>
-														<p className="mb-8 text-lg leading-relaxed text-[#3b514a]">
+														<p className="mb-8 text-base leading-relaxed font-normal text-[#3b514a]">
 															{product.description}
 														</p>
 														<div className="mb-8">
-															<h4 className="mb-4 text-sm font-semibold tracking-wider text-[#225d36] uppercase">
+															<h4 className="mb-4 text-2xl leading-tight font-bold tracking-wider text-[#225d36] uppercase">
 																{product.id === 'time-deposit'
 																	? 'Available Terms'
 																	: 'Account Types Available'}
@@ -414,21 +414,21 @@ export default function Deposits() {
 																{product.features.map((feature, featureIndex) => (
 																	<div key={featureIndex} className="flex items-center gap-3">
 																		<div className="h-2 w-2 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7c3a]"></div>
-																		<span className="text-sm font-medium text-[#184427]">
+																		<span className="text-base leading-relaxed font-normal text-[#184427]">
 																			{feature}
 																		</span>
 																	</div>
 																))}
 															</div>
 															{product.additionalInfo && (
-																<div className="mt-3 text-sm font-semibold text-[#396131]">
+																<div className="mt-3 text-base leading-relaxed font-bold text-[#396131]">
 																	{product.additionalInfo}
 																</div>
 															)}
 														</div>
 														<NavLink
 															to={product.route}
-															className="group/btn inline-flex w-fit items-center justify-center rounded-2xl bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+															className="group/btn inline-flex w-fit items-center justify-center rounded-2xl bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-8 py-4 text-base leading-relaxed font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 														>
 															{product.buttonText}
 															<ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover/btn:translate-x-1" />

@@ -525,9 +525,9 @@ export default function ConsumerProtectionPrivacyPolicy() {
 				<section
 					id="application-privacy"
 					data-section
-					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-12"
+					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24"
 				>
-					<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-1/3">
 								<div className="flex h-40 w-40 items-center justify-center rounded-2xl border border-white/20 bg-white/10">
@@ -537,17 +537,19 @@ export default function ConsumerProtectionPrivacyPolicy() {
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
 									<Info className="h-4 w-4 text-white" />
-									<span className="text-base font-semibold text-white">Legal Framework</span>
+									<span className="text-sm leading-tight font-semibold text-white">
+										Legal Framework
+									</span>
 								</div>
-								<h2 className="mb-4 text-2xl font-bold text-white">
+								<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
 									Application Privacy Statement
 								</h2>
-								<p className="mb-4 text-base text-white/80">
+								<p className="mb-4 text-base leading-relaxed font-normal text-white/80">
 									This statement covers how we handle your personal information in connection with
 									our application services.
 								</p>
 								<div className="rounded-lg border-l-4 border-white bg-white/10 p-4">
-									<p className="text-base font-medium text-white">
+									<p className="text-base leading-relaxed font-normal text-white">
 										By using our services, you accept the practices in this Privacy Statement.
 									</p>
 								</div>
@@ -556,32 +558,36 @@ export default function ConsumerProtectionPrivacyPolicy() {
 					</div>
 				</section>
 				{/* User Data Collection */}
-				<section id="user-data" data-section className="bg-[#396131]/5 py-12">
-					<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+				<section id="user-data" data-section className="bg-[#396131]/5 py-24">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
 									<Database className="h-4 w-4 text-[#396131]" />
-									<span className="text-base font-semibold text-[#396131]">Data Collection</span>
+									<span className="text-sm leading-tight font-semibold text-[#396131]">
+										Data Collection
+									</span>
 								</div>
-								<h2 className="mb-4 text-2xl font-bold text-[#396131]">User Data</h2>
+								<h2 className="mb-4 text-3xl leading-tight font-bold text-[#396131] md:text-5xl">
+									User Data
+								</h2>
 								<div className="space-y-6">
 									<div className="rounded-lg border border-[#396131]/10 p-4">
-										<h3 className="mb-2 flex items-center gap-2 text-xl font-semibold text-[#396131]">
+										<h3 className="mb-2 flex items-center gap-2 text-xl leading-tight font-bold text-[#396131]">
 											<UserCheck className="h-5 w-5" />
 											Personal Information You Provide
 										</h3>
-										<p className="text-base text-gray-700">
+										<p className="text-base leading-relaxed font-normal text-gray-700">
 											We collect and store information you provide, such as your name, email, and
 											other details needed to deliver our services.
 										</p>
 									</div>
 									<div className="rounded-lg border border-[#396131]/10 p-4">
-										<h3 className="mb-2 flex items-center gap-2 text-xl font-semibold text-[#396131]">
+										<h3 className="mb-2 flex items-center gap-2 text-xl leading-tight font-bold text-[#396131]">
 											<Globe className="h-5 w-5" />
 											Information Collected Automatically
 										</h3>
-										<p className="text-base text-gray-700">
+										<p className="text-base leading-relaxed font-normal text-gray-700">
 											We automatically collect usage data (such as IP address, browser info, and
 											visited URLs) when you use our application. This may be shared in aggregate
 											with partners.
@@ -601,9 +607,9 @@ export default function ConsumerProtectionPrivacyPolicy() {
 				<section
 					id="information-usage"
 					data-section
-					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-12"
+					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24"
 				>
-					<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-1/3">
 								<div className="flex h-40 w-40 items-center justify-center rounded-2xl border border-white/20 bg-white/10">
@@ -613,10 +619,12 @@ export default function ConsumerProtectionPrivacyPolicy() {
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
 									<FileText className="h-4 w-4 text-white" />
-									<span className="text-base font-semibold text-white">Data Usage</span>
+									<span className="text-sm leading-tight font-semibold text-white">Data Usage</span>
 								</div>
-								<h2 className="mb-4 text-2xl font-bold text-white">How We Use Your Information</h2>
-								<p className="mb-4 text-base text-white/80">
+								<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
+									How We Use Your Information
+								</h2>
+								<p className="mb-4 text-base leading-relaxed font-normal text-white/80">
 									1st Valley Bank uses the collected information in the following ways:
 								</p>
 								<div className="space-y-4">
@@ -643,8 +651,12 @@ export default function ConsumerProtectionPrivacyPolicy() {
 												{item.icon}
 											</div>
 											<div>
-												<h3 className="mb-1 text-base font-semibold text-white">{item.title}</h3>
-												<p className="text-base text-white/80">{item.description}</p>
+												<h3 className="mb-1 text-xl leading-tight font-bold text-white">
+													{item.title}
+												</h3>
+												<p className="text-base leading-relaxed font-normal text-white/80">
+													{item.description}
+												</p>
 											</div>
 										</div>
 									))}
@@ -654,24 +666,26 @@ export default function ConsumerProtectionPrivacyPolicy() {
 					</div>
 				</section>
 				{/* Partner Treatment */}
-				<section id="partner-treatment" data-section className="bg-[#396131]/5 py-12">
-					<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+				<section id="partner-treatment" data-section className="bg-[#396131]/5 py-24">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
 									<QrCode className="h-4 w-4 text-[#396131]" />
-									<span className="text-base font-semibold text-[#396131]">Partnership Policy</span>
+									<span className="text-sm leading-tight font-semibold text-[#396131]">
+										Partnership Policy
+									</span>
 								</div>
-								<h2 className="mb-4 text-2xl font-bold text-[#396131]">
+								<h2 className="mb-4 text-3xl leading-tight font-bold text-[#396131] md:text-5xl">
 									Application Partner Treatment
 								</h2>
-								<p className="mb-4 text-base text-gray-700">
+								<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
 									1st Valley Bank may provide personal information to applicable Application
 									Partners. Each partner's use of your personal information is subject to their
 									separate privacy policy, not this Privacy Statement.
 								</p>
 								<div className="rounded-lg border border-[#396131]/10 bg-white p-4">
-									<p className="text-base font-medium text-[#396131]">
+									<p className="text-base leading-relaxed font-normal text-[#396131]">
 										Application Partner privacy policies are linked from within their respective
 										applications and platforms.
 									</p>
@@ -689,16 +703,20 @@ export default function ConsumerProtectionPrivacyPolicy() {
 				<section
 					id="information-sharing"
 					data-section
-					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-12"
+					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24"
 				>
-					<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="mb-10 text-center">
 							<div className="mb-3 flex items-center justify-center gap-2">
 								<Users className="h-4 w-4 text-white" />
-								<span className="text-base font-semibold text-white">Sharing Policy</span>
+								<span className="text-sm leading-tight font-semibold text-white">
+									Sharing Policy
+								</span>
 							</div>
-							<h2 className="mb-3 text-2xl font-bold text-white">Information Sharing Policy</h2>
-							<p className="mx-auto max-w-2xl text-base text-white/80">
+							<h2 className="mb-3 text-3xl leading-tight font-bold text-white md:text-5xl">
+								Information Sharing Policy
+							</h2>
+							<p className="mx-auto max-w-2xl text-base leading-relaxed font-normal text-white/80">
 								Personal information about our users is integral to our business. We neither rent
 								nor sell your personal information to anyone, with limited exceptions as described
 								below.
@@ -733,16 +751,18 @@ export default function ConsumerProtectionPrivacyPolicy() {
 									<div className="mb-2 flex h-10 w-10 items-center justify-center rounded bg-white/10 text-white">
 										{item.icon}
 									</div>
-									<h3 className="mb-1 text-lg font-bold text-white">{item.title}</h3>
-									<p className="text-base text-white/80">{item.description}</p>
+									<h3 className="mb-1 text-xl leading-tight font-bold text-white">{item.title}</h3>
+									<p className="text-base leading-relaxed font-normal text-white/80">
+										{item.description}
+									</p>
 								</div>
 							))}
 						</div>
 					</div>
 				</section>
 				{/* Third Party Applications */}
-				<section id="third-party" data-section className="bg-[#396131]/5 py-12">
-					<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+				<section id="third-party" data-section className="bg-[#396131]/5 py-24">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-1/3">
 								<div className="flex h-40 w-40 items-center justify-center rounded-2xl border border-[#396131]/20 bg-white">
@@ -752,12 +772,14 @@ export default function ConsumerProtectionPrivacyPolicy() {
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
 									<Laptop className="h-4 w-4 text-[#396131]" />
-									<span className="text-base font-semibold text-[#396131]">External Links</span>
+									<span className="text-sm leading-tight font-semibold text-[#396131]">
+										External Links
+									</span>
 								</div>
-								<h2 className="mb-4 text-2xl font-bold text-[#396131]">
+								<h2 className="mb-4 text-3xl leading-tight font-bold text-[#396131] md:text-5xl">
 									Third Party Applications/Websites
 								</h2>
-								<p className="text-base text-gray-700">
+								<p className="text-base leading-relaxed font-normal text-gray-700">
 									The Application may link to third party sites not controlled by 1st Valley Bank.
 									We are not responsible for their content or privacy practices.
 								</p>
@@ -769,19 +791,21 @@ export default function ConsumerProtectionPrivacyPolicy() {
 				<section
 					id="personal-access"
 					data-section
-					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-12"
+					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24"
 				>
-					<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
 									<Eye className="h-4 w-4 text-white" />
-									<span className="text-base font-semibold text-white">Data Access</span>
+									<span className="text-sm leading-tight font-semibold text-white">
+										Data Access
+									</span>
 								</div>
-								<h2 className="mb-4 text-2xl font-bold text-white">
+								<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
 									What Personal Information Can I Access?
 								</h2>
-								<p className="mb-4 text-base text-white">
+								<p className="mb-4 text-base leading-relaxed font-normal text-white">
 									You can view and update the following personal information. This list may change
 									as the Application evolves.
 								</p>
@@ -793,9 +817,12 @@ export default function ConsumerProtectionPrivacyPolicy() {
 										'Preferences',
 										'App data'
 									].map((item, index) => (
-										<li key={index} className="flex items-center gap-2 text-white">
+										<li
+											key={index}
+											className="flex items-center gap-2 text-base leading-relaxed font-normal text-white"
+										>
 											<CheckCircle className="h-4 w-4 text-white" />
-											<span className="text-base font-medium">{item}</span>
+											<span>{item}</span>
 										</li>
 									))}
 								</ul>
@@ -809,8 +836,8 @@ export default function ConsumerProtectionPrivacyPolicy() {
 					</div>
 				</section>
 				{/* Children Policy */}
-				<section id="children-policy" data-section className="bg-[#396131]/5 py-12">
-					<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+				<section id="children-policy" data-section className="bg-[#396131]/5 py-24">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-1/3">
 								<div className="flex h-40 w-40 items-center justify-center rounded-2xl border border-[#396131]/20 bg-white">
@@ -820,12 +847,14 @@ export default function ConsumerProtectionPrivacyPolicy() {
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
 									<Baby className="h-4 w-4 text-[#396131]" />
-									<span className="text-base font-semibold text-[#396131]">Child Protection</span>
+									<span className="text-sm leading-tight font-semibold text-[#396131]">
+										Child Protection
+									</span>
 								</div>
-								<h2 className="mb-4 text-2xl font-bold text-[#396131]">
+								<h2 className="mb-4 text-3xl leading-tight font-bold text-[#396131] md:text-5xl">
 									Can Children Use The Application?
 								</h2>
-								<p className="text-base text-gray-700">
+								<p className="text-base leading-relaxed font-normal text-gray-700">
 									1st Valley Bank does not knowingly collect information from children under 13.
 									Parental consent is advised for minors.
 								</p>
@@ -837,19 +866,21 @@ export default function ConsumerProtectionPrivacyPolicy() {
 				<section
 					id="privacy-changes"
 					data-section
-					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-12"
+					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24"
 				>
-					<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
 									<Upload className="h-4 w-4 text-white" />
-									<span className="text-base font-semibold text-white">Updates & Changes</span>
+									<span className="text-sm leading-tight font-semibold text-white">
+										Updates & Changes
+									</span>
 								</div>
-								<h2 className="mb-4 text-2xl font-bold text-white">
+								<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
 									Changes To This Privacy Statement
 								</h2>
-								<p className="text-base text-white">
+								<p className="text-base leading-relaxed font-normal text-white">
 									1st Valley Bank may update this Privacy Statement at any time. Changes will be
 									posted here or emailed to you. Continued use of our services means you accept the
 									updated policy.
@@ -866,7 +897,7 @@ export default function ConsumerProtectionPrivacyPolicy() {
 
 				{/* Client Interface Section: Feedback & Complaint */}
 				<section className="bg-white py-12" id="client-interface">
-					<div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
+					<div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
 						<h2 className="mb-4 text-2xl font-bold text-[#396131]">We Value Your Input</h2>
 						<p className="mb-6 text-base text-gray-700">
 							Send us your feedback or file a complaint using the forms below. Your voice helps us

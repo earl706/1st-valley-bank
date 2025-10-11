@@ -619,40 +619,50 @@ export default function SearchResults() {
 	return (
 		<div className="bg-gradient-to-l from-[#396131] to-[#4a7c3a]">
 			<div className="mx-auto min-h-[60vh] max-w-7xl p-8 py-24">
-				<h1 className="mb-6 text-3xl font-extrabold tracking-tight text-white">Search Results</h1>
+				<div className="mb-16 text-center">
+					<h1 className="mb-4 text-5xl leading-tight font-bold text-white md:text-6xl">
+						SEARCH RESULTS
+					</h1>
+					<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white to-[#E9F2EA]"></div>
+				</div>
 				{searchTerm === '' && (
 					<div className="flex flex-col items-center justify-center py-10">
-						<span className="mb-2 text-4xl text-white/70">🔎</span>
-						<p className="text-lg text-white">Please enter a search query above.</p>
+						<span className="mb-3 text-5xl leading-tight text-white/70">🔎</span>
+						<p className="text-center text-base leading-relaxed font-normal text-white">
+							Please enter a search query above.
+						</p>
 					</div>
 				)}
 				{searchTerm !== '' && results.length === 0 && (
 					<div className="flex flex-col items-center justify-center py-10">
-						<span className="mb-2 text-5xl text-white/70">😕</span>
-						<p className="text-lg text-white">
-							No results found for <span className="font-semibold">&quot;{searchTerm}&quot;</span>.
+						<span className="mb-3 text-5xl leading-tight text-white/70">😕</span>
+						<p className="text-center text-base leading-relaxed font-normal text-white">
+							No results found for{' '}
+							<span className="leading-tight font-bold">&quot;{searchTerm}&quot;</span>.
 						</p>
-						<p className="mt-2 text-white/80">Try different keywords or check your spelling.</p>
+						<p className="mt-2 text-center text-sm leading-relaxed font-normal text-white/80">
+							Try different keywords or check your spelling.
+						</p>
 					</div>
 				)}
 				{results.length > 0 && (
-					<div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+					<div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
 						{results.map((page) => (
 							<Link
 								to={page.path}
 								key={page.path}
 								className="flex h-full cursor-pointer flex-col rounded-lg border border-white/10 bg-white/10 transition-all duration-200 hover:scale-101 hover:bg-white/10 hover:shadow-lg"
 							>
-								<div className="block w-full rounded-lg px-6 py-4 text-lg font-semibold text-white">
+								<div className="block w-full rounded-lg px-6 py-5 text-2xl leading-tight font-bold text-white">
 									{page.title}
-									<span className="ml-2 align-middle text-base">→</span>
+									<span className="ml-2 align-middle text-base leading-relaxed font-normal">→</span>
 								</div>
 								{page.keywords && (
 									<div className="flex flex-wrap gap-2 px-6 pt-1 pb-3">
 										{page.keywords.slice(0, 3).map((word, idx) => (
 											<span
 												key={word + idx}
-												className="rounded-full bg-white/10 px-2 py-1 text-xs font-medium text-white"
+												className="rounded-full bg-white/10 px-2 py-1 text-xs font-normal text-white"
 											>
 												{word}
 											</span>
