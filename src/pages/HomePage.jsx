@@ -252,19 +252,8 @@ export default function HomePage() {
 				'Access your money anytime, anywhere with our reliable ATM network. Withdraw cash, check balances, and more—day or night.',
 			image: carouselImg3,
 			imageAlt: 'ATM Services',
-			route: '/atm-services',
+			route: '/atm-locator',
 			buttonText: 'Find an ATM',
-			showButton: true
-		},
-		{
-			title: 'Convenient Pickup-Deposit Service',
-			subtitle: '',
-			description:
-				'Enjoy hassle-free banking with our Pickup-Deposit service. We come to you—schedule a pickup and deposit your funds without visiting a branch.',
-			image: carouselImg2,
-			imageAlt: 'Pickup-Deposit Service',
-			route: '/pickup-deposit',
-			buttonText: 'Schedule a Pickup',
 			showButton: true
 		},
 		{

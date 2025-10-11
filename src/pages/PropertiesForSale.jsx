@@ -212,46 +212,15 @@ export default function PropertiesForSale() {
 					learnMoreText="Explore Listings"
 				/>
 				<section id="vehicles" className="max-mx-7xl mx-auto flex flex-col text-[#396131]">
-					<div className={`relative overflow-hidden bg-gradient-to-br`}>
-						{/* Hero Content */}
-						<div className="max-w-8xl relative mx-auto px-2 py-4 sm:px-3 lg:px-4 lg:py-8">
-							<div className="mx-2 grid min-h-[340px] items-center gap-4 lg:mx-4 lg:min-h-[400px] lg:grid-cols-2">
-								{/* Image/Visual */}
-								<div className="relative order-0 flex h-full items-center justify-center lg:order-0">
-									<div className="relative z-10">
-										<img
-											src={img}
-											alt={'Vehicles'}
-											className="mx-auto h-auto w-full max-w-xs transform drop-shadow-2xl transition-all duration-700"
-										/>
-									</div>
-								</div>
-
-								{/* Content */}
-								<div className="order-1 flex h-full flex-col justify-center space-y-4 lg:order-1">
-									<div className="space-y-2">
-										{/* Title */}
-										<h1 className="text-2xl leading-tight font-bold text-[#396131] sm:text-3xl lg:text-4xl">
-											<span
-												className={`font-blacksm:text-4xl block text-3xl leading-tight lg:text-5xl`}
-											>
-												Vehicles
-											</span>
-											<span
-												className={`block text-lg leading-tight font-bold sm:text-xl lg:text-2xl`}
-											>
-												Looking for great deals on wheels?
-											</span>
-										</h1>
-
-										<p className="max-w-xl text-base leading-relaxed text-gray-600">
-											Find quality pre-owned vehicles at great prices with 1st Valley Bank. Explore
-											our listings and drive home your next car today!
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div className="mt-16 text-center">
+						<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
+							Vehicles
+						</h2>
+						<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#396131]/80"></div>
+						<p className="mx-auto mt-6 max-w-2xl text-lg text-[#396131]/80">
+							Discover a selection of quality pre-owned vehicles at affordable prices, available
+							exclusively from 1st Valley Bank.
+						</p>
 					</div>
 					{/* Add vertical spacing between hero and grid */}
 					<div className="h-8 lg:h-12" />
@@ -280,46 +249,15 @@ export default function PropertiesForSale() {
 					id="properties"
 					className="mx-[20px] flex flex-col gap-[30px] text-[#396131] lg:mx-[80px] lg:gap-[70px]"
 				>
-					<div className={`relative overflow-hidden bg-gradient-to-br`}>
-						{/* Hero Content */}
-						<div className="max-w-8xl relative mx-auto px-2 py-4 sm:px-3 lg:px-4 lg:py-8">
-							<div className="mx-2 grid min-h-[340px] items-center gap-4 lg:mx-4 lg:min-h-[400px] lg:grid-cols-2">
-								{/* Image/Visual */}
-								<div className="relative order-0 flex h-full items-center justify-center lg:order-1">
-									<div className="relative z-10">
-										<img
-											src={img}
-											alt={'Vehicles'}
-											className="mx-auto h-auto w-full max-w-xs transform drop-shadow-2xl transition-all duration-700"
-										/>
-									</div>
-								</div>
-
-								{/* Content */}
-								<div className="order-1 flex h-full flex-col justify-center space-y-4 lg:order-0">
-									<div className="space-y-2">
-										{/* Title */}
-										<h1 className="text-2xl leading-tight font-bold text-[#396131] sm:text-3xl lg:text-4xl">
-											<span
-												className={`font-blacksm:text-4xl block text-3xl leading-tight lg:text-5xl`}
-											>
-												Real Estate & Others
-											</span>
-											<span
-												className={`block text-lg leading-tight font-bold sm:text-xl lg:text-2xl`}
-											>
-												Find your next property investment today!
-											</span>
-										</h1>
-
-										<p className="max-w-xl text-base leading-relaxed text-gray-600">
-											Discover great-value real estate and properties for sale at 1st Valley Bank.
-											Find your ideal lot, home, or space—affordable, trusted, and ready for you!
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div className="mt-16 text-center">
+						<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
+							Real Estate & Properties
+						</h2>
+						<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#396131]/80"></div>
+						<p className="mx-auto mt-6 max-w-2xl text-lg text-[#396131]/80">
+							Explore our assortment of prime real estate, residential, commercial, and foreclosed
+							properties for sale, opportunities offered only by 1st Valley Bank.
+						</p>
 					</div>
 
 					<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">

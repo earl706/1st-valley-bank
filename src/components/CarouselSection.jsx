@@ -213,16 +213,30 @@ export default function CarouselSection({
 																	: 'translate-y-4 opacity-0'
 															}`}
 														>
-															<NavLink
-																to={slide.route}
-																className="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-																style={{
-																	background: `linear-gradient(to right, ${brandColor}, ${brandColor}dd)`
-																}}
-															>
-																{slide.buttonText || learnMoreText}
-																<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-															</NavLink>
+															{slide.onButtonClick ? (
+																<button
+																	type="button"
+																	className="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+																	style={{
+																		background: `linear-gradient(to right, ${brandColor}, ${brandColor}dd)`
+																	}}
+																	onClick={slide.onButtonClick}
+																>
+																	{slide.buttonText || learnMoreText}
+																	<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+																</button>
+															) : (
+																<NavLink
+																	to={slide.route}
+																	className="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+																	style={{
+																		background: `linear-gradient(to right, ${brandColor}, ${brandColor}dd)`
+																	}}
+																>
+																	{slide.buttonText || learnMoreText}
+																	<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+																</NavLink>
+															)}
 														</div>
 													)}
 											</div>

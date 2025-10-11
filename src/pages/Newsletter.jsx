@@ -111,17 +111,17 @@ const NewsletterGrid = () => {
 	);
 
 	return (
-		<div className="min-h-screen p-6">
+		<div className="min-h-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-6 py-24">
 			{pdfModal.open && (
 				<PDFModal pdfUrl={pdfModal.pdfUrl} title={pdfModal.title} onClose={closePDF} />
 			)}
 			<div className="mx-auto max-w-7xl">
 				<div className="mb-16 text-center">
-					<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
+					<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
 						Latest Newsletter Issues
 					</h2>
-					<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7a3f]"></div>
-					<p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
+					<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white to-white/80"></div>
+					<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
 						Stay updated with our curated collection of insights, trends, and innovations across
 						various industries.
 					</p>
@@ -132,7 +132,7 @@ const NewsletterGrid = () => {
 					{paginatedNewsletters.map((newsletter) => (
 						<div
 							key={newsletter.id}
-							className="group flex h-full transform flex-col overflow-hidden rounded-3xl border border-slate-200/50 bg-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl"
+							className="group flex h-full transform flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/90 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl"
 						>
 							{/* Image Section */}
 							<div className="relative h-48 overflow-hidden">
@@ -145,7 +145,7 @@ const NewsletterGrid = () => {
 
 								{/* Category Badge */}
 								<div className="absolute top-4 left-4">
-									<div className="rounded-full bg-white/95 px-3 py-1 shadow-lg backdrop-blur-sm">
+									<div className="rounded-full bg-white/90 px-3 py-1 shadow-lg backdrop-blur-sm">
 										<span className="text-xs font-semibold tracking-wide text-[#396131] uppercase">
 											{newsletter.title}
 										</span>
@@ -172,17 +172,17 @@ const NewsletterGrid = () => {
 							<div className="flex flex-grow flex-col p-6">
 								<div className="flex flex-grow flex-col">
 									{/* Header */}
-									<h2 className="mb-3 text-xl leading-tight font-bold text-slate-800 transition-colors duration-200 group-hover:text-[#396131]">
+									<h2 className="mb-3 text-xl leading-tight font-bold text-[#396131] transition-colors duration-200 group-hover:text-[#4a7a3f]">
 										{newsletter.title}
 									</h2>
 
 									{/* Opening Paragraph */}
-									<p className="mb-4 line-clamp-3 text-sm leading-relaxed text-slate-600">
+									<p className="mb-4 line-clamp-3 text-sm leading-relaxed text-[#204927]">
 										{newsletter.description}
 									</p>
 
 									{/* Meta Info */}
-									<div className="mt-auto mb-6 flex items-center gap-4 text-xs text-slate-500">
+									<div className="mt-auto mb-6 flex items-center gap-4 text-xs text-[#32653f]/80">
 										<div className="flex items-center gap-1">
 											<Eye size={14} />
 											<span>{newsletter.views}</span>
@@ -214,7 +214,7 @@ const NewsletterGrid = () => {
 				<div className="mt-12 flex flex-col items-center gap-4">
 					<div className="flex items-center gap-2">
 						<button
-							className="cursor-pointer rounded-lg border border-[#396131] bg-white px-3 py-2 font-semibold text-[#396131] transition-all duration-200 hover:bg-[#396131] hover:text-white disabled:opacity-50"
+							className="cursor-pointer rounded-lg border border-white bg-[#3e7a3e] px-3 py-2 font-semibold text-white transition-all duration-200 hover:bg-white hover:text-[#396131] disabled:opacity-50"
 							onClick={() => handlePageChange(currentPage - 1)}
 							disabled={currentPage === 1}
 						>
@@ -225,8 +225,8 @@ const NewsletterGrid = () => {
 								key={idx + 1}
 								className={`cursor-pointer rounded-lg border px-3 py-2 font-semibold ${
 									currentPage === idx + 1
-										? 'border-[#396131] bg-[#396131] text-white'
-										: 'border-[#396131] bg-white text-[#396131] hover:bg-[#396131] hover:text-white'
+										? 'border-white bg-[#396131] text-white'
+										: 'border-white bg-white text-[#396131] hover:bg-[#396131] hover:text-white'
 								} transition-all duration-200`}
 								onClick={() => handlePageChange(idx + 1)}
 							>
@@ -234,14 +234,14 @@ const NewsletterGrid = () => {
 							</button>
 						))}
 						<button
-							className="cursor-pointer rounded-lg border border-[#396131] bg-white px-3 py-2 font-semibold text-[#396131] transition-all duration-200 hover:bg-[#396131] hover:text-white disabled:opacity-50"
+							className="cursor-pointer rounded-lg border border-white bg-[#3e7a3e] px-3 py-2 font-semibold text-white transition-all duration-200 hover:bg-white hover:text-[#396131] disabled:opacity-50"
 							onClick={() => handlePageChange(currentPage + 1)}
 							disabled={currentPage === totalPages}
 						>
 							Next
 						</button>
 					</div>
-					<div className="text-xs text-gray-500">
+					<div className="text-xs text-white/80">
 						Page {currentPage} of {totalPages}
 					</div>
 				</div>

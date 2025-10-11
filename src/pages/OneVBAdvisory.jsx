@@ -212,11 +212,7 @@ export default function OneVBAdvisory() {
 				<HeroSection
 					title="1VB Advisory"
 					subtitle=""
-					description="Navigate your financial journey with confidence through 1VB Advisory! Our expert team
-							is here to guide you with personalized advice, smart strategies, and tailored
-							solutions. Whether planning investments, managing loans, or growing your wealth, 1VB
-							Advisory empowers you to make informed decisions and secure a brighter financial
-							future. Your success, our mission!"
+					description="Get expert, personalized guidance for every financial decision with 1VB Advisory."
 					features={[]}
 					image={carouselImg1}
 					imageAlt="1VB Advisory"
@@ -231,7 +227,17 @@ export default function OneVBAdvisory() {
 					</div>
 				</section> */}
 				<section id="advisory-gallery" className="mx-auto">
-					<h2 className="mb-6 text-center text-2xl font-bold text-[#396131]">Advisory Gallery</h2>
+					{/* Section Header */}
+					<div className="mb-16 text-center">
+						<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
+							1VB Advisory Gallery
+						</h2>
+						<div className="mx-auto h-1 w-24 rounded-full bg-[#396131]/90"></div>
+						<p className="mx-auto mt-6 max-w-2xl text-lg text-[#396131]/90">
+							Explore moments from our advisory engagements, where expertise meets personalized
+							service to empower your financial future.
+						</p>
+					</div>
 					<OptimizedImageGallery />
 				</section>
 			</main>

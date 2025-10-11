@@ -172,28 +172,25 @@ export default function LoansSBL() {
 			<main className="flex flex-col pb-[50px]">
 				{/* SBL Subcategories */}
 
-				<section
-					id="who-can-apply"
-					className="relative overflow-hidden bg-gradient-to-br from-[#396131] to-[#2d4a26] py-20"
-				>
+				<section id="who-can-apply" className="relative overflow-hidden bg-white py-20">
 					{/* Background Elements */}
-					<div className="absolute inset-0">
-						<div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-white/5 blur-3xl"></div>
-						<div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-white/5 blur-3xl"></div>
+					<div className="pointer-events-none absolute inset-0">
+						<div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-[#396131]/5 blur-3xl"></div>
+						<div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-[#396131]/5 blur-3xl"></div>
 					</div>
 
 					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="mb-16 text-center">
-							<div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-white">
-								<span className="h-2 w-2 animate-pulse rounded-full bg-white"></span>
+							<div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#396131]/10 px-6 py-3 text-sm font-semibold text-[#396131]">
+								<span className="h-2 w-2 animate-pulse rounded-full bg-[#396131]"></span>
 								Eligibility Requirements
 							</div>
 
-							<h2 className="mb-6 text-4xl leading-tight font-bold text-white md:text-5xl">
+							<h2 className="mb-6 text-4xl leading-tight font-bold text-[#185027] md:text-5xl">
 								Who Can Apply?
 							</h2>
 
-							<p className="mx-auto max-w-3xl text-xl leading-relaxed text-white/80">
+							<p className="mx-auto max-w-3xl text-xl leading-relaxed text-gray-700">
 								Check if you meet our requirements for Small Business Loan approval
 							</p>
 						</div>
@@ -202,21 +199,21 @@ export default function LoansSBL() {
 							{whoCanApply.map((requirement, index) => (
 								<div
 									key={index}
-									className="group relative rounded-2xl border border-white/20 bg-white/10 p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:bg-white/15"
+									className="group relative rounded-2xl border border-[#396131]/10 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-lg"
 								>
 									<div className="text-center">
 										{/* Icon */}
-										<div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-white/20 transition-transform duration-300 group-hover:scale-110">
+										<div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#396131]/10 transition-transform duration-300 group-hover:scale-110">
 											{React.createElement(requirement.icon, {
-												className: 'w-10 h-10 text-white'
+												className: 'w-10 h-10 text-[#396131]'
 											})}
 										</div>
 
 										{/* Title */}
-										<h3 className="mb-3 text-xl font-bold text-white">{requirement.title}</h3>
+										<h3 className="mb-3 text-xl font-bold text-[#185027]">{requirement.title}</h3>
 
 										{/* Description */}
-										<p className="text-sm leading-relaxed text-white/80">
+										<p className="text-sm leading-relaxed text-gray-700">
 											{requirement.description}
 										</p>
 									</div>
@@ -228,26 +225,20 @@ export default function LoansSBL() {
 
 				<section
 					id="benefits-features"
-					className="relative overflow-hidden bg-gradient-to-br from-slate-50 to-white py-20"
+					className="relative overflow-hidden bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20"
 				>
-					{/* Background Elements */}
-					<div className="absolute inset-0">
-						<div className="absolute top-0 left-0 h-96 w-96 rounded-full bg-gradient-to-br from-[#396131]/10 to-[#4a7c3a]/10 blur-3xl"></div>
-						<div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-gradient-to-tr from-green-400/10 to-[#396131]/10 blur-3xl"></div>
-					</div>
-
 					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="mb-16 text-center">
-							<div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#396131]/10 px-6 py-3 text-sm font-semibold text-[#396131]">
-								<span className="h-2 w-2 animate-pulse rounded-full bg-[#396131]"></span>
+							<div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-white">
+								<span className="h-2 w-2 animate-pulse rounded-full bg-white"></span>
 								Why Choose Us
 							</div>
 
-							<h2 className="mb-6 text-4xl leading-tight font-bold text-[#396131] md:text-5xl">
+							<h2 className="mb-6 text-4xl leading-tight font-bold text-white md:text-5xl">
 								Benefits & Features
 							</h2>
 
-							<p className="mx-auto max-w-3xl text-xl leading-relaxed text-gray-600">
+							<p className="mx-auto max-w-3xl text-xl leading-relaxed text-white/80">
 								Discover the advantages of our Small Business Loan program
 							</p>
 						</div>
@@ -256,10 +247,10 @@ export default function LoansSBL() {
 							{benefitsFeature.map((benefit, index) => (
 								<div
 									key={index}
-									className="group relative rounded-3xl border border-gray-100 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+									className="group relative rounded-3xl border border-white/10 bg-white/10 p-8 shadow-lg backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 								>
 									{/* Gradient overlay */}
-									<div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#396131]/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+									<div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
 									<div className="relative text-center">
 										{/* Icon Container */}
@@ -270,12 +261,12 @@ export default function LoansSBL() {
 										</div>
 
 										{/* Title */}
-										<h3 className="mb-4 text-2xl font-bold text-[#396131] transition-colors duration-300 group-hover:text-[#4a7c3a]">
+										<h3 className="mb-4 text-2xl font-bold text-white transition-colors duration-300 group-hover:text-[#e0ffda]">
 											{benefit.header}
 										</h3>
 
 										{/* Description */}
-										<p className="leading-relaxed text-gray-600">{benefit.description}</p>
+										<p className="leading-relaxed text-white/80">{benefit.description}</p>
 									</div>
 								</div>
 							))}

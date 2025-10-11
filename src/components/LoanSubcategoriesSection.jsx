@@ -46,22 +46,22 @@ export default function LoanSubcategoriesSection({
 		return (
 			<section
 				id={id}
-				className={`relative overflow-hidden bg-gradient-to-br ${backgroundColor} py-20 ${className}`}
+				className={`relative overflow-hidden bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20 ${className}`}
 			>
 				<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					{/* Call to Action Only */}
 					<div className="text-center">
-						<h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">{ctaTitle}</h2>
+						<h2 className="mb-6 text-2xl font-bold text-white md:text-3xl">{ctaTitle}</h2>
 						<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
 							<NavLink
 								to={ctaPrimaryLink}
-								className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-8 py-4 font-semibold text-white transition-all duration-300 hover:bg-[#497141] focus:ring-4 focus:ring-blue-300 focus:outline-none"
+								className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 font-semibold text-[#396131] transition-all duration-300 hover:bg-[#edf8ee] focus:ring-4 focus:ring-blue-300 focus:outline-none"
 							>
 								{ctaPrimaryText}
 							</NavLink>
 							<NavLink
 								to={ctaSecondaryLink}
-								className="inline-flex items-center justify-center rounded-xl border-2 border-[#396131] px-8 py-4 font-semibold text-[#396131] transition-all duration-300 hover:bg-[#396131] hover:text-white focus:ring-4 focus:ring-blue-300 focus:outline-none"
+								className="inline-flex items-center justify-center rounded-xl border-2 border-white px-8 py-4 font-semibold text-white transition-all duration-300 hover:bg-white hover:text-[#396131] focus:ring-4 focus:ring-blue-300 focus:outline-none"
 							>
 								{ctaSecondaryText}
 							</NavLink>
@@ -76,31 +76,25 @@ export default function LoanSubcategoriesSection({
 		<>
 			<section
 				id={id}
-				className={`relative overflow-hidden bg-gradient-to-br ${backgroundColor} py-20 ${className}`}
+				className={`relative overflow-hidden bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20 ${className}`}
 			>
 				<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					{/* Section Header */}
 					<div className="mb-16 text-center">
 						<div className="mb-4">
-							<span
-								className="inline-block rounded-full px-4 py-2 text-sm font-semibold tracking-wider uppercase"
-								style={{
-									backgroundColor: `${brandColor}15`,
-									color: brandColor
-								}}
-							>
+							<span className="inline-block rounded-full bg-white/20 px-4 py-2 text-sm font-semibold tracking-wider text-white uppercase">
 								{tagText}
 							</span>
 						</div>
 
 						<h2
 							className="mb-6 text-4xl leading-tight font-bold md:text-5xl"
-							style={{ color: brandColor }}
+							style={{ color: '#fff' }}
 						>
 							{sectionTitle}
 						</h2>
 
-						<p className="mx-auto max-w-3xl text-xl leading-relaxed text-gray-600">
+						<p className="mx-auto max-w-3xl text-xl leading-relaxed text-white/90">
 							{sectionSubtitle}
 						</p>
 					</div>
@@ -110,7 +104,7 @@ export default function LoanSubcategoriesSection({
 						{loanTypes.map((type, index) => (
 							<div
 								key={index}
-								className="group relative flex h-full transform flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+								className="group relative flex h-full transform flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/90 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 							>
 								{/* Card gradient overlay */}
 								<div
@@ -142,7 +136,7 @@ export default function LoanSubcategoriesSection({
 											>
 												{type.title}
 											</h3>
-											<p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600 lg:text-base">
+											<p className="mb-6 flex-1 text-sm leading-relaxed text-[#185027] lg:text-base">
 												{type.description}
 											</p>
 
@@ -155,7 +149,7 @@ export default function LoanSubcategoriesSection({
 																className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
 																style={{ backgroundColor: brandColor }}
 															></div>
-															<span className="text-xs text-gray-600">{feature}</span>
+															<span className="text-xs text-[#185027]">{feature}</span>
 														</div>
 													))}
 												</div>
@@ -236,7 +230,9 @@ export default function LoanSubcategoriesSection({
 					{showCallToAction && (
 						<div className="mt-16 text-center">
 							<div className="mx-auto max-w-2xl">
-								<h3 className="mb-4 text-2xl font-bold text-gray-900">{ctaTitle}</h3>
+								<h3 className="mb-4 text-2xl font-bold text-[#185027] dark:text-white">
+									{ctaTitle}
+								</h3>
 								<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
 									<NavLink
 										to={ctaPrimaryLink}
@@ -246,7 +242,7 @@ export default function LoanSubcategoriesSection({
 									</NavLink>
 									<NavLink
 										to={ctaSecondaryLink}
-										className="inline-flex items-center justify-center rounded-xl border-2 border-[#396131] px-8 py-4 font-semibold text-[#396131] transition-all duration-300 hover:scale-105 hover:bg-[#396131] hover:text-white focus:ring-4 focus:ring-[#39613140] focus:outline-none"
+										className="inline-flex items-center justify-center rounded-xl border-2 border-[#396131] px-8 py-4 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-[#396131] hover:text-white focus:ring-4 focus:ring-[#39613140] focus:outline-none"
 									>
 										{ctaSecondaryText}
 									</NavLink>

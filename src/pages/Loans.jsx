@@ -169,15 +169,13 @@ export default function Loans() {
 					learnMoreText="Learn More"
 					excludeLearnMoreForTitles={['Loans']}
 				/>
-				<section id="loans" className="">
+				<section id="loans" className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24">
 					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						{/* Section Header */}
 						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
-								LOANS
-							</h2>
-							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7a3f]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
+							<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">LOANS</h2>
+							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/80 to-[#a8ffc2]"></div>
+							<p className="mx-auto mt-6 max-w-2xl text-lg text-white/90">
 								Discover our comprehensive loan solutions designed to meet your financial needs
 							</p>
 						</div>
@@ -190,17 +188,15 @@ export default function Loans() {
 								) : (
 									<div
 										key={index}
-										className="group relative flex h-full transform flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+										className="group relative flex h-full transform flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/90 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 									>
 										{/* Card gradient overlay */}
-										<div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-[#396131]/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+										<div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-[#396131]/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
 										<div className="relative flex flex-1 flex-col p-8 lg:p-10">
 											<div className="flex flex-1 flex-col items-center gap-6 sm:flex-row sm:items-start lg:gap-8">
 												{/* Improved Image Container */}
 												<div className="relative mb-8">
-													{/* Background decorative element */}
-
 													{/* Main image container */}
 													<div className="relative mx-auto h-40 w-40 overflow-hidden transition-all duration-300 group-hover:scale-105">
 														<img
@@ -216,7 +212,7 @@ export default function Loans() {
 													<h3 className="mb-3 text-xl font-bold text-[#396131] transition-colors duration-300 group-hover:text-[#4a7a3f] lg:text-2xl">
 														{loan.title}
 													</h3>
-													<p className="mb-6 flex-1 text-sm leading-relaxed text-gray-600 lg:text-base">
+													<p className="mb-6 flex-1 text-sm leading-relaxed text-[#2e4935] lg:text-base">
 														{loan.description}
 													</p>
 
@@ -235,7 +231,7 @@ export default function Loans() {
 										</div>
 									</div>
 								)
-							)}{' '}
+							)}
 						</div>
 					</div>
 				</section>

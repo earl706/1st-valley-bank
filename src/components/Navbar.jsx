@@ -279,7 +279,7 @@ export default function Navbar({ children }) {
 				{/* UNIFIED RESPONSIVE NAVBAR */}
 				<div className="fixed z-49 w-full bg-[#396131]" onMouseLeave={() => setActiveItemHover('')}>
 					{/* Primary Navigation Section */}
-					<div className="flex w-full items-center justify-between border-b-1 border-white bg-transparent px-[40px] py-4 xl:justify-between">
+					<div className="flex w-full items-center justify-between border-b-1 border-white bg-transparent px-10 py-4 xl:justify-between">
 						{/* Logo */}
 						<div className="flex items-center">
 							<NavLink to="/">
@@ -409,7 +409,7 @@ export default function Navbar({ children }) {
 								className="flex w-full overflow-hidden rounded-[5px] shadow-md"
 							>
 								<div className="absolute py-2 pl-4">
-									<TextSearch className="h-5 w-5 text-[#396131]" />
+									<Search className="h-5 w-5 text-[#396131]" />
 								</div>
 								<input
 									type="text"
@@ -446,7 +446,7 @@ export default function Navbar({ children }) {
 								className="flex w-full overflow-hidden rounded-[5px] shadow-md"
 							>
 								<div className="absolute py-2 pl-4">
-									<TextSearch className="h-5 w-5 text-[#396131]" />
+									<Search className="h-5 w-5 text-[#396131]" />
 								</div>
 								<input
 									type="text"
@@ -481,7 +481,7 @@ export default function Navbar({ children }) {
 
 					{/* Secondary Navigation Section - Desktop Only */}
 					<div
-						className="hidden w-full justify-between gap-3 bg-transparent px-4 py-3 text-[12px] font-bold drop-shadow-lg xl:flex xl:gap-[20px] xl:px-[95px] xl:py-[15px] xl:text-[14px]"
+						className="hidden w-full justify-between gap-3 bg-transparent px-10 py-3 text-[12px] font-bold drop-shadow-lg xl:flex xl:gap-[20px] xl:py-[15px] xl:text-[14px]"
 						onMouseLeave={handleSecondaryNavItemLeave}
 					>
 						<ul className="flex gap-3 text-white xl:gap-[30px]">
@@ -743,7 +743,7 @@ export default function Navbar({ children }) {
 								</div>
 
 								{/* --- Mobile Search Bar --- */}
-								<div className="border-b border-[#eaf7ec] p-4">
+								<div className="p-4">
 									<form
 										onSubmit={(e) => {
 											e.preventDefault();
@@ -756,34 +756,25 @@ export default function Navbar({ children }) {
 												setActiveItemHover('');
 											}
 										}}
-										className="relative w-full"
+										className="flex w-full overflow-hidden rounded-[5px] shadow-md"
 									>
+										<div className="absolute py-2 pl-4">
+											<Search className="h-5 w-5 text-[#396131]" />
+										</div>
 										<input
 											type="text"
-											placeholder="Search..."
 											value={searchTerm}
 											onChange={(e) => setSearchTerm(e.target.value)}
-											className="w-full rounded-full border border-[#b7ddb2] py-2 pr-10 pl-4 text-base text-[#204216] placeholder-[#b7ddb2] transition-all focus:border-[#396131] focus:outline-none"
+											className="h-full w-full border-0 bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-0"
+											aria-label="Search query"
+											placeholder="Search..."
 										/>
 										<button
 											type="submit"
-											className="absolute top-1/2 right-2 -translate-y-1/2 text-[#31542b] hover:text-[#396131]"
+											className="flex cursor-pointer items-center justify-center rounded-r-[5px] bg-[#396131] px-4 text-xs font-bold text-white transition-colors duration-200 hover:bg-[#27481e]"
 											aria-label="Search"
 										>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												className="h-5 w-5"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke="currentColor"
-											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													strokeWidth={2}
-													d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
-												/>
-											</svg>
+											SEARCH
 										</button>
 									</form>
 								</div>

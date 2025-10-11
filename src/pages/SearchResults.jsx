@@ -617,53 +617,53 @@ export default function SearchResults() {
 	}, [searchTerm]);
 
 	return (
-		<div className="mx-auto mt-10 min-h-[60vh] max-w-7xl p-8">
-			<h1 className="mb-6 text-3xl font-extrabold tracking-tight text-[#396131]">Search Results</h1>
-			{searchTerm === '' && (
-				<div className="flex flex-col items-center justify-center py-10">
-					<span className="mb-2 text-4xl text-gray-300">🔎</span>
-					<p className="text-lg text-gray-700">Please enter a search query above.</p>
-				</div>
-			)}
-			{searchTerm !== '' && results.length === 0 && (
-				<div className="flex flex-col items-center justify-center py-10">
-					<span className="mb-2 text-5xl text-red-200">😕</span>
-					<p className="text-lg text-red-700">
-						No results found for <span className="font-semibold">&quot;{searchTerm}&quot;</span>.
-					</p>
-					<p className="mt-2 text-gray-500">Try different keywords or check your spelling.</p>
-				</div>
-			)}
-			{results.length > 0 && (
-				<div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-					{results.map((page) => (
-						<div
-							key={page.path}
-							className="flex h-full flex-col rounded-lg border border-[#e3edd1] bg-[#f8fbf4] transition-shadow hover:shadow-md"
-						>
+		<div className="bg-gradient-to-l from-[#396131] to-[#4a7c3a]">
+			<div className="mx-auto min-h-[60vh] max-w-7xl p-8 py-24">
+				<h1 className="mb-6 text-3xl font-extrabold tracking-tight text-white">Search Results</h1>
+				{searchTerm === '' && (
+					<div className="flex flex-col items-center justify-center py-10">
+						<span className="mb-2 text-4xl text-white/70">🔎</span>
+						<p className="text-lg text-white">Please enter a search query above.</p>
+					</div>
+				)}
+				{searchTerm !== '' && results.length === 0 && (
+					<div className="flex flex-col items-center justify-center py-10">
+						<span className="mb-2 text-5xl text-white/70">😕</span>
+						<p className="text-lg text-white">
+							No results found for <span className="font-semibold">&quot;{searchTerm}&quot;</span>.
+						</p>
+						<p className="mt-2 text-white/80">Try different keywords or check your spelling.</p>
+					</div>
+				)}
+				{results.length > 0 && (
+					<div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+						{results.map((page) => (
 							<Link
 								to={page.path}
-								className="block w-full rounded-lg px-6 py-4 text-lg font-semibold text-[#27481e] transition-colors duration-200 hover:bg-[#e3edd1] hover:text-[#173f17]"
+								key={page.path}
+								className="flex h-full cursor-pointer flex-col rounded-lg border border-white/10 bg-white/10 transition-all duration-200 hover:scale-101 hover:bg-white/10 hover:shadow-lg"
 							>
-								{page.title}
-								<span className="ml-2 align-middle text-base text-[#518243]">→</span>
-							</Link>
-							{page.keywords && (
-								<div className="flex flex-wrap gap-2 px-6 pt-1 pb-3">
-									{page.keywords.slice(0, 3).map((word, idx) => (
-										<span
-											key={word + idx}
-											className="rounded-full bg-[#e3edd1] px-2 py-1 text-xs font-medium text-[#415e2a]"
-										>
-											{word}
-										</span>
-									))}
+								<div className="block w-full rounded-lg px-6 py-4 text-lg font-semibold text-white">
+									{page.title}
+									<span className="ml-2 align-middle text-base">→</span>
 								</div>
-							)}
-						</div>
-					))}
-				</div>
-			)}
+								{page.keywords && (
+									<div className="flex flex-wrap gap-2 px-6 pt-1 pb-3">
+										{page.keywords.slice(0, 3).map((word, idx) => (
+											<span
+												key={word + idx}
+												className="rounded-full bg-white/10 px-2 py-1 text-xs font-medium text-white"
+											>
+												{word}
+											</span>
+										))}
+									</div>
+								)}
+							</Link>
+						))}
+					</div>
+				)}
+			</div>
 		</div>
 	);
 }

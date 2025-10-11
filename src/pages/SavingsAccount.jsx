@@ -227,14 +227,18 @@ export default function SavingsAccount() {
 				/>
 
 				{/* Accounts Section */}
-				<section id="accounts" data-scroll className="text-[#396131]">
+				<section
+					id="accounts"
+					data-scroll
+					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24 text-white"
+				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
+							<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
 								SAVINGS ACCOUNTS
 							</h2>
-							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7a3f]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
+							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/90 to-[#aee3b7]"></div>
+							<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
 								Find the perfect savings account for your needs
 							</p>
 						</div>
@@ -243,10 +247,10 @@ export default function SavingsAccount() {
 							{savingsAccounts.map((account, index) => (
 								<div
 									key={index}
-									className="group relative flex flex-col items-center overflow-hidden rounded-2xl border border-gray-100 bg-white p-0 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+									className="group relative flex flex-col items-center overflow-hidden rounded-2xl border border-white/10 bg-white/90 p-0 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 								>
 									{/* Emphasize image: make it a top banner */}
-									<div className="flex h-40 w-full items-center justify-center">
+									<div className="flex h-40 w-full items-center justify-center bg-white/70">
 										<img
 											src={account.image}
 											alt={`${account.title} visual`}
@@ -254,40 +258,46 @@ export default function SavingsAccount() {
 										/>
 									</div>
 									<div className="flex w-full flex-1 flex-col p-8">
-										<h3 className="mt-2 mb-4 text-center text-xl font-bold text-gray-900">
+										<h3 className="mt-2 mb-4 text-center text-xl font-bold text-[#185027]">
 											{account.title}
 										</h3>
-										<p className="mb-6 text-center leading-relaxed text-gray-600">
+										<p className="mb-6 text-center leading-relaxed text-[#35603e]">
 											{account.description}
 										</p>
 										<div className="mb-6 space-y-3">
 											<div className="flex justify-between">
-												<span className="text-sm font-medium text-gray-500">Initial Deposit:</span>
-												<span className="text-sm font-semibold text-[#396131]">
+												<span className="text-sm font-medium text-[#396131]/80">
+													Initial Deposit:
+												</span>
+												<span className="text-sm font-semibold text-[#236c36]">
 													{account.initialDeposit}
 												</span>
 											</div>
 											<div className="flex justify-between">
-												<span className="text-sm font-medium text-gray-500">Minimum Balance:</span>
-												<span className="text-sm font-semibold text-[#396131]">
+												<span className="text-sm font-medium text-[#396131]/80">
+													Minimum Balance:
+												</span>
+												<span className="text-sm font-semibold text-[#236c36]">
 													{account.minimumBalance}
 												</span>
 											</div>
 											<div className="flex justify-between">
-												<span className="text-sm font-medium text-gray-500">Interest Rate:</span>
-												<span className="text-sm font-semibold text-[#396131]">
+												<span className="text-sm font-medium text-[#396131]/80">
+													Interest Rate:
+												</span>
+												<span className="text-sm font-semibold text-[#236c36]">
 													{account.interestRate}
 												</span>
 											</div>
 										</div>
 										{/* 
 										<div className="mb-6">
-											<h4 className="mb-3 text-sm font-semibold text-gray-800">Key Features:</h4>
+											<h4 className="mb-3 text-sm font-semibold text-[#185027]">Key Features:</h4>
 											<ul className="space-y-2">
 												{account.features.map((feature, featureIndex) => (
 													<li
 														key={featureIndex}
-														className="flex items-center gap-2 text-sm text-gray-600"
+														className="flex items-center gap-2 text-sm text-[#35603e]"
 													>
 														<div className="h-1.5 w-1.5 rounded-full bg-[#396131]"></div>
 														{feature}
@@ -297,7 +307,7 @@ export default function SavingsAccount() {
 										</div> */}
 										<NavLink
 											to={account.route}
-											className="mt-auto flex w-full cursor-pointer items-center justify-center rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-3 text-center font-semibold text-white transition-all duration-300 hover:shadow-lg"
+											className="mt-auto flex w-full cursor-pointer items-center justify-center rounded-lg bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-3 text-center font-semibold text-white transition-all duration-300 hover:from-[#335d2b] hover:to-[#3b8a4a] hover:shadow-lg"
 										>
 											Open Account
 										</NavLink>

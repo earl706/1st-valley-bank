@@ -162,14 +162,18 @@ export default function CheckingAccount() {
 				/>
 
 				{/* Accounts Section */}
-				<section id="accounts" data-scroll className="text-[#396131]">
+				<section
+					id="accounts"
+					data-scroll
+					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24 text-white"
+				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
+							<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
 								CHECKING ACCOUNTS
 							</h2>
-							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7a3f]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
+							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/80 to-[#a8ffc2]"></div>
+							<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
 								Choose the checking account that fits your needs
 							</p>
 						</div>
@@ -178,7 +182,7 @@ export default function CheckingAccount() {
 							{checkingAccounts.map((account, index) => (
 								<div
 									key={index}
-									className="group relative flex flex-col rounded-2xl border border-gray-100 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl lg:flex-row lg:gap-8"
+									className="group relative flex flex-col rounded-2xl border border-white/10 bg-white/90 p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl lg:flex-row lg:gap-8"
 								>
 									<div className="mb-6 flex items-center justify-center lg:mb-0 lg:w-1/4">
 										<img
@@ -189,39 +193,40 @@ export default function CheckingAccount() {
 									</div>
 
 									<div className="flex-1">
-										<h3 className="mb-4 text-2xl font-bold text-gray-900">{account.title}</h3>
+										<h3 className="mb-4 text-2xl font-bold text-[#185027]">{account.title}</h3>
 
-										<p className="mb-6 leading-relaxed text-gray-600">{account.description}</p>
+										<p className="mb-6 leading-relaxed text-[#35603e]">{account.description}</p>
 
 										<div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-											<div className="rounded-lg bg-gray-50 p-4">
-												<div className="text-sm font-medium text-gray-500">Initial Deposit</div>
-												<div className="text-lg font-semibold text-[#396131]">
+											<div className="rounded-lg bg-white/80 p-4">
+												<div className="text-sm font-medium text-[#396131]/80">Initial Deposit</div>
+												<div className="text-lg font-semibold text-[#236c36]">
 													{account.initialDeposit}
 												</div>
 											</div>
-											<div className="rounded-lg bg-gray-50 p-4">
-												<div className="text-sm font-medium text-gray-500">Minimum Balance</div>
-												<div className="text-lg font-semibold text-[#396131]">
+											<div className="rounded-lg bg-white/80 p-4">
+												<div className="text-sm font-medium text-[#396131]/80">Minimum Balance</div>
+												<div className="text-lg font-semibold text-[#236c36]">
 													{account.minimumBalance}
 												</div>
 											</div>
-											<div className="rounded-lg bg-gray-50 p-4">
-												<div className="text-sm font-medium text-gray-500">Interest Rate</div>
-												<div className="text-lg font-semibold text-[#396131]">
+											<div className="rounded-lg bg-white/80 p-4">
+												<div className="text-sm font-medium text-[#396131]/80">Interest Rate</div>
+												<div className="text-lg font-semibold text-[#236c36]">
 													{account.interestRate}
 												</div>
 											</div>
 										</div>
 
-										{/* <div className="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+										{/* 
+										<div className="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
 											<div>
-												<h4 className="mb-3 text-sm font-semibold text-gray-800">Features:</h4>
+												<h4 className="mb-3 text-sm font-semibold text-[#185027]">Features:</h4>
 												<ul className="space-y-2">
 													{account.features.map((feature, featureIndex) => (
 														<li
 															key={featureIndex}
-															className="flex items-center gap-2 text-sm text-gray-600"
+															className="flex items-center gap-2 text-sm text-[#35603e]"
 														>
 															<div className="h-1.5 w-1.5 rounded-full bg-[#396131]"></div>
 															{feature}
@@ -230,12 +235,12 @@ export default function CheckingAccount() {
 												</ul>
 											</div>
 											<div>
-												<h4 className="mb-3 text-sm font-semibold text-gray-800">Benefits:</h4>
+												<h4 className="mb-3 text-sm font-semibold text-[#185027]">Benefits:</h4>
 												<ul className="space-y-2">
 													{account.benefits.map((benefit, benefitIndex) => (
 														<li
 															key={benefitIndex}
-															className="flex items-center gap-2 text-sm text-gray-600"
+															className="flex items-center gap-2 text-sm text-[#35603e]"
 														>
 															<div className="h-1.5 w-1.5 rounded-full bg-[#396131]"></div>
 															{benefit}
@@ -243,7 +248,8 @@ export default function CheckingAccount() {
 													))}
 												</ul>
 											</div>
-										</div> */}
+										</div>
+										*/}
 
 										<NavLink
 											to={account.route}

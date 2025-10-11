@@ -182,28 +182,22 @@ export default function LoansSME() {
 			/>
 
 			<main className="flex flex-col gap-[80px] pb-[50px]">
-				<section
-					id="features"
-					className="relative overflow-hidden bg-gradient-to-br from-[#396131] to-[#2d4a26] py-20"
-				>
+				<section id="features" className="relative overflow-hidden bg-white py-20">
 					{/* Background Elements */}
-					<div className="absolute inset-0">
-						<div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-white/5 blur-3xl"></div>
-						<div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-white/5 blur-3xl"></div>
-					</div>
+					{/* Removed gradient background and overlays for pure white bg */}
 
 					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="mb-16 text-center">
-							<div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-white">
-								<span className="h-2 w-2 animate-pulse rounded-full bg-white"></span>
+							<div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#396131]/10 px-6 py-3 text-sm font-semibold text-[#396131]">
+								<span className="h-2 w-2 animate-pulse rounded-full bg-[#396131]"></span>
 								Performance Metrics
 							</div>
 
-							<h2 className="mb-6 text-4xl leading-tight font-bold text-white md:text-5xl">
+							<h2 className="mb-6 text-4xl leading-tight font-bold text-[#396131] md:text-5xl">
 								SME Loan Performance
 							</h2>
 
-							<p className="mx-auto max-w-3xl text-xl leading-relaxed text-white/80">
+							<p className="mx-auto max-w-3xl text-xl leading-relaxed text-gray-700">
 								Proven track record of success and growth in supporting small and medium enterprises
 							</p>
 						</div>
@@ -235,21 +229,19 @@ export default function LoansSME() {
 							].map((feature, index) => (
 								<div
 									key={index}
-									className="group relative rounded-2xl border border-white/20 bg-white/10 p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:bg-white/15"
+									className="group relative rounded-2xl border border-gray-200 bg-gray-50 p-8 transition-all duration-300 hover:-translate-y-2 hover:bg-gray-100"
 								>
 									<div className="text-center">
 										{/* Icon */}
-										<div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-white/20 transition-transform duration-300 group-hover:scale-110">
-											{React.createElement(feature.icon, {
-												className: 'w-10 h-10 text-white'
-											})}
+										<div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#396131]/10 transition-transform duration-300 group-hover:scale-110">
+											<feature.icon className="h-10 w-10 text-[#396131]" />
 										</div>
 
 										{/* Title */}
-										<h3 className="mb-3 text-xl font-bold text-white">{feature.header}</h3>
+										<h3 className="mb-3 text-xl font-bold text-[#396131]">{feature.header}</h3>
 
 										{/* Description */}
-										<p className="text-sm leading-relaxed text-white/80">{feature.description}</p>
+										<p className="text-sm leading-relaxed text-gray-700">{feature.description}</p>
 									</div>
 								</div>
 							))}

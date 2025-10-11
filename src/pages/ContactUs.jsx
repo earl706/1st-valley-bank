@@ -105,26 +105,26 @@ const ContactUsForm = () => {
 	};
 
 	return (
-		<div className="min-h-screen px-4 py-12 sm:px-6 lg:px-8">
+		<div className="min-h-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-4 py-24 sm:px-6 lg:px-8">
 			<div className="mx-auto max-w-6xl">
-				<div className="overflow-hidden rounded-3xl bg-white shadow-2xl">
+				<div className="overflow-hidden rounded-3xl bg-white/90 shadow-2xl">
 					<div className="grid grid-cols-1 gap-0 lg:grid-cols-2">
 						{/* Form Section */}
 						<div className="p-8 lg:p-12">
 							<div onSubmit={handleSubmit} className="space-y-6">
 								{/* Name Field */}
 								<div className="relative">
-									<label className="mb-2 block text-sm font-semibold text-gray-700">
+									<label className="mb-2 block text-sm font-semibold text-[#396131]">
 										Full Name
 									</label>
 									<div className="relative">
-										<User className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
+										<User className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transform text-[#4a7c3a]" />
 										<input
 											type="text"
 											name="name"
 											value={formData.name}
 											onChange={handleInputChange}
-											className="w-full rounded-xl border border-gray-200 bg-gray-50 py-4 pr-4 pl-12 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
+											className="w-full rounded-xl border border-gray-200 bg-white/60 py-4 pr-4 pl-12 text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
 											placeholder="Enter your full name"
 											required
 										/>
@@ -133,17 +133,17 @@ const ContactUsForm = () => {
 
 								{/* Email Field */}
 								<div className="relative">
-									<label className="mb-2 block text-sm font-semibold text-gray-700">
+									<label className="mb-2 block text-sm font-semibold text-[#396131]">
 										Email Address
 									</label>
 									<div className="relative">
-										<Mail className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
+										<Mail className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transform text-[#4a7c3a]" />
 										<input
 											type="email"
 											name="email"
 											value={formData.email}
 											onChange={handleInputChange}
-											className="w-full rounded-xl border border-gray-200 bg-gray-50 py-4 pr-4 pl-12 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
+											className="w-full rounded-xl border border-gray-200 bg-white/60 py-4 pr-4 pl-12 text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
 											placeholder="Enter your email address"
 											required
 										/>
@@ -152,14 +152,14 @@ const ContactUsForm = () => {
 
 								{/* Subject Field */}
 								<div className="relative">
-									<label className="mb-2 block text-sm font-semibold text-gray-700">Subject</label>
+									<label className="mb-2 block text-sm font-semibold text-[#396131]">Subject</label>
 									<div className="relative">
-										<FileText className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
+										<FileText className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transform text-[#4a7c3a]" />
 										<select
 											name="subject"
 											value={formData.subject}
 											onChange={handleInputChange}
-											className="w-full appearance-none rounded-xl border border-gray-200 bg-gray-50 py-4 pr-4 pl-12 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
+											className="w-full appearance-none rounded-xl border border-gray-200 bg-white/60 py-4 pr-4 pl-12 text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
 											required
 										>
 											<option value="">Select a subject</option>
@@ -174,16 +174,16 @@ const ContactUsForm = () => {
 
 								{/* Address Fields */}
 								<div className="space-y-4">
-									<label className="block text-sm font-semibold text-gray-700">Address</label>
+									<label className="block text-sm font-semibold text-[#396131]">Address</label>
 
 									<div className="relative">
-										<MapPin className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
+										<MapPin className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transform text-[#4a7c3a]" />
 										<input
 											type="text"
 											name="address.barangay"
 											value={formData.address.barangay}
 											onChange={handleInputChange}
-											className="w-full rounded-xl border border-gray-200 bg-gray-50 py-4 pr-4 pl-12 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
+											className="w-full rounded-xl border border-gray-200 bg-white/60 py-4 pr-4 pl-12 text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
 											placeholder="Barangay"
 											required
 										/>
@@ -195,7 +195,7 @@ const ContactUsForm = () => {
 											name="address.municipality"
 											value={formData.address.municipality}
 											onChange={handleInputChange}
-											className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
+											className="w-full rounded-xl border border-gray-200 bg-white/60 px-4 py-4 text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
 											placeholder="Municipality/City"
 											required
 										/>
@@ -204,7 +204,7 @@ const ContactUsForm = () => {
 											name="address.province"
 											value={formData.address.province}
 											onChange={handleInputChange}
-											className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
+											className="w-full rounded-xl border border-gray-200 bg-white/60 px-4 py-4 text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
 											placeholder="Province"
 											required
 										/>
@@ -213,17 +213,17 @@ const ContactUsForm = () => {
 
 								{/* Contact Number Field */}
 								<div className="relative">
-									<label className="mb-2 block text-sm font-semibold text-gray-700">
+									<label className="mb-2 block text-sm font-semibold text-[#396131]">
 										Contact Number
 									</label>
 									<div className="relative">
-										<Phone className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
+										<Phone className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transform text-[#4a7c3a]" />
 										<input
 											type="tel"
 											name="contact_number"
 											value={formData.contact_number}
 											onChange={handleInputChange}
-											className="w-full rounded-xl border border-gray-200 bg-gray-50 py-4 pr-4 pl-12 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
+											className="w-full rounded-xl border border-gray-200 bg-white/60 py-4 pr-4 pl-12 text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
 											placeholder="Enter your contact number"
 											required
 										/>
@@ -232,15 +232,15 @@ const ContactUsForm = () => {
 
 								{/* Message Field */}
 								<div className="relative">
-									<label className="mb-2 block text-sm font-semibold text-gray-700">Message</label>
+									<label className="mb-2 block text-sm font-semibold text-[#396131]">Message</label>
 									<div className="relative">
-										<MessageSquare className="absolute top-6 left-4 h-5 w-5 text-gray-400" />
+										<MessageSquare className="absolute top-6 left-4 h-5 w-5 text-[#4a7c3a]" />
 										<textarea
 											name="message"
 											value={formData.message}
 											onChange={handleInputChange}
 											rows={5}
-											className="w-full resize-none rounded-xl border border-gray-200 bg-gray-50 py-4 pr-4 pl-12 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
+											className="w-full resize-none rounded-xl border border-gray-200 bg-white/60 py-4 pr-4 pl-12 text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
 											placeholder="Enter your message..."
 											required
 										/>
@@ -250,7 +250,7 @@ const ContactUsForm = () => {
 								{/* Submit Button */}
 								<button
 									type="submit"
-									className="w-full transform cursor-pointer rounded-xl bg-[#396131] px-6 py-4 font-semibold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:bg-[#2d4d26] hover:shadow-xl active:scale-[0.98]"
+									className="w-full transform cursor-pointer rounded-xl bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-4 font-semibold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:from-[#2d4d26] hover:to-[#447c43] hover:shadow-xl active:scale-[0.98]"
 								>
 									Send Message
 								</button>
@@ -258,13 +258,13 @@ const ContactUsForm = () => {
 						</div>
 
 						{/* Map Section */}
-						<div className="flex flex-col bg-gray-50 p-8 lg:p-12">
+						<div className="flex flex-col bg-gradient-to-r from-[#396131]/70 to-[#4a7c3a]/70 p-8 lg:p-12">
 							<div className="mb-6 flex items-center">
-								<Map className="mr-3 h-6 w-6 text-[#396131]" />
-								<h3 className="text-xl font-semibold text-gray-800">Location Preview</h3>
+								<Map className="mr-3 h-6 w-6 text-white" />
+								<h3 className="text-xl font-semibold text-white">Location Preview</h3>
 							</div>
 
-							<div className="flex-1 overflow-hidden rounded-2xl bg-white shadow-inner">
+							<div className="flex-1 overflow-hidden rounded-2xl bg-white/95 shadow-inner">
 								{mapCoordinates ? (
 									<ContactPageMap
 										lat={mapCoordinates.lat.toFixed(6)}
@@ -285,10 +285,10 @@ const ContactUsForm = () => {
 
 							{/* Address Summary */}
 							{mapCoordinates && (
-								<div className="mt-6 rounded-xl border border-gray-200 bg-white p-4">
-									<h4 className="mb-2 font-semibold text-gray-700">Location Found:</h4>
-									<p className="mb-2 text-sm text-gray-600">{mapCoordinates.placeName}</p>
-									<p className="text-xs text-gray-500">
+								<div className="mt-6 rounded-xl border border-gray-200 bg-white/90 p-4">
+									<h4 className="mb-2 font-semibold text-[#396131]">Location Found:</h4>
+									<p className="mb-2 text-sm text-[#396131]">{mapCoordinates.placeName}</p>
+									<p className="text-xs text-[#4a7c3a]">
 										Coordinates: {mapCoordinates.lat.toFixed(6)}, {mapCoordinates.lng.toFixed(6)}
 									</p>
 								</div>
@@ -329,15 +329,11 @@ const ContactUsForm = () => {
 export default function ContactUs() {
 	return (
 		<>
-			<main className="flex flex-col gap-[80px] pb-[50px]">
+			<main className="flex flex-col">
 				<HeroSection
 					title="Contact Us"
 					subtitle=""
-					description="Got questions or need assistance? 1st Valley Bank is here for you!
-              Reach out anytime via phone, email, or visit us in person. Our
-              friendly team is ready to help with your banking needs, provide
-              support, and guide you every step of the way. Connect with us
-              today—because at 1VB, your satisfaction is our top priority!"
+					description="Questions? Contact 1st Valley Bank anytime—by phone, email, or in person. We're here to help!"
 					features={[]}
 					image={carouselImg1}
 					imageAlt="Contact Us"
@@ -347,8 +343,6 @@ export default function ContactUs() {
 					<ContactUsForm />
 				</section>
 			</main>
-			{/* <main className="hidden sm:block lg:hidden">Tablet</main>
-      <main className="block sm:hidden">Mobile</main> */}
 		</>
 	);
 }

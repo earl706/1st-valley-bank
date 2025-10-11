@@ -178,23 +178,26 @@ export default function TimeDeposit() {
 				/>
 
 				{/* Deposits Section */}
-				<section id="deposits" data-scroll className="text-[#396131]">
+				<section
+					id="deposits"
+					data-scroll
+					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24 text-white"
+				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
-								TIME DEPOSIT TERMS
+							<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+								TIME DEPOSIT
 							</h2>
-							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7a3f]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
+							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/90 to-[#aee3b7]"></div>
+							<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
 								Choose the term that matches your investment goals
 							</p>
 						</div>
-
 						<div className="grid gap-8 lg:grid-cols-1">
 							{timeDeposits.map((deposit, index) => (
 								<div
 									key={index}
-									className="group relative flex flex-col rounded-2xl border border-gray-100 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl lg:flex-row"
+									className="group relative flex flex-col rounded-2xl border border-white/10 bg-white/90 p-8 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl lg:flex-row"
 								>
 									{/* Image Container */}
 									<div className="mb-6 flex items-center justify-center lg:mr-8 lg:mb-0 lg:w-1/3">
@@ -208,21 +211,21 @@ export default function TimeDeposit() {
 									<div className="flex flex-1 flex-col">
 										<div className="mb-6 flex items-center justify-between">
 											<div>
-												<h3 className="text-2xl font-bold text-gray-900">{deposit.title}</h3>
-												<p className="text-sm text-gray-500">Term Period</p>
+												<h3 className="text-2xl font-bold text-[#185027]">{deposit.title}</h3>
+												<p className="text-sm text-[#35603e]/90">Term Period</p>
 											</div>
 											<div className="text-right">
 												<div className="text-2xl font-bold text-[#396131]">
 													{deposit.interestRate.split(' ')[0]}
 												</div>
-												<div className="text-sm text-gray-500">Interest Rate</div>
+												<div className="text-sm text-[#35603e]/90">Interest Rate</div>
 											</div>
 										</div>
 
-										<p className="mb-6 leading-relaxed text-gray-600">{deposit.description}</p>
+										<p className="mb-6 leading-relaxed text-[#35603e]">{deposit.description}</p>
 
-										<div className="mb-6 rounded-lg bg-gray-50 p-4">
-											<div className="text-sm font-medium text-gray-500">
+										<div className="mb-6 rounded-lg bg-white/80 p-4">
+											<div className="text-sm font-medium text-[#35603e]/90">
 												Minimum Initial Amount
 											</div>
 											<div className="text-xl font-semibold text-[#396131]">
@@ -232,12 +235,12 @@ export default function TimeDeposit() {
 
 										{/* <div className="mb-6 grid grid-cols-1 gap-4">
 											<div>
-												<h4 className="mb-3 text-sm font-semibold text-gray-800">Features:</h4>
+												<h4 className="mb-3 text-sm font-semibold text-[#185027]">Features:</h4>
 												<ul className="space-y-2">
 													{deposit.features.map((feature, featureIndex) => (
 														<li
 															key={featureIndex}
-															className="flex items-center gap-2 text-sm text-gray-600"
+															className="flex items-center gap-2 text-sm text-[#35603e]"
 														>
 															<div className="h-1.5 w-1.5 rounded-full bg-[#396131]"></div>
 															{feature}
@@ -248,12 +251,12 @@ export default function TimeDeposit() {
 										</div>
 
 										<div className="mb-6">
-											<h4 className="mb-3 text-sm font-semibold text-gray-800">Benefits:</h4>
+											<h4 className="mb-3 text-sm font-semibold text-[#185027]">Benefits:</h4>
 											<ul className="space-y-2">
 												{deposit.benefits.map((benefit, benefitIndex) => (
 													<li
 														key={benefitIndex}
-														className="flex items-center gap-2 text-sm text-gray-600"
+														className="flex items-center gap-2 text-sm text-[#35603e]"
 													>
 														<div className="h-1.5 w-1.5 rounded-full bg-[#396131]"></div>
 														{benefit}
@@ -277,7 +280,7 @@ export default function TimeDeposit() {
 
 				{/* Requirements Section */}
 				<section id="requirements" data-scroll className="bg-white text-gray-900">
-					<div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+					<div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
 						<div className="mb-16 text-center">
 							<h2 className="mb-4 text-3xl font-bold sm:text-4xl">Time Deposit Requirements</h2>
 							<p className="text-xl text-gray-500">What you need to open a time deposit account</p>

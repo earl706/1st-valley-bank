@@ -2,13 +2,6 @@ import React, { useEffect, useState } from 'react';
 import img1 from '/src/assets/properties-for-sale/1.jpeg';
 import img2 from '/src/assets/properties-for-sale/2.jpeg';
 import { MapPin, Calendar, Hash, Eye, Heart, Share2, Home, Ruler } from 'lucide-react';
-import {
-	faHouseCircleCheck,
-	faMoneyBillTrendUp,
-	faTags,
-	faTruck
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 import PropertyCard from '../components/PropertyCard';
 import img from '/src/assets/homepage/heroSectionImage.png';
@@ -80,7 +73,7 @@ export default function PropertiesForSaleRealEstate() {
 
 	return (
 		<>
-			<main className="flex flex-col gap-[120px] pb-[50px]">
+			<main className="flex flex-col">
 				<HeroSection
 					title="Properties for Sale"
 					subtitle="Real Estate and Other Properties Acquired for Sale"
@@ -95,6 +88,16 @@ export default function PropertiesForSaleRealEstate() {
 					{/* Optionally, you could pass a custom icon as image if HeroSection supports it */}
 				</HeroSection>
 				<section id="vehicles" className="mx-[10px] lg:mx-[80px]">
+					<div className="my-16 text-center">
+						<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
+							Real Estate & Properties
+						</h2>
+						<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#396131]/80"></div>
+						<p className="mx-auto mt-6 max-w-2xl text-lg text-[#396131]/80">
+							Explore our assortment of prime real estate, residential, commercial, and foreclosed
+							properties for sale, opportunities offered only by 1st Valley Bank.
+						</p>
+					</div>
 					<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 						{sampleProperties.map((property, index) => (
 							<PropertyCard key={index} property={property} />

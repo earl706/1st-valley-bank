@@ -449,7 +449,9 @@ export default function AboutUs() {
 			route: '#description',
 			buttonText: 'Learn About Our Profile',
 			showButton: true,
-			onButtonClick: () => scrollToSection('#description')
+			onButtonClick: () => {
+				scrollToSection('#description');
+			}
 		},
 		{
 			title: 'Our Rich History',
@@ -461,7 +463,9 @@ export default function AboutUs() {
 			route: '#history',
 			buttonText: 'Explore Our History',
 			showButton: true,
-			onButtonClick: () => scrollToSection('#history')
+			onButtonClick: () => {
+				scrollToSection('#history');
+			}
 		},
 		{
 			title: 'Why Choose Us',
@@ -473,7 +477,9 @@ export default function AboutUs() {
 			route: '#marketing',
 			buttonText: 'Discover Our Benefits',
 			showButton: true,
-			onButtonClick: () => scrollToSection('#marketing')
+			onButtonClick: () => {
+				scrollToSection('#marketing');
+			}
 		},
 		{
 			title: 'Comprehensive Loans',
@@ -566,7 +572,11 @@ export default function AboutUs() {
 			/>
 			<main className="flex flex-col">
 				{/* Hero Carousel Section */}
-				<section id="description" data-scroll className="bg-white py-12">
+				<section
+					id="description"
+					data-scroll
+					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-12"
+				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-2/5">
@@ -580,26 +590,25 @@ export default function AboutUs() {
 							</div>
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
-									<FontAwesomeIcon icon={faBuilding} className="h-4 w-4 text-[#396131]" />
-									<span className="text-2xl font-semibold text-[#396131]">Bank Overview</span>
+									<FontAwesomeIcon icon={faBuilding} className="h-4 w-4 text-white" />
+									<span className="text-2xl font-semibold text-white">Bank Overview</span>
 								</div>
-								<p className="mb-4 text-sm leading-relaxed text-gray-700">
-									<strong className="text-[#396131]">1st Valley Bank (1VB)</strong> is one of the
-									largest independent developmental banks dedicated to funding development projects
-									and businesses through the provision of loan capital. While the Bank's primary
-									clients are entrepreneurs and farmers, it also serves the financial needs of
-									teachers, barangay officials, regular employees of local government units, as well
-									as individuals who are in need of fast cash.
+								<p className="mb-4 text-sm leading-relaxed text-white/90">
+									<strong>1st Valley Bank (1VB)</strong> is one of the largest independent
+									developmental banks dedicated to funding development projects and businesses
+									through the provision of loan capital. While the Bank's primary clients are
+									entrepreneurs and farmers, it also serves the financial needs of teachers,
+									barangay officials, regular employees of local government units, as well as
+									individuals who are in need of fast cash.
 								</p>
-								<p className="mb-4 text-sm leading-relaxed text-gray-700">
-									On <strong className="text-[#396131]">27 December 2019</strong>, the merger
-									between 1st Valley Bank (1VB), Sugbuanon Rural Bank, Inc. (SRBI), and D'Asian
-									Hills Bank, Inc. (DAHBI) was declared official, with 1VB as the surviving entity.
-									With the completion of the merger, clients can expect greater customer service
-									satisfaction.
+								<p className="mb-4 text-sm leading-relaxed text-white/90">
+									On <strong>27 December 2019</strong>, the merger between 1st Valley Bank (1VB),
+									Sugbuanon Rural Bank, Inc. (SRBI), and D'Asian Hills Bank, Inc. (DAHBI) was
+									declared official, with 1VB as the surviving entity. With the completion of the
+									merger, clients can expect greater customer service satisfaction.
 								</p>
 
-								<p className="text-sm leading-relaxed text-gray-700">
+								<p className="text-sm leading-relaxed text-white/90">
 									1st Valley Bank ranks <strong>3rd in terms of assets</strong> and is considered
 									one of the fastest-growing development banks in the country. Its audited financial
 									statements show that as of December 2019, the Bank has a total of Php10B+ in
@@ -608,7 +617,7 @@ export default function AboutUs() {
 							</div>
 						</div>
 					</div>
-				</section>{' '}
+				</section>
 				<section id="history" data-scroll className="bg-white py-12">
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col-reverse items-center gap-8 lg:flex-row">
@@ -669,7 +678,11 @@ export default function AboutUs() {
 						</div>
 					</div>
 				</section>
-				<section id="marketing" data-scroll className="bg-white py-16">
+				<section
+					id="marketing"
+					data-scroll
+					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-16"
+				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-2/5">
@@ -683,15 +696,9 @@ export default function AboutUs() {
 							</div>
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
-									<FontAwesomeIcon icon={faBuildingColumns} className="h-4 w-4 text-[#396131]" />
-									<span className="text-2xl font-semibold text-[#396131]">Why Choose Us</span>
+									<FontAwesomeIcon icon={faBuildingColumns} className="h-4 w-4 text-white" />
+									<span className="text-2xl font-semibold text-white">Why Choose Us</span>
 								</div>
-
-								{/*
-									Refactored to iterate through an array and use lucide-react icons.
-									Make sure the relevant lucide-react icons are imported at the top of your file, e.g.:
-									import { Clock, User, HandCoins, Smartphone } from "lucide-react";
-								*/}
 								{(() => {
 									const whyChooseUsItems = [
 										{
@@ -717,15 +724,15 @@ export default function AboutUs() {
 												const Icon = item.icon;
 												return (
 													<li key={idx} className="flex items-center gap-3">
-														<Icon className="h-4 w-4 text-[#396131]" />
-														<span className="text-base text-gray-700">{item.text}</span>
+														<Icon className="h-4 w-4 text-white" />
+														<span className="text-base text-white">{item.text}</span>
 													</li>
 												);
 											})}
 										</ul>
 									);
 								})()}
-								<p className="text-base font-medium text-[#396131]">
+								<p className="text-base font-medium text-white">
 									Experience the difference of a bank that puts your needs first, with a legacy of
 									excellence and a commitment to your financial success.
 								</p>
@@ -806,40 +813,44 @@ export default function AboutUs() {
 						</div>
 					</div>
 				</section>
-				<section id="awards" data-scroll className="relative bg-white/80 py-8 lg:py-12">
+				<section
+					id="awards"
+					data-scroll
+					className="relative bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-8 lg:py-12"
+				>
 					<div className="mx-auto max-w-5xl px-2 sm:px-4">
 						{/* Header & Trophy */}
 						<div className="flex flex-col-reverse items-center gap-6 md:flex-row md:gap-8">
 							{/* Content */}
 							<div className="flex-1 text-center md:text-left">
-								<h2 className="mb-2 text-2xl font-bold text-[#396131] sm:text-3xl">
+								<h2 className="mb-2 text-2xl font-bold text-white sm:text-3xl">
 									Awards & Recognition
 								</h2>
-								<div className="mx-auto mb-4 h-1 w-16 rounded-full bg-[#396131] md:mx-0"></div>
+								<div className="mx-auto mb-4 h-1 w-16 rounded-full bg-white/60 md:mx-0"></div>
 								{/* Featured Awards */}
 								<div className="flex flex-col gap-4">
 									<div className="flex items-start gap-3 p-4">
-										<div className="flex h-9 w-9 items-center justify-center rounded-lg">
+										<div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/80">
 											<span className="text-base font-bold text-[#396131]">A+</span>
 										</div>
 										<div>
-											<span className="mb-1 block text-base font-semibold text-[#396131]">
+											<span className="mb-1 block text-base font-semibold text-white">
 												RATED A+
 											</span>
-											<p className="text-sm text-gray-700">
+											<p className="text-sm text-white">
 												By PhilRatings, a BSP-recognized credit rating agency.
 											</p>
 										</div>
 									</div>
 									<div className="flex items-start gap-3 p-4">
-										<div className="flex h-9 w-9 items-center justify-center">
+										<div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/80">
 											<FontAwesomeIcon icon={faTrophy} className="text-base text-[#396131]" />
 										</div>
 										<div>
-											<span className="mb-1 block text-base font-semibold text-[#396131]">
+											<span className="mb-1 block text-base font-semibold text-white">
 												EAGLE AWARD FOR MICROFINANCE
 											</span>
-											<p className="text-sm text-gray-700">
+											<p className="text-sm text-white">
 												From USAID via MABS, for expanding rural microfinance services.
 											</p>
 										</div>
@@ -848,16 +859,19 @@ export default function AboutUs() {
 							</div>
 							{/* Trophy Icon */}
 							<div className="mb-4 flex flex-1 justify-center md:mb-0 md:justify-end">
-								<div className="flex h-24 w-24 items-center justify-center rounded-full bg-[#396131] shadow-lg md:h-32 md:w-32">
-									<FontAwesomeIcon icon={faTrophy} className="text-4xl text-white md:text-6xl" />
+								<div className="flex h-24 w-24 items-center justify-center rounded-full bg-white/80 shadow-lg md:h-32 md:w-32">
+									<FontAwesomeIcon
+										icon={faTrophy}
+										className="text-4xl text-[#396131] md:text-6xl"
+									/>
 								</div>
 							</div>
 						</div>
 						{/* Additional Awards Grid */}
 						<div className="mt-8 p-4">
 							<div className="mb-4 text-center">
-								<h3 className="mb-1 text-lg font-bold text-[#396131]">More Achievements</h3>
-								<div className="mx-auto h-0.5 w-10 rounded-full bg-[#396131]"></div>
+								<h3 className="mb-1 text-lg font-bold text-white">More Achievements</h3>
+								<div className="mx-auto h-0.5 w-10 rounded-full bg-white/60"></div>
 							</div>
 							<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
 								{awards.map((award, index) => (
@@ -865,14 +879,12 @@ export default function AboutUs() {
 										key={index}
 										className="group flex items-start gap-3 p-3 transition-all duration-200"
 									>
-										<div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-[#396131] transition-transform duration-200 group-hover:scale-105">
-											<FontAwesomeIcon icon={faTrophy} className="text-xs text-white" />
+										<div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-white/80 transition-transform duration-200 group-hover:scale-105">
+											<FontAwesomeIcon icon={faTrophy} className="text-xs text-[#396131]" />
 										</div>
 										<div className="flex-1">
-											<span className="block text-sm font-semibold text-[#396131]">
-												{award.header}
-											</span>
-											<p className="text-xs text-gray-700">{award.description}</p>
+											<span className="block text-sm font-semibold text-white">{award.header}</span>
+											<p className="text-xs text-white">{award.description}</p>
 										</div>
 									</div>
 								))}
@@ -1010,15 +1022,15 @@ export default function AboutUs() {
 				<section
 					id="corporate-profile"
 					data-scroll
-					className="relative flex flex-col gap-6 bg-gradient-to-br from-[#396131] via-[#396131]/90 to-emerald-900/90 p-4 text-white shadow-2xl ring-1 ring-emerald-900/10 backdrop-blur-md sm:p-6 md:p-8 lg:p-10 xl:p-12"
+					className="relative flex flex-col gap-6 bg-gradient-to-l from-[#396131] to-[#4a7c3a] p-4 text-white shadow-2xl ring-1 ring-emerald-900/10 backdrop-blur-md sm:p-6 md:p-8 lg:p-10 xl:p-12"
 				>
-					<span className="text-center text-[1.5rem]/[2rem] font-extrabold tracking-tight drop-shadow-lg lg:text-[2.2rem]/[2.7rem]">
+					<span className="text-center text-[1.5rem]/[2rem] font-extrabold tracking-tight text-white drop-shadow-lg lg:text-[2.2rem]/[2.7rem]">
 						Corporate Profile
 					</span>
 					<div className="flex flex-col gap-[28px]">
 						{/* Senior Management Modernized */}
 						<div className="flex flex-col gap-[14px]">
-							<span className="text-center text-[1rem] font-semibold tracking-wider text-emerald-200/90 uppercase">
+							<span className="text-center text-[1rem] font-semibold tracking-wider text-white/80 uppercase">
 								Senior Management
 							</span>
 							<div className="flex flex-col items-center gap-[10px]">
@@ -1031,10 +1043,10 @@ export default function AboutUs() {
 										/>
 									</div>
 									<div className="flex flex-col items-center">
-										<span className="text-center text-[1rem] font-bold tracking-tight text-white/90 lg:text-[1.1rem]">
+										<span className="text-center text-[1rem] font-bold tracking-tight text-white lg:text-[1.1rem]">
 											Atty. Nicolas J. Lim
 										</span>
-										<span className="text-[0.6rem] font-medium tracking-wide text-white/80 uppercase group-hover:text-white/80 lg:text-[0.8rem]">
+										<span className="text-[0.6rem] font-medium tracking-wide text-white/80 uppercase group-hover:text-white lg:text-[0.8rem]">
 											PRESIDENT
 										</span>
 									</div>
@@ -1043,7 +1055,7 @@ export default function AboutUs() {
 							<div className="grid grid-cols-2 gap-x-[8px] gap-y-[14px] text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-x-[16px] lg:gap-y-[24px]">
 								{corporateProfile.senior_management.map((officer, index) => (
 									<div
-										className="group flex flex-col items-center justify-center gap-[8px] rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-emerald-900/20 hover:shadow-lg"
+										className="group flex flex-col items-center justify-center gap-[8px] rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-white/20 hover:shadow-lg"
 										key={index}
 									>
 										<img
@@ -1052,10 +1064,10 @@ export default function AboutUs() {
 											className="h-[48px] w-[48px] rounded-full bg-white object-cover shadow transition-transform duration-300 group-hover:scale-105"
 										/>
 										<div className="flex flex-col items-center">
-											<span className="text-[0.85rem] font-semibold text-white/90 lg:text-[0.95rem]">
+											<span className="text-[0.85rem] font-semibold text-white lg:text-[0.95rem]">
 												{officer.name}
 											</span>
-											<span className="text-[0.6rem] font-medium tracking-wide text-white/80 uppercase group-hover:text-white/80 lg:text-[0.8rem]">
+											<span className="text-[0.6rem] font-medium tracking-wide text-white/70 uppercase group-hover:text-white lg:text-[0.8rem]">
 												{officer.position}
 											</span>
 										</div>
@@ -1065,13 +1077,13 @@ export default function AboutUs() {
 						</div>
 						{/* Product & Area Management Modernized */}
 						<div className="flex flex-col gap-[16px]">
-							<span className="text-center text-[1rem] font-semibold tracking-wider text-emerald-200/90 uppercase">
+							<span className="text-center text-[1rem] font-semibold tracking-wider text-white/80 uppercase">
 								Product &amp; Area Management
 							</span>
 							<div className="grid grid-cols-2 gap-x-[8px] gap-y-[14px] text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-x-[16px] lg:gap-y-[24px]">
 								{corporateProfile.product_management.map((officer, index) => (
 									<div
-										className="group flex flex-col items-center justify-center gap-[8px] rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-emerald-900/20 hover:shadow-lg"
+										className="group flex flex-col items-center justify-center gap-[8px] rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-white/20 hover:shadow-lg"
 										key={index}
 									>
 										<img
@@ -1080,10 +1092,10 @@ export default function AboutUs() {
 											className="h-[48px] w-[48px] rounded-full bg-white object-cover shadow transition-transform duration-300 group-hover:scale-105"
 										/>
 										<div className="flex flex-col items-center">
-											<span className="text-[0.85rem] font-semibold text-white/90 group-hover:text-emerald-200 lg:text-[0.95rem]">
+											<span className="text-[0.85rem] font-semibold text-white group-hover:text-white lg:text-[0.95rem]">
 												{officer.name}
 											</span>
-											<span className="text-[0.6rem] font-medium tracking-wide text-white/80 uppercase group-hover:text-white/80 lg:text-[0.8rem]">
+											<span className="text-[0.6rem] font-medium tracking-wide text-white/70 uppercase group-hover:text-white lg:text-[0.8rem]">
 												{officer.position}
 											</span>
 										</div>
