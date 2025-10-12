@@ -228,7 +228,6 @@ export default function LoansSUCRE() {
 					sectionSubtitle="Choose the agricultural loan that matches your farming needs"
 					tagText="Loan Types"
 					loanTypes={sucreLoanTypes}
-					brandColor="#396131"
 				/>
 				<SuccessStoriesSection
 					id="sucre-success-stories"

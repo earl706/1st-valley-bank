@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { CaretDownIcon } from '@phosphor-icons/react';
+import { Home, Info, MapPin, Phone } from 'lucide-react';
 import Footer from './Footer';
 import ChatBox from './ChatBox';
 import { Search, TextSearch } from 'lucide-react';
@@ -63,10 +63,10 @@ export default function Navbar({ children }) {
 	const location = window.location.pathname;
 
 	const navbarNavigationItems = [
-		{ navItem: 'HOME', path: '/', subItems: [] },
-		{ navItem: 'ABOUT US', path: '/about-us', subItems: [] },
-		{ navItem: 'BRANCHES', path: '/branches', subItems: [] },
-		{ navItem: 'CONTACT US', path: '/contact-us', subItems: [] }
+		{ navItem: 'HOME', path: '/', icon: <Home size={18} />, subItems: [] },
+		{ navItem: 'ABOUT US', path: '/about-us', icon: <Info size={18} />, subItems: [] },
+		{ navItem: 'BRANCHES', path: '/branches', icon: <MapPin size={18} />, subItems: [] },
+		{ navItem: 'CONTACT US', path: '/contact-us', icon: <Phone size={18} />, subItems: [] }
 	];
 
 	const secondaryNavbarItems = [

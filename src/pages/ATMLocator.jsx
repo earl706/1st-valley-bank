@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import HeroSection from '../components/HeroSection';
 import { MapPin, MapPinned, Building2, Landmark, X, CreditCard, Contact2 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
+import { DarkCard } from '../components/Card';
+import { DarkPrimaryButton } from '../components/Buttons';
 
 const mindanaoBranches = [
 	{
@@ -88,7 +90,7 @@ const regionalCenters = [
 ];
 function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 	return (
-		<div className="group relative flex flex-col items-start gap-4 rounded-xl border border-white/10 bg-white/10 p-5 shadow transition hover:shadow-md">
+		<DarkCard className="group relative flex flex-col items-start gap-4">
 			{atm && (
 				<p className="absolute top-3 right-3 rounded bg-green-100 px-1 py-0.5 text-xs leading-tight font-normal text-green-700 lg:text-xs">
 					<CreditCard className="inline h-4 w-4" /> ATM
@@ -105,15 +107,13 @@ function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 					<p className="text-base leading-relaxed font-normal text-white/80">{address}</p>
 				</div>
 			</div>
-			<NavLink
-				to="/contact-us"
-				className="group mt-auto inline-flex transform items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-				aria-label={`Contact ${name}`}
-			>
-				<Contact2 className="mr-2 h-5 w-5" />
-				<span>Contact Us</span>
+			<NavLink to="/contact-us" aria-label={`Contact ${name}`} className="mt-auto w-full">
+				<DarkPrimaryButton className="flex w-full items-center justify-center">
+					<Contact2 className="mr-2 h-5 w-5" />
+					<span>Contact Us</span>
+				</DarkPrimaryButton>
 			</NavLink>
-		</div>
+		</DarkCard>
 	);
 }
 
@@ -212,12 +212,13 @@ export default function ATMLocator() {
 								Mindanao Branches
 							</h2>
 							{mindanaoBranches.length > 3 && (
-								<button
-									className="group inline-flex transform cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+								<DarkPrimaryButton
+									className="px-8 py-4 text-base"
 									onClick={() => setVisibleModal('mindanao')}
+									type="button"
 								>
 									See All
-								</button>
+								</DarkPrimaryButton>
 							)}
 						</div>
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -232,12 +233,13 @@ export default function ATMLocator() {
 								Visayas Branches
 							</h2>
 							{visayasBranches.length > 3 && (
-								<button
-									className="group inline-flex transform cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+								<DarkPrimaryButton
+									className="px-8 py-4 text-base"
 									onClick={() => setVisibleModal('visayas')}
+									type="button"
 								>
 									See All
-								</button>
+								</DarkPrimaryButton>
 							)}
 						</div>
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">

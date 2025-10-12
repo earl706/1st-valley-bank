@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import ProductModal from './ProductModal';
+import { DarkPrimaryButton, DarkSecondaryButton } from './Buttons';
+import { DarkCard } from './Card';
 
 export default function LoanSubcategoriesSection({
 	id = 'loan-subcategories',
@@ -17,7 +19,7 @@ export default function LoanSubcategoriesSection({
 	ctaSecondaryText = 'View All Loans',
 	ctaSecondaryLink = '/loans',
 	backgroundColor = 'from-slate-50 to-white',
-	brandColor = '#396131',
+	brandColor = 'white',
 	className = '',
 	showModal = true // New prop to enable/disable modal functionality
 }) {
@@ -55,20 +57,22 @@ export default function LoanSubcategoriesSection({
 							{ctaTitle}
 						</h2>
 						<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-							<NavLink
+							<DarkPrimaryButton
 								to={ctaPrimaryLink}
-								className="group inline-flex transform cursor-pointer items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+								secondaryIcon={
+									<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+								}
 							>
 								<span className="text-center">{ctaPrimaryText}</span>
-								<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-							</NavLink>
-							<NavLink
+							</DarkPrimaryButton>
+							<DarkSecondaryButton
 								to={ctaSecondaryLink}
-								className="group inline-flex transform cursor-pointer items-center justify-center rounded-xl border border-[#396131] bg-white/80 px-8 py-4 text-base font-semibold text-[#185027] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+								secondaryIcon={
+									<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+								}
 							>
 								<span className="text-center">{ctaSecondaryText}</span>
-								<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-							</NavLink>
+							</DarkSecondaryButton>
 						</div>
 					</div>
 				</div>
@@ -106,93 +110,93 @@ export default function LoanSubcategoriesSection({
 					{/* Loan Types Grid */}
 					<div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
 						{loanTypes.map((type, index) => (
-							<div
+							<DarkCard
 								key={index}
-								className="group relative flex h-full transform flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/90 shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl"
+								useNativeSpacing={true}
+								className="group flex h-full flex-col overflow-hidden p-0"
 							>
-								{/* Card gradient overlay */}
-								<div
-									className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-									style={{
-										background: `linear-gradient(to bottom right, transparent, transparent, ${brandColor}0d)`
-									}}
-								></div>
-
-								<div className="relative flex flex-1 flex-col p-8 lg:p-10">
-									<div className="flex flex-1 flex-col items-center gap-6 sm:flex-row sm:items-start lg:gap-8">
-										{/* Image Container */}
-										<div className="relative mb-8">
-											{/* Main image container */}
-											<div className="relative mx-auto h-40 w-40 overflow-hidden transition-all duration-300 group-hover:scale-105">
-												<img
-													src={type.image}
-													alt={type.title}
-													className="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
-												/>
-											</div>
+								<div className="flex flex-1 flex-col items-center gap-6 p-8 sm:flex-row sm:items-start lg:gap-8 lg:p-10">
+									{/* Image Container */}
+									<div className="relative mb-8">
+										<div className="relative mx-auto h-40 w-40 overflow-hidden transition-all duration-300 group-hover:scale-105">
+											<img
+												src={type.image}
+												alt={type.title}
+												className="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
+											/>
 										</div>
+									</div>
 
-										{/* Content */}
-										<div className="flex h-full flex-1 flex-col text-center sm:text-left">
-											<h3
-												className="mb-3 text-2xl leading-tight font-bold transition-colors duration-300"
-												style={{ color: brandColor }}
-											>
-												{type.title}
-											</h3>
-											<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-[#185027]">
-												{type.description}
-											</p>
+									{/* Content */}
+									<div className="flex h-full flex-1 flex-col text-center sm:text-left">
+										<h3
+											className="mb-3 text-2xl leading-tight font-bold transition-colors duration-300"
+											style={{
+												color: brandColor
+											}}
+										>
+											{type.title}
+										</h3>
+										<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-white/90">
+											{type.description}
+										</p>
 
-											{/* Features List (if provided) */}
-											{type.features && type.features.length > 0 && (
-												<div className="mb-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
-													{type.features.map((feature, featureIndex) => (
-														<div key={featureIndex} className="flex items-center gap-2">
-															<div
-																className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
-																style={{ backgroundColor: brandColor }}
-															></div>
-															<span className="text-xs font-normal text-[#185027]">{feature}</span>
-														</div>
-													))}
-												</div>
+										{/* Features List (if provided) */}
+										{type.features && type.features.length > 0 && (
+											<div className="mb-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
+												{type.features.map((feature, featureIndex) => (
+													<div key={featureIndex} className="flex items-center gap-2">
+														<div
+															className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
+															style={{ backgroundColor: brandColor }}
+														></div>
+														<span className="text-xs font-normal text-white/70">{feature}</span>
+													</div>
+												))}
+											</div>
+										)}
+
+										{/* CTA Buttons */}
+										<div className="mt-auto flex gap-3 sm:flex-row lg:flex-col">
+											{showModal ? (
+												<DarkPrimaryButton
+													type="button"
+													onClick={(e) => handleViewDetails(e, type)}
+													className="w-full justify-center"
+													secondaryIcon={
+														<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+													}
+												>
+													<span className="mx-auto text-center">View Details</span>
+												</DarkPrimaryButton>
+											) : (
+												<DarkPrimaryButton
+													to={type.route}
+													className="w-full justify-center"
+													secondaryIcon={
+														<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+													}
+												>
+													<span className="mx-auto text-center">Learn More</span>
+												</DarkPrimaryButton>
 											)}
 
-											{/* CTA Buttons */}
-											<div className="mt-auto flex gap-3 sm:flex-row lg:flex-col">
-												{showModal ? (
-													<button
-														onClick={(e) => handleViewDetails(e, type)}
-														className="group inline-flex transform cursor-pointer items-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-													>
-														<span className="mx-auto text-center">View Details</span>
+											{showModal && (
+												<DarkSecondaryButton
+													type="button"
+													onClick={() => handleApplyNow(type)}
+													className="w-full justify-center"
+													secondaryIcon={
 														<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-													</button>
-												) : (
-													<NavLink
-														to={type.route}
-														className="group inline-flex transform cursor-pointer items-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-													>
-														<span className="mx-auto text-center">Learn More</span>
-														<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-													</NavLink>
-												)}
-
-												{showModal && (
-													<button
-														onClick={() => handleApplyNow(type)}
-														className="group inline-flex transform cursor-pointer items-center rounded-xl border border-[#396131] bg-transparent px-8 py-4 text-base font-semibold text-[#185027] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-													>
-														<span className="mx-auto text-center">Apply Now</span>
-														<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-													</button>
-												)}
-											</div>
+													}
+												>
+													<span className="mx-auto text-center">Apply Now</span>
+												</DarkSecondaryButton>
+											)}
 										</div>
 									</div>
 								</div>
-							</div>
+							</DarkCard>
 						))}
 					</div>
 
@@ -204,20 +208,24 @@ export default function LoanSubcategoriesSection({
 									{ctaTitle}
 								</h3>
 								<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-									<NavLink
+									<DarkPrimaryButton
 										to={ctaPrimaryLink}
-										className="group inline-flex transform items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+										className="justify-center"
+										secondaryIcon={
+											<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+										}
 									>
-										<span className="text-center">{ctaPrimaryText}</span>
-										<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-									</NavLink>
-									<NavLink
+										{ctaPrimaryText}
+									</DarkPrimaryButton>
+									<DarkSecondaryButton
 										to={ctaSecondaryLink}
-										className="group inline-flex transform cursor-pointer items-center rounded-xl border border-[#396131] bg-white/80 px-8 py-4 text-base font-semibold text-[#185027] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+										className="cursor-pointer"
+										secondaryIcon={
+											<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+										}
 									>
-										<span className="text-center">{ctaSecondaryText}</span>
-										<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-									</NavLink>
+										{ctaSecondaryText}
+									</DarkSecondaryButton>
 								</div>
 							</div>
 						</div>

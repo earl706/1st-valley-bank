@@ -12,6 +12,8 @@ import {
 	Sprout
 } from 'lucide-react';
 import CarouselSection from '../components/CarouselSection';
+import { DarkCard } from '../components/Card';
+import { DarkPrimaryButton } from '../components/Buttons';
 
 import img1 from '/src/assets/homepage/1.png';
 import img2 from '/src/assets/homepage/2.png';
@@ -168,52 +170,48 @@ export default function Loans() {
 						{/* Loans Grid */}
 						<div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-3 lg:gap-12">
 							{loanSlides.map((loan, index) =>
-								loan.title == 'Loans' ? (
-									''
-								) : (
-									<div
+								loan.title != 'Loans' ? (
+									<DarkCard
 										key={index}
-										className="group relative flex h-full transform flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/90 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+										useNativeSpacing={true}
+										className="group flex h-full flex-col overflow-hidden p-0"
 									>
-										<div className="relative flex flex-1 flex-col p-8 lg:p-10">
-											<div className="flex flex-1 flex-col items-center gap-6 sm:items-start lg:gap-8">
-												{/* Improved Image Container */}
-												<div className="relative mb-4">
-													{/* Main image container */}
-													<div className="relative h-full w-full overflow-hidden transition-all duration-300 group-hover:scale-105">
-														<img
-															src={loan.image}
-															alt={loan.title}
-															className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
-														/>
-													</div>
+										<div className="flex flex-1 flex-col items-center gap-6 p-8 sm:items-start lg:gap-8 lg:p-10">
+											{/* Image Container */}
+											<div className="relative mb-4 w-full">
+												<div className="relative w-full overflow-hidden transition-all duration-300 group-hover:scale-105">
+													<img
+														src={loan.image}
+														alt={loan.title}
+														className="h-48 w-full rounded-xl object-cover transition-all duration-500 group-hover:scale-105"
+													/>
 												</div>
+											</div>
 
-												{/* Content */}
-												<div className="flex h-full flex-1 flex-col text-center sm:text-left">
-													<h3 className="mb-3 text-2xl leading-tight font-bold text-[#396131] transition-colors duration-300 group-hover:text-[#4a7a3f]">
-														{loan.title}
-													</h3>
-													<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-[#2e4935]">
-														{loan.description}
-													</p>
-
-													{/* CTA Button */}
-													<div className="mt-auto">
-														<NavLink
-															to={loan.route}
-															className="group inline-flex w-full transform items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-														>
-															<span className="text-center">Learn More</span>
-															<span className="ml-3 flex items-center justify-center">
-																<ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-															</span>
-														</NavLink>
-													</div>
+											{/* Content */}
+											<div className="flex h-full w-full flex-1 flex-col text-center sm:text-left">
+												<h3 className="mb-3 text-2xl leading-tight font-bold text-white transition-colors duration-300 group-hover:text-[#aee3b7]">
+													{loan.title}
+												</h3>
+												<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-white/80">
+													{loan.description}
+												</p>
+												<div className="mt-auto">
+													<DarkPrimaryButton
+														to={loan.route}
+														className="w-full"
+														secondaryIcon={
+															<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+														}
+													>
+														Learn More
+													</DarkPrimaryButton>
 												</div>
 											</div>
 										</div>
-									</div>
+									</DarkCard>
+								) : (
+									''
 								)
 							)}
 						</div>

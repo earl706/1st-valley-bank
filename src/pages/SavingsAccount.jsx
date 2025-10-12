@@ -1,31 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-	ArrowLeft,
-	PiggyBank,
-	CreditCard,
-	Users,
-	GraduationCap,
-	Building,
-	User,
-	DollarSign,
-	Banknote,
-	ArrowRight
-} from 'lucide-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	faPiggyBank,
-	faCreditCard,
-	faHandsHoldingChild,
-	faMoneyBillTransfer,
-	faSackDollar,
-	faGraduationCap,
-	faMagnifyingGlassDollar,
-	faBuildingUser,
-	faUser
-} from '@fortawesome/free-solid-svg-icons';
-import img from '/src/assets/homepage/heroSectionImage.png';
-import HeroSection from '../components/HeroSection';
+import { DarkCard } from '../components/Card';
+import { DarkPrimaryButton } from '../components/Buttons';
+import { ArrowLeft, Users, Building, User, DollarSign, ArrowRight } from 'lucide-react';
 import CarouselSection from '../components/CarouselSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
@@ -33,7 +10,6 @@ import carouselImg3 from '/src/assets/carousel/3.png';
 import carouselImg4 from '/src/assets/carousel/4.png';
 import carouselImg5 from '/src/assets/carousel/5.png';
 import carouselImg6 from '/src/assets/carousel/6.png';
-import carouselImg7 from '/src/assets/carousel/7.png';
 
 export default function SavingsAccount() {
 	const [scrollY, setScrollY] = useState(0);
@@ -46,7 +22,7 @@ export default function SavingsAccount() {
 			description: 'For individuals 18+, ideal for personal savings and monthly interest.',
 			initialDeposit: '₱1,000.00',
 			minimumBalance: '₱1,000.00',
-			interestRate: '0.10% - 0.15% per annum',
+			interestRate: '0.10% - 0.15% p.a.',
 			features: ['Personal savings', 'Age 18+', 'Monthly interest', 'ATM access'],
 			image: carouselImg1,
 			route: '/contact-us'
@@ -56,7 +32,7 @@ export default function SavingsAccount() {
 			description: 'For ages 8-17, helps kids and teens save with parental guidance.',
 			initialDeposit: '₱100.00',
 			minimumBalance: '₱500.00',
-			interestRate: '0.10% - 0.15% per annum',
+			interestRate: '0.10% - 0.15% p.a.',
 			features: [
 				'Ages 8-17',
 				'Educational savings',
@@ -71,7 +47,7 @@ export default function SavingsAccount() {
 			description: 'For regular customers seeking enhanced benefits and premium services.',
 			initialDeposit: '₱1,000.00',
 			minimumBalance: '₱1,000.00',
-			interestRate: '0.10% - 0.15% per annum',
+			interestRate: '0.10% - 0.15% p.a',
 			features: [
 				'Enhanced benefits',
 				'Regular customers',
@@ -86,7 +62,7 @@ export default function SavingsAccount() {
 			description: 'For microfinance clients, offers flexible terms and community banking.',
 			initialDeposit: '₱100.00',
 			minimumBalance: '₱500.00',
-			interestRate: '0.10% - 0.15% per annum',
+			interestRate: '0.10% - 0.15% p.a',
 			features: [
 				'Microfinance clients',
 				'Flexible terms',
@@ -101,7 +77,7 @@ export default function SavingsAccount() {
 			description: 'Special account with unique features for targeted customer segments.',
 			initialDeposit: '₱1,000.00',
 			minimumBalance: '₱1,000.00',
-			interestRate: '0.10% - 0.15% per annum',
+			interestRate: '0.10% - 0.15% p.a',
 			features: ['Special features', 'Unique benefits', 'Targeted segments', 'Enhanced services'],
 			image: carouselImg5,
 			route: '/contact-us'
@@ -111,7 +87,7 @@ export default function SavingsAccount() {
 			description: 'For 18+, promotes financial inclusion with no minimum balance required.',
 			initialDeposit: '₱100.00',
 			minimumBalance: 'None',
-			interestRate: '0.10% - 0.15% per annum',
+			interestRate: '0.10% - 0.15% p.a',
 			features: [
 				'Financial inclusion',
 				'No minimum balance',
@@ -126,7 +102,7 @@ export default function SavingsAccount() {
 			description: 'For employers using the Bank’s ATM payroll for employee salaries.',
 			initialDeposit: 'Based on Agreement',
 			minimumBalance: '₱1,000.00',
-			interestRate: '0.10% - 0.15% per annum',
+			interestRate: '0.10% - 0.15% p.a',
 			features: ['Payroll services', 'Employer accounts', 'ATM access', 'Salary distribution'],
 			image: carouselImg1,
 			route: '/contact-us'
@@ -136,7 +112,7 @@ export default function SavingsAccount() {
 			description: 'For individuals 18+, offers ATM access and convenient cashless banking.',
 			initialDeposit: '₱1,000.00',
 			minimumBalance: '₱1,000.00',
-			interestRate: '0.10% - 0.15% per annum',
+			interestRate: '0.10% - 0.15% p.a',
 			features: ['ATM access', 'Convenient banking', 'Cashless transactions', '24/7 access'],
 			image: carouselImg2,
 			route: '/contact-us'
@@ -146,7 +122,7 @@ export default function SavingsAccount() {
 			description: 'For ages 7-19, low deposit, higher interest, and educational focus.',
 			initialDeposit: '₱100.00',
 			minimumBalance: '₱500.00',
-			interestRate: '1.00% per annum',
+			interestRate: '1.00% p.a',
 			features: ['Ages 7-19', 'Low initial deposit', 'Higher interest rate', 'Educational focus'],
 			image: carouselImg3,
 			route: '/contact-us'
@@ -243,14 +219,11 @@ export default function SavingsAccount() {
 							</p>
 						</div>
 
-						<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+						<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 							{savingsAccounts.map((account, index) => (
-								<div
-									key={index}
-									className="group relative flex flex-col items-center overflow-hidden rounded-2xl border border-white/10 bg-white/90 p-0 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
-								>
+								<DarkCard key={index} useNativeSpacing={true}>
 									{/* Emphasize image: make it a top banner */}
-									<div className="flex h-40 w-full items-center justify-center bg-white/70">
+									<div className="flex h-40 w-full items-center justify-center">
 										<img
 											src={account.image}
 											alt={`${account.title} visual`}
@@ -258,66 +231,49 @@ export default function SavingsAccount() {
 										/>
 									</div>
 									<div className="flex w-full flex-1 flex-col p-8">
-										<h3 className="mt-2 mb-4 text-center text-2xl leading-tight font-bold text-[#185027]">
+										<h3 className="mt-2 mb-4 text-center text-2xl leading-tight font-bold text-white">
 											{account.title}
 										</h3>
-										<p className="mb-6 text-center text-base leading-relaxed font-normal text-[#35603e]">
+										<p className="mb-6 text-center text-base leading-relaxed font-normal text-white/80">
 											{account.description}
 										</p>
 										<div className="mb-6 space-y-3">
 											<div className="flex justify-between">
-												<span className="text-sm leading-relaxed font-normal text-[#396131]/80">
+												<span className="text-sm leading-relaxed font-normal text-white/70">
 													Initial Deposit:
 												</span>
-												<span className="text-sm leading-relaxed font-bold text-[#236c36]">
+												<span className="text-sm leading-relaxed font-bold text-white">
 													{account.initialDeposit}
 												</span>
 											</div>
 											<div className="flex justify-between">
-												<span className="text-sm leading-relaxed font-normal text-[#396131]/80">
+												<span className="text-sm leading-relaxed font-normal text-white/70">
 													Minimum Balance:
 												</span>
-												<span className="text-sm leading-relaxed font-bold text-[#236c36]">
+												<span className="text-sm leading-relaxed font-bold text-white">
 													{account.minimumBalance}
 												</span>
 											</div>
 											<div className="flex justify-between">
-												<span className="text-sm leading-relaxed font-normal text-[#396131]/80">
+												<span className="text-sm leading-relaxed font-normal text-white/70">
 													Interest Rate:
 												</span>
-												<span className="text-sm leading-relaxed font-bold text-[#236c36]">
+												<span className="text-sm leading-relaxed font-bold text-white">
 													{account.interestRate}
 												</span>
 											</div>
 										</div>
-										{/* 
-										<div className="mb-6">
-											<h4 className="mb-3 text-base font-bold leading-tight text-[#185027]">Key Features:</h4>
-											<ul className="space-y-2">
-												{account.features.map((feature, featureIndex) => (
-													<li
-														key={featureIndex}
-														className="flex items-center gap-2 text-sm text-[#35603e] leading-relaxed font-normal"
-													>
-														<div className="h-1.5 w-1.5 rounded-full bg-[#396131]"></div>
-														{feature}
-													</li>
-												))}
-											</ul>
-										</div> */}
-										<NavLink
+										<DarkPrimaryButton
 											to={account.route}
-											className="group mt-auto flex transform flex-col items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+											className="mt-auto w-full"
+											secondaryIcon={
+												<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+											}
 										>
-											<div className="flex items-center justify-center">
-												<span className="">Open Account</span>
-												<span className="ml-3 flex items-center justify-center">
-													<ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-												</span>
-											</div>
-										</NavLink>
+											Open Account
+										</DarkPrimaryButton>
 									</div>
-								</div>
+								</DarkCard>
 							))}
 						</div>
 					</div>

@@ -14,6 +14,8 @@ import img from '/src/assets/homepage/heroSectionImage.png';
 import CarouselSection from '../components/CarouselSection';
 
 import pdf1 from '/src/assets/newsletter/document.pdf';
+import { DarkCard } from '../components/Card';
+import { DarkPrimaryButton } from '../components/Buttons';
 
 // PDF Viewer Modal Component
 function PDFModal({ pdfUrl, title, onClose }) {
@@ -128,9 +130,10 @@ const NewsletterGrid = () => {
 				{/* Grid Layout */}
 				<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 					{paginatedNewsletters.map((newsletter) => (
-						<div
+						<DarkCard
 							key={newsletter.id}
-							className="group flex h-full transform flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/90 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl"
+							useNativeSpacing={true}
+							className="flex h-full flex-col overflow-hidden rounded-3xl p-0 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl"
 						>
 							{/* Image Section */}
 							<div className="relative h-48 overflow-hidden">
@@ -139,11 +142,11 @@ const NewsletterGrid = () => {
 									alt={newsletter.subtitle}
 									className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-110"
 								/>
-								<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+								<div className="absolute inset-0 bg-gradient-to-t from-[#18421d]/80 via-[#224f27]/30 to-transparent"></div>
 
 								{/* Category Badge */}
 								<div className="absolute top-4 left-4">
-									<div className="rounded-full bg-white/90 px-3 py-1 shadow-lg backdrop-blur-sm">
+									<div className="rounded-full bg-[#f6fff3]/90 px-3 py-1 shadow-lg backdrop-blur-sm">
 										<span className="text-xs font-bold tracking-wide text-[#396131] uppercase">
 											{newsletter.title}
 										</span>
@@ -152,7 +155,7 @@ const NewsletterGrid = () => {
 
 								{/* Date Badge */}
 								<div className="absolute top-4 right-4">
-									<div className="rounded-full bg-[#396131]/90 px-3 py-1 shadow-lg backdrop-blur-sm">
+									<div className="rounded-full bg-[#4a7c3a]/90 px-3 py-1 shadow-lg backdrop-blur-sm">
 										<div className="flex items-center gap-1 text-white">
 											<Calendar size={12} />
 											<time className="text-xs leading-tight font-normal">
@@ -170,17 +173,17 @@ const NewsletterGrid = () => {
 							<div className="flex flex-grow flex-col p-6">
 								<div className="flex flex-grow flex-col">
 									{/* Section (Card) Header */}
-									<h2 className="mb-3 text-2xl leading-tight font-bold text-[#396131] transition-colors duration-200 group-hover:text-[#4a7a3f] md:text-2xl">
+									<h2 className="mb-3 text-2xl leading-tight font-bold text-white transition-colors duration-200 group-hover:text-[#e5ffe2] md:text-2xl">
 										{newsletter.title}
 									</h2>
 
 									{/* Opening Paragraph */}
-									<p className="mb-4 line-clamp-3 text-base leading-relaxed font-normal text-[#204927]">
+									<p className="mb-4 line-clamp-3 text-base leading-relaxed font-normal text-white/80">
 										{newsletter.description}
 									</p>
 
 									{/* Meta Info */}
-									<div className="mt-auto mb-6 flex items-center gap-4 text-sm leading-relaxed text-[#32653f]/80">
+									<div className="mt-auto mb-6 flex items-center gap-4 text-sm leading-relaxed text-white/60">
 										<div className="flex items-center gap-1">
 											<Eye size={16} />
 											<span className="font-normal">{newsletter.views}</span>
@@ -192,9 +195,8 @@ const NewsletterGrid = () => {
 									</div>
 								</div>
 
-								{/* Action Button */}
-								<button
-									className="group inline-flex transform cursor-pointer items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+								<DarkPrimaryButton
+									className="w-full"
 									onClick={() => openPDF(newsletter.pdf, newsletter.title)}
 								>
 									<span className="flex w-full items-center justify-center gap-2">
@@ -206,9 +208,9 @@ const NewsletterGrid = () => {
 											className="transition-transform duration-300 group-hover:translate-x-1"
 										/>
 									</span>
-								</button>
+								</DarkPrimaryButton>
 							</div>
-						</div>
+						</DarkCard>
 					))}
 				</div>
 

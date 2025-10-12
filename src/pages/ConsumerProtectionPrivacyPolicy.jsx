@@ -26,6 +26,8 @@ import img1 from '/src/assets/consumer-protection/privacy-policy/1.jpg';
 import img2 from '/src/assets/consumer-protection/privacy-policy/2.jpg';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import HeroSection from '../components/HeroSection';
+import { LightCard } from '../components/Card';
+import { LightSecondaryButton, LightPrimaryButton } from '../components/Buttons';
 
 function FeedbackForm({ onClose, onSuccess, onError }) {
 	const [form, setForm] = useState({
@@ -97,7 +99,7 @@ Would you recommend 1st Valley Bank to Others?: ${form.recommend}
 	};
 
 	return (
-		<div className="mb-8 rounded-lg border border-gray-200 bg-white px-4 py-6 text-left shadow-md">
+		<LightCard className="mb-8">
 			<div className="mb-3 flex items-center justify-between">
 				<h3 className="text-lg font-bold text-[#396131]">Feedback Form</h3>
 				<button
@@ -157,7 +159,7 @@ Would you recommend 1st Valley Bank to Others?: ${form.recommend}
 					placeholder="Branch"
 					className="w-full rounded border px-3 py-2"
 				/>
-				<div>
+				<div className="text-left">
 					<label className="mb-1 block text-sm font-medium text-[#396131]">
 						Type of Service Availed
 					</label>
@@ -187,7 +189,7 @@ Would you recommend 1st Valley Bank to Others?: ${form.recommend}
 						/>
 					)}
 				</div>
-				<div>
+				<div className="text-left">
 					<label className="mb-1 block text-sm font-medium text-[#396131]">
 						How satisfied are you with our service?
 					</label>
@@ -238,7 +240,7 @@ Would you recommend 1st Valley Bank to Others?: ${form.recommend}
 					rows={2}
 					className="w-full rounded border px-3 py-2"
 				/>
-				<div>
+				<div className="text-left">
 					<label className="mb-1 block text-sm font-medium text-[#396131]">
 						Would you recommend 1st Valley Bank to Others?
 					</label>
@@ -254,7 +256,7 @@ Would you recommend 1st Valley Bank to Others?: ${form.recommend}
 						<option value="No">No</option>
 					</select>
 				</div>
-				<div>
+				<div className="text-left">
 					<label className="mb-1 block text-sm font-medium text-[#396131]">
 						Would you like a representative to contact you regarding your feedback?
 					</label>
@@ -273,26 +275,15 @@ Would you recommend 1st Valley Bank to Others?: ${form.recommend}
 					</select>
 				</div>
 				<div className="mt-4 flex justify-end gap-2">
-					<button
-						type="button"
-						onClick={onClose}
-						disabled={submitting}
-						className="group inline-flex transform cursor-pointer items-center rounded-xl border-1 border-[#396131] bg-white px-8 py-4 text-base font-semibold text-[#204927] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-[#396131] hover:text-white hover:shadow-xl"
-					>
+					<LightSecondaryButton type="button" onClick={onClose} disabled={submitting}>
 						Cancel
-					</button>
-					<button
-						type="submit"
-						disabled={submitting}
-						className={`group inline-flex transform cursor-pointer items-center rounded-xl px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
-							submitting ? 'bg-gray-400' : 'bg-[#396131]'
-						}`}
-					>
+					</LightSecondaryButton>
+					<LightPrimaryButton type="submit" disabled={submitting}>
 						{submitting ? 'Sending...' : 'Send Feedback'}
-					</button>
+					</LightPrimaryButton>
 				</div>
 			</form>
-		</div>
+		</LightCard>
 	);
 }
 
@@ -344,7 +335,7 @@ Suggested Resolution/Action: ${form.resolution}
 	};
 
 	return (
-		<div className="mb-8 rounded-lg border border-gray-200 bg-white px-4 py-6 text-left shadow-md">
+		<LightCard className="mb-8">
 			<div className="mb-3 flex items-center justify-between">
 				<h3 className="text-lg font-bold text-[#396131]">Customer Complaint Form</h3>
 				<button
@@ -422,26 +413,15 @@ Suggested Resolution/Action: ${form.resolution}
 					className="w-full rounded border px-3 py-2"
 				/>
 				<div className="mt-4 flex justify-end gap-2">
-					<button
-						type="button"
-						onClick={onClose}
-						disabled={submitting}
-						className="group inline-flex transform cursor-pointer items-center rounded-xl border-1 border-[#396131] bg-white px-8 py-4 text-base font-semibold text-[#204927] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-[#396131] hover:text-white hover:shadow-xl"
-					>
+					<LightSecondaryButton type="button" onClick={onClose} disabled={submitting}>
 						Cancel
-					</button>
-					<button
-						type="submit"
-						disabled={submitting}
-						className={`group inline-flex transform cursor-pointer items-center rounded-xl px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
-							submitting ? 'bg-gray-400' : 'bg-[#396131]'
-						}`}
-					>
+					</LightSecondaryButton>
+					<LightPrimaryButton type="submit" disabled={submitting}>
 						{submitting ? 'Sending...' : 'Submit Complaint'}
-					</button>
+					</LightPrimaryButton>
 				</div>
 			</form>
-		</div>
+		</LightCard>
 	);
 }
 

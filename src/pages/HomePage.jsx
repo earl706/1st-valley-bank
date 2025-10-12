@@ -44,6 +44,7 @@ import {
 	LightSecondaryButton,
 	DarkSecondaryButton
 } from '../components/Buttons';
+import { LightCard } from '../components/Card';
 
 // Utility to find links in plain text and convert them to <a> tags.
 function renderAnswer(answer) {
@@ -93,7 +94,7 @@ function FAQSection({ faqs }) {
 				<div key={faq.question}>
 					<button
 						onClick={() => toggleIdx(idx)}
-						className="flex w-full items-center justify-between rounded-lg bg-[#F4F8F4] px-5 py-4 text-left text-lg font-semibold text-[#396131] shadow transition hover:bg-[#e5efe6]"
+						className="flex w-full cursor-pointer items-center justify-between rounded-lg bg-[#F4F8F4] px-5 py-4 text-left text-lg font-semibold text-[#396131] shadow transition hover:bg-[#e5efe6]"
 						aria-expanded={openIdx === idx}
 						aria-controls={`faq-body-${idx}`}
 					>
@@ -338,9 +339,9 @@ export default function HomePage() {
 
 					<div className="grid gap-8 md:grid-cols-3">
 						{services.map((service, index) => (
-							<div
+							<LightCard
 								key={index}
-								className="group relative flex flex-col rounded-2xl border border-white/10 bg-white/10 p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+								className="group flex flex-col border-white/10 bg-white/10 hover:-translate-y-2"
 							>
 								{/* Service Image */}
 								<div className="relative mb-6">
@@ -368,7 +369,7 @@ export default function HomePage() {
 								>
 									Learn More
 								</DarkPrimaryButton>
-							</div>
+							</LightCard>
 						))}
 					</div>
 				</div>
@@ -424,9 +425,9 @@ export default function HomePage() {
 
 					<div className="grid gap-8 md:grid-cols-3">
 						{testimonials.map((testimonial, index) => (
-							<div
+							<LightCard
 								key={index}
-								className="rounded-2xl border border-white/10 bg-white/10 p-8 shadow-lg backdrop-blur transition-all duration-300 hover:shadow-xl"
+								className="border-white/10 bg-white/10 p-8 shadow-lg backdrop-blur hover:shadow-xl"
 							>
 								<div className="mb-6 flex items-center">
 									<div className="flex-shrink-0">
@@ -460,7 +461,7 @@ export default function HomePage() {
 								<blockquote className="text-sm leading-relaxed font-normal text-white italic">
 									"{testimonial.content}"
 								</blockquote>
-							</div>
+							</LightCard>
 						))}
 					</div>
 				</div>

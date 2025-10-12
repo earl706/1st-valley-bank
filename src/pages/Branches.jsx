@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { MapPinned, Building2, Landmark, X, CreditCard, ArrowRight } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import { Link } from 'react-router-dom';
-
+import { DarkCard } from '../components/Card';
+import { DarkPrimaryButton } from '../components/Buttons';
 const mindanaoBranches = [
 	{
 		name: 'Davao Branch',
@@ -89,9 +90,9 @@ const regionalCenters = [
 
 function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 	return (
-		<div className="group relative flex flex-col items-start gap-4 rounded-xl border border-white/10 bg-white/10 p-5 shadow transition hover:shadow-md">
+		<DarkCard className="relative flex flex-col items-start gap-4">
 			{atm && (
-				<p className="absolute top-3 right-3 flex items-center gap-1 rounded bg-green-100 px-2 py-0.5 text-xs leading-relaxed font-normal text-green-700">
+				<p className="absolute top-3 right-3 z-10 flex items-center gap-1 rounded bg-green-100 px-2 py-0.5 text-xs leading-relaxed font-normal text-green-700">
 					<CreditCard className="inline h-4 w-4" /> ATM
 				</p>
 			)}
@@ -106,17 +107,15 @@ function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 					<p className="text-base leading-relaxed font-normal text-white/80">{address}</p>
 				</div>
 			</div>
-			<Link
+			<DarkPrimaryButton
 				to="/contact-us"
-				className="group mt-auto inline-flex transform items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+				className="mt-auto"
 				aria-label={`Contact ${name}`}
+				secondaryIcon={<ArrowRight className="ml-3 h-5 w-5" />}
 			>
-				<span className="flex items-center">
-					Contact Us
-					<ArrowRight className="ml-3 h-5 w-5" />
-				</span>
-			</Link>
-		</div>
+				Contact Us
+			</DarkPrimaryButton>
+		</DarkCard>
 	);
 }
 
@@ -219,16 +218,12 @@ export default function Branches() {
 								Mindanao Branches
 							</h2>
 							{mindanaoBranches.length > 3 && (
-								<button
-									className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-									onClick={() => setVisibleModal('mindanao')}
-									type="button"
-								>
+								<DarkPrimaryButton onClick={() => setVisibleModal('mindanao')}>
 									<span className="flex items-center">
 										See All
 										<ArrowRight className="ml-3 h-5 w-5" />
 									</span>
-								</button>
+								</DarkPrimaryButton>
 							)}
 						</div>
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -243,16 +238,12 @@ export default function Branches() {
 								Visayas Branches
 							</h2>
 							{visayasBranches.length > 3 && (
-								<button
-									className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-									onClick={() => setVisibleModal('visayas')}
-									type="button"
-								>
+								<DarkPrimaryButton onClick={() => setVisibleModal('visayas')} type="button">
 									<span className="flex items-center">
 										See All
 										<ArrowRight className="ml-3 h-5 w-5" />
 									</span>
-								</button>
+								</DarkPrimaryButton>
 							)}
 						</div>
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">

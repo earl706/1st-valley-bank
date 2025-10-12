@@ -29,6 +29,8 @@ import carouselImg4 from '/src/assets/carousel/4.png';
 import carouselImg5 from '/src/assets/carousel/5.png';
 import carouselImg6 from '/src/assets/carousel/6.png';
 import carouselImg7 from '/src/assets/carousel/7.png';
+import { DarkCard } from '../components/Card';
+import { LightPrimaryButton } from '../components/Buttons';
 
 export default function Deposits() {
 	const [scrollY, setScrollY] = useState(0);
@@ -377,10 +379,7 @@ export default function Deposits() {
 										const isLeftLayout = product.layout === 'left';
 
 										return (
-											<div
-												key={product.id}
-												className="group hover:shadow-3xl relative overflow-hidden rounded-3xl bg-white/90 shadow-2xl transition-all duration-500"
-											>
+											<DarkCard key={product.id}>
 												<div className="grid min-h-[400px] grid-cols-1 lg:grid-cols-2">
 													{/* Content Side */}
 													<div
@@ -391,19 +390,19 @@ export default function Deposits() {
 																<IconComponent className="h-8 w-8 text-white" />
 															</div>
 															<div>
-																<div className="text-sm leading-tight font-semibold tracking-wider text-[#396131] uppercase">
+																<div className="text-sm leading-tight font-semibold tracking-wider text-white uppercase">
 																	{product.category}
 																</div>
-																<h3 className="text-3xl leading-tight font-bold text-[#0e2a09] md:text-3xl">
+																<h3 className="text-3xl leading-tight font-bold text-white md:text-3xl">
 																	{product.title}
 																</h3>
 															</div>
 														</div>
-														<p className="mb-8 text-base leading-relaxed font-normal text-[#3b514a]">
+														<p className="mb-8 text-base leading-relaxed font-normal text-white">
 															{product.description}
 														</p>
 														<div className="mb-8">
-															<h4 className="mb-4 text-2xl leading-tight font-bold tracking-wider text-[#225d36] uppercase">
+															<h4 className="mb-4 text-2xl leading-tight font-bold tracking-wider text-white uppercase">
 																{product.id === 'time-deposit'
 																	? 'Available Terms'
 																	: 'Account Types Available'}
@@ -413,26 +412,28 @@ export default function Deposits() {
 															>
 																{product.features.map((feature, featureIndex) => (
 																	<div key={featureIndex} className="flex items-center gap-3">
-																		<div className="h-2 w-2 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7c3a]"></div>
-																		<span className="text-base leading-relaxed font-normal text-[#184427]">
+																		<div className="h-2 w-2 rounded-full bg-white"></div>
+																		<span className="text-base leading-relaxed font-normal text-white">
 																			{feature}
 																		</span>
 																	</div>
 																))}
 															</div>
 															{product.additionalInfo && (
-																<div className="mt-3 text-base leading-relaxed font-bold text-[#396131]">
+																<div className="mt-3 text-base leading-relaxed font-bold text-white">
 																	{product.additionalInfo}
 																</div>
 															)}
 														</div>
-														<NavLink
+														<LightPrimaryButton
 															to={product.route}
-															className="group/btn inline-flex w-fit items-center justify-center rounded-2xl bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-8 py-4 text-base leading-relaxed font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+															className="w-fit"
+															secondaryIcon={
+																<ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover/btn:translate-x-1" />
+															}
 														>
 															{product.buttonText}
-															<ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover/btn:translate-x-1" />
-														</NavLink>
+														</LightPrimaryButton>
 													</div>
 													{/* Visual Side */}
 													<div
@@ -448,7 +449,7 @@ export default function Deposits() {
 														</div>
 													</div>
 												</div>
-											</div>
+											</DarkCard>
 										);
 									})}
 								</div>

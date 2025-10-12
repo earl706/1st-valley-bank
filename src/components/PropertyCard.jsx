@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Calendar, Hash, Eye, Heart, Share2, Home, Ruler } from 'lucide-react';
 import Modal from './Modal';
+import { LightCard } from './Card';
+import { LightPrimaryButton } from './Buttons';
 
 export default function PropertyCard({ property }) {
 	const [imageLoaded, setImageLoaded] = useState(false);
@@ -36,7 +38,10 @@ export default function PropertyCard({ property }) {
 
 	return (
 		<>
-			<div className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:border-gray-300 hover:shadow-md">
+			<LightCard
+				useNativeSpacing={true}
+				className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:border-gray-300 hover:shadow-md"
+			>
 				{/* Image Container */}
 				<div className="relative h-56 overflow-hidden bg-gray-100">
 					{!imageLoaded && (
@@ -89,17 +94,14 @@ export default function PropertyCard({ property }) {
 					</div>
 
 					{/* Action Button */}
-					<button
-						onClick={handleView}
-						className="group inline-flex w-full transform cursor-pointer items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-					>
+					<LightPrimaryButton onClick={handleView} className="w-full">
 						<span className="flex w-full items-center justify-center gap-2">
 							<Eye size={18} className="transition-transform duration-300 group-hover:scale-110" />
 							<span className="text-center">View Details</span>
 						</span>
-					</button>
+					</LightPrimaryButton>
 				</div>
-			</div>
+			</LightCard>
 
 			{/* Modal */}
 			<Modal

@@ -30,6 +30,8 @@ import carouselImg4 from '/src/assets/carousel/4.png';
 import carouselImg5 from '/src/assets/carousel/5.png';
 import carouselImg6 from '/src/assets/carousel/6.png';
 import carouselImg7 from '/src/assets/carousel/7.png';
+import { LightCard } from '../components/Card';
+import { LightPrimaryButton } from '../components/Buttons';
 
 export default function AboutUs() {
 	const [scrollY, setScrollY] = useState(0);
@@ -719,13 +721,6 @@ export default function AboutUs() {
 					</div>
 				</section>
 				<section id="services" data-scroll className="relative overflow-hidden py-16 lg:py-24">
-					{/* Background decoration */}
-					<div className="absolute inset-0 opacity-40">
-						<div className="absolute inset-0 bg-gradient-to-br from-[#396131]/5 via-transparent to-[#396131]/10"></div>
-						<div className="absolute top-20 right-20 h-40 w-40 rounded-full bg-[#396131]/10 blur-3xl"></div>
-						<div className="absolute bottom-32 left-16 h-32 w-32 rounded-full bg-[#396131]/15 blur-2xl"></div>
-					</div>
-
 					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						{/* Section Header */}
 						<div className="mb-16 text-center lg:mb-20">
@@ -741,49 +736,38 @@ export default function AboutUs() {
 						{/* Services Grid */}
 						<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
 							{services.map((service, index) => (
-								<div
-									key={index}
-									className="group relative transform overflow-hidden rounded-3xl border border-gray-100 bg-white p-8 shadow-lg transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl lg:p-10"
-								>
-									{/* Card gradient overlay */}
-									<div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-[#396131]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-									{/* Decorative corner accent */}
-									<div className="absolute top-0 right-0 h-16 w-16 rounded-bl-3xl bg-gradient-to-br from-[#396131]/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-									<div className="relative flex h-full flex-col text-center">
-										{/* Icon Container */}
-										<div className="mb-8 lg:mb-10">
-											<div className="relative inline-block">
-												<div className="mx-auto flex h-32 w-32 items-center justify-center rounded-3xl bg-gradient-to-br from-[#396131] to-[#4a7a3f] shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 lg:h-40 lg:w-40">
-													<FontAwesomeIcon
-														icon={service.icon}
-														className="text-4xl text-white lg:text-5xl"
-													/>
-												</div>
-											</div>
-										</div>
-										{/* Content */}
-										<div className="flex h-full flex-col space-y-4 lg:space-y-6">
-											<h3 className="text-xl leading-tight font-bold text-[#396131] transition-colors duration-300 group-hover:text-[#4a7a3f]">
-												{service.name}
-											</h3>
-											<div className="mx-auto h-0.5 w-12 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7a3f] opacity-60 transition-all duration-300 group-hover:w-16 group-hover:opacity-100"></div>
-											<p className="text-base leading-relaxed font-normal text-gray-600 transition-colors duration-300 group-hover:text-gray-700">
-												{service.description}
-											</p>
-											<div className="mt-auto flex p-4">
-												<div className="flex w-full justify-center">
-													<NavLink
-														to={service.link || '#'}
-														className="group inline-flex w-full transform items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-center text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-													>
-														Learn More
-														<ArrowRight className="ml-3 h-5 w-5" />
-													</NavLink>
-												</div>
+								<LightCard className="group relative flex h-full flex-col items-center text-center">
+									{/* Icon Container */}
+									<div className="mb-8 lg:mb-10">
+										<div className="relative inline-block">
+											<div className="mx-auto flex h-32 w-32 items-center justify-center rounded-3xl bg-gradient-to-br from-[#396131] to-[#4a7a3f] shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 lg:h-40 lg:w-40">
+												<FontAwesomeIcon
+													icon={service.icon}
+													className="text-4xl text-white lg:text-5xl"
+												/>
 											</div>
 										</div>
 									</div>
-								</div>
+									{/* Content */}
+									<div className="flex h-full w-full flex-col space-y-4 lg:space-y-6">
+										<h3 className="text-xl leading-tight font-bold text-[#396131] transition-colors duration-300 group-hover:text-[#4a7a3f]">
+											{service.name}
+										</h3>
+										<div className="mx-auto h-0.5 w-12 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7a3f] opacity-60 transition-all duration-300 group-hover:w-16 group-hover:opacity-100"></div>
+										<p className="text-base leading-relaxed font-normal text-gray-600 transition-colors duration-300 group-hover:text-gray-700">
+											{service.description}
+										</p>
+										<div className="mt-auto flex w-full justify-center pt-4">
+											<LightPrimaryButton
+												to={service.link || '#'}
+												secondaryIcon={<ArrowRight className="ml-3 h-5 w-5" />}
+												className="w-full"
+											>
+												Learn More
+											</LightPrimaryButton>
+										</div>
+									</div>
+								</LightCard>
 							))}
 						</div>
 					</div>
@@ -1102,15 +1086,15 @@ export default function AboutUs() {
 					</h2>
 					<div className="grid w-full max-w-7xl grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
 						{annualReports.map((report, index) => (
-							<div
-								key={index}
-								className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+							<LightCard
+								useNativeSpacing={true}
+								className="group relative flex flex-col overflow-hidden rounded-2xl p-0 shadow-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 							>
 								<div className="relative">
 									<img
 										src={report.image}
 										alt={report.title}
-										className="h-60 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+										className="h-60 w-full rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
 									/>
 									<span className="absolute bottom-4 left-1/2 w-[90%] -translate-x-1/2 rounded-lg bg-white/90 px-4 py-2 text-center text-xl font-bold text-[#396131] shadow-md backdrop-blur-sm md:text-2xl">
 										{report.title}
@@ -1132,7 +1116,7 @@ export default function AboutUs() {
 											))}
 										</ul>
 									</div>
-									<div>
+									{/* <div>
 										<span className="mb-2 block text-xl leading-tight font-bold text-[#396131]">
 											Financial Performance
 										</span>
@@ -1164,20 +1148,18 @@ export default function AboutUs() {
 												))}
 											</ul>
 										</div>
-									</div>
+									</div> */}
 									<div className="mt-auto flex justify-center">
-										<NavLink
+										<LightPrimaryButton
 											to=""
-											className="group inline-flex w-full transform items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-center text-xl font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+											className="w-full py-4 text-xl"
+											secondaryIcon={<ArrowRight className="ml-3 h-5 w-5" />}
 										>
-											<span className="flex w-full items-center justify-center">
-												<span>See Full Report</span>
-												<ArrowRight className="ml-3 h-5 w-5" />
-											</span>
-										</NavLink>
+											See Full Report
+										</LightPrimaryButton>
 									</div>
 								</div>
-							</div>
+							</LightCard>
 						))}
 					</div>
 				</section>

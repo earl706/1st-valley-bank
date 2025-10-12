@@ -15,6 +15,8 @@ import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
 import carouselImg4 from '/src/assets/carousel/4.png';
+import { DarkCard } from '../components/Card';
+import { DarkPrimaryButton } from '../components/Buttons';
 
 export default function TimeDeposit() {
 	const [scrollY, setScrollY] = useState(0);
@@ -199,11 +201,7 @@ export default function TimeDeposit() {
 						</div>
 						<div className="grid gap-8 lg:grid-cols-4">
 							{timeDeposits.map((deposit, index) => (
-								<div
-									key={index}
-									className="group relative flex h-full flex-col rounded-2xl border border-white/10 bg-white/90 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
-								>
-									{/* Image Container */}
+								<DarkCard key={index} useNativeSpacing={true} className="flex flex-col p-4">
 									<div className="mb-2 flex items-center justify-center">
 										<img
 											src={deposit.image}
@@ -211,51 +209,50 @@ export default function TimeDeposit() {
 											className="h-44 w-44 object-contain lg:h-56 lg:w-56"
 										/>
 									</div>
-									{/* Content Container */}
 									<div className="flex flex-1 flex-col">
 										<div className="mb-4 flex items-center justify-between">
 											<div>
-												<h3 className="text-xl leading-snug font-bold text-[#185027]">
+												<h3 className="text-xl leading-snug font-bold text-white">
 													{deposit.title}
 												</h3>
-												<p className="text-xs leading-snug font-normal text-[#35603e]/90">
+												<p className="text-xs leading-snug font-normal text-white/80">
 													Term Period
 												</p>
 											</div>
 											<div className="text-right">
-												<div className="text-xl leading-snug font-bold text-[#396131]">
+												<div className="text-xl leading-snug font-bold text-[#aee3b7]">
 													{deposit.interestRate.split(' ')[0]}
 												</div>
-												<div className="text-xs leading-snug font-normal text-[#35603e]/90">
+												<div className="text-xs leading-snug font-normal text-white/80">
 													Interest Rate
 												</div>
 											</div>
 										</div>
 
-										<p className="mb-4 text-sm leading-relaxed font-normal text-[#35603e]">
+										<p className="mb-4 text-sm leading-relaxed font-normal text-white/80">
 											{deposit.description}
 										</p>
 
-										<div className="mb-4 rounded-lg bg-white/80 p-3">
-											<div className="text-xs leading-snug font-normal text-[#35603e]/90">
+										<div className="mb-4 rounded-lg bg-white/10 p-3">
+											<div className="text-xs leading-snug font-normal text-white/80">
 												Minimum Initial Amount
 											</div>
-											<div className="text-lg leading-snug font-bold text-[#396131]">
+											<div className="text-lg leading-snug font-bold text-white">
 												{deposit.initialAmount}
 											</div>
 										</div>
 
-										<NavLink
+										<DarkPrimaryButton
 											to={deposit.route}
-											className="group inline-flex transform items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+											className="mt-auto w-full"
+											secondaryIcon={
+												<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+											}
 										>
-											<span className="text-center">Open Account</span>
-											<span className="ml-3 flex items-center justify-center">
-												<ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-											</span>
-										</NavLink>
+											Open Account
+										</DarkPrimaryButton>
 									</div>
-								</div>
+								</DarkCard>
 							))}
 						</div>
 					</div>

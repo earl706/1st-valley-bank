@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MapPin, Calendar, Hash, Eye } from 'lucide-react';
 import Modal from './Modal';
+import { LightCard } from './Card';
 
 export default function VehicleCard({ vehicle }) {
 	const [imageLoaded, setImageLoaded] = useState(false);
@@ -27,18 +28,21 @@ export default function VehicleCard({ vehicle }) {
 
 	return (
 		<>
-			<div className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:border-gray-300 hover:shadow-md">
+			<LightCard
+				useNativeSpacing={true}
+				className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:border-gray-300 hover:shadow-md"
+			>
 				{/* Image Container */}
-				<div className="relative h-56 overflow-hidden bg-gray-100">
+				<div className="relative h-56 overflow-hidden rounded-t-2xl bg-gray-100">
 					{!imageLoaded && (
-						<div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+						<div className="absolute inset-0 flex items-center justify-center rounded-t-2xl bg-gray-50">
 							<div className="h-10 w-10 animate-spin rounded-full border-2 border-gray-200 border-t-gray-400"></div>
 						</div>
 					)}
 					<img
 						src={vehicle.image}
 						alt={`${vehicle.year} Vehicle`}
-						className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+						className={`h-full w-full object-cover transition-all duration-300 group-hover:scale-105 ${
 							imageLoaded ? 'opacity-100' : 'opacity-0'
 						}`}
 						style={{
@@ -88,7 +92,7 @@ export default function VehicleCard({ vehicle }) {
 						</span>
 					</button>
 				</div>
-			</div>
+			</LightCard>
 
 			{/* Modal */}
 			<Modal

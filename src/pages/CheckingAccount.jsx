@@ -9,6 +9,8 @@ import {
 	CheckCircle,
 	ArrowRight
 } from 'lucide-react';
+import { DarkCard } from '../components/Card';
+import { DarkPrimaryButton } from '../components/Buttons';
 import CarouselSection from '../components/CarouselSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import carouselImg1 from '/src/assets/carousel/1.png';
@@ -26,7 +28,7 @@ export default function CheckingAccount() {
 			description: 'A flexible account for individuals with check-writing and banking access.',
 			initialDeposit: '₱5,000.00',
 			minimumBalance: '₱10,000.00',
-			interestRate: '0.10% - 0.15% per annum',
+			interestRate: '0.10% - 0.15% p.a.',
 			features: [
 				'Check writing privileges',
 				'ATM access',
@@ -49,7 +51,7 @@ export default function CheckingAccount() {
 			description: 'For businesses needing multiple signatories and advanced services.',
 			initialDeposit: '₱10,000.00',
 			minimumBalance: '₱10,000.00',
-			interestRate: '0.10% - 0.15% per annum',
+			interestRate: '0.10% - 0.15% p.a.',
 			features: [
 				'Multiple signatories',
 				'Business check writing',
@@ -72,7 +74,7 @@ export default function CheckingAccount() {
 			description: 'Get exclusive perks, higher limits, and premium services.',
 			initialDeposit: '₱25,000.00',
 			minimumBalance: '₱25,000.00',
-			interestRate: '0.15% - 0.25% per annum',
+			interestRate: '0.15% - 0.25% p.a.',
 			features: [
 				'Premium interest rates',
 				'Unlimited transactions',
@@ -184,9 +186,10 @@ export default function CheckingAccount() {
 						</div>
 						<div className="grid gap-8 lg:grid-cols-3">
 							{checkingAccounts.map((account, index) => (
-								<div
+								<DarkCard
 									key={index}
-									className="group relative flex flex-col rounded-2xl border border-white/10 bg-white/90 p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl lg:gap-8"
+									className="flex flex-col p-8 lg:gap-8"
+									useNativeSpacing={true}
 								>
 									<div className="mb-6 flex items-center justify-center">
 										<img
@@ -196,51 +199,47 @@ export default function CheckingAccount() {
 										/>
 									</div>
 									<div className="flex h-full flex-col">
-										<h3 className="mb-4 text-2xl leading-tight font-bold text-[#185027]">
+										<h3 className="mb-4 text-2xl leading-tight font-bold text-white">
 											{account.title}
 										</h3>
-										<p className="mb-6 text-base leading-relaxed font-normal text-[#35603e]">
+										<p className="mb-6 text-base leading-relaxed font-normal text-white/80">
 											{account.description}
 										</p>
-										<div className="mb-6 grid grid-cols-1 gap-4">
-											<div className="rounded-lg bg-white/80 p-4">
-												<div className="text-sm leading-tight font-normal text-[#396131]/80">
-													Initial Deposit
-												</div>
-												<div className="text-base leading-tight font-bold text-[#236c36]">
+										<div className="mb-6 space-y-3">
+											<div className="flex justify-between">
+												<span className="text-sm leading-relaxed font-normal text-white/70">
+													Initial Deposit:
+												</span>
+												<span className="text-sm leading-relaxed font-bold text-white">
 													{account.initialDeposit}
-												</div>
-											</div>
-											<div className="rounded-lg bg-white/80 p-4">
-												<div className="text-sm leading-tight font-normal text-[#396131]/80">
-													Minimum Balance
-												</div>
-												<div className="text-base leading-tight font-bold text-[#236c36]">
-													{account.minimumBalance}
-												</div>
-											</div>
-											<div className="rounded-lg bg-white/80 p-4">
-												<div className="text-sm leading-tight font-normal text-[#396131]/80">
-													Interest Rate
-												</div>
-												<div className="text-base leading-tight font-bold text-[#236c36]">
-													{account.interestRate}
-												</div>
-											</div>
-										</div>
-										<NavLink
-											to={account.route}
-											className="group mt-auto flex flex-col items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-										>
-											<div className="flex items-center justify-center">
-												<span className="text-center">Open Account</span>
-												<span className="ml-3 flex items-center justify-center">
-													<ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
 												</span>
 											</div>
+											<div className="flex justify-between">
+												<span className="text-sm leading-relaxed font-normal text-white/70">
+													Minimum Balance:
+												</span>
+												<span className="text-sm leading-relaxed font-bold text-white">
+													{account.minimumBalance}
+												</span>
+											</div>
+											<div className="flex justify-between">
+												<span className="text-sm leading-relaxed font-normal text-white/70">
+													Interest Rate:
+												</span>
+												<span className="text-sm leading-relaxed font-bold text-white">
+													{account.interestRate}
+												</span>
+											</div>
+										</div>
+
+										<NavLink to={account.route} className="mt-auto">
+											<DarkPrimaryButton className="flex w-full items-center justify-center gap-3">
+												<span className="text-center text-white">Open Account</span>
+												<ArrowRight className="h-5 w-5 text-white transition-transform duration-300 group-hover:translate-x-1" />
+											</DarkPrimaryButton>
 										</NavLink>
 									</div>
-								</div>
+								</DarkCard>
 							))}
 						</div>
 					</div>

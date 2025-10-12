@@ -57,7 +57,7 @@ export function LightPrimaryButton(props) {
 	return (
 		<ButtonBase
 			{...props}
-			className={`group inline-flex transform items-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+			className={`group inline-flex transform cursor-pointer items-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
 				props.className || ''
 			}`}
 		/>
@@ -68,7 +68,7 @@ export function LightSecondaryButton(props) {
 	return (
 		<ButtonBase
 			{...props}
-			className={`group inline-flex transform items-center rounded-xl border border-[#396131]/30 bg-transparent px-8 py-4 text-base font-semibold text-[#396131] shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+			className={`group inline-flex transform cursor-pointer items-center rounded-xl border border-[#396131]/30 bg-transparent px-8 py-4 text-base font-semibold text-[#396131] shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
 				props.className || ''
 			}`}
 		/>
@@ -79,7 +79,7 @@ export function DarkPrimaryButton(props) {
 	return (
 		<ButtonBase
 			{...props}
-			className={`group inline-flex transform items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+			className={`group inline-flex transform cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/10 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
 				props.className || ''
 			}`}
 		/>
@@ -90,7 +90,7 @@ export function DarkSecondaryButton(props) {
 	return (
 		<ButtonBase
 			{...props}
-			className={`group inline-flex transform items-center justify-center rounded-xl border border-white/30 bg-transparent px-8 py-4 text-base font-semibold text-white/80 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+			className={`group inline-flex transform cursor-pointer items-center justify-center rounded-xl border border-white/30 bg-transparent px-8 py-4 text-base font-semibold text-white/80 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
 				props.className || ''
 			}`}
 		/>
