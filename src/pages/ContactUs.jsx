@@ -5,6 +5,7 @@ import ContactPageMap from '../components/ContactPageMap';
 import { MapPin, User, Mail, Phone, MessageSquare, FileText, Map, ArrowRight } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
+import { DarkHeader } from '../components/Header';
 
 const ContactUsForm = () => {
 	const [formData, setFormData] = useState({
@@ -107,14 +108,18 @@ const ContactUsForm = () => {
 	return (
 		<div className="min-h-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-4 py-24 sm:px-6 lg:px-8">
 			<div className="mx-auto max-w-7xl">
+				<DarkHeader
+					badgeText="Contact Us"
+					title="Send Us a Message"
+					subtitle="Questions? Contact 1st Valley Bank anytime. By phone, email, or in person. We're here to help!"
+					alignment="center"
+					level={2}
+					className="mb-16"
+				/>
 				<div className="overflow-hidden rounded-3xl bg-white/90 shadow-2xl">
 					<div className="grid grid-cols-1 gap-0 lg:grid-cols-2">
 						{/* Form Section */}
 						<div className="p-8 lg:p-12">
-							{/* Section Header */}
-							<h2 className="mb-8 text-3xl leading-tight font-bold text-[#396131] md:text-5xl">
-								Send Us a Message
-							</h2>
 							<form onSubmit={handleSubmit} className="space-y-6">
 								{/* Name Field */}
 								<div className="relative">
@@ -350,7 +355,7 @@ export default function ContactUs() {
 				<HeroSection
 					title="Contact Us"
 					subtitle=""
-					description="Questions? Contact 1st Valley Bank anytime—by phone, email, or in person. We're here to help!"
+					description="Questions? Contact 1st Valley Bank anytime. By phone, email, or in person. We're here to help!"
 					features={[]}
 					image={carouselImg1}
 					imageAlt="Contact Us"

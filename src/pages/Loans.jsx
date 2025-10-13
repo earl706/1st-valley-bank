@@ -14,7 +14,7 @@ import {
 import CarouselSection from '../components/CarouselSection';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
-
+import { DarkHeader } from '../components/Header';
 import img1 from '/src/assets/homepage/1.png';
 import img2 from '/src/assets/homepage/2.png';
 import img3 from '/src/assets/homepage/3.png';
@@ -157,18 +157,17 @@ export default function Loans() {
 				<section id="loans" className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24">
 					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						{/* Section Header */}
-						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-5xl leading-tight font-bold text-white md:text-5xl lg:text-5xl">
-								LOANS
-							</h2>
-							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/80 to-[#a8ffc2]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed font-normal text-white/90">
-								Discover our comprehensive loan solutions designed to meet your financial needs
-							</p>
-						</div>
+						<DarkHeader
+							badgeText="Products"
+							title="LOANS"
+							subtitle="Discover our comprehensive loan solutions designed to meet your financial needs"
+							alignment="center"
+							level={2}
+							className="mb-16"
+						/>
 
 						{/* Loans Grid */}
-						<div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-3 lg:gap-12">
+						<div className="grid grid-cols-1 items-stretch gap-2 lg:grid-cols-3 lg:gap-4">
 							{loanSlides.map((loan, index) =>
 								loan.title != 'Loans' ? (
 									<DarkCard
@@ -183,7 +182,7 @@ export default function Loans() {
 													<img
 														src={loan.image}
 														alt={loan.title}
-														className="h-48 w-full rounded-xl object-cover transition-all duration-500 group-hover:scale-105"
+														className="h-auto w-full rounded-xl object-cover transition-all duration-500 group-hover:scale-105"
 													/>
 												</div>
 											</div>

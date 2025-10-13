@@ -4,7 +4,38 @@ import HeroSection from '../components/HeroSection';
 import { Link } from 'react-router-dom';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
+import { DarkHeader } from '../components/Header';
 const mindanaoBranches = [
+	{
+		name: 'Davao Branch',
+		address: '123 J.P. Laurel Ave, Davao City',
+		atm: false
+	},
+	{
+		name: 'Cagayan de Oro Branch',
+		address: '456 CM Recto Ave, CDO',
+		atm: true
+	},
+	{
+		name: 'Davao Branch',
+		address: '123 J.P. Laurel Ave, Davao City',
+		atm: false
+	},
+	{
+		name: 'Cagayan de Oro Branch',
+		address: '456 CM Recto Ave, CDO',
+		atm: true
+	},
+	{
+		name: 'Davao Branch',
+		address: '123 J.P. Laurel Ave, Davao City',
+		atm: false
+	},
+	{
+		name: 'Cagayan de Oro Branch',
+		address: '456 CM Recto Ave, CDO',
+		atm: true
+	},
 	{
 		name: 'Davao Branch',
 		address: '123 J.P. Laurel Ave, Davao City',
@@ -123,7 +154,7 @@ function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 function AllBranchesModal({ title, branches, icon: Icon, onContact, onClose }) {
 	return (
 		<div className="fixed inset-0 z-99 flex items-center justify-center bg-black/40">
-			<div className="relative w-full max-w-7xl rounded-xl bg-gradient-to-l from-[#396131] to-[#4a7c3a] p-8 shadow-2xl">
+			<div className="relative max-h-[80vh] w-full max-w-7xl overflow-y-auto rounded-xl bg-gradient-to-l from-[#396131] to-[#4a7c3a] p-8 shadow-2xl">
 				<button
 					onClick={onClose}
 					aria-label="Close"
@@ -201,14 +232,14 @@ export default function Branches() {
 				textColor="#fff"
 			/>
 			<div className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-4 py-20">
-				<div className="mb-16 text-center">
-					<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">BRANCHES</h2>
-					<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white to-[#E9F2EA]"></div>
-					<p className="mx-auto mt-6 max-w-2xl text-lg text-gray-200">
-						Find a branch or regional office near you – serving Mindanao, Visayas, and the entire
-						nation.
-					</p>
-				</div>
+				<DarkHeader
+					badgeText="Our Network"
+					title="Branches"
+					subtitle="Find a branch or regional office near you. Serving Mindanao, Visayas, and the entire nation."
+					alignment="center"
+					level={2}
+					className="mb-16"
+				/>
 				<section className="mx-auto max-w-7xl space-y-20">
 					{/* Mindanao Section */}
 					<section>

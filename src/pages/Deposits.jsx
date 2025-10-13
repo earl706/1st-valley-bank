@@ -31,6 +31,7 @@ import carouselImg6 from '/src/assets/carousel/6.png';
 import carouselImg7 from '/src/assets/carousel/7.png';
 import { DarkCard } from '../components/Card';
 import { LightPrimaryButton } from '../components/Buttons';
+import { DarkHeader } from '../components/Header';
 
 export default function Deposits() {
 	const [scrollY, setScrollY] = useState(0);
@@ -359,16 +360,14 @@ export default function Deposits() {
 				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						{/* Section Header */}
-						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-5xl leading-tight font-bold text-white md:text-5xl lg:text-5xl">
-								DEPOSITS
-							</h2>
-							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/90 to-[#b1ffc2]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed font-normal text-white/80">
-								Choose the perfect deposit solution for your financial goals and start building your
-								wealth today
-							</p>
-						</div>
+						<DarkHeader
+							badgeText="Products"
+							title="DEPOSITS"
+							subtitle="Choose the perfect deposit solution for your financial goals and start building your wealth today"
+							alignment="center"
+							level={2}
+							className="mb-16"
+						/>
 
 						{/* Products Array */}
 						{(() => {

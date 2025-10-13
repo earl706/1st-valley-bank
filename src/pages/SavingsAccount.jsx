@@ -10,6 +10,7 @@ import carouselImg3 from '/src/assets/carousel/3.png';
 import carouselImg4 from '/src/assets/carousel/4.png';
 import carouselImg5 from '/src/assets/carousel/5.png';
 import carouselImg6 from '/src/assets/carousel/6.png';
+import { DarkHeader, LightHeader } from '../components/Header';
 
 export default function SavingsAccount() {
 	const [scrollY, setScrollY] = useState(0);
@@ -209,15 +210,14 @@ export default function SavingsAccount() {
 					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24 text-white"
 				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
-								SAVINGS ACCOUNTS
-							</h2>
-							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/90 to-[#aee3b7]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed font-normal text-white/80">
-								Find the perfect savings account for your needs
-							</p>
-						</div>
+						<DarkHeader
+							badgeText="Categories"
+							title="Savings Accounts"
+							subtitle="Find the perfect savings account for your needs"
+							alignment="center"
+							level={2}
+							className="mb-16"
+						/>
 
 						<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 							{savingsAccounts.map((account, index) => (
@@ -282,14 +282,13 @@ export default function SavingsAccount() {
 				{/* Requirements Section */}
 				<section id="requirements" data-scroll className="bg-white text-gray-900">
 					<div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-						<div className="mb-12 text-center">
-							<h2 className="mb-2 text-3xl leading-tight font-bold text-gray-900 md:text-5xl">
-								Account Opening Requirements
-							</h2>
-							<p className="text-base leading-relaxed font-normal text-gray-500">
-								What you need to open a savings account
-							</p>
-						</div>
+						<LightHeader
+							badgeText="Savings Accounts"
+							title="Requirements"
+							subtitle="What you need to open a savings account"
+							alignment="left"
+							level={3}
+						/>
 
 						<div className="grid gap-8 md:grid-cols-2">
 							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">

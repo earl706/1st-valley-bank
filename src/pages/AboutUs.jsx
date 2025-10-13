@@ -5,6 +5,7 @@ import logo from '/src/assets/logo.png';
 
 import img8 from '/src/assets/about-us/8.jpg';
 import img9 from '/src/assets/about-us/9.jpg';
+import gcashLogo from '/src/assets/gcash-logo.png';
 import { NavLink } from 'react-router-dom';
 import { Clock, User, HandCoins, Smartphone, ArrowRight } from 'lucide-react';
 import {
@@ -22,6 +23,7 @@ import {
 	faTrophy,
 	faUsersGear
 } from '@fortawesome/free-solid-svg-icons';
+
 import CarouselSection from '../components/CarouselSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
@@ -32,7 +34,7 @@ import carouselImg6 from '/src/assets/carousel/6.png';
 import carouselImg7 from '/src/assets/carousel/7.png';
 import { LightCard } from '../components/Card';
 import { LightPrimaryButton } from '../components/Buttons';
-
+import { LightHeader, DarkHeader } from '../components/Header';
 export default function AboutUs() {
 	const [scrollY, setScrollY] = useState(0);
 	const [isVisible, setIsVisible] = useState({});
@@ -46,18 +48,18 @@ export default function AboutUs() {
 	const services = [
 		{
 			name: 'BRANCH NETWORKING',
-			icon: faCodeBranch,
+			image: carouselImg2,
 			description:
 				'Enjoy convenient inter-branch transactions at 78 locations across Mindanao and the Visayas.'
 		},
 		{
 			name: 'GCASH SERVICES',
-			icon: faMobile,
+			image: gcashLogo,
 			description: 'Pay bills, send/receive remittances, and manage funds anytime with GCash.'
 		},
 		{
 			name: 'ATM SERVICES',
-			icon: faCashRegister,
+			image: carouselImg3,
 			description:
 				'Access 24/7 ATM services for withdrawals and balance checks via ENCASH and major networks.'
 		}
@@ -551,6 +553,11 @@ export default function AboutUs() {
 					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-12"
 				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+						<DarkHeader
+							badgeText="Bank Overview"
+							title="About 1st Valley Bank"
+							subtitle="One of the largest independent development banks dedicated to funding development projects and businesses in the Philippines."
+						/>
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-2/5">
 								<div className="flex h-auto w-full items-center justify-center">
@@ -562,12 +569,6 @@ export default function AboutUs() {
 								</div>
 							</div>
 							<div className="flex-1">
-								<div className="mb-4 flex items-center gap-2">
-									<FontAwesomeIcon icon={faBuilding} className="h-5 w-5 text-white" />
-									<span className="text-2xl leading-tight font-bold text-white md:text-3xl">
-										Bank Overview
-									</span>
-								</div>
 								<p className="mb-4 text-base leading-relaxed font-normal text-white/90">
 									<strong>1st Valley Bank (1VB)</strong> is one of the largest independent
 									developmental banks dedicated to funding development projects and businesses
@@ -594,14 +595,13 @@ export default function AboutUs() {
 				</section>
 				<section id="history" data-scroll className="bg-white py-12">
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+						<LightHeader
+							badgeText="Brief History"
+							title="Our Roots"
+							subtitle="Explore the origins and milestones that shaped 1st Valley Bank's growth from its humble beginnings to present-day achievements."
+						/>
 						<div className="flex flex-col-reverse items-center gap-8 lg:flex-row">
 							<div className="flex-1">
-								<div className="mb-4 flex items-center gap-2">
-									<FontAwesomeIcon icon={faBuildingColumns} className="h-5 w-5 text-[#396131]" />
-									<span className="text-2xl leading-tight font-bold text-[#396131] md:text-3xl">
-										Brief History
-									</span>
-								</div>
 								<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
 									<strong className="text-[#396131]">1st Valley Bank</strong>, a rapidly growing
 									development bank in Mindanao and Visayas, traces its roots in the rural banking
@@ -660,6 +660,12 @@ export default function AboutUs() {
 					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-16"
 				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+						<DarkHeader
+							badgeText="Why Choose Us"
+							title="Your Trusted Banking Partner"
+							subtitle="Experience the difference of a bank that puts your needs first, with a legacy of
+									excellence and a commitment to your financial success."
+						/>
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-2/5">
 								<div className="flex h-72 w-72 items-center justify-center">
@@ -671,12 +677,6 @@ export default function AboutUs() {
 								</div>
 							</div>
 							<div className="flex-1">
-								<div className="mb-4 flex items-center gap-2">
-									<FontAwesomeIcon icon={faBuildingColumns} className="h-5 w-5 text-white" />
-									<span className="text-2xl leading-tight font-bold text-white md:text-3xl">
-										Why Choose Us
-									</span>
-								</div>
 								{(() => {
 									const whyChooseUsItems = [
 										{
@@ -692,7 +692,7 @@ export default function AboutUs() {
 											icon: HandCoins
 										},
 										{
-											text: 'Convenience—anytime, anywhere',
+											text: 'Seamless banking',
 											icon: Smartphone
 										}
 									];
@@ -712,38 +712,32 @@ export default function AboutUs() {
 										</ul>
 									);
 								})()}
-								<p className="text-base leading-relaxed font-normal text-white">
-									Experience the difference of a bank that puts your needs first, with a legacy of
-									excellence and a commitment to your financial success.
-								</p>
 							</div>
 						</div>
 					</div>
 				</section>
 				<section id="services" data-scroll className="relative overflow-hidden py-16 lg:py-24">
 					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-						{/* Section Header */}
-						<div className="mb-16 text-center lg:mb-20">
-							<h2 className="mb-6 text-3xl leading-tight font-bold tracking-tight text-[#396131] md:text-5xl">
-								SERVICES
-							</h2>
-							<div className="mx-auto mb-6 h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7a3f]"></div>
-							<p className="mx-auto max-w-2xl text-base leading-relaxed font-normal text-gray-600">
-								Comprehensive financial solutions designed to meet all your banking needs
-							</p>
-						</div>
-
+						<LightHeader
+							badgeText="Services"
+							title="Comprehensive Banking Solutions"
+							subtitle="Comprehensive financial solutions designed to meet all your banking needs."
+						/>
 						{/* Services Grid */}
 						<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
 							{services.map((service, index) => (
-								<LightCard className="group relative flex h-full flex-col items-center text-center">
+								<LightCard
+									className="group relative flex h-full flex-col items-center text-center"
+									key={index}
+								>
 									{/* Icon Container */}
 									<div className="mb-8 lg:mb-10">
 										<div className="relative inline-block">
-											<div className="mx-auto flex h-32 w-32 items-center justify-center rounded-3xl bg-gradient-to-br from-[#396131] to-[#4a7a3f] shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 lg:h-40 lg:w-40">
-												<FontAwesomeIcon
-													icon={service.icon}
-													className="text-4xl text-white lg:text-5xl"
+											<div className="mx-auto flex h-32 w-32 items-center justify-center transition-all duration-500 group-hover:scale-101 lg:h-40 lg:w-40">
+												<img
+													src={service.image}
+													alt={service.name + ' logo'}
+													className="h-full w-full object-cover"
 												/>
 											</div>
 										</div>
@@ -760,7 +754,9 @@ export default function AboutUs() {
 										<div className="mt-auto flex w-full justify-center pt-4">
 											<LightPrimaryButton
 												to={service.link || '#'}
-												secondaryIcon={<ArrowRight className="ml-3 h-5 w-5" />}
+												secondaryIcon={
+													<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+												}
 												className="w-full"
 											>
 												Learn More
@@ -778,14 +774,15 @@ export default function AboutUs() {
 					className="relative bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-8 lg:py-12"
 				>
 					<div className="mx-auto max-w-5xl px-2 sm:px-4">
+						<DarkHeader
+							badgeText="Awards"
+							title="Awards & Recognition"
+							subtitle="Recognized for excellence in service and financial leadership."
+						/>
 						{/* Header & Trophy */}
 						<div className="flex flex-col-reverse items-center gap-6 md:flex-row md:gap-8">
 							{/* Content */}
 							<div className="flex-1 text-center md:text-left">
-								<h2 className="mb-2 text-3xl leading-tight font-bold tracking-tight text-white md:text-5xl">
-									Awards & Recognition
-								</h2>
-								<div className="mx-auto mb-4 h-1 w-16 rounded-full bg-white/60 md:mx-0"></div>
 								{/* Featured Awards */}
 								<div className="flex flex-col gap-4">
 									<div className="flex items-start gap-3 p-4">
@@ -859,14 +856,15 @@ export default function AboutUs() {
 				</section>
 				<section id="core-values" className="relative bg-white/80 py-8 lg:py-12">
 					<div className="mx-auto max-w-5xl px-2 sm:px-4">
+						<LightHeader
+							badgeText="Vision & Mission"
+							title="Our Vision, Mission & Values"
+							subtitle="Guided by a clear vision, a resolute mission, and enduring core values."
+						/>
 						{/* Vision & Mission - Compact Modern Layout */}
 						<div className="flex flex-col-reverse items-center gap-8 md:flex-row md:gap-10">
 							{/* Content */}
 							<div className="flex-1 text-center md:text-left">
-								<h2 className="mb-3 text-3xl leading-tight font-bold tracking-tight text-[#396131] md:text-5xl">
-									Vision & Mission
-								</h2>
-								<div className="mx-auto mb-4 h-1 w-16 rounded-full bg-[#396131] md:mx-0"></div>
 								<div className="flex flex-col gap-4">
 									<div className="flex items-start gap-3 p-4">
 										<div className="flex h-9 w-9 items-center justify-center">
@@ -905,7 +903,6 @@ export default function AboutUs() {
 								</div>
 							</div>
 						</div>
-
 						{/* Mission Points & Core Values - Modern Grid */}
 						<div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
 							{/* Mission Points */}
@@ -995,9 +992,11 @@ export default function AboutUs() {
 					data-scroll
 					className="relative flex flex-col gap-6 bg-gradient-to-l from-[#396131] to-[#4a7c3a] p-4 text-white shadow-2xl ring-1 ring-emerald-900/10 backdrop-blur-md sm:p-6 md:p-8 lg:p-10 xl:p-12"
 				>
-					<span className="text-center text-3xl leading-tight font-bold tracking-tight text-white drop-shadow-lg md:text-5xl">
-						Corporate Profile
-					</span>
+					<DarkHeader
+						badgeText="Corporate Profile"
+						title="Meet Our Leadership"
+						subtitle="Discover our experienced management team dedicated to driving our success."
+					/>
 					<div className="flex flex-col gap-7">
 						{/* Senior Management Modernized */}
 						<div className="flex flex-col gap-5">
@@ -1081,14 +1080,17 @@ export default function AboutUs() {
 					data-scroll
 					className="relative flex flex-col items-center justify-center gap-12 px-4 py-12 text-[#396131] lg:px-12 lg:py-20"
 				>
-					<h2 className="mb-2 text-center text-3xl leading-tight font-bold tracking-tight text-[#396131] md:text-5xl">
-						Annual Reports
-					</h2>
+					<LightHeader
+						badgeText="Reports"
+						title="Annual Reports"
+						subtitle="Review annual reports and corporate highlights of our continued growth and stability."
+					/>
 					<div className="grid w-full max-w-7xl grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
 						{annualReports.map((report, index) => (
 							<LightCard
 								useNativeSpacing={true}
 								className="group relative flex flex-col overflow-hidden rounded-2xl p-0 shadow-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+								key={index}
 							>
 								<div className="relative">
 									<img
@@ -1116,39 +1118,6 @@ export default function AboutUs() {
 											))}
 										</ul>
 									</div>
-									{/* <div>
-										<span className="mb-2 block text-xl leading-tight font-bold text-[#396131]">
-											Financial Performance
-										</span>
-										<div className="mb-3">
-											<span className="block text-base font-bold text-[#396131]">Key Figures</span>
-											<ul className="mt-1 flex flex-col gap-1">
-												{report.key_figures.map((figure, idx) => (
-													<li key={idx} className="flex items-center gap-2">
-														<span className="inline-block h-3 w-3 flex-shrink-0 rounded bg-[#396131]"></span>
-														<span className="text-xs leading-relaxed font-normal text-gray-700">
-															{figure}
-														</span>
-													</li>
-												))}
-											</ul>
-										</div>
-										<div>
-											<span className="block text-base font-bold text-[#396131]">
-												Comparative Growth
-											</span>
-											<ul className="mt-1 flex flex-col gap-1">
-												{report.comparative_growth.map((growth, idx) => (
-													<li key={idx} className="flex items-center gap-2">
-														<span className="inline-block h-3 w-3 flex-shrink-0 rounded bg-[#4a7a3f]"></span>
-														<span className="text-xs leading-relaxed font-normal text-gray-700">
-															{growth}
-														</span>
-													</li>
-												))}
-											</ul>
-										</div>
-									</div> */}
 									<div className="mt-auto flex justify-center">
 										<LightPrimaryButton
 											to=""

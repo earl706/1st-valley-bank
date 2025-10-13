@@ -6,7 +6,7 @@ import ChatBox from './ChatBox';
 import { Search, TextSearch } from 'lucide-react';
 
 import logo from '/src/assets/logo-official.png';
-import gcash from '/src/assets/gcash-logo-png_seeklogo-522261-removebg-preview.png';
+import gcash from '/src/assets/gcash-logo.png';
 import bsp from '/src/assets/image-removebg-preview (1).png';
 import ctb from '/src/assets/image-removebg-preview (2).png';
 import pdic from '/src/assets/image-removebg-preview.png';

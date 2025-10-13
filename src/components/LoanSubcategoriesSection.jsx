@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import ProductModal from './ProductModal';
 import { DarkPrimaryButton, DarkSecondaryButton } from './Buttons';
 import { DarkCard } from './Card';
-
+import { DarkHeader } from './Header';
 export default function LoanSubcategoriesSection({
 	id = 'loan-subcategories',
 	sectionTitle = 'Loan Types',
@@ -88,27 +88,17 @@ export default function LoanSubcategoriesSection({
 			>
 				<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					{/* Section Header */}
-					<div className="mb-16 text-center">
-						<div className="mb-4">
-							<span className="inline-block rounded-full bg-white/20 px-4 py-2 text-xs font-semibold tracking-wider text-white uppercase">
-								{tagText}
-							</span>
-						</div>
-
-						<h2
-							className="mb-6 text-3xl leading-tight font-bold md:text-5xl"
-							style={{ color: '#fff' }}
-						>
-							{sectionTitle}
-						</h2>
-
-						<p className="mx-auto max-w-3xl text-base leading-relaxed font-normal text-white/90">
-							{sectionSubtitle}
-						</p>
-					</div>
+					<DarkHeader
+						badgeText="Categories"
+						title={sectionTitle}
+						subtitle={sectionSubtitle}
+						alignment="center"
+						level={2}
+						className="mb-16"
+					/>
 
 					{/* Loan Types Grid */}
-					<div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
+					<div className="grid grid-cols-1 items-stretch gap-2 lg:grid-cols-2 lg:gap-4">
 						{loanTypes.map((type, index) => (
 							<DarkCard
 								key={index}

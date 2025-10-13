@@ -16,6 +16,7 @@ import img from '/src/assets/homepage/heroSectionImage.png';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
+import { DarkHeader, LightHeader } from '../components/Header';
 
 export default function CheckingAccount() {
 	const [scrollY, setScrollY] = useState(0);
@@ -175,15 +176,15 @@ export default function CheckingAccount() {
 					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24 text-white"
 				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
-								CHECKING ACCOUNTS
-							</h2>
-							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/80 to-[#a8ffc2]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed font-normal text-white/80">
-								Choose the checking account that fits your needs
-							</p>
-						</div>
+						<DarkHeader
+							badgeText="Categories"
+							title="Checking Accounts"
+							subtitle="Choose the checking account that fits your needs"
+							alignment="center"
+							level={2}
+							className="mb-16"
+						/>
+
 						<div className="grid gap-8 lg:grid-cols-3">
 							{checkingAccounts.map((account, index) => (
 								<DarkCard
@@ -248,14 +249,13 @@ export default function CheckingAccount() {
 				{/* Requirements Section */}
 				<section id="requirements" data-scroll className="border-gray-200 bg-white text-gray-900">
 					<div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-						<div className="mb-12 text-center">
-							<h2 className="mb-2 text-3xl leading-tight font-bold md:text-5xl">
-								Account Opening Requirements
-							</h2>
-							<p className="text-base leading-relaxed font-normal text-gray-500">
-								What you need to open a checking account
-							</p>
-						</div>
+						<LightHeader
+							badgeText="Checking Accounts"
+							title="Requirements"
+							subtitle="What you need to open a checking account"
+							alignment="left"
+							level={3}
+						/>
 						<div className="grid gap-8 md:grid-cols-2">
 							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
 								<div className="mb-6 flex items-center gap-4">

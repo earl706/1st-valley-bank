@@ -17,6 +17,7 @@ import carouselImg3 from '/src/assets/carousel/3.png';
 import carouselImg4 from '/src/assets/carousel/4.png';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
+import { DarkHeader, LightHeader } from '../components/Header';
 
 export default function TimeDeposit() {
 	const [scrollY, setScrollY] = useState(0);
@@ -190,16 +191,15 @@ export default function TimeDeposit() {
 					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24 text-white"
 				>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-5xl leading-tight font-bold text-white md:text-5xl lg:text-6xl">
-								TIME DEPOSIT
-							</h2>
-							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/90 to-[#aee3b7]"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed font-normal text-white/80">
-								Choose the term that matches your investment goals
-							</p>
-						</div>
-						<div className="grid gap-8 lg:grid-cols-4">
+						<DarkHeader
+							badgeText="Categories"
+							title="Time Deposit"
+							subtitle="Choose the term that matches your investment goals"
+							alignment="center"
+							level={2}
+							className="mb-16"
+						/>
+						<div className="grid gap-2 lg:grid-cols-4">
 							{timeDeposits.map((deposit, index) => (
 								<DarkCard key={index} useNativeSpacing={true} className="flex flex-col p-4">
 									<div className="mb-2 flex items-center justify-center">
@@ -261,14 +261,13 @@ export default function TimeDeposit() {
 				{/* Requirements Section */}
 				<section id="requirements" data-scroll className="bg-white text-gray-900">
 					<div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-3xl leading-tight font-bold sm:text-4xl">
-								Time Deposit Requirements
-							</h2>
-							<p className="text-base leading-relaxed font-normal text-gray-500">
-								What you need to open a time deposit account
-							</p>
-						</div>
+						<LightHeader
+							badgeText="Time Deposit"
+							title="Requirements"
+							subtitle="What you need to open a time deposit account"
+							alignment="left"
+							level={3}
+						/>
 
 						<div className="grid gap-8 md:grid-cols-2">
 							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">

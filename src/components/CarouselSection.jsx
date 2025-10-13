@@ -84,7 +84,7 @@ export default function CarouselSection({
 		<section id={id} data-scroll className={`relative overflow-hidden`}>
 			{/* Carousel Implementation */}
 			<div
-				className="max-w-8xl relative mx-auto px-4 py-5 sm:px-6 lg:px-8 lg:py-8"
+				className="max-w-8xl relative mx-auto px-4 py-4 sm:px-6 lg:px-8 lg:py-4"
 				onMouseEnter={() => setIsPaused(true)}
 				onMouseLeave={() => setIsPaused(false)}
 				onTouchStart={handleTouchStart}

@@ -14,8 +14,8 @@ import img from '/src/assets/homepage/heroSectionImage.png';
 import CarouselSection from '../components/CarouselSection';
 
 import pdf1 from '/src/assets/newsletter/document.pdf';
-import { DarkCard } from '../components/Card';
-import { DarkPrimaryButton } from '../components/Buttons';
+import { DarkCard, LightCard } from '../components/Card';
+import { DarkPrimaryButton, LightPrimaryButton } from '../components/Buttons';
 
 // PDF Viewer Modal Component
 function PDFModal({ pdfUrl, title, onClose }) {
@@ -86,11 +86,15 @@ const newsletters = Array.from({ length: 27 }, (_, i) => {
 // Mock pagination constants
 const PAGE_SIZE = 9;
 
-const NewsletterGrid = () => {
+export const NewsletterGrid = ({
+	articles = newsletters,
+	showPagination = true,
+	cardVariant = 'dark' // "dark" for DarkCard/DarkPrimaryButton or "light" for LightCard/LightPrimaryButton
+}) => {
 	const [pdfModal, setPdfModal] = useState({ open: false, pdfUrl: null, title: '' });
 	const [currentPage, setCurrentPage] = useState(1);
 
-	const totalPages = Math.ceil(newsletters.length / PAGE_SIZE);
+	const totalPages = Math.ceil(articles.length / PAGE_SIZE);
 
 	const openPDF = (pdfUrl, title) => {
 		setPdfModal({ open: true, pdfUrl, title });
@@ -107,118 +111,152 @@ const NewsletterGrid = () => {
 		}
 	};
 
-	const paginatedNewsletters = newsletters.slice(
-		(currentPage - 1) * PAGE_SIZE,
-		currentPage * PAGE_SIZE
-	);
+	const paginatedNewsletters = showPagination
+		? articles.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
+		: articles;
+
+	// Helper for card/button selection
+	const isDark = cardVariant === 'dark';
+
+	const Card = isDark ? DarkCard : LightCard;
+	const PrimaryButton = isDark ? DarkPrimaryButton : LightPrimaryButton;
 
 	return (
-		<div className="min-h-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-6 py-24">
+		<div className="">
 			{pdfModal.open && (
 				<PDFModal pdfUrl={pdfModal.pdfUrl} title={pdfModal.title} onClose={closePDF} />
 			)}
-			<div className="mx-auto max-w-7xl">
-				<div className="mb-16 text-center">
-					<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">Newsletter</h2>
-					<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white to-white/80"></div>
-					<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
-						Stay updated with our curated collection of insights, trends, and innovations across
-						various industries.
-					</p>
-				</div>
 
-				{/* Grid Layout */}
-				<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-					{paginatedNewsletters.map((newsletter) => (
-						<DarkCard
-							key={newsletter.id}
-							useNativeSpacing={true}
-							className="flex h-full flex-col overflow-hidden rounded-3xl p-0 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl"
-						>
-							{/* Image Section */}
-							<div className="relative h-48 overflow-hidden">
-								<img
-									src={newsletter.image}
-									alt={newsletter.subtitle}
-									className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-110"
-								/>
-								<div className="absolute inset-0 bg-gradient-to-t from-[#18421d]/80 via-[#224f27]/30 to-transparent"></div>
+			{/* Grid Layout */}
+			<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+				{paginatedNewsletters.map((newsletter) => (
+					<Card
+						key={newsletter.id}
+						useNativeSpacing={true}
+						className={
+							`flex h-full flex-col overflow-hidden rounded-3xl p-0 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl` +
+							(isDark ? '' : ' border border-[#396131]/10 bg-white/90')
+						}
+					>
+						{/* Image Section */}
+						<div className="relative h-48 overflow-hidden">
+							<img
+								src={newsletter.image}
+								alt={newsletter.subtitle}
+								className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-110"
+							/>
+							<div
+								className={
+									isDark
+										? 'absolute inset-0 bg-gradient-to-t from-[#18421d]/80 via-[#224f27]/30 to-transparent'
+										: 'absolute inset-0 bg-gradient-to-t from-[#eaf8ed]/90 via-transparent to-transparent'
+								}
+							></div>
 
-								{/* Category Badge */}
-								<div className="absolute top-4 left-4">
-									<div className="rounded-full bg-[#f6fff3]/90 px-3 py-1 shadow-lg backdrop-blur-sm">
-										<span className="text-xs font-bold tracking-wide text-[#396131] uppercase">
-											{newsletter.title}
-										</span>
-									</div>
-								</div>
-
-								{/* Date Badge */}
-								<div className="absolute top-4 right-4">
-									<div className="rounded-full bg-[#4a7c3a]/90 px-3 py-1 shadow-lg backdrop-blur-sm">
-										<div className="flex items-center gap-1 text-white">
-											<Calendar size={12} />
-											<time className="text-xs leading-tight font-normal">
-												{new Date(newsletter.datetime).toLocaleDateString('en-US', {
-													month: 'short',
-													day: 'numeric'
-												})}
-											</time>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							{/* Content Section */}
-							<div className="flex flex-grow flex-col p-6">
-								<div className="flex flex-grow flex-col">
-									{/* Section (Card) Header */}
-									<h2 className="mb-3 text-2xl leading-tight font-bold text-white transition-colors duration-200 group-hover:text-[#e5ffe2] md:text-2xl">
+							{/* Category Badge */}
+							<div className="absolute top-4 left-4">
+								<div className="rounded-full border border-[#396131]/20 bg-[#f6fff3]/90 px-3 py-1 shadow-lg backdrop-blur-sm">
+									<span className="text-xs font-bold tracking-wide text-[#396131] uppercase">
 										{newsletter.title}
-									</h2>
+									</span>
+								</div>
+							</div>
 
-									{/* Opening Paragraph */}
-									<p className="mb-4 line-clamp-3 text-base leading-relaxed font-normal text-white/80">
-										{newsletter.description}
-									</p>
-
-									{/* Meta Info */}
-									<div className="mt-auto mb-6 flex items-center gap-4 text-sm leading-relaxed text-white/60">
-										<div className="flex items-center gap-1">
-											<Eye size={16} />
-											<span className="font-normal">{newsletter.views}</span>
-										</div>
-										<div className="flex items-center gap-1">
-											<Clock size={16} />
-											<span className="font-normal">{newsletter.readTime} read</span>
-										</div>
+							{/* Date Badge */}
+							<div className="absolute top-4 right-4">
+								<div
+									className={
+										(isDark ? 'bg-[#4a7c3a]/90' : 'bg-[#396131]/80') +
+										' rounded-full px-3 py-1 shadow-lg backdrop-blur-sm'
+									}
+								>
+									<div
+										className={'flex items-center gap-1 ' + (isDark ? 'text-white' : 'text-white')}
+									>
+										<Calendar size={12} />
+										<time className="text-xs leading-tight font-normal">
+											{new Date(newsletter.datetime).toLocaleDateString('en-US', {
+												month: 'short',
+												day: 'numeric'
+											})}
+										</time>
 									</div>
 								</div>
-
-								<DarkPrimaryButton
-									className="w-full"
-									onClick={() => openPDF(newsletter.pdf, newsletter.title)}
-								>
-									<span className="flex w-full items-center justify-center gap-2">
-										<span className="text-base font-semibold">
-											{newsletter.see_full_article_button}
-										</span>
-										<ArrowRight
-											size={18}
-											className="transition-transform duration-300 group-hover:translate-x-1"
-										/>
-									</span>
-								</DarkPrimaryButton>
 							</div>
-						</DarkCard>
-					))}
-				</div>
+						</div>
 
-				{/* Pagination Section */}
+						{/* Content Section */}
+						<div className="flex flex-grow flex-col p-6">
+							<div className="flex flex-grow flex-col">
+								{/* Section (Card) Header */}
+								<h2
+									className={
+										'mb-3 text-2xl leading-tight font-bold transition-colors duration-200 md:text-2xl ' +
+										(isDark ? 'text-white group-hover:text-[#e5ffe2]' : 'text-[#396131]')
+									}
+								>
+									{newsletter.title}
+								</h2>
+
+								{/* Opening Paragraph */}
+								<p
+									className={
+										'mb-4 line-clamp-3 text-base leading-relaxed font-normal ' +
+										(isDark ? 'text-white/80' : 'text-[#18421d]/80')
+									}
+								>
+									{newsletter.description}
+								</p>
+
+								{/* Meta Info */}
+								<div
+									className={
+										'mt-auto mb-6 flex items-center gap-4 text-sm leading-relaxed ' +
+										(isDark ? 'text-white/60' : 'text-[#396131]/70')
+									}
+								>
+									<div className="flex items-center gap-1">
+										<Eye size={16} />
+										<span className="font-normal">{newsletter.views}</span>
+									</div>
+									<div className="flex items-center gap-1">
+										<Clock size={16} />
+										<span className="font-normal">{newsletter.readTime}</span>
+									</div>
+								</div>
+							</div>
+
+							<PrimaryButton
+								className="w-full"
+								onClick={() => openPDF(newsletter.pdf, newsletter.title)}
+							>
+								<span className="flex w-full items-center justify-center gap-2">
+									<span className="text-base font-semibold text-white">
+										{newsletter.see_full_article_button}
+									</span>
+									<ArrowRight
+										size={18}
+										className="text-white transition-transform duration-300 group-hover:translate-x-1"
+									/>
+								</span>
+							</PrimaryButton>
+						</div>
+					</Card>
+				))}
+			</div>
+
+			{/* Pagination Section */}
+			{showPagination && totalPages > 1 && (
 				<div className="mt-12 flex flex-col items-center gap-4">
 					<div className="flex items-center gap-2">
 						<button
-							className="group inline-flex transform cursor-pointer items-center rounded-xl bg-[#396131] px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:opacity-50"
+							className={
+								'group inline-flex transform cursor-pointer items-center rounded-xl ' +
+								(isDark
+									? 'bg-[#396131] text-white'
+									: 'border border-[#396131]/60 bg-white text-[#396131]') +
+								' px-4 py-2 text-sm font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:opacity-50'
+							}
 							onClick={() => handlePageChange(currentPage - 1)}
 							disabled={currentPage === 1}
 						>
@@ -227,27 +265,45 @@ const NewsletterGrid = () => {
 						{Array.from({ length: totalPages }, (_, idx) => (
 							<button
 								key={idx + 1}
-								className={`group inline-flex transform cursor-pointer items-center rounded-xl px-4 py-2 text-sm font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
-									currentPage === idx + 1 ? 'bg-[#396131] text-white' : 'bg-white text-[#396131]'
-								}`}
+								className={
+									'group inline-flex transform cursor-pointer items-center rounded-xl px-4 py-2 text-sm font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ' +
+									(currentPage === idx + 1
+										? isDark
+											? 'bg-[#396131] text-white'
+											: 'bg-[#396131] text-white'
+										: isDark
+											? 'bg-white text-[#396131]'
+											: 'border border-[#396131]/30 bg-white text-[#396131]')
+								}
 								onClick={() => handlePageChange(idx + 1)}
 							>
 								<span className="text-sm font-bold">{idx + 1}</span>
 							</button>
 						))}
 						<button
-							className="group inline-flex transform cursor-pointer items-center rounded-xl bg-[#396131] px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:opacity-50"
+							className={
+								'group inline-flex transform cursor-pointer items-center rounded-xl ' +
+								(isDark
+									? 'bg-[#396131] text-white'
+									: 'border border-[#396131]/60 bg-white text-[#396131]') +
+								' px-4 py-2 text-sm font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:opacity-50'
+							}
 							onClick={() => handlePageChange(currentPage + 1)}
 							disabled={currentPage === totalPages}
 						>
 							<span className="text-sm font-bold">Next</span>
 						</button>
 					</div>
-					<div className="text-xs leading-relaxed font-normal text-white/80">
+					<div
+						className={
+							'text-xs leading-relaxed font-normal ' +
+							(isDark ? 'text-white/80' : 'text-[#396131]/80')
+						}
+					>
 						Page {currentPage} of {totalPages}
 					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 };
@@ -273,8 +329,20 @@ export default function Newsletter() {
 					brandGradient="from-[#396131] via-[#396131] to-[#396131]"
 					brandColor="#396131"
 				/>
-				<section>
-					<NewsletterGrid />
+				<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-6 py-24">
+					<div className="mx-auto max-w-7xl">
+						<div className="mb-16 text-center">
+							<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+								Newsletter
+							</h2>
+							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white to-white/80"></div>
+							<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
+								Stay updated with our curated collection of insights, trends, and innovations across
+								various industries.
+							</p>
+						</div>
+						<NewsletterGrid articles={newsletters} showPagination={true} />
+					</div>
 				</section>
 			</main>
 		</>

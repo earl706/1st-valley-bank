@@ -234,8 +234,9 @@ export default function LoansSBL() {
 							<h2 className="mb-6 text-4xl leading-tight font-bold text-[#185027] md:text-5xl">
 								Who Can Apply?
 							</h2>
+							<div className="mx-auto mb-6 h-1 w-24 rounded-full bg-[#396131]"></div>
 
-							<p className="mx-auto max-w-3xl text-xl leading-relaxed text-gray-700">
+							<p className="mx-auto max-w-3xl text-base leading-relaxed text-gray-700">
 								Check if you meet our requirements for Small Business Loan approval
 							</p>
 						</div>

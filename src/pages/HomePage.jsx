@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import newsletterImg1 from '/src/assets/newsletter/1.jpg';
+import newsletterImg2 from '/src/assets/newsletter/2.jpg';
+import newsletterImg3 from '/src/assets/newsletter/3.jpg';
 import {
 	Calendar,
 	ArrowRight,
@@ -45,6 +48,9 @@ import {
 	DarkSecondaryButton
 } from '../components/Buttons';
 import { LightCard } from '../components/Card';
+import { LightHeader, DarkHeader } from '../components/Header';
+import { NewsletterGrid } from './Newsletter';
+import pdf1 from '/src/assets/newsletter/document.pdf';
 
 // Utility to find links in plain text and convert them to <a> tags.
 function renderAnswer(answer) {
@@ -311,6 +317,54 @@ export default function HomePage() {
 		}
 	];
 
+	const newsletterArticles = [
+		{
+			id: 1,
+			title: 'Maximize Your Savings with New Interest Rates',
+			subtitle: 'Grow Your Funds Faster',
+			description:
+				'Discover how our new interest rates can help you grow your savings faster. Learn tips and tricks from our experts to get the most out of your account.',
+			datetime: '2024-05-01',
+			see_full_article_button: 'Read Full Article',
+			image: newsletterImg1,
+			views: 300,
+			readTime: '4 min',
+			buttonText: 'Read Full Article',
+			route: '/newsletter/maximize-savings-with-interest',
+			pdf: pdf1
+		},
+		{
+			id: 2,
+			title: 'How Digital Banking is Changing Everyday Life',
+			subtitle: 'Bank Anywhere, Anytime',
+			description:
+				'From quick payments to managing investments on the go, digital banking puts financial freedom at your fingertips. Find out what our latest app update offers.',
+			datetime: '2024-04-15',
+			see_full_article_button: 'Read Full Article',
+			image: newsletterImg2,
+			views: 420,
+			readTime: '3 min',
+			buttonText: 'Read Full Article',
+			route: '/newsletter/digital-banking-everyday-life',
+			pdf: pdf1
+		},
+		{
+			id: 3,
+			title: 'Success Stories: Building Dreams With Us',
+			subtitle: 'Client Journeys and Inspirations',
+			description:
+				'Read inspiring journeys from clients who achieved their goals with our trusted support—from first homes to new businesses.',
+			datetime: '2024-03-20',
+			see_full_article_button: 'Read Full Article',
+			image: newsletterImg3,
+			views: 275,
+			readTime: '5 min',
+			buttonText: 'Read Full Article',
+			route: '/newsletter/success-stories-building-dreams',
+			pdf: pdf1
+		}
+	];
+
 	return (
 		<div className="min-h-screen bg-white">
 			{/* Hero Section */}
@@ -327,15 +381,17 @@ export default function HomePage() {
 				learnMoreText="Learn More"
 				excludeLearnMoreForTitles={[]}
 			/>
-
 			{/* Services Section */}
 			<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20 text-white">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-					<div className="mb-16 text-center">
-						<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
-							Your Lifetime Friend in Banking
-						</h2>
-					</div>
+					<DarkHeader
+						badgeText="Services"
+						title="Your Lifetime Friend in Banking"
+						subtitle="Explore a wide range of solutions tailored to your financial goals."
+						alignment="center"
+						level={2}
+						className="mb-16"
+					/>
 
 					<div className="grid gap-8 md:grid-cols-3">
 						{services.map((service, index) => (
@@ -378,11 +434,14 @@ export default function HomePage() {
 			{/* Features Section */}
 			<section className="bg-[#E9F2EA] py-20">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-					<div className="mb-16 text-center">
-						<h2 className="mb-4 text-3xl leading-tight font-bold text-gray-900 md:text-5xl">
-							Banking That Stays by Your Side
-						</h2>
-					</div>
+					<LightHeader
+						badgeText="Features"
+						title="Banking That Stays by Your Side"
+						subtitle="Enjoy modern banking designed for your convenience and success."
+						alignment="center"
+						level={2}
+						className="mb-16"
+					/>
 
 					<div className="grid gap-8 md:grid-cols-3">
 						{features.map((feature, index) => (
@@ -417,11 +476,14 @@ export default function HomePage() {
 			{/* Testimonials Section */}
 			<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-					<div className="mb-16 text-center">
-						<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
-							Trusted by Our Community
-						</h2>
-					</div>
+					<DarkHeader
+						badgeText="Testimonials"
+						title="Trusted by Our Community"
+						subtitle="Hear what our satisfied clients and partners have to say about 1st Valley Bank."
+						alignment="center"
+						level={2}
+						className="mb-16"
+					/>
 
 					<div className="grid gap-8 md:grid-cols-3">
 						{testimonials.map((testimonial, index) => (
@@ -469,38 +531,27 @@ export default function HomePage() {
 
 			{/* Newsletter Section */}
 			<section className="bg-[#E9F2EA] py-20">
-				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-					<div className="flex flex-col items-center gap-12 md:flex-row">
-						{/* Image Side */}
-						<div className="mb-8 flex w-full flex-shrink-0 justify-center md:mb-0 md:w-1/2">
-							<img
-								src={carouselImg3}
-								alt="Newsletter illustration"
-								className="h-72 w-72 object-contain md:h-96 md:w-96"
-							/>
-						</div>
-						{/* Content Side */}
-						<div className="flex w-full flex-col items-center space-y-6 text-center md:w-1/2 md:items-start md:text-left">
-							<div className="mb-2 inline-flex rounded-full bg-[#396131] p-3 backdrop-blur-sm">
-								<Mail className="h-8 w-8 text-white" />
-							</div>
-							<h2 className="text-3xl leading-tight font-bold text-gray-900 md:text-5xl">
-								Stay Connected
-							</h2>
-							<p className="max-w-xl text-base leading-relaxed font-normal text-gray-700">
-								Get the latest financial tips, market insights, and exclusive offers delivered
-								straight to your inbox.
-							</p>
-							<LightPrimaryButton
-								to={'/newsletter'}
-								secondaryIcon={
-									<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-								}
-							>
-								Subscribe to Newsletter
-							</LightPrimaryButton>
-						</div>
-					</div>
+				<LightHeader
+					badgeText="Newsletter"
+					title="Stay Connected"
+					subtitle="Get the latest financial tips, market insights, and exclusive offers delivered
+								straight to your inbox."
+				/>
+				<div className="mx-auto flex max-w-7xl flex-col items-center px-4 sm:px-6 lg:px-8">
+					<NewsletterGrid
+						articles={newsletterArticles}
+						showPagination={false}
+						cardVariant="light"
+					/>
+					<LightPrimaryButton
+						to={'/newsletter'}
+						secondaryIcon={
+							<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+						}
+						className="mt-2 flex w-full max-w-3xl md:mt-4 lg:mt-8"
+					>
+						Subscribe to Newsletter
+					</LightPrimaryButton>
 				</div>
 			</section>
 
@@ -546,9 +597,15 @@ export default function HomePage() {
 			{/* FAQ Section with Dropdowns */}
 			<section className="bg-white py-20">
 				<div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-					<h2 className="mb-10 text-center text-3xl leading-tight font-bold text-[#396131] md:text-5xl">
-						Frequently Asked Questions
-					</h2>
+					<LightHeader
+						badgeText="FAQ"
+						title="Frequently Asked Questions"
+						subtitle="Find answers to the most common questions from our customers."
+						alignment="center"
+						level={2}
+						className="mb-10"
+						textClassName="text-[#396131]"
+					/>
 
 					{/* FAQ Dropdowns */}
 					<FAQSection faqs={faqs} />
