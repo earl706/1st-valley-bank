@@ -6,46 +6,50 @@ import { MapPin, User, Mail, Phone, MessageSquare, FileText, Map, ArrowRight } f
 import HeroSection from '../components/HeroSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import { DarkHeader } from '../components/Header';
+import { contactService } from '../services/index';
 
 const ContactUsForm = () => {
-	const [formData, setFormData] = useState({
+	const initialFormData = {
 		name: '',
 		email: '',
-		subject: '',
-		address: {
-			barangay: '',
-			municipality: '',
-			province: ''
-		},
+		subject: 'general',
 		contact_number: '',
+		barangay: '',
+		municipality: '',
+		province: '',
 		message: ''
-	});
+	};
+
+	const [formData, setFormData] = useState(initialFormData);
+	const [formErrors, setFormErrors] = useState({});
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [submitSuccess, setSubmitSuccess] = useState(false);
+	const [submitError, setSubmitError] = useState(null);
 
 	const [mapCoordinates, setMapCoordinates] = useState(null);
 	const [isMapLoading, setIsMapLoading] = useState(false);
 
 	const subjects = [
-		'Deposits - Regular',
-		'Deposits - Special',
-		'Loans - Agriculture',
-		'Loans - Small and Medium Enterprises (SME)',
-		'Loans - Microfinance',
-		'Loans - Supervised Credit (SUCRE)',
-		'Loans - Gold & Gems',
-		'Loans - Small Business Loan (SBL)',
-		'Loans - Salary'
+		{ display: 'General Inquiry', value: 'general' },
+		{ display: 'Deposits - Regular', value: 'deposits_regular' },
+		{ display: 'Deposits - Special', value: 'deposits_special' },
+		{ display: 'Loans - Agriculture', value: 'loans_agriculture' },
+		{ display: 'Loans - Small and Medium Enterprises (SME)', value: 'loans_sme' },
+		{ display: 'Loans - Microfinance', value: 'loans_microfinance' },
+		{ display: 'Loans - Supervised Credit (SUCRE)', value: 'loans_sucre' },
+		{ display: 'Loans - Gold & Gems', value: 'loans_gold_gems' },
+		{ display: 'Loans - Small Business Loan (SBL)', value: 'loans_sbl' },
+		{ display: 'Loans - Salary', value: 'loans_salary' }
 	];
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
-		if (name.includes('address.')) {
-			const addressField = name.split('.')[1];
+		// Fix: Support flat fields and nested address fields
+		if (name.startsWith('address.')) {
+			const field = name.replace('address.', '');
 			setFormData((prev) => ({
 				...prev,
-				address: {
-					...prev.address,
-					[addressField]: value
-				}
+				[field]: value
 			}));
 		} else {
 			setFormData((prev) => ({
@@ -56,11 +60,10 @@ const ContactUsForm = () => {
 	};
 
 	const fetchMapCoordinates = async () => {
-		const { barangay, municipality, province } = formData.address;
+		const { barangay, municipality, province } = formData;
 		if (barangay.trim() && municipality.trim() && province.trim()) {
 			const fullAddress = `${barangay}, ${municipality}, ${province}, Philippines`;
 			const encodedAddress = encodeURIComponent(fullAddress);
-			console.log(encodedAddress);
 
 			try {
 				setIsMapLoading(true);
@@ -96,13 +99,41 @@ const ContactUsForm = () => {
 		}, 1000);
 
 		return () => clearTimeout(timer);
-	}, [formData.address]);
+	}, [formData.barangay, formData.municipality, formData.province]);
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('Form submitted:', formData);
-		// Add your form submission logic here
-		alert('Form submitted successfully!');
+
+		// Prepare the payload as required (flat format)
+		const payload = {
+			name: formData.name,
+			email: formData.email,
+			subject: formData.subject,
+			contact_number: formData.contact_number,
+			barangay: formData.barangay,
+			municipality: formData.municipality,
+			province: formData.province,
+			message: formData.message
+		};
+
+		try {
+			setIsSubmitting(true);
+			const response = await contactService.submitContact(payload);
+			console.log('Form submitted:', response);
+			if (response.success) {
+				setSubmitSuccess(true);
+				setSubmitError(null);
+			} else {
+				setSubmitError(response.error);
+				setSubmitSuccess(false);
+			}
+		} catch (error) {
+			console.error('Error submitting form:', error);
+			setSubmitError(error);
+			setSubmitSuccess(false);
+		} finally {
+			setIsSubmitting(false);
+		}
 	};
 
 	return (
@@ -120,6 +151,16 @@ const ContactUsForm = () => {
 					<div className="grid grid-cols-1 gap-0 lg:grid-cols-2">
 						{/* Form Section */}
 						<div className="p-8 lg:p-12">
+							{submitError && (
+								<div className="mb-4 rounded-lg bg-red-50 p-4 text-sm text-red-700">
+									{submitError}
+								</div>
+							)}
+							{isSubmitting && (
+								<div className="mb-4 rounded-lg bg-yellow-50 p-4 text-sm text-yellow-700">
+									Submitting...
+								</div>
+							)}
 							<form onSubmit={handleSubmit} className="space-y-6">
 								{/* Name Field */}
 								<div className="relative">
@@ -174,9 +215,9 @@ const ContactUsForm = () => {
 											required
 										>
 											<option value="">Select a subject</option>
-											{subjects.map((subject) => (
-												<option key={subject} value={subject}>
-													{subject}
+											{subjects.map((subjectItem) => (
+												<option key={subjectItem.value} value={subjectItem.value}>
+													{subjectItem.display}
 												</option>
 											))}
 										</select>
@@ -193,7 +234,7 @@ const ContactUsForm = () => {
 										<input
 											type="text"
 											name="address.barangay"
-											value={formData.address.barangay}
+											value={formData.barangay}
 											onChange={handleInputChange}
 											className="w-full rounded-xl border border-gray-200 bg-white/60 py-4 pr-4 pl-12 text-base leading-relaxed font-normal text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
 											placeholder="Barangay"
@@ -204,7 +245,7 @@ const ContactUsForm = () => {
 										<input
 											type="text"
 											name="address.municipality"
-											value={formData.address.municipality}
+											value={formData.municipality}
 											onChange={handleInputChange}
 											className="w-full rounded-xl border border-gray-200 bg-white/60 px-4 py-4 text-base leading-relaxed font-normal text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
 											placeholder="Municipality/City"
@@ -213,7 +254,7 @@ const ContactUsForm = () => {
 										<input
 											type="text"
 											name="address.province"
-											value={formData.address.province}
+											value={formData.province}
 											onChange={handleInputChange}
 											className="w-full rounded-xl border border-gray-200 bg-white/60 px-4 py-4 text-base leading-relaxed font-normal text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
 											placeholder="Province"
@@ -271,6 +312,30 @@ const ContactUsForm = () => {
 									</span>
 								</button>
 							</form>
+							{submitSuccess && (
+								<div className="mt-4 flex items-center gap-2 rounded-lg border border-green-300 bg-green-100 p-5 text-base font-bold text-green-800 shadow-md">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="h-6 w-6 text-green-700"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
+										<title>Success</title>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M5 13l4 4L19 7"
+										/>
+									</svg>
+									<span>
+										Success! Your form has been{' '}
+										<span className="underline underline-offset-2">submitted</span>.<br />
+										We appreciate you reaching out to us.
+									</span>
+								</div>
+							)}
 						</div>
 
 						{/* Map Section */}
@@ -316,9 +381,7 @@ const ContactUsForm = () => {
 								</div>
 							)}
 
-							{(formData.address.barangay ||
-								formData.address.municipality ||
-								formData.address.province) &&
+							{(formData.barangay || formData.municipality || formData.province) &&
 								!mapCoordinates &&
 								!isMapLoading && (
 									<div className="mt-6 rounded-xl border border-yellow-200 bg-yellow-50 p-4">
@@ -326,16 +389,12 @@ const ContactUsForm = () => {
 											Searching for location...
 										</h4>
 										<p className="text-base leading-relaxed font-normal text-yellow-600">
-											{[
-												formData.address.barangay,
-												formData.address.municipality,
-												formData.address.province
-											]
+											{[formData.barangay, formData.municipality, formData.province]
 												.filter(Boolean)
 												.join(', ')}
-											{formData.address.barangay &&
-												formData.address.municipality &&
-												formData.address.province &&
+											{formData.barangay &&
+												formData.municipality &&
+												formData.province &&
 												', Philippines'}
 										</p>
 									</div>
