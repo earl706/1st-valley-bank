@@ -8,7 +8,7 @@ import img3 from '/src/assets/newsletter/3.jpg';
 import img4 from '/src/assets/newsletter/4.jpg';
 import img5 from '/src/assets/newsletter/5.jpg';
 import img6 from '/src/assets/newsletter/6.jpg';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HeroSection from '../components/HeroSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import CarouselSection from '../components/CarouselSection';
@@ -16,6 +16,7 @@ import CarouselSection from '../components/CarouselSection';
 import pdf1 from '/src/assets/newsletter/document.pdf';
 import { DarkCard, LightCard } from '../components/Card';
 import { DarkPrimaryButton, LightPrimaryButton } from '../components/Buttons';
+import newsletterService from '../services/newsletterService';
 
 // PDF Viewer Modal Component
 function PDFModal({ pdfUrl, title, onClose }) {
@@ -87,14 +88,38 @@ const newsletters = Array.from({ length: 27 }, (_, i) => {
 const PAGE_SIZE = 9;
 
 export const NewsletterGrid = ({
-	articles = newsletters,
+	data = { count: newsletters.length, results: newsletters }, // expecting backend format; fallback for legacy
 	showPagination = true,
 	cardVariant = 'dark' // "dark" for DarkCard/DarkPrimaryButton or "light" for LightCard/LightPrimaryButton
 }) => {
 	const [pdfModal, setPdfModal] = useState({ open: false, pdfUrl: null, title: '' });
 	const [currentPage, setCurrentPage] = useState(1);
 
-	const totalPages = Math.ceil(articles.length / PAGE_SIZE);
+	// Do we have data in backend format? Accept legacy [{...}] as fallback for previews/mockup/SSR.
+	const newslettersArr = Array.isArray(data?.results)
+		? data.results
+		: Array.isArray(data)
+			? data
+			: [];
+	// fall back to demo data only if completely empty
+	const count =
+		typeof data?.count === 'number' ? data.count : newslettersArr.length || newsletters.length;
+	const totalPages = Math.ceil(count / PAGE_SIZE);
+
+	// Pagination (server or client-side, both supported)
+	const getCurrentPageResults = () => {
+		if (showPagination) {
+			if (Array.isArray(data?.results)) {
+				// Assume full slice already in results, do client-side
+				return newslettersArr.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+			}
+			// fallback to direct array
+			return newslettersArr.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+		}
+		return newslettersArr;
+	};
+
+	const paginatedNewsletters = getCurrentPageResults();
 
 	const openPDF = (pdfUrl, title) => {
 		setPdfModal({ open: true, pdfUrl, title });
@@ -111,10 +136,6 @@ export const NewsletterGrid = ({
 		}
 	};
 
-	const paginatedNewsletters = showPagination
-		? articles.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
-		: articles;
-
 	// Helper for card/button selection
 	const isDark = cardVariant === 'dark';
 
@@ -128,121 +149,138 @@ export const NewsletterGrid = ({
 			)}
 
 			{/* Grid Layout */}
-			<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-				{paginatedNewsletters.map((newsletter) => (
-					<Card
-						key={newsletter.id}
-						useNativeSpacing={true}
-						className={
-							`flex h-full flex-col overflow-hidden rounded-3xl p-0 shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl` +
-							(isDark ? '' : ' border border-[#396131]/10 bg-white/90')
-						}
-					>
-						{/* Image Section */}
-						<div className="relative h-48 overflow-hidden">
-							<img
-								src={newsletter.image}
-								alt={newsletter.subtitle}
-								className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-110"
-							/>
-							<div
-								className={
-									isDark
-										? 'absolute inset-0 bg-gradient-to-t from-[#18421d]/80 via-[#224f27]/30 to-transparent'
-										: 'absolute inset-0 bg-gradient-to-t from-[#eaf8ed]/90 via-transparent to-transparent'
-								}
-							></div>
+			<div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+				{paginatedNewsletters.map((newsletter) => {
+					// Map backend props -> frontend as used
+					const {
+						id,
+						title,
+						subtitle,
+						description,
+						image,
+						pdf_file,
+						views,
+						read_time,
+						published_date
+					} = newsletter;
 
-							{/* Category Badge */}
-							<div className="absolute top-4 left-4">
-								<div className="rounded-full border border-[#396131]/20 bg-[#f6fff3]/90 px-3 py-1 shadow-lg backdrop-blur-sm">
-									<span className="text-xs font-bold tracking-wide text-[#396131] uppercase">
-										{newsletter.title}
-									</span>
-								</div>
-							</div>
-
-							{/* Date Badge */}
-							<div className="absolute top-4 right-4">
+					return (
+						<Card
+							key={id}
+							useNativeSpacing={true}
+							className={
+								`flex h-full flex-col overflow-hidden rounded-3xl p-0 shadow-lg transition-all duration-200 hover:shadow-md` +
+								(isDark ? '' : ' border border-[#396131]/10 bg-white/90')
+							}
+						>
+							{/* Image Section */}
+							<div className="relative h-48 overflow-hidden">
+								<img
+									src={image}
+									alt={subtitle || title}
+									className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-110"
+								/>
 								<div
 									className={
-										(isDark ? 'bg-[#4a7c3a]/90' : 'bg-[#396131]/80') +
-										' rounded-full px-3 py-1 shadow-lg backdrop-blur-sm'
+										isDark
+											? 'absolute inset-0 bg-gradient-to-t from-[#18421d]/80 via-[#224f27]/30 to-transparent'
+											: 'absolute inset-0 bg-gradient-to-t from-[#eaf8ed]/90 via-transparent to-transparent'
 									}
-								>
+								></div>
+
+								{/* Category Badge */}
+								<div className="absolute top-4 left-4">
+									<div className="rounded-full border border-[#396131]/20 bg-[#f6fff3]/90 px-3 py-1 shadow-lg backdrop-blur-sm">
+										<span className="text-xs font-bold tracking-wide text-[#396131] uppercase">
+											{title}
+										</span>
+									</div>
+								</div>
+
+								{/* Date Badge */}
+								<div className="absolute top-4 right-4">
 									<div
-										className={'flex items-center gap-1 ' + (isDark ? 'text-white' : 'text-white')}
+										className={
+											(isDark ? 'bg-[#4a7c3a]/90' : 'bg-[#396131]/80') +
+											' rounded-full px-3 py-1 shadow-lg backdrop-blur-sm'
+										}
 									>
-										<Calendar size={12} />
-										<time className="text-xs leading-tight font-normal">
-											{new Date(newsletter.datetime).toLocaleDateString('en-US', {
-												month: 'short',
-												day: 'numeric'
-											})}
-										</time>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						{/* Content Section */}
-						<div className="flex flex-grow flex-col p-6">
-							<div className="flex flex-grow flex-col">
-								{/* Section (Card) Header */}
-								<h2
-									className={
-										'mb-3 text-2xl leading-tight font-bold transition-colors duration-200 md:text-2xl ' +
-										(isDark ? 'text-white group-hover:text-[#e5ffe2]' : 'text-[#396131]')
-									}
-								>
-									{newsletter.title}
-								</h2>
-
-								{/* Opening Paragraph */}
-								<p
-									className={
-										'mb-4 line-clamp-3 text-base leading-relaxed font-normal ' +
-										(isDark ? 'text-white/80' : 'text-[#18421d]/80')
-									}
-								>
-									{newsletter.description}
-								</p>
-
-								{/* Meta Info */}
-								<div
-									className={
-										'mt-auto mb-6 flex items-center gap-4 text-sm leading-relaxed ' +
-										(isDark ? 'text-white/60' : 'text-[#396131]/70')
-									}
-								>
-									<div className="flex items-center gap-1">
-										<Eye size={16} />
-										<span className="font-normal">{newsletter.views}</span>
-									</div>
-									<div className="flex items-center gap-1">
-										<Clock size={16} />
-										<span className="font-normal">{newsletter.readTime}</span>
+										<div
+											className={
+												'flex items-center gap-1 ' + (isDark ? 'text-white' : 'text-white')
+											}
+										>
+											<Calendar size={12} />
+											<time className="text-xs leading-tight font-normal">
+												{/* Format: "June 15" */}
+												{published_date
+													? new Date(published_date).toLocaleDateString('en-US', {
+															month: 'short',
+															day: 'numeric'
+														})
+													: '--'}
+											</time>
+										</div>
 									</div>
 								</div>
 							</div>
 
-							<PrimaryButton
-								className="w-full"
-								onClick={() => openPDF(newsletter.pdf, newsletter.title)}
-							>
-								<span className="flex w-full items-center justify-center gap-2">
-									<span className="text-base font-semibold text-white">
-										{newsletter.see_full_article_button}
+							{/* Content Section */}
+							<div className="flex flex-grow flex-col p-6">
+								<div className="flex flex-grow flex-col">
+									{/* Section (Card) Header */}
+									<h2
+										className={
+											'mb-3 text-2xl leading-tight font-bold transition-colors duration-200 md:text-2xl ' +
+											(isDark ? 'text-white group-hover:text-[#e5ffe2]' : 'text-[#396131]')
+										}
+									>
+										{title}
+									</h2>
+
+									{/* Opening Paragraph */}
+									<p
+										className={
+											'mb-4 line-clamp-3 text-base leading-relaxed font-normal ' +
+											(isDark ? 'text-white/80' : 'text-[#18421d]/80')
+										}
+									>
+										{description}
+									</p>
+
+									{/* Meta Info */}
+									<div
+										className={
+											'mt-auto mb-6 flex items-center gap-4 text-sm leading-relaxed ' +
+											(isDark ? 'text-white/60' : 'text-[#396131]/70')
+										}
+									>
+										<div className="flex items-center gap-1">
+											<Eye size={16} />
+											<span className="font-normal">
+												{typeof views === 'number' ? views : views || ''}
+											</span>
+										</div>
+										<div className="flex items-center gap-1">
+											<Clock size={16} />
+											<span className="font-normal">{read_time || ''}</span>
+										</div>
+									</div>
+								</div>
+
+								<PrimaryButton className="w-full" onClick={() => openPDF(pdf_file, title)}>
+									<span className="flex w-full items-center justify-center gap-2">
+										<span className="text-base font-semibold text-white">Read Full Article</span>
+										<ArrowRight
+											size={18}
+											className="text-white transition-transform duration-300 group-hover:translate-x-1"
+										/>
 									</span>
-									<ArrowRight
-										size={18}
-										className="text-white transition-transform duration-300 group-hover:translate-x-1"
-									/>
-								</span>
-							</PrimaryButton>
-						</div>
-					</Card>
-				))}
+								</PrimaryButton>
+							</div>
+						</Card>
+					);
+				})}
 			</div>
 
 			{/* Pagination Section */}
@@ -309,9 +347,17 @@ export const NewsletterGrid = ({
 };
 
 export default function Newsletter() {
+	const [newsletters, setNewsletters] = useState([]);
+
+	useEffect(() => {
+		newsletterService.getNewsletters().then((response) => {
+			console.log(response.data.results);
+			setNewsletters(response.data.results);
+		});
+	}, [newsletterService]);
 	return (
 		<>
-			<main className="flex flex-col gap-[80px] pb-[50px]">
+			<main className="flex flex-col">
 				<CarouselSection
 					id="newsletter-hero-carousel"
 					slides={[
@@ -324,7 +370,7 @@ export default function Newsletter() {
 							imageAlt: 'Newsletter Envelope Icon',
 							route: null
 						},
-						...newsletters.slice(0, 5).map((newsletter) => newsletter)
+						...newsletters?.slice(0, 5).map((newsletter) => newsletter)
 					]}
 					brandGradient="from-[#396131] via-[#396131] to-[#396131]"
 					brandColor="#396131"
@@ -341,7 +387,10 @@ export default function Newsletter() {
 								various industries.
 							</p>
 						</div>
-						<NewsletterGrid articles={newsletters} showPagination={true} />
+						<NewsletterGrid
+							data={{ count: newsletters.length, results: newsletters }}
+							showPagination={true}
+						/>
 					</div>
 				</section>
 			</main>

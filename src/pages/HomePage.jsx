@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import newsletterImg1 from '/src/assets/newsletter/1.jpg';
 import newsletterImg2 from '/src/assets/newsletter/2.jpg';
@@ -51,6 +51,7 @@ import { LightCard } from '../components/Card';
 import { LightHeader, DarkHeader } from '../components/Header';
 import { NewsletterGrid } from './Newsletter';
 import pdf1 from '/src/assets/newsletter/document.pdf';
+import newsletterService from '../services/newsletterService';
 
 // Utility to find links in plain text and convert them to <a> tags.
 function renderAnswer(answer) {
@@ -171,6 +172,45 @@ const faqs = [
 ];
 
 export default function HomePage() {
+	const [email, setEmail] = useState('');
+	const [error, setError] = useState('');
+	const [success, setSuccess] = useState('');
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [newsletterArticles, setNewsletterArticles] = useState([]);
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		// Simple email validation regex
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(email)) {
+			setError('Please enter a valid email address.');
+			setSuccess('');
+			return;
+		}
+
+		setIsSubmitting(true);
+		try {
+			const response = await newsletterService.subscribe(email);
+			console.log(response);
+			if (response.success) {
+				setSuccess(response.message);
+				setError('');
+				setEmail('');
+			} else {
+				setError(response.error);
+				setSuccess('');
+				setEmail('');
+			}
+		} catch (error) {
+			setError(error.message);
+			setSuccess('');
+			setEmail('');
+		} finally {
+			setIsSubmitting(false);
+		}
+	};
+
 	const services = [
 		{
 			image: carouselImg1,
@@ -317,53 +357,11 @@ export default function HomePage() {
 		}
 	];
 
-	const newsletterArticles = [
-		{
-			id: 1,
-			title: 'Maximize Your Savings with New Interest Rates',
-			subtitle: 'Grow Your Funds Faster',
-			description:
-				'Discover how our new interest rates can help you grow your savings faster. Learn tips and tricks from our experts to get the most out of your account.',
-			datetime: '2024-05-01',
-			see_full_article_button: 'Read Full Article',
-			image: newsletterImg1,
-			views: 300,
-			readTime: '4 min',
-			buttonText: 'Read Full Article',
-			route: '/newsletter/maximize-savings-with-interest',
-			pdf: pdf1
-		},
-		{
-			id: 2,
-			title: 'How Digital Banking is Changing Everyday Life',
-			subtitle: 'Bank Anywhere, Anytime',
-			description:
-				'From quick payments to managing investments on the go, digital banking puts financial freedom at your fingertips. Find out what our latest app update offers.',
-			datetime: '2024-04-15',
-			see_full_article_button: 'Read Full Article',
-			image: newsletterImg2,
-			views: 420,
-			readTime: '3 min',
-			buttonText: 'Read Full Article',
-			route: '/newsletter/digital-banking-everyday-life',
-			pdf: pdf1
-		},
-		{
-			id: 3,
-			title: 'Success Stories: Building Dreams With Us',
-			subtitle: 'Client Journeys and Inspirations',
-			description:
-				'Read inspiring journeys from clients who achieved their goals with our trusted support—from first homes to new businesses.',
-			datetime: '2024-03-20',
-			see_full_article_button: 'Read Full Article',
-			image: newsletterImg3,
-			views: 275,
-			readTime: '5 min',
-			buttonText: 'Read Full Article',
-			route: '/newsletter/success-stories-building-dreams',
-			pdf: pdf1
-		}
-	];
+	useEffect(() => {
+		newsletterService.getLatestNewsletterArticles().then((response) => {
+			setNewsletterArticles(response);
+		});
+	}, []);
 
 	return (
 		<div className="min-h-screen bg-white">
@@ -393,7 +391,7 @@ export default function HomePage() {
 						className="mb-16"
 					/>
 
-					<div className="grid gap-8 md:grid-cols-3">
+					<div className="grid gap-4 md:grid-cols-3">
 						{services.map((service, index) => (
 							<LightCard
 								key={index}
@@ -485,7 +483,7 @@ export default function HomePage() {
 						className="mb-16"
 					/>
 
-					<div className="grid gap-8 md:grid-cols-3">
+					<div className="grid gap-4 md:grid-cols-3">
 						{testimonials.map((testimonial, index) => (
 							<LightCard
 								key={index}
@@ -537,21 +535,44 @@ export default function HomePage() {
 					subtitle="Get the latest financial tips, market insights, and exclusive offers delivered
 								straight to your inbox."
 				/>
+				<div className="mx-auto mb-8 w-full max-w-3xl">
+					<form className="relative mx-auto flex w-full flex-col items-center gap-3 rounded-xl">
+						{error && <div className="text-sm text-red-500">{error}</div>}
+						{success && <div className="text-sm text-green-500">{success}</div>}
+						<div className="relative w-full flex-1">
+							<input
+								type="email"
+								placeholder="Enter your email address"
+								className="peer w-full rounded-lg border border-[#396131]/20 bg-white px-4 py-3 pl-12 text-base placeholder-gray-400 shadow-sm transition focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none"
+								value={email}
+								onChange={(e) => {
+									setEmail(e.target.value);
+									setError('');
+									setSuccess('');
+								}}
+								required
+							/>
+							<Mail className="pointer-events-none absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-[#396131]/70" />
+						</div>
+						<LightPrimaryButton
+							disabled={isSubmitting}
+							type="submit"
+							secondaryIcon={
+								<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+							}
+							className="w-full"
+							onClick={handleSubmit}
+						>
+							{isSubmitting ? 'Submitting...' : 'Subscribe to Newsletter'}
+						</LightPrimaryButton>
+					</form>
+				</div>
 				<div className="mx-auto flex max-w-7xl flex-col items-center px-4 sm:px-6 lg:px-8">
 					<NewsletterGrid
-						articles={newsletterArticles}
+						data={{ count: newsletterArticles?.length, results: newsletterArticles }}
 						showPagination={false}
 						cardVariant="light"
 					/>
-					<LightPrimaryButton
-						to={'/newsletter'}
-						secondaryIcon={
-							<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-						}
-						className="mt-2 flex w-full max-w-3xl md:mt-4 lg:mt-8"
-					>
-						Subscribe to Newsletter
-					</LightPrimaryButton>
 				</div>
 			</section>
 

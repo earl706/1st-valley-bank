@@ -17,7 +17,7 @@ const newsletterService = {
 	 */
 	async getNewsletters(params = {}) {
 		try {
-			const response = await api.get('/newsletters/', { params });
+			const response = await api.get('/newsletter/newsletters/', { params });
 			return { success: true, data: response.data };
 		} catch (error) {
 			const apiError = handleApiError(error);
@@ -118,11 +118,25 @@ const newsletterService = {
 	 */
 	async subscribe(email) {
 		try {
-			const response = await api.post('/newsletters/subscribe/', { email });
+			const response = await api.post('/newsletter/subscribers/', { email: email });
 			return { success: true, data: response.data };
 		} catch (error) {
 			const apiError = handleApiError(error);
 			return { success: false, ...apiError };
+		}
+	},
+
+	/**
+	 * Get latest newsletter articles
+	 * @returns {Promise<Object>} Newsletter articles
+	 */
+	async getLatestNewsletterArticles() {
+		try {
+			const response = await api.get('/newsletter/latest-newsletters/');
+			console.log(response);
+			return response.data;
+		} catch (error) {
+			throw error;
 		}
 	}
 };
