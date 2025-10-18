@@ -358,8 +358,9 @@ export default function HomePage() {
 	];
 
 	useEffect(() => {
-		newsletterService.getLatestNewsletterArticles().then((response) => {
-			setNewsletterArticles(response);
+		newsletterService.getNewsletters({ page: 1, page_size: 3 }).then((response) => {
+			console.log(response);
+			setNewsletterArticles(response.results);
 		});
 	}, []);
 
@@ -528,7 +529,7 @@ export default function HomePage() {
 			</section>
 
 			{/* Newsletter Section */}
-			<section className="bg-[#E9F2EA] py-20">
+			<section className="flex flex-col items-center bg-[#E9F2EA] py-20">
 				<LightHeader
 					badgeText="Newsletter"
 					title="Stay Connected"
@@ -567,13 +568,22 @@ export default function HomePage() {
 						</LightPrimaryButton>
 					</form>
 				</div>
-				<div className="mx-auto flex max-w-7xl flex-col items-center px-4 sm:px-6 lg:px-8">
+				<div className="mx-auto flex max-w-7xl flex-col items-center">
 					<NewsletterGrid
 						data={{ count: newsletterArticles?.length, results: newsletterArticles }}
 						showPagination={false}
 						cardVariant="light"
 					/>
 				</div>
+				<LightPrimaryButton
+					secondaryIcon={
+						<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+					}
+					className="mx-auto mt-10 w-full max-w-7xl px-4 sm:px-6 lg:px-8"
+					to={'/newsletter'}
+				>
+					Read More
+				</LightPrimaryButton>
 			</section>
 
 			{/* CTA Section */}

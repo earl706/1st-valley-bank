@@ -1,6 +1,3 @@
-import { faLetterboxd } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Calendar, ArrowRight, Eye, Clock, X } from 'lucide-react';
 import img1 from '/src/assets/newsletter/1.jpg';
 import img2 from '/src/assets/newsletter/2.jpg';
@@ -9,7 +6,6 @@ import img4 from '/src/assets/newsletter/4.jpg';
 import img5 from '/src/assets/newsletter/5.jpg';
 import img6 from '/src/assets/newsletter/6.jpg';
 import React, { useState, useEffect } from 'react';
-import HeroSection from '../components/HeroSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import CarouselSection from '../components/CarouselSection';
 
@@ -19,7 +15,13 @@ import { DarkPrimaryButton, LightPrimaryButton } from '../components/Buttons';
 import newsletterService from '../services/newsletterService';
 
 // PDF Viewer Modal Component
-function PDFModal({ pdfUrl, title, onClose }) {
+function PDFModal({ pdfUrl, title, onClose, id }) {
+	useEffect(() => {
+		newsletterService.incrementViewCount(id).then((response) => {
+			console.log(response);
+		});
+	}, []);
+
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
 			<div className="relative flex h-[90vh] w-full max-w-7xl flex-col rounded-xl bg-white shadow-2xl">
@@ -92,7 +94,7 @@ export const NewsletterGrid = ({
 	showPagination = true,
 	cardVariant = 'dark' // "dark" for DarkCard/DarkPrimaryButton or "light" for LightCard/LightPrimaryButton
 }) => {
-	const [pdfModal, setPdfModal] = useState({ open: false, pdfUrl: null, title: '' });
+	const [pdfModal, setPdfModal] = useState({ open: false, pdfUrl: null, title: '', id: null });
 	const [currentPage, setCurrentPage] = useState(1);
 
 	// Do we have data in backend format? Accept legacy [{...}] as fallback for previews/mockup/SSR.
@@ -121,12 +123,12 @@ export const NewsletterGrid = ({
 
 	const paginatedNewsletters = getCurrentPageResults();
 
-	const openPDF = (pdfUrl, title) => {
-		setPdfModal({ open: true, pdfUrl, title });
+	const openPDF = (pdfUrl, title, id) => {
+		setPdfModal({ open: true, pdfUrl, title, id });
 	};
 
 	const closePDF = () => {
-		setPdfModal({ open: false, pdfUrl: null, title: '' });
+		setPdfModal({ open: false, pdfUrl: null, title: '', id: null });
 	};
 
 	const handlePageChange = (page) => {
@@ -142,10 +144,19 @@ export const NewsletterGrid = ({
 	const Card = isDark ? DarkCard : LightCard;
 	const PrimaryButton = isDark ? DarkPrimaryButton : LightPrimaryButton;
 
+	useEffect(() => {
+		console.log(paginatedNewsletters);
+	}, [paginatedNewsletters]);
+
 	return (
 		<div className="">
 			{pdfModal.open && (
-				<PDFModal pdfUrl={pdfModal.pdfUrl} title={pdfModal.title} onClose={closePDF} />
+				<PDFModal
+					pdfUrl={pdfModal.pdfUrl}
+					title={pdfModal.title}
+					onClose={closePDF}
+					id={pdfModal.id}
+				/>
 			)}
 
 			{/* Grid Layout */}
@@ -158,6 +169,7 @@ export const NewsletterGrid = ({
 						subtitle,
 						description,
 						image,
+						thumbnail,
 						pdf_file,
 						views,
 						read_time,
@@ -176,7 +188,7 @@ export const NewsletterGrid = ({
 							{/* Image Section */}
 							<div className="relative h-48 overflow-hidden">
 								<img
-									src={image}
+									src={thumbnail}
 									alt={subtitle || title}
 									className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-110"
 								/>
@@ -268,7 +280,7 @@ export const NewsletterGrid = ({
 									</div>
 								</div>
 
-								<PrimaryButton className="w-full" onClick={() => openPDF(pdf_file, title)}>
+								<PrimaryButton className="w-full" onClick={() => openPDF(pdf_file, title, id)}>
 									<span className="flex w-full items-center justify-center gap-2">
 										<span className="text-base font-semibold text-white">Read Full Article</span>
 										<ArrowRight
@@ -351,8 +363,8 @@ export default function Newsletter() {
 
 	useEffect(() => {
 		newsletterService.getNewsletters().then((response) => {
-			console.log(response.data.results);
-			setNewsletters(response.data.results);
+			console.log(response);
+			setNewsletters(response.results);
 		});
 	}, [newsletterService]);
 	return (

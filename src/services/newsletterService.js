@@ -18,7 +18,7 @@ const newsletterService = {
 	async getNewsletters(params = {}) {
 		try {
 			const response = await api.get('/newsletter/newsletters/', { params });
-			return { success: true, data: response.data };
+			return response.data;
 		} catch (error) {
 			const apiError = handleApiError(error);
 			return { success: false, ...apiError };
@@ -81,37 +81,6 @@ const newsletterService = {
 	},
 
 	/**
-	 * Partially update newsletter (Admin only)
-	 * @param {number} id - Newsletter ID
-	 * @param {Object} data - Fields to update
-	 * @returns {Promise<Object>} Updated newsletter
-	 */
-	async patchNewsletter(id, data) {
-		try {
-			const response = await api.patch(`/newsletters/${id}/`, data);
-			return { success: true, data: response.data };
-		} catch (error) {
-			const apiError = handleApiError(error);
-			return { success: false, ...apiError };
-		}
-	},
-
-	/**
-	 * Delete newsletter (Admin only)
-	 * @param {number} id - Newsletter ID
-	 * @returns {Promise<Object>} Success status
-	 */
-	async deleteNewsletter(id) {
-		try {
-			await api.delete(`/newsletters/${id}/`);
-			return { success: true };
-		} catch (error) {
-			const apiError = handleApiError(error);
-			return { success: false, ...apiError };
-		}
-	},
-
-	/**
 	 * Subscribe to newsletter
 	 * @param {string} email - Email address
 	 * @returns {Promise<Object>} Subscription status
@@ -127,16 +96,17 @@ const newsletterService = {
 	},
 
 	/**
-	 * Get latest newsletter articles
-	 * @returns {Promise<Object>} Newsletter articles
+	 * Increment the view count of a newsletter article.
+	 * @param {number} id - Newsletter ID (primary key)
+	 * @returns {Promise<Object>} Response with updated view count
 	 */
-	async getLatestNewsletterArticles() {
+	async incrementViewCount(id) {
 		try {
-			const response = await api.get('/newsletter/latest-newsletters/');
-			console.log(response);
+			const response = await api.post(`/newsletter/newsletters/${id}/increment-view-count/`);
 			return response.data;
 		} catch (error) {
-			throw error;
+			const apiError = handleApiError(error);
+			return { success: false, ...apiError };
 		}
 	}
 };
