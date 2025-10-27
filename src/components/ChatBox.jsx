@@ -5,11 +5,242 @@ import {
 	User,
 	Sparkles,
 	Mic,
-	Paperclip,
 	X,
 	MessageCircle,
-	Minimize2
+	Minimize2,
+	FileText,
+	AlertCircle,
+	CheckCircle,
 } from 'lucide-react';
+import chatbotService from '../services/chatbotService';
+
+// ---- Helper Components ----
+
+const TypingIndicator = () => (
+	<div className="animate-fade-in mb-4 flex items-start space-x-3">
+		<div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600">
+			<Bot className="h-3 w-3 text-white" />
+		</div>
+		<div className="max-w-xs rounded-2xl rounded-tl-sm bg-gray-100 px-3 py-2">
+			<div className="flex space-x-1">
+				{[0, 150, 300].map((delay) => (
+					<div
+						key={delay}
+						className="h-1.5 w-1.5 animate-bounce rounded-full bg-gray-400"
+						style={{ animationDelay: `${delay}ms` }}
+					/>
+				))}
+			</div>
+		</div>
+	</div>
+);
+
+const ChatToggleButton = ({ onClick }) => (
+	<div className="group fixed right-8 bottom-8 z-50 flex items-center">
+		<button
+			onClick={onClick}
+			className="group relative h-20 w-20 cursor-pointer rounded-full bg-gradient-to-br from-[#396131] via-[#4a7c3a] to-[#31542B] shadow-2xl transition-all duration-200 hover:scale-110 active:scale-95"
+			aria-label="Open AI Chat Assistant"
+		>
+			{/* Tooltip */}
+			<span className="pointer-events-none absolute right-full mr-4 origin-right translate-x-2 scale-95 rounded-lg bg-white px-4 py-2 text-sm font-medium whitespace-nowrap text-[#396131] opacity-0 shadow-lg transition-all duration-200 select-none group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100">
+				Chat with our AI Assistant
+			</span>
+			{/* Animated green dot */}
+			<span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center">
+				<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60"></span>
+				<span className="relative inline-flex h-3 w-3 rounded-full bg-green-400"></span>
+			</span>
+			{/* Icon */}
+			<span className="flex h-full w-full items-center justify-center">
+				<MessageCircle className="animate-bounce-slow group-hover:animate-bounce-fast h-10 w-10 text-white drop-shadow-lg" />
+			</span>
+		</button>
+	</div>
+);
+
+const ChatHeader = ({
+	onMinimize,
+	onClose,
+}) => (
+	<div className="flex flex-shrink-0 items-center justify-between rounded-t-2xl bg-[#396131] px-4 py-3 text-white">
+		<div className="flex items-center space-x-3">
+			<div className="relative">
+				<div className="bg-opacity-20 flex h-8 w-8 items-center justify-center rounded-full bg-white">
+					<Sparkles className="h-4 w-4" />
+				</div>
+				<div className="absolute -right-1 -bottom-1 h-3 w-3 rounded-full border-2 border-white bg-green-400"></div>
+			</div>
+			<div>
+				<h3 className="text-sm font-semibold">AI Assistant</h3>
+				<p className="text-xs opacity-90">Online</p>
+			</div>
+		</div>
+		<div className="flex items-center space-x-1">
+			<button
+				onClick={onMinimize}
+				className="hover:bg-opacity-20 cursor-pointer rounded-full p-1.5 transition-colors hover:bg-white hover:text-[#396131]"
+			>
+				<Minimize2 className="h-4 w-4" />
+			</button>
+			<button
+				onClick={onClose}
+				className="hover:bg-opacity-20 cursor-pointer rounded-full p-1.5 transition-colors hover:bg-white hover:text-[#396131]"
+			>
+				<X className="h-4 w-4" />
+			</button>
+		</div>
+	</div>
+);
+
+const ChatMessage = ({ message }) => {
+	const isUser = message.sender === 'user';
+	const hasError = message.error;
+	const hasSources = message.sources && message.sources.length > 0;
+	
+	return (
+		<div
+			className={`animate-fade-in flex items-start space-x-2 ${
+				isUser ? 'flex-row-reverse space-x-reverse' : ''
+			}`}
+		>
+			<div className="flex-shrink-0">
+				{isUser ? (
+					<div className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-teal-600">
+						<User className="h-3 w-3 text-white" />
+					</div>
+				) : (
+					<div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-900">
+						<Bot className="h-3 w-3 text-white" />
+					</div>
+				)}
+			</div>
+			<div className={`max-w-[280px] ${isUser ? 'text-right' : ''}`}>
+				<div
+					className={`rounded-2xl px-3 py-2 text-sm ${
+						isUser
+							? 'rounded-tr-sm bg-[#396131] text-white'
+							: hasError
+								? 'rounded-tl-sm bg-red-50 text-red-800 border border-red-200'
+								: 'rounded-tl-sm bg-gray-100 text-gray-800'
+					}`}
+				>
+					{hasError && (
+						<div className="flex items-center gap-1 mb-1 text-red-600">
+							<AlertCircle className="h-3 w-3" />
+							<span className="text-xs font-semibold">Error</span>
+						</div>
+					)}
+					<p className="leading-relaxed whitespace-pre-wrap">{message.text}</p>
+					
+					{hasSources && !isUser && (
+						<div className="mt-2 pt-2 border-t border-gray-300">
+							<div className="flex items-center gap-1 text-xs text-gray-600 mb-1">
+								<FileText className="h-3 w-3" />
+								<span className="font-semibold">Sources:</span>
+							</div>
+							<div className="space-y-1">
+								{message.sources.slice(0, 2).map((source, idx) => {
+									if (!source || !source.content) return null;
+									return (
+										<div key={idx} className="text-xs text-gray-600 bg-white p-1.5 rounded">
+											<div className="flex items-start gap-1">
+												<span className="font-semibold text-[#396131]">#{idx + 1}</span>
+												<span className="line-clamp-2">{source.content.substring(0, 100)}...</span>
+											</div>
+											<div className="text-[10px] text-gray-500 mt-0.5">
+												Relevance: {((source.similarity || 0) * 100).toFixed(0)}%
+											</div>
+										</div>
+									);
+								})}
+							</div>
+						</div>
+					)}
+				</div>
+				<p className={`mt-1 text-xs text-gray-500 ${isUser ? 'text-right' : ''}`}>
+					{message.timestamp}
+				</p>
+			</div>
+		</div>
+	);
+};
+
+const DocumentSelector = ({ documents, selectedDocId, onSelect, loading }) => (
+	<div className="border-b border-gray-200 p-3 bg-gray-50">
+		<div className="flex items-center gap-2">
+			<FileText className="h-4 w-4 text-[#396131]" />
+			<div className="flex-1">
+				{loading ? (
+					<div className="text-xs text-gray-500">Loading documents...</div>
+				) : documents.length === 0 ? (
+					<div className="text-xs text-gray-500">No documents available</div>
+				) : (
+					<select
+						value={selectedDocId || ''}
+						onChange={(e) => onSelect(e.target.value)}
+						className="w-full text-xs rounded-lg border-gray-300 focus:border-[#396131] focus:ring-[#396131] bg-white"
+					>
+						<option value="">All Documents</option>
+						{documents.map((doc) => (
+							<option key={doc.id} value={doc.id}>
+								{doc.title} ({doc.status})
+							</option>
+						))}
+					</select>
+				)}
+			</div>
+		</div>
+		{selectedDocId && (
+			<div className="mt-1 flex items-center gap-1 text-xs text-[#396131]">
+				<CheckCircle className="h-3 w-3" />
+				<span>Querying specific document</span>
+			</div>
+		)}
+	</div>
+);
+
+const ChatInput = ({
+	inputRef,
+	inputText,
+	isTyping,
+	onChange,
+	onKeyPress,
+	onSend,
+}) => (
+	<div className="flex-shrink-0 border-t border-gray-200 p-4">
+		<div className="mb-3 flex items-center space-x-2">
+			<div className="relative flex flex-1">
+				<textarea
+					ref={inputRef}
+					value={inputText}
+					onChange={onChange}
+					onKeyPress={onKeyPress}
+					placeholder="Ask me anything about the documents..."
+					className="w-full resize-none rounded-xl border-0 bg-gray-100 px-3 py-2 pr-10 text-sm transition-all focus:bg-white focus:ring-2 focus:ring-[#396131] focus:outline-none"
+					rows={1}
+					style={{ minHeight: '36px', maxHeight: '80px' }}
+				/>
+				<button
+					className="absolute top-1/2 right-2 -translate-y-1/2 transform rounded-full p-1 text-gray-500 transition-colors hover:text-gray-700"
+					tabIndex={-1}
+					type="button"
+				>
+					<Mic className="h-4 w-4" />
+				</button>
+			</div>
+			<button
+				onClick={onSend}
+				disabled={!inputText.trim() || isTyping}
+				className="transform rounded-full bg-[#396131] p-2 text-white transition-all hover:scale-105 hover:bg-[#31542B] active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+			>
+				<Send className="h-4 w-4" />
+			</button>
+		</div>
+	</div>
+);
+
+// ---- Main Component ----
 
 export default function ChatBox() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -17,68 +248,167 @@ export default function ChatBox() {
 	const [messages, setMessages] = useState([
 		{
 			id: 1,
-			text: "Hello! I'm your AI assistant. How can I help you today?",
+			text: "Hello! I'm your AI assistant. Select a document and ask me anything about it!",
 			sender: 'ai',
 			timestamp: new Date().toLocaleTimeString([], {
 				hour: '2-digit',
-				minute: '2-digit'
-			})
-		}
+				minute: '2-digit',
+			}),
+		},
 	]);
 	const [inputText, setInputText] = useState('');
 	const [isTyping, setIsTyping] = useState(false);
+	const [documents, setDocuments] = useState([]);
+	const [selectedDocumentId, setSelectedDocumentId] = useState(null);
+	const [loadingDocuments, setLoadingDocuments] = useState(false);
+	const [sessionId, setSessionId] = useState(null);
+
 	const messagesEndRef = useRef(null);
 	const inputRef = useRef(null);
 
-	const scrollToBottom = () => {
-		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-	};
+	// ---- Side Effects ----
 
 	useEffect(() => {
-		scrollToBottom();
+		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
 	}, [messages]);
+
+	// Load documents and session when chat opens
+	useEffect(() => {
+		if (isOpen) {
+			loadDocuments();
+			// Get or create session ID
+			const sid = chatbotService.getRAGSessionId();
+			setSessionId(sid);
+			// Load saved document selection
+			const savedDocId = chatbotService.getSelectedDocumentId();
+			if (savedDocId) {
+				setSelectedDocumentId(savedDocId);
+			}
+		}
+	}, [isOpen]);
+
+	// ---- API Functions ----
+
+	const loadDocuments = async () => {
+		setLoadingDocuments(true);
+		try {
+			const response = await chatbotService.getDocuments();
+			if (response.success) {
+				// Filter to only show completed documents
+				const completedDocs = response.data.filter(doc => doc.status === 'completed');
+				setDocuments(completedDocs);
+			} else {
+				console.error('Failed to load documents:', response.error);
+			}
+		} catch (error) {
+			console.error('Error loading documents:', error);
+		} finally {
+			setLoadingDocuments(false);
+		}
+	};
+
+	// ---- Handlers ----
 
 	const handleSendMessage = async () => {
 		if (!inputText.trim()) return;
-
+		
+		const timestamp = new Date().toLocaleTimeString([], {
+			hour: '2-digit',
+			minute: '2-digit',
+		});
+		
 		const userMessage = {
 			id: Date.now(),
 			text: inputText,
 			sender: 'user',
-			timestamp: new Date().toLocaleTimeString([], {
-				hour: '2-digit',
-				minute: '2-digit'
-			})
+			timestamp,
 		};
-
+		
 		setMessages((prev) => [...prev, userMessage]);
+		const question = inputText;
 		setInputText('');
 		setIsTyping(true);
 
-		// Simulate AI response
-		setTimeout(() => {
-			const aiResponses = [
-				"That's an interesting question! Let me help you with that.",
-				"I understand what you're looking for. Here's what I think...",
-				"Great point! Based on what you've shared, I'd suggest...",
-				"I'm here to help! Let me break this down for you.",
-				"That's a thoughtful question. From my perspective...",
-				"I can definitely assist with that. Here's my recommendation..."
-			];
+		try {
+			// Call RAG API
+			const response = await chatbotService.askRAG(
+				question,
+				selectedDocumentId,
+				sessionId
+			);
 
-			const aiMessage = {
+			if (response.success) {
+				// Filter and validate sources to ensure they have required properties
+				const validSources = (response.data.sources || []).filter(
+					source => source && source.content && typeof source.content === 'string'
+				);
+				
+				const aiMessage = {
+					id: Date.now() + 1,
+					text: response.data.answer || 'I apologize, but I could not generate a response.',
+					sender: 'ai',
+					timestamp: new Date().toLocaleTimeString([], {
+						hour: '2-digit',
+						minute: '2-digit',
+					}),
+					sources: validSources,
+					confidence: response.data.confidence,
+				};
+				setMessages((prev) => [...prev, aiMessage]);
+			} else {
+				// Error response
+				const errorMessage = {
+					id: Date.now() + 1,
+					text: response.message || 'Sorry, I encountered an error processing your question.',
+					sender: 'ai',
+					timestamp: new Date().toLocaleTimeString([], {
+						hour: '2-digit',
+						minute: '2-digit',
+					}),
+					error: true,
+				};
+				setMessages((prev) => [...prev, errorMessage]);
+			}
+		} catch (error) {
+			console.error('Error sending message:', error);
+			const errorMessage = {
 				id: Date.now() + 1,
-				text: aiResponses[Math.floor(Math.random() * aiResponses.length)],
+				text: 'Sorry, I encountered an unexpected error. Please try again.',
 				sender: 'ai',
 				timestamp: new Date().toLocaleTimeString([], {
 					hour: '2-digit',
-					minute: '2-digit'
-				})
+					minute: '2-digit',
+				}),
+				error: true,
 			};
-
-			setMessages((prev) => [...prev, aiMessage]);
+			setMessages((prev) => [...prev, errorMessage]);
+		} finally {
 			setIsTyping(false);
-		}, 1500);
+		}
+	};
+
+	const handleDocumentSelect = (docId) => {
+		setSelectedDocumentId(docId || null);
+		chatbotService.saveSelectedDocumentId(docId);
+		
+		// Add a system message about document selection
+		const timestamp = new Date().toLocaleTimeString([], {
+			hour: '2-digit',
+			minute: '2-digit',
+		});
+		
+		const selectedDoc = documents.find(d => d.id === docId);
+		const messageText = docId && selectedDoc
+			? `Now querying: "${selectedDoc.title}"`
+			: 'Now querying all available documents';
+		
+		const systemMessage = {
+			id: Date.now(),
+			text: messageText,
+			sender: 'ai',
+			timestamp,
+		};
+		setMessages((prev) => [...prev, systemMessage]);
 	};
 
 	const handleKeyPress = (e) => {
@@ -89,180 +419,53 @@ export default function ChatBox() {
 	};
 
 	const toggleChat = () => {
-		setIsOpen(!isOpen);
+		setIsOpen((prev) => !prev);
 		setIsMinimized(false);
 	};
 
-	const minimizeChat = () => {
-		setIsMinimized(true);
-	};
+	const minimizeChat = () => setIsMinimized(true);
 
-	const TypingIndicator = () => (
-		<div className="animate-fade-in mb-4 flex items-start space-x-3">
-			<div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600">
-				<Bot className="h-3 w-3 text-white" />
-			</div>
-			<div className="max-w-xs rounded-2xl rounded-tl-sm bg-gray-100 px-3 py-2">
-				<div className="flex space-x-1">
-					<div
-						className="h-1.5 w-1.5 animate-bounce rounded-full bg-gray-400"
-						style={{ animationDelay: '0ms' }}
-					></div>
-					<div
-						className="h-1.5 w-1.5 animate-bounce rounded-full bg-gray-400"
-						style={{ animationDelay: '150ms' }}
-					></div>
-					<div
-						className="h-1.5 w-1.5 animate-bounce rounded-full bg-gray-400"
-						style={{ animationDelay: '300ms' }}
-					></div>
-				</div>
-			</div>
-		</div>
-	);
+	// ---- Rendering ----
 
 	return (
 		<>
-			{/* Chat Toggle Button */}
-			{!isOpen && (
-				<div className={`group fixed right-8 bottom-8 z-50 flex items-center`}>
-					<button
-						onClick={toggleChat}
-						className="group relative h-20 w-20 cursor-pointer rounded-full bg-gradient-to-br from-[#396131] via-[#4a7c3a] to-[#31542B] shadow-2xl transition-all duration-200 hover:scale-110 active:scale-95"
-						aria-label="Open AI Chat Assistant"
-					>
-						{/* Tooltip - only shows when button is hovered */}
-						<span className="pointer-events-none absolute right-full mr-4 origin-right translate-x-2 scale-95 rounded-lg bg-white px-4 py-2 text-sm font-medium whitespace-nowrap text-[#396131] opacity-0 shadow-lg transition-all duration-200 select-none group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100">
-							Chat with our AI Assistant
-						</span>
-
-						{/* Animated green dot */}
-						<span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center">
-							<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60"></span>
-							<span className="relative inline-flex h-3 w-3 rounded-full bg-green-400"></span>
-						</span>
-
-						{/* Animated icon */}
-						<span className="flex h-full w-full items-center justify-center">
-							<MessageCircle className="animate-bounce-slow group-hover:animate-bounce-fast h-10 w-10 text-white drop-shadow-lg" />
-						</span>
-					</button>
-					{/* Hover message */}
-				</div>
-			)}
+			{!isOpen && <ChatToggleButton onClick={toggleChat} />}
 			{isOpen && (
 				<div
 					className={`fixed right-6 bottom-6 z-50 flex w-96 flex-col rounded-2xl bg-white shadow-2xl transition-all duration-300 ${
 						isMinimized ? 'h-16' : 'h-[600px]'
 					}`}
 				>
-					{/* Header */}
-					<div className="flex flex-shrink-0 items-center justify-between rounded-t-2xl bg-[#396131] px-4 py-3 text-white">
-						<div className="flex items-center space-x-3">
-							<div className="relative">
-								<div className="bg-opacity-20 flex h-8 w-8 items-center justify-center rounded-full bg-white">
-									<Sparkles className="h-4 w-4" />
-								</div>
-								<div className="absolute -right-1 -bottom-1 h-3 w-3 rounded-full border-2 border-white bg-green-400"></div>
-							</div>
-							<div>
-								<h3 className="text-sm font-semibold">AI Assistant</h3>
-								<p className="text-xs opacity-90">Online</p>
-							</div>
-						</div>
-						<div className="flex items-center space-x-1">
-							<button
-								onClick={minimizeChat}
-								className="hover:bg-opacity-20 cursor-pointer rounded-full p-1.5 transition-colors hover:bg-white hover:text-[#396131]"
-							>
-								<Minimize2 className="h-4 w-4" />
-							</button>
-							<button
-								onClick={toggleChat}
-								className="hover:bg-opacity-20 cursor-pointer rounded-full p-1.5 transition-colors hover:bg-white hover:text-[#396131]"
-							>
-								<X className="h-4 w-4" />
-							</button>
-						</div>
-					</div>
+					<ChatHeader onMinimize={minimizeChat} onClose={toggleChat} />
 
 					{!isMinimized && (
 						<>
-							{/* Messages */}
+							{/* Document Selector */}
+							<DocumentSelector
+								documents={documents}
+								selectedDocId={selectedDocumentId}
+								onSelect={handleDocumentSelect}
+								loading={loadingDocuments}
+							/>
+							
+							{/* Messages List */}
 							<div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-4">
 								{messages.map((message) => (
-									<div
-										key={message.id}
-										className={`animate-fade-in flex items-start space-x-2 ${
-											message.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''
-										}`}
-									>
-										<div className="flex-shrink-0">
-											{message.sender === 'ai' ? (
-												<div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-900">
-													<Bot className="h-3 w-3 text-white" />
-												</div>
-											) : (
-												<div className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-teal-600">
-													<User className="h-3 w-3 text-white" />
-												</div>
-											)}
-										</div>
-										<div
-											className={`max-w-[240px] ${message.sender === 'user' ? 'text-right' : ''}`}
-										>
-											<div
-												className={`rounded-2xl px-3 py-2 text-sm ${
-													message.sender === 'ai'
-														? 'rounded-tl-sm bg-gray-100 text-gray-800'
-														: 'rounded-tr-sm bg-[#396131] text-white'
-												}`}
-											>
-												<p className="leading-relaxed">{message.text}</p>
-											</div>
-											<p
-												className={`mt-1 text-xs text-gray-500 ${
-													message.sender === 'user' ? 'text-right' : ''
-												}`}
-											>
-												{message.timestamp}
-											</p>
-										</div>
-									</div>
+									<ChatMessage key={message.id} message={message} />
 								))}
-
 								{isTyping && <TypingIndicator />}
 								<div ref={messagesEndRef} />
 							</div>
-
-							{/* Input Area */}
-							<div className="flex-shrink-0 border-t border-gray-200 p-4">
-								<div className="mb-3 flex items-center space-x-2">
-									<div className="relative flex flex-1">
-										<textarea
-											ref={inputRef}
-											value={inputText}
-											onChange={(e) => setInputText(e.target.value)}
-											onKeyPress={handleKeyPress}
-											placeholder="Type your message..."
-											className="w-full resize-none rounded-xl border-0 bg-gray-100 px-3 py-2 pr-10 text-sm transition-all focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
-											rows={1}
-											style={{ minHeight: '36px', maxHeight: '80px' }}
-										/>
-										<button className="absolute top-1/2 right-2 -translate-y-1/2 transform rounded-full p-1 text-gray-500 transition-colors hover:text-gray-700">
-											<Mic className="h-4 w-4" />
-										</button>
-									</div>
-
-									<button
-										onClick={handleSendMessage}
-										disabled={!inputText.trim() || isTyping}
-										className="transform rounded-full bg-[#396131] p-2 text-white transition-all hover:scale-105 hover:bg-[#31542B] active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
-									>
-										<Send className="h-4 w-4" />
-									</button>
-								</div>
-							</div>
+							
+							{/* Chat Input */}
+							<ChatInput
+								inputRef={inputRef}
+								inputText={inputText}
+								isTyping={isTyping}
+								onChange={(e) => setInputText(e.target.value)}
+								onKeyPress={handleKeyPress}
+								onSend={handleSendMessage}
+							/>
 						</>
 					)}
 				</div>

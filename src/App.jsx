@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import SplashScreen from './components/SplashScreen';
+import ChatBox from './components/ChatBox';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import './App.css';
@@ -165,6 +166,8 @@ function App() {
 						<Route key={index} path={route.route} element={<Navbar>{route.component}</Navbar>} />
 					))}
 				</Routes>
+				{/* AI Chatbot - appears on all pages */}
+				<ChatBox />
 			</Router>
 		</>
 	);
