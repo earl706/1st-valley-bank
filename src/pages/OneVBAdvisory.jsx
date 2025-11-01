@@ -1,21 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { faNewspaper } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Carousel from '../components/Carousel';
 import HeroSection from '../components/HeroSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
-import img1 from '/src/assets/advisory/1.jpg';
-import img2 from '/src/assets/advisory/2.png';
-import img3 from '/src/assets/advisory/3.jpg';
-import img4 from '/src/assets/advisory/4.jpeg';
-import img5 from '/src/assets/advisory/5.png';
-import img6 from '/src/assets/advisory/6.jpg';
-import img7 from '/src/assets/advisory/7.jpg';
-import img8 from '/src/assets/advisory/8.jpg';
-import img9 from '/src/assets/advisory/9.jpg';
-import img10 from '/src/assets/advisory/10.png';
-// const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
-import { Image, Loader2, ZoomIn, X } from 'lucide-react';
 import advisoryService from '../services/advisoryService';
 
 const OptimizedImageGallery = () => {

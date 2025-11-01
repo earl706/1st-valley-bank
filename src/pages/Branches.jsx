@@ -1,123 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapPinned, Building2, Landmark, X, CreditCard, ArrowRight } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import { Link } from 'react-router-dom';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import { DarkHeader } from '../components/Header';
-const mindanaoBranches = [
-	{
-		name: 'Davao Branch',
-		address: '123 J.P. Laurel Ave, Davao City',
-		atm: false
-	},
-	{
-		name: 'Cagayan de Oro Branch',
-		address: '456 CM Recto Ave, CDO',
-		atm: true
-	},
-	{
-		name: 'Davao Branch',
-		address: '123 J.P. Laurel Ave, Davao City',
-		atm: false
-	},
-	{
-		name: 'Cagayan de Oro Branch',
-		address: '456 CM Recto Ave, CDO',
-		atm: true
-	},
-	{
-		name: 'Davao Branch',
-		address: '123 J.P. Laurel Ave, Davao City',
-		atm: false
-	},
-	{
-		name: 'Cagayan de Oro Branch',
-		address: '456 CM Recto Ave, CDO',
-		atm: true
-	},
-	{
-		name: 'Davao Branch',
-		address: '123 J.P. Laurel Ave, Davao City',
-		atm: false
-	},
-	{
-		name: 'Cagayan de Oro Branch',
-		address: '456 CM Recto Ave, CDO',
-		atm: true
-	},
-	{
-		name: 'General Santos Branch',
-		address: '789 Santiago Blvd, GenSan',
-		atm: false
-	},
-	{
-		name: 'Butuan Branch',
-		address: '101 J.C. Aquino Ave, Butuan City',
-		atm: false
-	},
-	{
-		name: 'Tagum Branch',
-		address: '201 Apokon Rd, Tagum City',
-		atm: false
-	},
-	{
-		name: 'Iligan Branch',
-		address: '301 Quezon Ave, Iligan City',
-		atm: true
-	}
-];
-
-const visayasBranches = [
-	{
-		name: 'Cebu Branch',
-		address: '101 Ayala Center, Cebu City',
-		atm: false
-	},
-	{
-		name: 'Bacolod Branch',
-		address: '202 Lacson St, Bacolod',
-		atm: false
-	},
-	{
-		name: 'Iloilo Branch',
-		address: '303 Delgado St, Iloilo City',
-		atm: false
-	},
-	{
-		name: 'Dumaguete Branch',
-		address: '404 Perdices St, Dumaguete',
-		atm: false
-	},
-	{
-		name: 'Tacloban Branch',
-		address: '505 Real St, Tacloban City',
-		atm: false
-	},
-	{
-		name: 'Ormoc Branch',
-		address: '606 Bonifacio St, Ormoc City',
-		atm: false
-	}
-];
-
-const regionalCenters = [
-	{
-		name: 'Head Office (National)',
-		address: '555 Main Ave, Manila',
-		atm: false
-	},
-	{
-		name: 'Regional Center North',
-		address: '888 North Ave, Quezon City',
-		atm: false
-	},
-	{
-		name: 'Regional Center South',
-		address: '999 South St, Makati City',
-		atm: false
-	}
-];
+import locationService from '../services/locationService';
 
 function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 	return (
@@ -154,14 +42,14 @@ function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 function AllBranchesModal({ title, branches, icon: Icon, onContact, onClose }) {
 	return (
 		<div className="fixed inset-0 z-99 flex items-center justify-center bg-black/40">
+			<button
+				onClick={onClose}
+				aria-label="Close"
+				className="absolute top-6 right-6 inline-flex transform cursor-pointer items-center justify-center rounded-full bg-white/10 p-2 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-110"
+			>
+				<X className="h-5 w-5 text-white" />
+			</button>
 			<div className="relative max-h-[80vh] w-full max-w-7xl overflow-y-auto rounded-xl bg-gradient-to-l from-[#396131] to-[#4a7c3a] p-8 shadow-2xl">
-				<button
-					onClick={onClose}
-					aria-label="Close"
-					className="group absolute top-6 right-6 inline-flex transform cursor-pointer items-center justify-center text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-110"
-				>
-					<X className="h-5 w-5 text-white" />
-				</button>
 				<h2 className="mb-6 flex items-center gap-2 text-3xl leading-tight font-bold text-white md:text-5xl">
 					<Icon className="h-8 w-8 text-white" />
 					{title}
@@ -184,7 +72,29 @@ function AllBranchesModal({ title, branches, icon: Icon, onContact, onClose }) {
 }
 
 export default function Branches() {
+	const [branches, setBranches] = useState([]);
 	const [visibleModal, setVisibleModal] = useState(null); // 'mindanao', 'visayas', 'regional', or null
+	const [mindanaoBranches, setMindanaoBranches] = useState([]);
+	const [visayasBranches, setVisayasBranches] = useState([]);
+	const [luzonBranches, setLuzonBranches] = useState([]);
+	const [regionalCenters, setRegionalCenters] = useState([]);
+
+	const fetchBranches = async () => {
+		try {
+			const response = await locationService.getBranches({ page: 1, page_size: 100 });
+			console.log(response.data);
+			setMindanaoBranches(response.data.filter((branch) => branch.region === 'mindanao'));
+			setVisayasBranches(response.data.filter((branch) => branch.region === 'visayas'));
+			setLuzonBranches(response.data.filter((branch) => branch.region === 'luzon'));
+			setRegionalCenters(response.data.filter((branch) => branch.region === 'ncr'));
+		} catch (error) {
+			console.error('Failed to fetch branches:', error);
+		}
+	};
+
+	useEffect(() => {
+		fetchBranches({ region: 'mindanao' });
+	}, []);
 
 	const handleContact = (branchName) => {
 		// This is a stub for "Contact Us" - does nothing here
@@ -193,16 +103,21 @@ export default function Branches() {
 
 	const modalProps = {
 		mindanao: {
-			title: 'All Mindanao Branches',
+			title: 'Mindanao Branches',
 			branches: mindanaoBranches,
 			icon: Building2
 		},
 		visayas: {
-			title: 'All Visayas Branches',
+			title: 'Visayas Branches',
 			branches: visayasBranches,
 			icon: Building2
 		},
-		regional: {
+		luzon: {
+			title: 'Luzon Branches',
+			branches: luzonBranches,
+			icon: Landmark
+		},
+		ncr: {
 			title: 'Regional & National Centers',
 			branches: regionalCenters,
 			icon: Landmark
@@ -281,6 +196,26 @@ export default function Branches() {
 							{renderPreviewBranches(visayasBranches, Building2)}
 						</div>
 					</section>
+					{/* Luzon Section */}
+					<section>
+						<div className="mb-5 flex items-center justify-between">
+							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
+								<Landmark className="h-6 w-6 text-white" />
+								Luzon Branches
+							</h2>
+							{luzonBranches.length > 3 && (
+								<DarkPrimaryButton onClick={() => setVisibleModal('luzon')} type="button">
+									<span className="flex items-center">
+										See All
+										<ArrowRight className="ml-3 h-5 w-5" />
+									</span>
+								</DarkPrimaryButton>
+							)}
+						</div>
+						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+							{renderPreviewBranches(luzonBranches, Landmark)}
+						</div>
+					</section>
 					{/* Regional Section */}
 					<section>
 						<div className="mb-5 flex items-center justify-between">
@@ -289,16 +224,12 @@ export default function Branches() {
 								Regional & National Centers
 							</h2>
 							{regionalCenters.length > 3 && (
-								<button
-									className="group inline-flex transform items-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-									onClick={() => setVisibleModal('regional')}
-									type="button"
-								>
+								<DarkPrimaryButton onClick={() => setVisibleModal('ncr')} type="button">
 									<span className="flex items-center">
 										See All
 										<ArrowRight className="ml-3 h-5 w-5" />
 									</span>
-								</button>
+								</DarkPrimaryButton>
 							)}
 						</div>
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">

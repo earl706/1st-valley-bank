@@ -10,6 +10,7 @@ import {
 	Star,
 	CheckCircle,
 	Mail,
+	ShieldCheck,
 	Phone,
 	MapPin,
 	Handshake,
@@ -78,7 +79,6 @@ function renderAnswer(answer) {
 				</a>
 			);
 		}
-		// Replace \n with <br />
 		const withLinebreaks = [];
 		part.split('\n').forEach((p, i, arr) => {
 			withLinebreaks.push(p);
@@ -243,21 +243,21 @@ export default function HomePage() {
 
 	const features = [
 		{
-			image: carouselImg1,
+			icon: ShieldCheck,
 			title: 'Bank-Grade Security',
 			description:
 				'Your financial data is protected with industry-leading encryption and security measures.',
 			stats: '99.9% Uptime'
 		},
 		{
-			image: carouselImg2,
+			icon: Users,
 			title: 'Community Focused',
 			description:
 				'We understand local needs and provide personalized banking solutions for our community.',
 			stats: '82+ Branches'
 		},
 		{
-			image: carouselImg4,
+			icon: TrendingUp,
 			title: 'Growth Partner',
 			description:
 				'From startup to success, we support your business journey with tailored financial solutions.',
@@ -290,13 +290,6 @@ export default function HomePage() {
 			rating: 5,
 			image: logo
 		}
-	];
-
-	const stats = [
-		{ number: '82+', label: 'Branches Nationwide' },
-		{ number: '25+', label: 'Years of Service' },
-		{ number: '500K+', label: 'Happy Customers' },
-		{ number: '₱50B+', label: 'Assets Under Management' }
 	];
 
 	const heroSlides = [
@@ -449,15 +442,11 @@ export default function HomePage() {
 								<div className="relative mb-8">
 									{/* Main image container */}
 									<div className="relative mx-auto h-40 w-40 overflow-hidden transition-all duration-300 group-hover:scale-105">
-										<img
-											src={feature.image}
-											alt={feature.title}
-											className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
-										/>
+										<feature.icon className="h-full w-full object-cover text-[#396131] transition-all duration-500 group-hover:scale-105" />
 									</div>
 								</div>
 
-								<h3 className="mb-4 text-2xl leading-tight font-bold text-gray-900">
+								<h3 className="mb-4 text-2xl leading-tight font-bold text-[#396131]">
 									{feature.title}
 								</h3>
 								<p className="mb-4 flex-1 text-base leading-relaxed font-normal text-gray-600">

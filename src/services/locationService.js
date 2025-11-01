@@ -18,8 +18,8 @@ const locationService = {
 	 */
 	async getBranches(params = {}) {
 		try {
-			const response = await api.get('/branches/', { params });
-			return { success: true, data: response.data };
+			const response = await api.get('/locations/branches/', { params });
+			return { success: true, data: response.data.results };
 		} catch (error) {
 			const apiError = handleApiError(error);
 			return { success: false, ...apiError };
@@ -61,7 +61,7 @@ const locationService = {
 	 */
 	async getATMs(params = {}) {
 		try {
-			const response = await api.get('/atms/', { params });
+			const response = await api.get('/locations/atms/', { params });
 			return { success: true, data: response.data };
 		} catch (error) {
 			const apiError = handleApiError(error);
