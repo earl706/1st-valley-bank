@@ -19,7 +19,7 @@ const propertyService = {
 	 */
 	async getProperties(params = {}) {
 		try {
-			const response = await api.get('/properties/', { params });
+			const response = await api.get('/properties/properties/', { params });
 			return { success: true, data: response.data };
 		} catch (error) {
 			const apiError = handleApiError(error);
@@ -34,7 +34,7 @@ const propertyService = {
 	 */
 	async getProperty(id) {
 		try {
-			const response = await api.get(`/properties/${id}/`);
+			const response = await api.get(`/properties/properties/${id}/`);
 			return { success: true, data: response.data };
 		} catch (error) {
 			const apiError = handleApiError(error);
@@ -66,7 +66,7 @@ const propertyService = {
 	 */
 	async getFeaturedProperties() {
 		try {
-			const response = await api.get('/properties/', {
+			const response = await api.get('/properties/properties/', {
 				params: { is_featured: true, status: 'available' }
 			});
 			return { success: true, data: response.data };

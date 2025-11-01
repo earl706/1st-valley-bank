@@ -133,7 +133,7 @@ export default function LoanSubcategoriesSection({
 
 										{/* Features List (if provided) */}
 										{type.features && type.features.length > 0 && (
-											<div className="mb-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
+											<div className="mb-6 grid grid-cols-1 gap-2 sm:grid-cols-1">
 												{type.features.map((feature, featureIndex) => (
 													<div key={featureIndex} className="flex items-center gap-2">
 														<div
@@ -228,11 +228,7 @@ export default function LoanSubcategoriesSection({
 				<ProductModal
 					isOpen={isModalOpen}
 					onClose={handleCloseModal}
-					title={selectedProduct.title}
-					description={selectedProduct.description}
-					features={selectedProduct.features || []}
-					image={selectedProduct.image}
-					price={selectedProduct.price}
+					loan={selectedProduct}
 					brandColor={brandColor}
 					showInquireButton={true}
 					inquireButtonText="Inquire Now"

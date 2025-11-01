@@ -568,7 +568,8 @@ export default function HomePage() {
 						</LightPrimaryButton>
 					</form>
 				</div>
-				<div className="mx-auto flex max-w-7xl flex-col items-center">
+
+				<div className="mx-auto w-full max-w-7xl">
 					<NewsletterGrid
 						data={{ count: newsletterArticles?.length, results: newsletterArticles }}
 						showPagination={false}

@@ -1,23 +1,5 @@
-import { faMoneyBillWheat } from '@fortawesome/free-solid-svg-icons/faMoneyBillWheat';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	FlowerLotusIcon,
-	MagicWandIcon,
-	MoneyWavyIcon,
-	ReceiptIcon,
-	ShieldCheckIcon,
-	ShieldStarIcon,
-	SubtitlesIcon,
-	UserPlusIcon
-} from '@phosphor-icons/react/dist/ssr';
 import img1 from '/src/assets/loans/sucre/1.jpg';
-import img2 from '/src/assets/homepage/2.png';
-import img from '/src/assets/homepage/heroSectionImage.png';
-
-import React from 'react';
-import { WheatIcon } from 'lucide-react';
-import { CpuIcon, LeafIcon } from '@phosphor-icons/react';
-import HeroSection from '../components/HeroSection';
+import React, { useState, useEffect } from 'react';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import CarouselSection from '../components/CarouselSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
@@ -25,62 +7,29 @@ import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
 import carouselImg4 from '/src/assets/carousel/4.png';
-import carouselImg5 from '/src/assets/carousel/5.png';
-import carouselImg6 from '/src/assets/carousel/6.png';
-import carouselImg7 from '/src/assets/carousel/7.png';
+import loanService from '../services/loanService';
 
 export default function LoansSUCRE() {
-	const disbursedLoans = [
-		{
-			type: 'CORN',
-			logo: <WheatIcon size={70} />,
-			description: '₱ 24.96M to 315 farmers'
-		},
-		{
-			type: 'RICE',
-			logo: <LeafIcon size={70} />,
-			description: '₱ 117.37M to 1,706 farmers'
-		},
-		{
-			type: 'SUGARCANE',
-			logo: <FlowerLotusIcon size={70} />,
-			description: '₱ 80.30M to 383 farmers'
-		}
-	];
-	const benefitsUses = [
-		{
-			type: 'Access',
-			logo: <SubtitlesIcon size={70} />,
-			description: 'Farmers can access the funds to cover expenses as the need arises'
-		},
-		{
-			type: 'Liquidity',
-			logo: <MoneyWavyIcon size={70} />,
-			description: 'Provides operations cash flow'
-		},
-		{
-			type: 'Seasonality',
-			logo: <ReceiptIcon size={70} />,
-			description: 'Funds seasonal expenses'
-		},
-		{
-			type: 'Risk',
-			logo: <ShieldStarIcon size={70} />,
-			description: 'Can be a useful tool to manage agricultural risks'
-		},
-		{
-			type: 'Profitability',
-			logo: <UserPlusIcon size={70} />,
-			description: 'Increase in profitability with high-value crops'
-		},
-		{
-			type: 'Innovation',
-			logo: <CpuIcon size={70} />,
-			description:
-				'Ability to benefit from modernization and technological advancements in agriculture'
-		}
-	];
+	const [sucreTypes, setSucreTypes] = useState([]);
+	const [loading, setLoading] = useState(true);
 
+	const getSucreTypes = async () => {
+		try {
+			const response = await loanService.getByType('sucre');
+			setSucreTypes(response.results);
+		} catch (error) {
+			console.error('Failed to fetch SUCRE types:', error);
+			setSucreTypes([]);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	useEffect(() => {
+		getSucreTypes();
+	}, []);
+
+	/*
 	const sucreLoanTypes = [
 		{
 			title: 'Rice Production Loan',
@@ -88,7 +37,15 @@ export default function LoansSUCRE() {
 				'Specialized financing for rice farmers to support planting, cultivation, and harvest activities. Get the funding you need to maximize your rice production with competitive rates and flexible terms.',
 			image: carouselImg1,
 			route: '/contact-us',
-			features: []
+			features: ['feature 1', 'feature 2', 'feature 3'],
+			requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
+			term_options: ['6 months', '12 months'],
+			interest_rate: '6.5% - 8.5%',
+			min_amount: 10000,
+			max_amount: 100000,
+			interest_rate_below: 6.5,
+			interest_rate_above: 8.5,
+			term_min_months: 6
 		},
 		{
 			title: 'Cassava Production Loan',
@@ -96,7 +53,15 @@ export default function LoansSUCRE() {
 				'Dedicated funding for cassava cultivation to help farmers invest in quality planting materials, equipment, and farm inputs for optimal cassava production and yield.',
 			image: carouselImg2,
 			route: '/contact-us',
-			features: []
+			features: ['feature 1', 'feature 2', 'feature 3'],
+			requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
+			term_options: ['6 months', '12 months'],
+			interest_rate: '6.5% - 8.5%',
+			min_amount: 10000,
+			max_amount: 100000,
+			interest_rate_below: 6.5,
+			interest_rate_above: 8.5,
+			term_min_months: 6
 		},
 		{
 			title: 'Sugarcane Production Loan',
@@ -104,10 +69,18 @@ export default function LoansSUCRE() {
 				'Comprehensive financing solution for sugarcane farmers covering all aspects of production from land preparation to harvest, designed to boost productivity and profitability.',
 			image: carouselImg3,
 			route: '/contact-us',
-			features: []
+			features: ['feature 1', 'feature 2', 'feature 3'],
+			requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
+			term_options: ['6 months', '12 months'],
+			interest_rate: '6.5% - 8.5%',
+			min_amount: 10000,
+			max_amount: 100000,
+			interest_rate_below: 6.5,
+			interest_rate_above: 8.5,
+			term_min_months: 6
 		}
 	];
-
+	*/
 	// Carousel slides combining hero and loan types
 	const sucreLoanSlides = [
 		{
@@ -227,7 +200,7 @@ export default function LoansSUCRE() {
 					sectionTitle="SUCRE Loan Types"
 					sectionSubtitle="Choose the agricultural loan that matches your farming needs"
 					tagText="Loan Types"
-					loanTypes={sucreLoanTypes}
+					loanTypes={sucreTypes}
 				/>
 				<SuccessStoriesSection
 					id="sucre-success-stories"

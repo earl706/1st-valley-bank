@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { MapPin, Calendar, Hash, Eye, Heart, Share2, Home, Ruler } from 'lucide-react';
+import React, { useState } from 'react';
+import { MapPin, Hash, Eye, Ruler } from 'lucide-react';
 import Modal from './Modal';
 import { LightCard } from './Card';
 import { LightPrimaryButton } from './Buttons';
@@ -17,23 +17,30 @@ export default function PropertyCard({ property }) {
 		setIsModalOpen(false);
 	};
 
-	const formatDate = (dateString) => {
-		return new Date(dateString).toLocaleDateString('en-US', {
-			month: 'short',
-			day: 'numeric',
-			year: 'numeric'
-		});
+	const formatPrice = (price) => {
+		let num = Number(price);
+		if (isNaN(num)) return 'N/A';
+		return num.toLocaleString();
 	};
 
-	// Prepare additional details for the modal
+	const formatArea = (area) => {
+		if (!area || isNaN(Number(area))) return 'N/A';
+		return `${Number(area).toLocaleString()} sqm`;
+	};
+
+	const displayTitle = () =>
+		property.title ||
+		(property.property_type_display ? property.property_type_display : property.property_type) ||
+		'Property';
+
+	// Real Estate only: prepare additional details for the Modal
 	const additionalDetails = [
-		{ label: 'Property Type', value: property.type || 'N/A' },
-		{ label: 'Area', value: property.area ? `${property.area} sqm` : 'N/A' },
-		{ label: 'Bedrooms', value: property.bedrooms || 'N/A' },
-		{ label: 'Bathrooms', value: property.bathrooms || 'N/A' },
-		{ label: 'Parking', value: property.parking || 'N/A' },
-		{ label: 'Furnished', value: property.furnished || 'N/A' },
-		{ label: 'Listed Date', value: formatDate(property.listedDate) }
+		{
+			label: 'Property Type',
+			value: property.property_type_display || property.property_type || 'N/A'
+		},
+		{ label: 'Property Code', value: property.property_code || 'N/A' },
+		{ label: 'Area', value: formatArea(property.area) }
 	];
 
 	return (
@@ -50,8 +57,8 @@ export default function PropertyCard({ property }) {
 						</div>
 					)}
 					<img
-						src={property.image}
-						alt={`Property ${property.propertyCode}`}
+						src={property.main_image}
+						alt={`Property ${property.property_code || property.title || ''}`}
 						className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
 							imageLoaded ? 'opacity-100' : 'opacity-0'
 						}`}
@@ -65,7 +72,7 @@ export default function PropertyCard({ property }) {
 					<div className="absolute bottom-3 left-3">
 						<div className="rounded-lg bg-white/90 px-3 py-1.5 text-gray-900 shadow backdrop-blur-sm">
 							<span className="text-base font-semibold tracking-tight">
-								₱{property.price.toLocaleString()}
+								₱{formatPrice(property.price)}
 							</span>
 						</div>
 					</div>
@@ -73,24 +80,37 @@ export default function PropertyCard({ property }) {
 
 				{/* Card Content */}
 				<div className="p-5">
-					{/* Property Details */}
+					{/* Property Title */}
+					<div className="mb-2">
+						<span className="block truncate text-lg font-semibold text-gray-900">
+							{displayTitle()}
+						</span>
+					</div>
+
+					{/* Real Estate Property Details */}
 					<div className="mb-5 space-y-2">
-						<div className="flex items-center gap-2 text-gray-500">
-							<MapPin size={16} className="text-gray-400" />
-							<span className="text-base leading-relaxed font-normal">{property.location}</span>
-						</div>
-						<div className="flex items-center gap-2 text-gray-500">
-							<Hash size={16} className="text-gray-400" />
-							<span className="text-base leading-relaxed font-normal">{property.propertyCode}</span>
-						</div>
-						<div className="flex items-center gap-2 text-gray-500">
-							<Home size={16} className="text-gray-400" />
-							<span className="text-base leading-relaxed font-normal">{property.date}</span>
-						</div>
-						<div className="flex items-center gap-2 text-gray-500">
-							<Ruler size={16} className="text-gray-400" />
-							<span className="text-base leading-relaxed font-normal">{property.area} sqm</span>
-						</div>
+						{property.location && (
+							<div className="flex items-center gap-2 text-gray-500">
+								<MapPin size={16} className="text-gray-400" />
+								<span className="text-base leading-relaxed font-normal">{property.location}</span>
+							</div>
+						)}
+						{property.property_code && (
+							<div className="flex items-center gap-2 text-gray-500">
+								<Hash size={16} className="text-gray-400" />
+								<span className="text-base leading-relaxed font-normal">
+									{property.property_code}
+								</span>
+							</div>
+						)}
+						{!!property.area && (
+							<div className="flex items-center gap-2 text-gray-500">
+								<Ruler size={16} className="text-gray-400" />
+								<span className="text-base leading-relaxed font-normal">
+									{formatArea(property.area)}
+								</span>
+							</div>
+						)}
 					</div>
 
 					{/* Action Button */}
@@ -107,18 +127,16 @@ export default function PropertyCard({ property }) {
 			<Modal
 				isOpen={isModalOpen}
 				onClose={handleCloseModal}
-				title={`${property.type} - ${property.propertyCode}`}
+				title={`${displayTitle()}${property.property_code ? ` - ${property.property_code}` : ''}`}
 				content={
 					property.description ||
 					'This property is in excellent condition and ready for immediate occupancy. Contact us for more information and to schedule a viewing.'
 				}
-				image={property.image}
-				additionalImages={property.additionalImages || []} // Pass additional images
+				image={property.main_image}
+				additionalImages={property.additional_images || []}
 				details={additionalDetails}
-				price={property.price}
+				price={formatPrice(property.price)}
 				location={property.location}
-				year={formatDate(property.listedDate)}
-				plateNumber={property.propertyCode}
 				brandColor="#396131"
 				showInquireButton={true}
 				inquireButtonText="Inquire Now"

@@ -21,7 +21,11 @@ import {
 	faMobile,
 	faSeedling,
 	faTrophy,
-	faUsersGear
+	faUsersGear,
+	faFilePdf,
+	faTimes,
+	faChevronLeft,
+	faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
 
 import CarouselSection from '../components/CarouselSection';
@@ -35,6 +39,159 @@ import carouselImg7 from '/src/assets/carousel/7.png';
 import { LightCard } from '../components/Card';
 import { LightPrimaryButton } from '../components/Buttons';
 import { LightHeader, DarkHeader } from '../components/Header';
+
+// --- API service import for live annual reports data ---
+import annualReportService from '../services/annualReportService';
+
+const PDFModal = ({ open, onClose, pdfUrl }) => {
+	if (!open) return null;
+	return (
+		<div className="bg-opacity-60 fixed inset-0 z-[9999] flex items-center justify-center bg-black/70">
+			<div className="relative w-full max-w-7xl overflow-hidden rounded-lg bg-white shadow-xl">
+				<button
+					className="absolute top-3 right-3 text-2xl text-gray-800 hover:text-red-500"
+					onClick={onClose}
+					aria-label="Close"
+				>
+					<FontAwesomeIcon icon={faTimes} />
+				</button>
+				<div className="p-6 pt-12">
+					<h2 className="mb-2 flex items-center gap-2 text-2xl font-bold text-[#396131]">
+						<FontAwesomeIcon icon={faFilePdf} className="text-rose-700" />
+						Report PDF Preview
+					</h2>
+					{pdfUrl ? (
+						<iframe
+							title="Annual Report PDF"
+							src={pdfUrl}
+							className="h-[60vh] w-full rounded border-0"
+						></iframe>
+					) : (
+						<p className="mt-6 mb-8 text-gray-600">Sorry, no PDF available for this report.</p>
+					)}
+					<div className="mt-4 flex justify-end">
+						<LightPrimaryButton onClick={onClose}>Close</LightPrimaryButton>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+const AnnualReportModal = ({
+	open,
+	onClose,
+	report,
+	onViewPDF,
+	onPrev,
+	onNext,
+	showPrev,
+	showNext
+}) => {
+	if (!open || !report) return null;
+
+	// Helper: render object key/value pairs (for key_figures, comparative_growth)
+	const renderKeyValueList = (obj) =>
+		obj && typeof obj === 'object'
+			? Object.entries(obj).map(([key, value]) => (
+					<li key={key}>
+						<span className="font-semibold">{key}:</span> {value}
+					</li>
+				))
+			: null;
+
+	return (
+		<div className="bg-opacity-60 fixed inset-0 z-[9998] flex items-center justify-center bg-black/70">
+			<button
+				className="absolute top-3 right-3 cursor-pointer text-2xl text-gray-200 transition-all duration-300 hover:text-red-500"
+				onClick={onClose}
+				aria-label="Close"
+			>
+				<FontAwesomeIcon icon={faTimes} />
+			</button>
+			<div className="relative max-h-[90vh] w-full max-w-7xl overflow-y-auto rounded-xl bg-white shadow-2xl">
+				<div className="flex items-center justify-between p-4">
+					{showPrev && (
+						<button
+							className="p-2 text-[#396131] hover:text-[#4a7a3f]"
+							title="Previous"
+							onClick={onPrev}
+						>
+							<FontAwesomeIcon icon={faChevronLeft} />
+						</button>
+					)}
+					<span className="flex-1 text-center text-lg font-bold text-[#396131] uppercase">
+						{report.title}
+					</span>
+					{showNext && (
+						<button
+							className="p-2 text-[#396131] hover:text-[#4a7a3f]"
+							title="Next"
+							onClick={onNext}
+						>
+							<FontAwesomeIcon icon={faChevronRight} />
+						</button>
+					)}
+				</div>
+				<div className="p-6">
+					<div className="mb-5 flex justify-center">
+						<img
+							src={report.image}
+							alt={report.title}
+							className="max-h-48 w-auto rounded-lg border shadow-sm"
+						/>
+					</div>
+					<div className="mb-5">
+						<h3 className="mb-1 text-lg font-bold text-[#396131]">Corporate Highlights</h3>
+						<ul className="grid list-inside list-disc gap-1 text-gray-800">
+							{Array.isArray(report.corporate_highlights) &&
+								report.corporate_highlights.map((h, i) => <li key={i}>{h}</li>)}
+						</ul>
+					</div>
+					{report.key_figures && Object.keys(report.key_figures).length > 0 && (
+						<div className="mb-5">
+							<h3 className="mb-1 text-lg font-bold text-[#396131]">Key Figures</h3>
+							<ul className="grid list-inside list-disc gap-1 text-gray-800">
+								{renderKeyValueList(report.key_figures)}
+							</ul>
+						</div>
+					)}
+					{report.comparative_growth && Object.keys(report.comparative_growth).length > 0 && (
+						<div className="mb-5">
+							<h3 className="mb-1 text-lg font-bold text-[#396131]">Comparative Growth</h3>
+							<ul className="grid list-inside list-disc gap-1 text-gray-800">
+								{renderKeyValueList(report.comparative_growth)}
+							</ul>
+						</div>
+					)}
+					{report.additional_info && (
+						<div className="mb-5">
+							<h3 className="mb-1 text-lg font-bold text-[#396131]">Additional Info</h3>
+							<div className="text-gray-700">{report.additional_info}</div>
+						</div>
+					)}
+					<div className="mt-8 flex gap-3">
+						<LightPrimaryButton
+							className="flex flex-1 items-center justify-center gap-2"
+							onClick={onClose}
+							variant="secondary"
+						>
+							Close
+						</LightPrimaryButton>
+						<LightPrimaryButton
+							className="flex flex-1 items-center justify-center gap-2"
+							onClick={onViewPDF}
+						>
+							<FontAwesomeIcon icon={faFilePdf} className="text-rose-700" />
+							View PDF
+						</LightPrimaryButton>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
 export default function AboutUs() {
 	const [scrollY, setScrollY] = useState(0);
 	const [isVisible, setIsVisible] = useState({});
@@ -44,6 +201,14 @@ export default function AboutUs() {
 	const [imageLoaded2, setImageLoaded2] = useState(false);
 	const [imageLoaded3, setImageLoaded3] = useState(false);
 	const [imageLoaded4, setImageLoaded4] = useState(false);
+
+	const [annualReportModalIdx, setAnnualReportModalIdx] = useState(null);
+	const [pdfModalOpen, setPdfModalOpen] = useState(false);
+
+	// --- Live data: annual reports state and loader ---
+	const [annualReports, setAnnualReports] = useState([]);
+	const [annualReportsLoading, setAnnualReportsLoading] = useState(true);
+	const [annualReportsError, setAnnualReportsError] = useState(null);
 
 	const services = [
 		{
@@ -216,117 +381,6 @@ export default function AboutUs() {
 		]
 	};
 
-	const annualReports = [
-		{
-			title: 'ANNUAL REPORT 2023',
-			corporate_highlights: ['One-Stop-Shop', 'Personalized Services', 'Right Financial Solutions'],
-			key_figures: [
-				'Total Resources: ₱10.99 billion',
-				'Net Income: Over ₱200 million',
-				'Loan-to-Deposit Ratio: 1:1',
-				'High Liquidity'
-			],
-			comparative_growth: [
-				'Loans: ₱7.3 billion → ₱7.4 billion',
-				'Deposits: ₱7.3 billion → ₱7.4 billion',
-				'Net Interest Income: ₱983.7 million',
-				'Net Income: ₱224.9 million'
-			],
-			path: '/',
-			image: img8
-		},
-		{
-			title: 'ANNUAL REPORT 2023',
-			corporate_highlights: ['One-Stop-Shop', 'Personalized Services', 'Right Financial Solutions'],
-			key_figures: [
-				'Total Resources: ₱10.99 billion',
-				'Net Income: Over ₱200 million',
-				'Loan-to-Deposit Ratio: 1:1',
-				'High Liquidity'
-			],
-			comparative_growth: [
-				'Loans: ₱7.3 billion → ₱7.4 billion',
-				'Deposits: ₱7.3 billion → ₱7.4 billion',
-				'Net Interest Income: ₱983.7 million',
-				'Net Income: ₱224.9 million'
-			],
-			path: '/',
-			image: img8
-		},
-		{
-			title: 'ANNUAL REPORT 2023',
-			corporate_highlights: ['One-Stop-Shop', 'Personalized Services', 'Right Financial Solutions'],
-			key_figures: [
-				'Total Resources: ₱10.99 billion',
-				'Net Income: Over ₱200 million',
-				'Loan-to-Deposit Ratio: 1:1',
-				'High Liquidity'
-			],
-			comparative_growth: [
-				'Loans: ₱7.3 billion → ₱7.4 billion',
-				'Deposits: ₱7.3 billion → ₱7.4 billion',
-				'Net Interest Income: ₱983.7 million',
-				'Net Income: ₱224.9 million'
-			],
-			path: '/',
-			image: img8
-		},
-		{
-			title: 'ANNUAL REPORT 2023',
-			corporate_highlights: ['One-Stop-Shop', 'Personalized Services', 'Right Financial Solutions'],
-			key_figures: [
-				'Total Resources: ₱10.99 billion',
-				'Net Income: Over ₱200 million',
-				'Loan-to-Deposit Ratio: 1:1',
-				'High Liquidity'
-			],
-			comparative_growth: [
-				'Loans: ₱7.3 billion → ₱7.4 billion',
-				'Deposits: ₱7.3 billion → ₱7.4 billion',
-				'Net Interest Income: ₱983.7 million',
-				'Net Income: ₱224.9 million'
-			],
-			path: '/',
-			image: img8
-		},
-		{
-			title: 'ANNUAL REPORT 2023',
-			corporate_highlights: ['One-Stop-Shop', 'Personalized Services', 'Right Financial Solutions'],
-			key_figures: [
-				'Total Resources: ₱10.99 billion',
-				'Net Income: Over ₱200 million',
-				'Loan-to-Deposit Ratio: 1:1',
-				'High Liquidity'
-			],
-			comparative_growth: [
-				'Loans: ₱7.3 billion → ₱7.4 billion',
-				'Deposits: ₱7.3 billion → ₱7.4 billion',
-				'Net Interest Income: ₱983.7 million',
-				'Net Income: ₱224.9 million'
-			],
-			path: '/',
-			image: img8
-		},
-		{
-			title: 'ANNUAL REPORT 2023',
-			corporate_highlights: ['One-Stop-Shop', 'Personalized Services', 'Right Financial Solutions'],
-			key_figures: [
-				'Total Resources: ₱10.99 billion',
-				'Net Income: Over ₱200 million',
-				'Loan-to-Deposit Ratio: 1:1',
-				'High Liquidity'
-			],
-			comparative_growth: [
-				'Loans: ₱7.3 billion → ₱7.4 billion',
-				'Deposits: ₱7.3 billion → ₱7.4 billion',
-				'Net Interest Income: ₱983.7 million',
-				'Net Income: ₱224.9 million'
-			],
-			path: '/',
-			image: img8
-		}
-	];
-
 	const branchDirectories = [
 		{
 			image: img9,
@@ -399,6 +453,42 @@ export default function AboutUs() {
 		observers.push(observer);
 
 		return () => observers.forEach((obs) => obs.disconnect());
+	}, []);
+
+	// --- Live data: Fetch annual reports on mount ---
+
+	const fetchAnnualReports = async (mountedRef) => {
+		setAnnualReportsLoading(true);
+		setAnnualReportsError(null);
+		try {
+			const reports = await annualReportService.getAnnualReports({
+				page: 1,
+				page_size: 6,
+				ordering: '-created_at'
+			});
+			console.log(reports);
+			if (mountedRef.current) {
+				setAnnualReports(reports.results);
+				setAnnualReportsLoading(false);
+			}
+		} catch (err) {
+			console.log(err);
+			if (mountedRef.current) {
+				setAnnualReportsError(
+					err?.message || 'Failed to load annual reports. Please try again later.'
+				);
+				setAnnualReports([]);
+				setAnnualReportsLoading(false);
+			}
+		}
+	};
+
+	useEffect(() => {
+		const mountedRef = { current: true };
+		fetchAnnualReports(mountedRef);
+		return () => {
+			mountedRef.current = false;
+		};
 	}, []);
 
 	// Custom anchor navigation function
@@ -1123,6 +1213,10 @@ export default function AboutUs() {
 											to=""
 											className="w-full py-4 text-xl"
 											secondaryIcon={<ArrowRight className="ml-3 h-5 w-5" />}
+											onClick={(e) => {
+												e.preventDefault();
+												setAnnualReportModalIdx(index);
+											}}
 										>
 											See Full Report
 										</LightPrimaryButton>
@@ -1131,6 +1225,37 @@ export default function AboutUs() {
 							</LightCard>
 						))}
 					</div>
+					{/* Modal for detail view */}
+					<AnnualReportModal
+						open={annualReportModalIdx !== null}
+						report={
+							typeof annualReportModalIdx === 'number' ? annualReports[annualReportModalIdx] : null
+						}
+						onClose={() => setAnnualReportModalIdx(null)}
+						onViewPDF={() => {
+							setPdfModalOpen(true);
+						}}
+						onPrev={() => setAnnualReportModalIdx((idx) => (idx > 0 ? idx - 1 : idx))}
+						onNext={() =>
+							setAnnualReportModalIdx((idx) => (idx < annualReports.length - 1 ? idx + 1 : idx))
+						}
+						showPrev={typeof annualReportModalIdx === 'number' && annualReportModalIdx > 0}
+						showNext={
+							typeof annualReportModalIdx === 'number' &&
+							annualReports &&
+							annualReportModalIdx < annualReports.length - 1
+						}
+					/>
+					{/* Modal for PDF viewer */}
+					<PDFModal
+						open={pdfModalOpen}
+						onClose={() => setPdfModalOpen(false)}
+						pdfUrl={
+							typeof annualReportModalIdx === 'number' && annualReports[annualReportModalIdx]
+								? annualReports[annualReportModalIdx].pdf_file
+								: null
+						}
+					/>
 				</section>
 			</main>
 		</>

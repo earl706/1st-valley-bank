@@ -11,4 +11,7 @@ export { default as homepageService } from './homepageService';
 export { default as chatbotService } from './chatbotService';
 export { default as advisoryService } from './advisoryService';
 export { default as searchService } from './searchService';
+export { default as annualReportService } from './annualReportService';
+export { default as loanService } from './loanService';
+export { default as depositService } from './depositService';
 export { default as api, handleApiError } from './api';

@@ -16,89 +16,28 @@ import img9 from '/src/assets/advisory/9.jpg';
 import img10 from '/src/assets/advisory/10.png';
 // const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
 import { Image, Loader2, ZoomIn, X } from 'lucide-react';
+import advisoryService from '../services/advisoryService';
 
 const OptimizedImageGallery = () => {
 	const [selectedImage, setSelectedImage] = useState(null);
+	const [images, setImages] = useState([]);
 
-	const images = [
-		{
-			id: 1,
-			src: img1,
-			alt: 'Advisory event 1'
-		},
-		{
-			id: 2,
-			src: img2,
-			alt: 'Advisory event 2'
-		},
-		{
-			id: 3,
-			src: img3,
-			alt: 'Advisory event 3'
-		},
-		{
-			id: 4,
-			src: img4,
-			alt: 'Advisory event 4'
-		},
-		{
-			id: 5,
-			src: img5,
-			alt: 'Advisory event 5'
-		},
-		{
-			id: 6,
-			src: img6,
-			alt: 'Advisory event 6'
-		},
-		{
-			id: 7,
-			src: img7,
-			alt: 'Advisory event 7'
-		},
-		{
-			id: 8,
-			src: img8,
-			alt: 'Advisory event 8'
-		},
-		{
-			id: 9,
-			src: img9,
-			alt: 'Advisory event 9'
-		},
-		{
-			id: 10,
-			src: img10,
-			alt: 'Advisory event 10'
+	const getGallery = async () => {
+		try {
+			const res = await advisoryService.getGallery();
+			// We expect res.data.results as [{id, title, image, thumbnail, alt_text, ...}, ...]
+			setImages(res.data.results);
+		} catch (error) {
+			console.error('Failed to fetch gallery:', error);
 		}
-	];
+	};
+	useEffect(() => {
+		getGallery();
+	}, []);
 
 	const ImageCard = ({ img }) => {
 		const [isLoaded, setIsLoaded] = useState(false);
-		const [isVisible, setIsVisible] = useState(false);
 		const imgRef = useRef(null);
-
-		useEffect(() => {
-			const observer = new IntersectionObserver(
-				(entries) => {
-					if (entries[0].isIntersecting) {
-						setIsVisible(true);
-					}
-				},
-				{ rootMargin: '100px' }
-			);
-
-			const currentRef = imgRef.current;
-			if (currentRef) {
-				observer.observe(currentRef);
-			}
-
-			return () => {
-				if (currentRef) {
-					observer.unobserve(currentRef);
-				}
-			};
-		}, []);
 
 		return (
 			<div
@@ -111,18 +50,16 @@ const OptimizedImageGallery = () => {
 						<div className="h-8 w-8 animate-spin rounded-full border-4 border-[#396131] border-t-transparent"></div>
 					</div>
 				)}
-
-				{isVisible && (
-					<img
-						src={img.src}
-						alt={img.alt}
-						className={`h-full w-full object-cover transition-opacity duration-300 ${
-							isLoaded ? 'opacity-100' : 'opacity-0'
-						}`}
-						onLoad={() => setIsLoaded(true)}
-						loading="lazy"
-					/>
-				)}
+				{/* Render the thumbnail image */}
+				<img
+					src={img.thumbnail}
+					alt={img.alt_text || ''}
+					className={`h-full w-full object-cover transition-opacity duration-300 ${
+						isLoaded ? 'opacity-100' : 'opacity-0'
+					}`}
+					onLoad={() => setIsLoaded(true)}
+					loading="lazy"
+				/>
 			</div>
 		);
 	};
@@ -148,9 +85,10 @@ const OptimizedImageGallery = () => {
 					>
 						<X className="h-6 w-6" />
 					</button>
+					{/* Render the full size image if selected */}
 					<img
-						src={selectedImage.src}
-						alt={selectedImage.alt}
+						src={selectedImage.image}
+						alt={selectedImage.alt_text || ''}
 						className="max-h-[90vh] max-w-full object-contain"
 						onClick={(e) => e.stopPropagation()}
 					/>
@@ -159,51 +97,6 @@ const OptimizedImageGallery = () => {
 		</div>
 	);
 };
-
-// function GalleryImage({ img, idx }) {
-// 	const [loaded, setLoaded] = React.useState(false);
-
-// 	return (
-// 		<div className="group relative overflow-hidden rounded-xl shadow-md">
-// 			{/* Skeleton Loader */}
-// 			{!loaded && (
-// 				<div className="absolute inset-0 z-10 flex animate-pulse items-center justify-center bg-gray-200">
-// 					<div className="h-32 w-full bg-gray-200 sm:h-40 md:h-48" />
-// 					<svg
-// 						className="absolute h-8 w-8 animate-spin text-gray-400"
-// 						fill="none"
-// 						viewBox="0 0 24 24"
-// 					>
-// 						<circle
-// 							className="opacity-25"
-// 							cx="12"
-// 							cy="12"
-// 							r="10"
-// 							stroke="currentColor"
-// 							strokeWidth="4"
-// 						></circle>
-// 						<path
-// 							className="opacity-75"
-// 							fill="currentColor"
-// 							d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-// 						></path>
-// 					</svg>
-// 				</div>
-// 			)}
-// 			<img
-// 				src={img}
-// 				alt={`Advisory ${idx + 1}`}
-// 				className={`h-32 w-full object-cover object-center transition-transform duration-300 group-hover:scale-105 sm:h-40 md:h-48 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-// 				loading="lazy"
-// 				onLoad={() => setLoaded(true)}
-// 				// style={{ transition: 'opacity 0.3s' }}
-// 			/>
-// 			<div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-// 				<span className="text-sm font-semibold text-white">Image {idx + 1}</span>
-// 			</div>
-// 		</div>
-// 	);
-// }
 
 export default function OneVBAdvisory() {
 	return (

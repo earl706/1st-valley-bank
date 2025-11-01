@@ -1,43 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import CarouselSection from '../components/CarouselSection';
-import img1 from '/src/assets/homepage/1.png';
 import { PiggyBank, CreditCard, TrendingUp } from 'lucide-react';
-import img2 from '/src/assets/homepage/2.png';
-import img3 from '/src/assets/homepage/3.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	faExpand,
-	faUpDownLeftRight,
-	faPiggyBank,
-	faCreditCard,
-	faHandsHoldingChild,
-	faMoneyBillTransfer,
-	faSackDollar,
-	faGraduationCap,
-	faMagnifyingGlassDollar,
-	faBuildingUser,
-	faPaperPlane,
-	faUser
-} from '@fortawesome/free-solid-svg-icons';
-import img from '/src/assets/homepage/heroSectionImage.png';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
-import carouselImg4 from '/src/assets/carousel/4.png';
-import carouselImg5 from '/src/assets/carousel/5.png';
-import carouselImg6 from '/src/assets/carousel/6.png';
-import carouselImg7 from '/src/assets/carousel/7.png';
 import { DarkCard } from '../components/Card';
 import { LightPrimaryButton } from '../components/Buttons';
 import { DarkHeader } from '../components/Header';
 
 export default function Deposits() {
-	const [scrollY, setScrollY] = useState(0);
-	const [isVisible, setIsVisible] = useState({});
-	const [activeSection, setActiveSection] = useState('');
-
 	const slides = [
 		{
 			title: 'Savings Account',
@@ -87,149 +59,6 @@ export default function Deposits() {
 			image: carouselImg3,
 			imageAlt: 'Time Deposit',
 			route: '/deposits/time-deposit'
-		}
-	];
-
-	const features = [
-		{
-			name: 'Regular Savings',
-			icon: faHandsHoldingChild,
-			description:
-				'This account is for individuals eighteen (18) years old and above whose purpose is for personal savings.'
-		},
-		{
-			name: 'Kiddie & Teen Savings',
-			icon: faHandsHoldingChild,
-			description:
-				'The Kiddie and Teen Savings are offered to children ages 8 to 17 years. If the account holder reaches the age of eighteen (18), he/she has the option to close the account or open a new regular account.'
-		},
-		{
-			name: 'Basic Deposit',
-			icon: faHandsHoldingChild,
-			description:
-				'Designed for individuals eighteen (18) years old and above, this account aims to promote financial inclusion to the unserved and underserved individuals and micro-entrepreneurs.'
-		},
-		{
-			name: 'Payroll Servicing Deposit',
-			icon: faMoneyBillTransfer,
-			description:
-				"This account is for private employers who wish to avail of the Bank's ATM payroll services for the salaries and other benefits of its employees. The opening and maintenance of the accounts shall be based on the Memorandum of Agreement (MOA) entered into by and between the bank."
-		},
-		{
-			name: 'Student ATM Savings',
-			icon: faMoneyBillTransfer,
-			description:
-				'This account is designed for kids and teens aged 7 to 19 years old. It has a low initial deposit of P100 and the minimum balance to earn interest is only P500. The account offers an interest rate of 1.00% per annum, higher than a regular savings account.'
-		},
-		{
-			name: 'Special Savings Deposit',
-			icon: faGraduationCap,
-			description:
-				'This account is designed for kids and teens aged 7 to 19 years old. It has a low initial deposit of P100 and the minimum balance to earn interest is only P500. The account offers an interest rate of 1.00% per annum, higher than a regular savings account.'
-		},
-		{
-			name: 'ATM Savings',
-			icon: faMagnifyingGlassDollar,
-			description:
-				'This account is for individuals eighteen (18) years old and above. ATM is convenient banking and enables cashless purchases.'
-		}
-	];
-
-	const savingsDeposit = [
-		{
-			account: 'Regular Savings',
-			required_initial_deposit: '1,000.00',
-			required_monthly_ADB: '1,000.00',
-			required_monthly_ADB_to_earn_interest: '1,000.00',
-			interest_rate_per_annum_below: '0.10',
-			interest_rate_per_annum_above: '0.15'
-		},
-		{
-			account: 'Kids & Teens Savings Account',
-			required_initial_deposit: '100.00',
-			required_monthly_ADB: '500.00',
-			required_monthly_ADB_to_earn_interest: '500.00',
-			interest_rate_per_annum_below: '0.10',
-			interest_rate_per_annum_above: '0.15'
-		},
-		{
-			account: 'Basic Deposit',
-			required_initial_deposit: '100.00',
-			required_monthly_ADB: 'NONE',
-			required_monthly_ADB_to_earn_interest: '500.00',
-			interest_rate_per_annum_below: '0.10',
-			interest_rate_per_annum_above: '0.15'
-		},
-		{
-			account: 'ATM Savings',
-			required_initial_deposit: '1,000.00',
-			required_monthly_ADB: '1,000.00',
-			required_monthly_ADB_to_earn_interest: '1,000.00',
-			interest_rate_per_annum_below: '0.10',
-			interest_rate_per_annum_above: '0.15'
-		},
-		{
-			account: 'ATM Payroll Services ',
-			required_initial_deposit: 'Based on Agreement',
-			required_monthly_ADB: '1,000.00',
-			required_monthly_ADB_to_earn_interest: '1,000.00',
-			interest_rate_per_annum_below: '0.10',
-			interest_rate_per_annum_above: '0.15'
-		},
-		{
-			account: 'ATM Payroll Services ',
-			required_initial_deposit: 'Based on Agreement',
-			required_monthly_ADB: 'Based on Agreement',
-			required_monthly_ADB_to_earn_interest: '100.00',
-			interest_rate_per_annum_below: '0.10',
-			interest_rate_per_annum_above: '0.15'
-		}
-	];
-
-	const checkingCurrentAccount = [
-		{
-			account: 'Personal',
-			required_initial_deposit: '5,000.00',
-			required_monthly_ADB: '10,000.00',
-			required_monthly_ADB_to_earn_interest: '10,000.00',
-			interest_rate_per_annum_below: '0.10',
-			interest_rate_per_annum_above: '0.15'
-		},
-		{
-			account: 'Corporate',
-			required_initial_deposit: '10,000.00',
-			required_monthly_ADB: '10,000.00',
-			required_monthly_ADB_to_earn_interest: '10,000.00',
-			interest_rate_per_annum_below: '0.10',
-			interest_rate_per_annum_above: '0.15'
-		}
-	];
-
-	const terms = [
-		{
-			term: '3 Months',
-			initial_amount: '5,000.00',
-			interest_per_annum: '4.00% gross(renewal) 4.50% gross(new)'
-		},
-		{
-			term: '3 Months',
-			initial_amount: '5,000.00',
-			interest_per_annum: '4.75% gross(renewal) 4.50% gross(new)'
-		},
-		{
-			term: '1 Year',
-			initial_amount: '50,000.00',
-			interest_per_annum: '6.00% gross(renewal) 4.50% gross(new)'
-		},
-		{
-			term: '5 Years and 1 Day Annually',
-			initial_amount: '50,000.00',
-			interest_per_annum: '6.0% net-interest credited to savings account annually'
-		},
-		{
-			term: '5 Years and 1 Day',
-			initial_amount: '50,000.00',
-			interest_per_annum: '6.0% net credited upon maturity'
 		}
 	];
 
@@ -293,48 +122,6 @@ export default function Deposits() {
 			layout: 'left' // content left, visual right
 		}
 	];
-
-	useEffect(() => {
-		const handleScroll = () => setScrollY(window.scrollY);
-		window.addEventListener('scroll', handleScroll);
-		return () => window.removeEventListener('scroll', handleScroll);
-	}, []);
-
-	useEffect(() => {
-		const observers = [];
-
-		const createObserver = (threshold = 0.1) => {
-			return new IntersectionObserver(
-				(entries) => {
-					entries.forEach((entry) => {
-						setIsVisible((prev) => ({
-							...prev,
-							[entry.target.id]: entry.isIntersecting
-						}));
-
-						if (entry.isIntersecting) {
-							setActiveSection(entry.target.id);
-						}
-					});
-				},
-				{ threshold, rootMargin: '-50px 0px' }
-			);
-		};
-
-		const observer = createObserver();
-		const elements = document.querySelectorAll('[data-scroll]');
-		elements.forEach((el) => observer.observe(el));
-		observers.push(observer);
-
-		return () => observers.forEach((obs) => obs.disconnect());
-	}, []);
-
-	const scrollToSection = (id) => {
-		document.getElementById(id)?.scrollIntoView({
-			behavior: 'smooth',
-			block: 'start'
-		});
-	};
 
 	return (
 		<>

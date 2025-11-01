@@ -16,7 +16,7 @@ import HeroSection from '../components/HeroSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import CarouselSection from '../components/CarouselSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
@@ -25,15 +25,44 @@ import carouselImg4 from '/src/assets/carousel/4.png';
 import carouselImg5 from '/src/assets/carousel/5.png';
 import carouselImg6 from '/src/assets/carousel/6.png';
 import carouselImg7 from '/src/assets/carousel/7.png';
+import loanService from '../services/loanService';
 
 export default function LoansSME() {
-	const smeTypes = [
+	const [smeTypes, setSmeTypes] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	const getSmeTypes = async () => {
+		try {
+			const response = await loanService.getByType('sme');
+			setSmeTypes(response.results);
+		} catch (error) {
+			console.error('Failed to fetch SME types:', error);
+			setSmeTypes([]);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	useEffect(() => {
+		getSmeTypes();
+	}, []);
+
+	/* const smeTypes = [
 		{
 			title: 'SME Secured Loan',
 			description:
 				'A secured loan option for established businesses requiring collateral such as real estate or equipment. Offers competitive interest rates and flexible terms for business growth and expansion.',
 
-			image: carouselImg2,
+			features: ['feature 1', 'feature 2', 'feature 3'],
+			requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
+			term_options: ['6 months', '12 months'],
+			interest_rate: '6.5% - 8.5%',
+			min_amount: 10000,
+			max_amount: 100000,
+			interest_rate_below: 6.5,
+			interest_rate_above: 8.5,
+			term_min_months: 6,
+			image: carouselImg7,
 			route: '/contact-us'
 		},
 		{
@@ -41,7 +70,16 @@ export default function LoansSME() {
 			description:
 				'Specialized financing for the acquisition of movable assets like vehicles, machinery, and equipment. The financed asset serves as collateral for the loan.',
 
-			image: carouselImg4,
+			features: ['feature 1', 'feature 2', 'feature 3'],
+			requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
+			term_options: ['6 months', '12 months'],
+			interest_rate: '6.5% - 8.5%',
+			min_amount: 10000,
+			max_amount: 100000,
+			interest_rate_below: 6.5,
+			interest_rate_above: 8.5,
+			term_min_months: 6,
+			image: carouselImg7,
 			route: '/contact-us'
 		},
 		{
@@ -49,7 +87,16 @@ export default function LoansSME() {
 			description:
 				'A financing facility that allows businesses to convert their post-dated checks into immediate cash flow. Perfect for bridging short-term liquidity gaps.',
 
-			image: carouselImg5,
+			features: ['feature 1', 'feature 2', 'feature 3'],
+			requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
+			term_options: ['6 months', '12 months'],
+			interest_rate: '6.5% - 8.5%',
+			min_amount: 10000,
+			max_amount: 100000,
+			interest_rate_below: 6.5,
+			interest_rate_above: 8.5,
+			term_min_months: 6,
+			image: carouselImg7,
 			route: '/contact-us'
 		},
 		{
@@ -57,11 +104,20 @@ export default function LoansSME() {
 			description:
 				'A loan arrangement backed by deposits or securities held by the bank. Provides financing while maintaining your existing investments and earning potential.',
 
-			image: carouselImg6,
+			features: ['feature 1', 'feature 2', 'feature 3'],
+			requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
+			term_options: ['6 months', '12 months'],
+			interest_rate: '6.5% - 8.5%',
+			min_amount: 10000,
+			max_amount: 100000,
+			interest_rate_below: 6.5,
+			interest_rate_above: 8.5,
+			term_min_months: 6,
+			image: carouselImg7,
 			route: '/contact-us'
 		}
 	];
-
+	*/
 	const smallBusinessLoans = [
 		{
 			type: 'TERM LOAN',

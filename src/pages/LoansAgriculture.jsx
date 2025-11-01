@@ -1,49 +1,33 @@
-import React from 'react';
-import { faBank, faHandshake } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { BarnIcon, UserCircleCheckIcon } from '@phosphor-icons/react';
-import { LeafIcon } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
-import img1 from '/src/assets/loans/agriculture/1.jpg';
+import React, { useState, useEffect } from 'react';
 import img2 from '/src/assets/loans/agriculture/2.jpg';
-import { ShieldCheckIcon, ShovelIcon } from '@phosphor-icons/react/dist/ssr';
 import CarouselSection from '../components/CarouselSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
-import img from '/src/assets/homepage/heroSectionImage.png';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
 import carouselImg4 from '/src/assets/carousel/4.png';
+import loanService from '../services/loanService';
 
 export default function LoansAgriculture() {
-	// Agriculture loan types for LoanSubcategoriesSection
-	const agricultureLoanTypes = [
-		{
-			title: 'Agri-Secured',
-			description:
-				'Intends to help farmers in cultivating, improvement and expansion of their farm land or other related activities. Perfect for established agricultural operations.',
-			features: [],
-			image: carouselImg1,
-			route: '/contact-us'
-		},
-		{
-			title: 'Individual Secured',
-			description:
-				'For clients who seek financial assistance for personal purposes, either house renovation, house construction, placement fee or medical expenses.',
-			features: [],
-			image: carouselImg2,
-			route: '/contact-us'
-		},
-		{
-			title: 'Chattel Financing',
-			description:
-				'Intends to help farmers in procuring farm equipment for greater yield and further agricultural activities. Equipment serves as collateral.',
-			features: [],
-			image: carouselImg3,
-			route: '/contact-us'
+	const [agricultureTypes, setAgricultureTypes] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	const getAgricultureTypes = async () => {
+		try {
+			const response = await loanService.getByType('agriculture');
+			setAgricultureTypes(response.results);
+		} catch (error) {
+			console.error('Failed to fetch Agriculture types:', error);
+			setAgricultureTypes([]);
+		} finally {
+			setLoading(false);
 		}
-	];
+	};
+
+	useEffect(() => {
+		getAgricultureTypes();
+	}, []);
 
 	// Carousel slides combining hero and agriculture loan types
 	const agricultureSlides = [
@@ -160,7 +144,7 @@ export default function LoansAgriculture() {
 					sectionTitle="Agricultural Loan Types"
 					sectionSubtitle="Choose the agricultural loan that best fits your farming needs and goals"
 					tagText="Loan Categories"
-					loanTypes={agricultureLoanTypes}
+					loanTypes={agricultureTypes}
 					ctaTitle="Need help choosing the right agricultural loan for your farm?"
 					ctaPrimaryText="Get Expert Consultation"
 					ctaSecondaryText="View All Loans"

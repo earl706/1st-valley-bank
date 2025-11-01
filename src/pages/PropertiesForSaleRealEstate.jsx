@@ -1,13 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import img1 from '/src/assets/properties-for-sale/1.jpeg';
-import img2 from '/src/assets/properties-for-sale/2.jpeg';
-import { MapPin, Calendar, Hash, Eye, Heart, Share2, Home, Ruler } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
 import PropertyCard from '../components/PropertyCard';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import HeroSection from '../components/HeroSection';
+import propertyService from '../services/propertyService';
 
 export default function PropertiesForSaleRealEstate() {
+	const [properties, setProperties] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	const getProperties = async () => {
+		try {
+			const response = await propertyService.getRealEstate();
+			setProperties(response.data.results);
+		} catch (error) {
+			console.error('Failed to fetch properties:', error);
+			setProperties([]);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	useEffect(() => {
+		getProperties();
+	}, []);
+
+	/*
 	const sampleProperties = [
 		{
 			image: img2,
@@ -70,7 +87,7 @@ export default function PropertiesForSaleRealEstate() {
 			propertyCode: 'K05-03'
 		}
 	];
-
+	*/
 	return (
 		<>
 			<main className="flex flex-col">
@@ -87,7 +104,7 @@ export default function PropertiesForSaleRealEstate() {
 				>
 					{/* Optionally, you could pass a custom icon as image if HeroSection supports it */}
 				</HeroSection>
-				<section id="vehicles" className="mx-[10px] lg:mx-[80px]">
+				<section id="vehicles" className="mx-[10px] mb-4 lg:mx-[80px]">
 					<div className="my-16 text-center">
 						<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
 							Real Estate & Properties
@@ -99,7 +116,7 @@ export default function PropertiesForSaleRealEstate() {
 						</p>
 					</div>
 					<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-						{sampleProperties.map((property, index) => (
+						{properties.map((property, index) => (
 							<PropertyCard key={index} property={property} />
 						))}
 					</div>

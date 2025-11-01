@@ -11,124 +11,134 @@ import carouselImg4 from '/src/assets/carousel/4.png';
 import carouselImg5 from '/src/assets/carousel/5.png';
 import carouselImg6 from '/src/assets/carousel/6.png';
 import { DarkHeader, LightHeader } from '../components/Header';
+import { getSavingsAccounts } from '../services/depositService';
 
 export default function SavingsAccount() {
 	const [scrollY, setScrollY] = useState(0);
 	const [isVisible, setIsVisible] = useState({});
 	const [activeSection, setActiveSection] = useState('');
 
-	const savingsAccounts = [
-		{
-			title: 'Regular Savings',
-			description: 'For individuals 18+, ideal for personal savings and monthly interest.',
-			initialDeposit: '₱1,000.00',
-			minimumBalance: '₱1,000.00',
-			interestRate: '0.10% - 0.15% p.a.',
-			features: ['Personal savings', 'Age 18+', 'Monthly interest', 'ATM access'],
-			image: carouselImg1,
-			route: '/contact-us'
-		},
-		{
-			title: 'Kiddie and Teens Savings',
-			description: 'For ages 8-17, helps kids and teens save with parental guidance.',
-			initialDeposit: '₱100.00',
-			minimumBalance: '₱500.00',
-			interestRate: '0.10% - 0.15% p.a.',
-			features: [
-				'Ages 8-17',
-				'Educational savings',
-				'Parent/guardian supervision',
-				'Transition to regular account'
-			],
-			image: carouselImg2,
-			route: '/contact-us'
-		},
-		{
-			title: 'SSD Regular Savings',
-			description: 'For regular customers seeking enhanced benefits and premium services.',
-			initialDeposit: '₱1,000.00',
-			minimumBalance: '₱1,000.00',
-			interestRate: '0.10% - 0.15% p.a',
-			features: [
-				'Enhanced benefits',
-				'Regular customers',
-				'Higher interest potential',
-				'Premium services'
-			],
-			image: carouselImg3,
-			route: '/contact-us'
-		},
-		{
-			title: 'SSD Microfinance Savings',
-			description: 'For microfinance clients, offers flexible terms and community banking.',
-			initialDeposit: '₱100.00',
-			minimumBalance: '₱500.00',
-			interestRate: '0.10% - 0.15% p.a',
-			features: [
-				'Microfinance clients',
-				'Flexible terms',
-				'Community banking',
-				'Financial inclusion'
-			],
-			image: carouselImg4,
-			route: '/contact-us'
-		},
-		{
-			title: 'SD Handog Savings',
-			description: 'Special account with unique features for targeted customer segments.',
-			initialDeposit: '₱1,000.00',
-			minimumBalance: '₱1,000.00',
-			interestRate: '0.10% - 0.15% p.a',
-			features: ['Special features', 'Unique benefits', 'Targeted segments', 'Enhanced services'],
-			image: carouselImg5,
-			route: '/contact-us'
-		},
-		{
-			title: 'Basic Deposit Account',
-			description: 'For 18+, promotes financial inclusion with no minimum balance required.',
-			initialDeposit: '₱100.00',
-			minimumBalance: 'None',
-			interestRate: '0.10% - 0.15% p.a',
-			features: [
-				'Financial inclusion',
-				'No minimum balance',
-				'Micro-entrepreneurs',
-				'Basic banking services'
-			],
-			image: carouselImg6,
-			route: '/contact-us'
-		},
-		{
-			title: 'Payroll Served',
-			description: 'For employers using the Bank’s ATM payroll for employee salaries.',
-			initialDeposit: 'Based on Agreement',
-			minimumBalance: '₱1,000.00',
-			interestRate: '0.10% - 0.15% p.a',
-			features: ['Payroll services', 'Employer accounts', 'ATM access', 'Salary distribution'],
-			image: carouselImg1,
-			route: '/contact-us'
-		},
-		{
-			title: 'ATM Savings',
-			description: 'For individuals 18+, offers ATM access and convenient cashless banking.',
-			initialDeposit: '₱1,000.00',
-			minimumBalance: '₱1,000.00',
-			interestRate: '0.10% - 0.15% p.a',
-			features: ['ATM access', 'Convenient banking', 'Cashless transactions', '24/7 access'],
-			image: carouselImg2,
-			route: '/contact-us'
-		},
-		{
-			title: 'Student ATM Savings',
-			description: 'For ages 7-19, low deposit, higher interest, and educational focus.',
-			initialDeposit: '₱100.00',
-			minimumBalance: '₱500.00',
-			interestRate: '1.00% p.a',
-			features: ['Ages 7-19', 'Low initial deposit', 'Higher interest rate', 'Educational focus'],
-			image: carouselImg3,
-			route: '/contact-us'
-		}
-	];
+	const [savingsAccounts, setSavingsAccounts] = useState([]);
+
+	useEffect(() => {
+		getSavingsAccounts().then((response) => {
+			console.log(response);
+			setSavingsAccounts(response.results);
+		});
+	}, []);
+
+	// const savingsAccounts = [
+	// 	{
+	// 		title: 'Regular Savings',
+	// 		description: 'For individuals 18+, ideal for personal savings and monthly interest.',
+	// 		initialDeposit: '₱1,000.00',
+	// 		minimumBalance: '₱1,000.00',
+	// 		interestRate: '0.10% - 0.15% p.a.',
+	// 		features: ['Personal savings', 'Age 18+', 'Monthly interest', 'ATM access'],
+	// 		image: carouselImg1,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		title: 'Kiddie and Teens Savings',
+	// 		description: 'For ages 8-17, helps kids and teens save with parental guidance.',
+	// 		initialDeposit: '₱100.00',
+	// 		minimumBalance: '₱500.00',
+	// 		interestRate: '0.10% - 0.15% p.a.',
+	// 		features: [
+	// 			'Ages 8-17',
+	// 			'Educational savings',
+	// 			'Parent/guardian supervision',
+	// 			'Transition to regular account'
+	// 		],
+	// 		image: carouselImg2,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		title: 'SSD Regular Savings',
+	// 		description: 'For regular customers seeking enhanced benefits and premium services.',
+	// 		initialDeposit: '₱1,000.00',
+	// 		minimumBalance: '₱1,000.00',
+	// 		interestRate: '0.10% - 0.15% p.a',
+	// 		features: [
+	// 			'Enhanced benefits',
+	// 			'Regular customers',
+	// 			'Higher interest potential',
+	// 			'Premium services'
+	// 		],
+	// 		image: carouselImg3,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		title: 'SSD Microfinance Savings',
+	// 		description: 'For microfinance clients, offers flexible terms and community banking.',
+	// 		initialDeposit: '₱100.00',
+	// 		minimumBalance: '₱500.00',
+	// 		interestRate: '0.10% - 0.15% p.a',
+	// 		features: [
+	// 			'Microfinance clients',
+	// 			'Flexible terms',
+	// 			'Community banking',
+	// 			'Financial inclusion'
+	// 		],
+	// 		image: carouselImg4,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		title: 'SD Handog Savings',
+	// 		description: 'Special account with unique features for targeted customer segments.',
+	// 		initialDeposit: '₱1,000.00',
+	// 		minimumBalance: '₱1,000.00',
+	// 		interestRate: '0.10% - 0.15% p.a',
+	// 		features: ['Special features', 'Unique benefits', 'Targeted segments', 'Enhanced services'],
+	// 		image: carouselImg5,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		title: 'Basic Deposit Account',
+	// 		description: 'For 18+, promotes financial inclusion with no minimum balance required.',
+	// 		initialDeposit: '₱100.00',
+	// 		minimumBalance: 'None',
+	// 		interestRate: '0.10% - 0.15% p.a',
+	// 		features: [
+	// 			'Financial inclusion',
+	// 			'No minimum balance',
+	// 			'Micro-entrepreneurs',
+	// 			'Basic banking services'
+	// 		],
+	// 		image: carouselImg6,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		title: 'Payroll Served',
+	// 		description: 'For employers using the Bank’s ATM payroll for employee salaries.',
+	// 		initialDeposit: 'Based on Agreement',
+	// 		minimumBalance: '₱1,000.00',
+	// 		interestRate: '0.10% - 0.15% p.a',
+	// 		features: ['Payroll services', 'Employer accounts', 'ATM access', 'Salary distribution'],
+	// 		image: carouselImg1,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		title: 'ATM Savings',
+	// 		description: 'For individuals 18+, offers ATM access and convenient cashless banking.',
+	// 		initialDeposit: '₱1,000.00',
+	// 		minimumBalance: '₱1,000.00',
+	// 		interestRate: '0.10% - 0.15% p.a',
+	// 		features: ['ATM access', 'Convenient banking', 'Cashless transactions', '24/7 access'],
+	// 		image: carouselImg2,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		title: 'Student ATM Savings',
+	// 		description: 'For ages 7-19, low deposit, higher interest, and educational focus.',
+	// 		initialDeposit: '₱100.00',
+	// 		minimumBalance: '₱500.00',
+	// 		interestRate: '1.00% p.a',
+	// 		features: ['Ages 7-19', 'Low initial deposit', 'Higher interest rate', 'Educational focus'],
+	// 		image: carouselImg3,
+	// 		route: '/contact-us'
+	// 	}
+	// ];
 
 	useEffect(() => {
 		const handleScroll = () => setScrollY(window.scrollY);
@@ -221,7 +231,7 @@ export default function SavingsAccount() {
 
 						<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 							{savingsAccounts.map((account, index) => (
-								<DarkCard key={index} useNativeSpacing={true}>
+								<DarkCard key={index} className="h-full" useNativeSpacing={true}>
 									{/* Emphasize image: make it a top banner */}
 									<div className="flex h-40 w-full items-center justify-center">
 										<img
@@ -232,7 +242,7 @@ export default function SavingsAccount() {
 									</div>
 									<div className="flex w-full flex-1 flex-col p-8">
 										<h3 className="mt-2 mb-4 text-center text-2xl leading-tight font-bold text-white">
-											{account.title}
+											{account.name}
 										</h3>
 										<p className="mb-6 text-center text-base leading-relaxed font-normal text-white/80">
 											{account.description}
@@ -243,7 +253,7 @@ export default function SavingsAccount() {
 													Initial Deposit:
 												</span>
 												<span className="text-sm leading-relaxed font-bold text-white">
-													{account.initialDeposit}
+													{account.required_initial_deposit}
 												</span>
 											</div>
 											<div className="flex justify-between">
@@ -251,7 +261,7 @@ export default function SavingsAccount() {
 													Minimum Balance:
 												</span>
 												<span className="text-sm leading-relaxed font-bold text-white">
-													{account.minimumBalance}
+													{account.required_monthly_adb}
 												</span>
 											</div>
 											<div className="flex justify-between">
@@ -259,13 +269,13 @@ export default function SavingsAccount() {
 													Interest Rate:
 												</span>
 												<span className="text-sm leading-relaxed font-bold text-white">
-													{account.interestRate}
+													{account.interest_rate_below}% - {account.interest_rate_above}%
 												</span>
 											</div>
 										</div>
 										<DarkPrimaryButton
 											to={account.route}
-											className="mt-auto w-full"
+											className="mt-auto flex w-full"
 											secondaryIcon={
 												<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
 											}

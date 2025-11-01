@@ -1,99 +1,96 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-	ArrowLeft,
-	CreditCard,
-	Building,
-	User,
-	DollarSign,
-	CheckCircle,
-	ArrowRight
-} from 'lucide-react';
+import { ArrowLeft, Building, User, DollarSign, CheckCircle, ArrowRight } from 'lucide-react';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import CarouselSection from '../components/CarouselSection';
-import img from '/src/assets/homepage/heroSectionImage.png';
-import carouselImg1 from '/src/assets/carousel/1.png';
-import carouselImg2 from '/src/assets/carousel/2.png';
-import carouselImg3 from '/src/assets/carousel/3.png';
 import { DarkHeader, LightHeader } from '../components/Header';
+import { getCheckingAccounts } from '../services/depositService';
 
 export default function CheckingAccount() {
 	const [scrollY, setScrollY] = useState(0);
 	const [isVisible, setIsVisible] = useState({});
 	const [activeSection, setActiveSection] = useState('');
 
-	const checkingAccounts = [
-		{
-			title: 'Personal Checking Account',
-			description: 'A flexible account for individuals with check-writing and banking access.',
-			initialDeposit: '₱5,000.00',
-			minimumBalance: '₱10,000.00',
-			interestRate: '0.10% - 0.15% p.a.',
-			features: [
-				'Check writing privileges',
-				'ATM access',
-				'Online banking',
-				'Mobile banking',
-				'Debit card',
-				'Monthly statements'
-			],
-			benefits: [
-				'Convenient bill payments',
-				'Direct deposit',
-				'Overdraft protection available',
-				'24/7 account access'
-			],
-			image: carouselImg1,
-			route: '/contact-us'
-		},
-		{
-			title: 'Business Checking Account',
-			description: 'For businesses needing multiple signatories and advanced services.',
-			initialDeposit: '₱10,000.00',
-			minimumBalance: '₱10,000.00',
-			interestRate: '0.10% - 0.15% p.a.',
-			features: [
-				'Multiple signatories',
-				'Business check writing',
-				'Payroll services',
-				'Merchant services',
-				'Cash management',
-				'Online business banking'
-			],
-			benefits: [
-				'Streamlined business operations',
-				'Professional banking services',
-				'Dedicated relationship manager',
-				'Bulk transaction processing'
-			],
-			image: carouselImg2,
-			route: '/contact-us'
-		},
-		{
-			title: 'Premium Checking Account',
-			description: 'Get exclusive perks, higher limits, and premium services.',
-			initialDeposit: '₱25,000.00',
-			minimumBalance: '₱25,000.00',
-			interestRate: '0.15% - 0.25% p.a.',
-			features: [
-				'Premium interest rates',
-				'Unlimited transactions',
-				'Priority customer service',
-				'Free wire transfers',
-				'Concierge banking',
-				'Investment advisory services'
-			],
-			benefits: [
-				'Exclusive banking privileges',
-				'Waived fees on most services',
-				'Priority loan processing',
-				'Personalized financial planning'
-			],
-			image: carouselImg3,
-			route: '/contact-us'
-		}
-	];
+	const [checkingAccounts, setCheckingAccounts] = useState([]);
+
+	useEffect(() => {
+		getCheckingAccounts().then((response) => {
+			console.log(response);
+			setCheckingAccounts(response.results);
+		});
+	}, []);
+	// const checkingAccounts = [
+	// 	{
+	// 		title: 'Personal Checking Account',
+	// 		description: 'A flexible account for individuals with check-writing and banking access.',
+	// 		initialDeposit: '₱5,000.00',
+	// 		minimumBalance: '₱10,000.00',
+	// 		interestRate: '0.10% - 0.15% p.a.',
+	// 		features: [
+	// 			'Check writing privileges',
+	// 			'ATM access',
+	// 			'Online banking',
+	// 			'Mobile banking',
+	// 			'Debit card',
+	// 			'Monthly statements'
+	// 		],
+	// 		benefits: [
+	// 			'Convenient bill payments',
+	// 			'Direct deposit',
+	// 			'Overdraft protection available',
+	// 			'24/7 account access'
+	// 		],
+	// 		image: carouselImg1,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		title: 'Business Checking Account',
+	// 		description: 'For businesses needing multiple signatories and advanced services.',
+	// 		initialDeposit: '₱10,000.00',
+	// 		minimumBalance: '₱10,000.00',
+	// 		interestRate: '0.10% - 0.15% p.a.',
+	// 		features: [
+	// 			'Multiple signatories',
+	// 			'Business check writing',
+	// 			'Payroll services',
+	// 			'Merchant services',
+	// 			'Cash management',
+	// 			'Online business banking'
+	// 		],
+	// 		benefits: [
+	// 			'Streamlined business operations',
+	// 			'Professional banking services',
+	// 			'Dedicated relationship manager',
+	// 			'Bulk transaction processing'
+	// 		],
+	// 		image: carouselImg2,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		title: 'Premium Checking Account',
+	// 		description: 'Get exclusive perks, higher limits, and premium services.',
+	// 		initialDeposit: '₱25,000.00',
+	// 		minimumBalance: '₱25,000.00',
+	// 		interestRate: '0.15% - 0.25% p.a.',
+	// 		features: [
+	// 			'Premium interest rates',
+	// 			'Unlimited transactions',
+	// 			'Priority customer service',
+	// 			'Free wire transfers',
+	// 			'Concierge banking',
+	// 			'Investment advisory services'
+	// 		],
+	// 		benefits: [
+	// 			'Exclusive banking privileges',
+	// 			'Waived fees on most services',
+	// 			'Priority loan processing',
+	// 			'Personalized financial planning'
+	// 		],
+	// 		image: carouselImg3,
+	// 		route: '/contact-us'
+	// 	}
+	// ];
 
 	useEffect(() => {
 		const handleScroll = () => setScrollY(window.scrollY);
@@ -201,7 +198,7 @@ export default function CheckingAccount() {
 									</div>
 									<div className="flex h-full flex-col">
 										<h3 className="mb-4 text-2xl leading-tight font-bold text-white">
-											{account.title}
+											{account.name}
 										</h3>
 										<p className="mb-6 text-base leading-relaxed font-normal text-white/80">
 											{account.description}
@@ -212,7 +209,7 @@ export default function CheckingAccount() {
 													Initial Deposit:
 												</span>
 												<span className="text-sm leading-relaxed font-bold text-white">
-													{account.initialDeposit}
+													₱{Number(account.required_initial_deposit).toLocaleString()}
 												</span>
 											</div>
 											<div className="flex justify-between">
@@ -220,7 +217,7 @@ export default function CheckingAccount() {
 													Minimum Balance:
 												</span>
 												<span className="text-sm leading-relaxed font-bold text-white">
-													{account.minimumBalance}
+													{account.required_monthly_adb}
 												</span>
 											</div>
 											<div className="flex justify-between">
@@ -228,7 +225,7 @@ export default function CheckingAccount() {
 													Interest Rate:
 												</span>
 												<span className="text-sm leading-relaxed font-bold text-white">
-													{account.interestRate}
+													{account.interest_rate_below}% - {account.interest_rate_above}% p.a.
 												</span>
 											</div>
 										</div>

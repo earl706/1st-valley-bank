@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function CarouselSection({
 	id = 'carousel',
@@ -258,20 +258,7 @@ export default function CarouselSection({
 								}`}
 								aria-label="Previous Slide"
 							>
-								<svg
-									className="h-6 w-6"
-									style={{ color: brandColor }}
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth={2}
-										d="M15 19l-7-7 7-7"
-									/>
-								</svg>
+								<ChevronLeft className="h-6 w-6" style={{ color: brandColor }} aria-hidden="true" />
 							</button>
 							<button
 								onClick={nextSlide}
@@ -281,20 +268,11 @@ export default function CarouselSection({
 								}`}
 								aria-label="Next Slide"
 							>
-								<svg
+								<ChevronRight
 									className="h-6 w-6"
 									style={{ color: brandColor }}
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth={2}
-										d="M9 5l7 7-7 7"
-									/>
-								</svg>
+									aria-hidden="true"
+								/>
 							</button>
 
 							{/* Progress Dots */}

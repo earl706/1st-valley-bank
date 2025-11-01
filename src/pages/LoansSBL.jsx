@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	ArrowRight,
 	Users,
@@ -19,40 +19,71 @@ import SuccessStoriesSection from '../components/SuccessStoriesSection';
 import img1 from '/src/assets/homepage/1.png';
 import img2 from '/src/assets/homepage/2.png';
 import img3 from '/src/assets/homepage/3.png';
-import img4 from '/src/assets/homepage/4.png';
-import img5 from '/src/assets/homepage/5.png';
-import img6 from '/src/assets/homepage/6.png';
 
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
-import carouselImg4 from '/src/assets/carousel/4.png';
-import carouselImg5 from '/src/assets/carousel/5.png';
-import carouselImg6 from '/src/assets/carousel/6.png';
 import carouselImg7 from '/src/assets/carousel/7.png';
+
+import loanService from '../services/loanService';
 
 export default function LoansSBL() {
 	// Small Business Loan subcategories data
-	const sblTypes = [
-		{
-			id: 1,
-			title: 'Collateral',
-			description:
-				'Secure your business loan with collateral for better terms and higher loan amounts. Land titles or four-wheel vehicles can be used as collateral.',
-			features: [],
-			image: carouselImg1,
-			route: '/loans/sbl/collateral'
-		},
-		{
-			id: 2,
-			title: 'Without Collateral',
-			description:
-				'Get a business loan without collateral based on your business performance and creditworthiness. Perfect for established businesses with good track records.',
-			features: [],
-			image: carouselImg2,
-			route: '/loans/sbl/without-collateral'
+	const [sblTypes, setSblTypes] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	const getSblTypes = async () => {
+		try {
+			const response = await loanService.getByType('sbl');
+			setSblTypes(response.results);
+		} catch (error) {
+			console.error('Failed to fetch SBL types:', error);
+			setSblTypes([]);
+		} finally {
+			setLoading(false);
 		}
-	];
+	};
+
+	useEffect(() => {
+		getSblTypes();
+	}, []);
+
+	// const sblTypes = [
+	// 	{
+	// 		id: 1,
+	// 		title: 'Collateral',
+	// 		description:
+	// 			'Secure your business loan with collateral for better terms and higher loan amounts. Land titles or four-wheel vehicles can be used as collateral.',
+	// 		features: ['feature 1', 'feature 2', 'feature 3'],
+	// 		requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
+	// 		term_options: ['6 months', '12 months'],
+	// 		interest_rate: '6.5% - 8.5%',
+	// 		min_amount: 10000,
+	// 		max_amount: 100000,
+	// 		interest_rate_below: 6.5,
+	// 		interest_rate_above: 8.5,
+	// 		term_min_months: 6,
+	// 		image: carouselImg7,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		id: 2,
+	// 		title: 'Without Collateral',
+	// 		description:
+	// 			'Get a business loan without collateral based on your business performance and creditworthiness. Perfect for established businesses with good track records.',
+	// 		features: ['feature 1', 'feature 2', 'feature 3'],
+	// 		requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
+	// 		term_options: ['6 months', '12 months'],
+	// 		interest_rate: '6.5% - 8.5%',
+	// 		min_amount: 10000,
+	// 		max_amount: 100000,
+	// 		interest_rate_below: 6.5,
+	// 		interest_rate_above: 8.5,
+	// 		term_min_months: 6,
+	// 		image: carouselImg7,
+	// 		route: '/contact-us'
+	// 	}
+	// ];
 
 	const whoCanApply = [
 		{

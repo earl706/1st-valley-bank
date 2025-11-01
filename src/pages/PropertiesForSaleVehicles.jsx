@@ -1,16 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import img1 from '/src/assets/properties-for-sale/vehicles/1.jpeg';
-import img2 from '/src/assets/properties-for-sale/vehicles/2.png';
-import img3 from '/src/assets/properties-for-sale/vehicles/3.png';
-import img4 from '/src/assets/properties-for-sale/vehicles/4.png';
-import { MapPin, Calendar, Hash, Eye } from 'lucide-react';
-import { faTruck } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import VehicleCard from '../components/VehicleCard';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import HeroSection from '../components/HeroSection';
+import propertyService from '../services/propertyService';
 
 export default function PropertiesForSaleVehicles() {
+	const [vehicles, setVehicles] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	const getVehicles = async () => {
+		try {
+			const response = await propertyService.getVehicles();
+			setVehicles(response.data.results);
+		} catch (error) {
+			console.error('Failed to fetch vehicles:', error);
+			setVehicles([]);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	useEffect(() => {
+		getVehicles();
+	}, []);
+
+	/*
 	const sampleVehicles = [
 		{
 			image: img1,
@@ -61,7 +75,7 @@ export default function PropertiesForSaleVehicles() {
 			price: 180000.0
 		}
 	];
-
+	*/
 	return (
 		<>
 			<main className="flex flex-col">
@@ -71,7 +85,7 @@ export default function PropertiesForSaleVehicles() {
 					description="Find quality pre-owned vehicles at great prices from 1st Valley Bank. Browse our listings and drive home your next car today!"
 					image={img}
 				/>
-				<section id="vehicles" className="mx-[10px] lg:mx-[80px]">
+				<section id="vehicles" className="mx-[10px] mb-4 lg:mx-[80px]">
 					<div className="my-16 text-center">
 						<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
 							Vehicles
@@ -83,7 +97,7 @@ export default function PropertiesForSaleVehicles() {
 						</p>
 					</div>
 					<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-						{sampleVehicles.map((vehicle, index) => (
+						{vehicles.map((vehicle, index) => (
 							<VehicleCard key={index} vehicle={vehicle} />
 						))}
 					</div>

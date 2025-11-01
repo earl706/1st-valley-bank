@@ -18,94 +18,103 @@ import carouselImg4 from '/src/assets/carousel/4.png';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import { DarkHeader, LightHeader } from '../components/Header';
+import { getTimeDeposits } from '../services/depositService';
 
 export default function TimeDeposit() {
 	const [scrollY, setScrollY] = useState(0);
 	const [isVisible, setIsVisible] = useState({});
 	const [activeSection, setActiveSection] = useState('');
 
-	const timeDeposits = [
-		{
-			title: '3 Months',
-			description: 'Short-term investment with competitive rates.',
-			initialAmount: '₱5,000.00',
-			interestRate: '4.00% gross (renewal) / 4.50% gross (new)',
-			features: [
-				'Short-term commitment',
-				'Competitive interest rates',
-				'Flexible renewal options',
-				'Early withdrawal available with penalty'
-			],
-			benefits: [
-				'Quick returns',
-				'Low risk investment',
-				'Liquidity after 3 months',
-				'Higher than savings rates'
-			],
-			image: carouselImg1,
-			route: '/contact-us'
-		},
-		{
-			title: '6 Months',
-			description: 'Medium-term investment with attractive rates.',
-			initialAmount: '₱5,000.00',
-			interestRate: '4.75% gross (renewal) / 4.50% gross (new)',
-			features: [
-				'Medium-term commitment',
-				'Enhanced interest rates',
-				'Automatic renewal option',
-				'Partial withdrawal allowed'
-			],
-			benefits: [
-				'Better returns than 3-month',
-				'Balanced risk-reward',
-				'Planning for mid-term goals',
-				'Stable investment option'
-			],
-			image: carouselImg2,
-			route: '/contact-us'
-		},
-		{
-			title: '1 Year',
-			description: 'Annual investment for long-term savings goals.',
-			initialAmount: '₱50,000.00',
-			interestRate: '6.00% gross (renewal) / 4.50% gross (new)',
-			features: [
-				'Annual commitment',
-				'Premium interest rates',
-				'Compound interest benefits',
-				'Flexible maturity options'
-			],
-			benefits: [
-				'Maximum returns',
-				'Long-term wealth building',
-				'Compound interest growth',
-				'Financial goal achievement'
-			],
-			image: carouselImg3,
-			route: '/contact-us'
-		},
-		{
-			title: '5 Years',
-			description: 'Long-term investment with the highest rates.',
-			initialAmount: '₱50,000.00',
-			interestRate: '6.0% net (credited annually) / 6.0% net (credited upon maturity)',
-			features: [
-				'Long-term commitment',
-				'Maximum interest rates',
-				'Annual interest crediting',
-				'Retirement planning tool'
-			],
-			benefits: [
-				'Highest possible returns',
-				'Retirement planning',
-				'Long-term wealth accumulation',
-				'Annual interest payments'
-			],
-			image: carouselImg4,
-			route: '/contact-us'
-		}
-	];
+	const [timeDeposits, setTimeDeposits] = useState([]);
+
+	useEffect(() => {
+		getTimeDeposits().then((response) => {
+			console.log('Time Deposits:', response);
+			setTimeDeposits(response.results);
+		});
+	}, []);
+	// const timeDeposits = [
+	// 	{
+	// 		title: '3 Months',
+	// 		description: 'Short-term investment with competitive rates.',
+	// 		initialAmount: '₱5,000.00',
+	// 		interestRate: '4.00% gross (renewal) / 4.50% gross (new)',
+	// 		features: [
+	// 			'Short-term commitment',
+	// 			'Competitive interest rates',
+	// 			'Flexible renewal options',
+	// 			'Early withdrawal available with penalty'
+	// 		],
+	// 		benefits: [
+	// 			'Quick returns',
+	// 			'Low risk investment',
+	// 			'Liquidity after 3 months',
+	// 			'Higher than savings rates'
+	// 		],
+	// 		image: carouselImg1,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		title: '6 Months',
+	// 		description: 'Medium-term investment with attractive rates.',
+	// 		initialAmount: '₱5,000.00',
+	// 		interestRate: '4.75% gross (renewal) / 4.50% gross (new)',
+	// 		features: [
+	// 			'Medium-term commitment',
+	// 			'Enhanced interest rates',
+	// 			'Automatic renewal option',
+	// 			'Partial withdrawal allowed'
+	// 		],
+	// 		benefits: [
+	// 			'Better returns than 3-month',
+	// 			'Balanced risk-reward',
+	// 			'Planning for mid-term goals',
+	// 			'Stable investment option'
+	// 		],
+	// 		image: carouselImg2,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		title: '1 Year',
+	// 		description: 'Annual investment for long-term savings goals.',
+	// 		initialAmount: '₱50,000.00',
+	// 		interestRate: '6.00% gross (renewal) / 4.50% gross (new)',
+	// 		features: [
+	// 			'Annual commitment',
+	// 			'Premium interest rates',
+	// 			'Compound interest benefits',
+	// 			'Flexible maturity options'
+	// 		],
+	// 		benefits: [
+	// 			'Maximum returns',
+	// 			'Long-term wealth building',
+	// 			'Compound interest growth',
+	// 			'Financial goal achievement'
+	// 		],
+	// 		image: carouselImg3,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		title: '5 Years',
+	// 		description: 'Long-term investment with the highest rates.',
+	// 		initialAmount: '₱50,000.00',
+	// 		interestRate: '6.0% net (credited annually) / 6.0% net (credited upon maturity)',
+	// 		features: [
+	// 			'Long-term commitment',
+	// 			'Maximum interest rates',
+	// 			'Annual interest crediting',
+	// 			'Retirement planning tool'
+	// 		],
+	// 		benefits: [
+	// 			'Highest possible returns',
+	// 			'Retirement planning',
+	// 			'Long-term wealth accumulation',
+	// 			'Annual interest payments'
+	// 		],
+	// 		image: carouselImg4,
+	// 		route: '/contact-us'
+	// 	}
+	// ];
 
 	useEffect(() => {
 		const handleScroll = () => setScrollY(window.scrollY);
@@ -213,7 +222,7 @@ export default function TimeDeposit() {
 										<div className="mb-4 flex items-center justify-between">
 											<div>
 												<h3 className="text-xl leading-snug font-bold text-white">
-													{deposit.title}
+													{deposit.name}
 												</h3>
 												<p className="text-xs leading-snug font-normal text-white/80">
 													Term Period
@@ -221,7 +230,7 @@ export default function TimeDeposit() {
 											</div>
 											<div className="text-right">
 												<div className="text-xl leading-snug font-bold text-[#aee3b7]">
-													{deposit.interestRate.split(' ')[0]}
+													{deposit.interest_rate_below}% - {deposit.interest_rate_above}%
 												</div>
 												<div className="text-xs leading-snug font-normal text-white/80">
 													Interest Rate
@@ -238,7 +247,7 @@ export default function TimeDeposit() {
 												Minimum Initial Amount
 											</div>
 											<div className="text-lg leading-snug font-bold text-white">
-												{deposit.initialAmount}
+												₱{deposit.required_initial_deposit}
 											</div>
 										</div>
 

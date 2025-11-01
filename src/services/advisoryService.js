@@ -12,7 +12,7 @@ const advisoryService = {
 	 */
 	async getGallery() {
 		try {
-			const response = await api.get('/advisory/gallery/');
+			const response = await api.get('/advisory/');
 			return { success: true, data: response.data };
 		} catch (error) {
 			const apiError = handleApiError(error);

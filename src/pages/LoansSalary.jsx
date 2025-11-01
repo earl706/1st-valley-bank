@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import img3 from '/src/assets/homepage/3.png';
 import img4 from '/src/assets/homepage/4.png';
 import img5 from '/src/assets/homepage/5.png';
-import img6 from '/src/assets/homepage/6.png';
 import CarouselSection from '../components/CarouselSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
-import img from '/src/assets/homepage/heroSectionImage.png';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
@@ -14,46 +12,102 @@ import carouselImg4 from '/src/assets/carousel/4.png';
 import carouselImg5 from '/src/assets/carousel/5.png';
 import carouselImg6 from '/src/assets/carousel/6.png';
 import carouselImg7 from '/src/assets/carousel/7.png';
+import loanService from '../services/loanService';
 
 export default function LoansSalary() {
-	const salaryLoanTypes = [
-		{
-			id: 1,
-			title: "Government Teacher's Loan",
-			description:
-				'Specially designed for government teachers with competitive rates and flexible terms tailored to the teaching profession.',
-			features: [],
-			image: carouselImg4,
-			route: '/contact-us'
-		},
-		{
-			id: 2,
-			title: 'ATM and Bonus Loans',
-			description:
-				'Access funds through your ATM and secure loans against your expected bonuses with convenient withdrawal options.',
-			features: [],
-			image: carouselImg5,
-			route: '/contact-us'
-		},
-		{
-			id: 3,
-			title: 'LGU Loan',
-			description:
-				'Designed for Local Government Unit employees with specialized terms and conditions that cater to public sector workers.',
-			features: [],
-			image: carouselImg6,
-			route: '/contact-us'
-		},
-		{
-			id: 4,
-			title: 'Barangay Loan',
-			description:
-				'Community-focused loans for barangay officials and employees, supporting local governance with accessible financing options.',
-			features: [],
-			image: carouselImg7,
-			route: '/contact-us'
+	const [salaryLoanTypes, setSalaryLoanTypes] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	const getSalaryLoanTypes = async () => {
+		try {
+			const response = await loanService.getByType('salary');
+			console.log(response);
+			setSalaryLoanTypes(response.results);
+		} catch (error) {
+			console.error('Failed to fetch salary loan types:', error);
+			setSalaryLoanTypes([]);
+		} finally {
+			setLoading(false);
 		}
-	];
+	};
+
+	useEffect(() => {
+		getSalaryLoanTypes();
+	}, []);
+
+	// const salaryLoanTypes = [
+	// 	{
+	// 		id: 1,
+	// 		title: "Government Teacher's Loan",
+	// 		description:
+	// 			'Specially designed for government teachers with competitive rates and flexible terms tailored to the teaching profession.',
+	// 		features: ['feature 1', 'feature 2', 'feature 3'],
+	// 		requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
+	// 		term_options: ['6 months', '12 months'],
+	// 		interest_rate: '6.5% - 8.5%',
+	// 		min_amount: 10000,
+	// 		max_amount: 100000,
+	// 		interest_rate_below: 6.5,
+	// 		interest_rate_above: 8.5,
+	// 		term_min_months: 6,
+	// 		term_max_months: 12,
+	// 		image: carouselImg4,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		id: 2,
+	// 		title: 'ATM and Bonus Loans',
+	// 		description:
+	// 			'Access funds through your ATM and secure loans against your expected bonuses with convenient withdrawal options.',
+	// 		features: ['feature 1', 'feature 2', 'feature 3'],
+	// 		requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
+	// 		term_options: ['6 months', '12 months'],
+	// 		interest_rate: '6.5% - 8.5%',
+	// 		min_amount: 10000,
+	// 		max_amount: 100000,
+	// 		interest_rate_below: 6.5,
+	// 		interest_rate_above: 8.5,
+	// 		term_min_months: 6,
+	// 		term_max_months: 12,
+	// 		image: carouselImg4,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		id: 3,
+	// 		title: 'LGU Loan',
+	// 		description:
+	// 			'Designed for Local Government Unit employees with specialized terms and conditions that cater to public sector workers.',
+	// 		features: ['feature 1', 'feature 2', 'feature 3'],
+	// 		requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
+	// 		term_options: ['6 months', '12 months'],
+	// 		interest_rate: '6.5% - 8.5%',
+	// 		min_amount: 10000,
+	// 		max_amount: 100000,
+	// 		interest_rate_below: 6.5,
+	// 		interest_rate_above: 8.5,
+	// 		term_min_months: 6,
+	// 		term_max_months: 12,
+	// 		image: carouselImg4,
+	// 		route: '/contact-us'
+	// 	},
+	// 	{
+	// 		id: 4,
+	// 		title: 'Barangay Loan',
+	// 		description:
+	// 			'Community-focused loans for barangay officials and employees, supporting local governance with accessible financing options.',
+	// 		features: ['feature 1', 'feature 2', 'feature 3'],
+	// 		requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
+	// 		term_options: ['6 months', '12 months'],
+	// 		interest_rate: '6.5% - 8.5%',
+	// 		min_amount: 10000,
+	// 		max_amount: 100000,
+	// 		interest_rate_below: 6.5,
+	// 		interest_rate_above: 8.5,
+	// 		term_min_months: 6,
+	// 		image: carouselImg7,
+	// 		route: '/contact-us'
+	// 	}
+	// ];
 
 	// Carousel slides combining hero and salary loan types
 	const salaryLoanSlides = [
