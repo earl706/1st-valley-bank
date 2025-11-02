@@ -155,7 +155,7 @@ export default function SavingsAccount() {
 											</div>
 										</div>
 										<DarkPrimaryButton
-											to={account.route}
+											to={account.route || `/contact-us`}
 											className="mt-auto flex w-full"
 											secondaryIcon={
 												<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
