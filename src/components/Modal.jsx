@@ -69,7 +69,7 @@ export default function Modal({
 			/>
 
 			{/* Modal Content */}
-			<div className="relative mx-4 max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl bg-white shadow-2xl">
+			<div className="relative mx-4 max-h-[90vh] w-full max-w-7xl overflow-y-auto rounded-2xl bg-white shadow-2xl">
 				{/* Header */}
 				<div className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-200 bg-white px-6 py-4">
 					<h2 className="text-xl font-bold text-gray-900">{title}</h2>
