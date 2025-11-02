@@ -20,77 +20,6 @@ export default function CheckingAccount() {
 			setCheckingAccounts(response.results);
 		});
 	}, []);
-	// const checkingAccounts = [
-	// 	{
-	// 		title: 'Personal Checking Account',
-	// 		description: 'A flexible account for individuals with check-writing and banking access.',
-	// 		initialDeposit: '₱5,000.00',
-	// 		minimumBalance: '₱10,000.00',
-	// 		interestRate: '0.10% - 0.15% p.a.',
-	// 		features: [
-	// 			'Check writing privileges',
-	// 			'ATM access',
-	// 			'Online banking',
-	// 			'Mobile banking',
-	// 			'Debit card',
-	// 			'Monthly statements'
-	// 		],
-	// 		benefits: [
-	// 			'Convenient bill payments',
-	// 			'Direct deposit',
-	// 			'Overdraft protection available',
-	// 			'24/7 account access'
-	// 		],
-	// 		image: carouselImg1,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		title: 'Business Checking Account',
-	// 		description: 'For businesses needing multiple signatories and advanced services.',
-	// 		initialDeposit: '₱10,000.00',
-	// 		minimumBalance: '₱10,000.00',
-	// 		interestRate: '0.10% - 0.15% p.a.',
-	// 		features: [
-	// 			'Multiple signatories',
-	// 			'Business check writing',
-	// 			'Payroll services',
-	// 			'Merchant services',
-	// 			'Cash management',
-	// 			'Online business banking'
-	// 		],
-	// 		benefits: [
-	// 			'Streamlined business operations',
-	// 			'Professional banking services',
-	// 			'Dedicated relationship manager',
-	// 			'Bulk transaction processing'
-	// 		],
-	// 		image: carouselImg2,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		title: 'Premium Checking Account',
-	// 		description: 'Get exclusive perks, higher limits, and premium services.',
-	// 		initialDeposit: '₱25,000.00',
-	// 		minimumBalance: '₱25,000.00',
-	// 		interestRate: '0.15% - 0.25% p.a.',
-	// 		features: [
-	// 			'Premium interest rates',
-	// 			'Unlimited transactions',
-	// 			'Priority customer service',
-	// 			'Free wire transfers',
-	// 			'Concierge banking',
-	// 			'Investment advisory services'
-	// 		],
-	// 		benefits: [
-	// 			'Exclusive banking privileges',
-	// 			'Waived fees on most services',
-	// 			'Priority loan processing',
-	// 			'Personalized financial planning'
-	// 		],
-	// 		image: carouselImg3,
-	// 		route: '/contact-us'
-	// 	}
-	// ];
 
 	useEffect(() => {
 		const handleScroll = () => setScrollY(window.scrollY);
@@ -230,7 +159,7 @@ export default function CheckingAccount() {
 											</div>
 										</div>
 
-										<NavLink to={account.route} className="mt-auto">
+										<NavLink to={account.route || `/contact-us`} className="mt-auto">
 											<DarkPrimaryButton className="flex w-full items-center justify-center gap-3">
 												<span className="text-center text-white">Open Account</span>
 												<ArrowRight className="h-5 w-5 text-white transition-transform duration-300 group-hover:translate-x-1" />
