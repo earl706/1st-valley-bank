@@ -10,7 +10,7 @@ import {
 	Minimize2,
 	FileText,
 	AlertCircle,
-	CheckCircle,
+	CheckCircle
 } from 'lucide-react';
 import chatbotService from '../services/chatbotService';
 
@@ -59,20 +59,17 @@ const ChatToggleButton = ({ onClick }) => (
 	</div>
 );
 
-const ChatHeader = ({
-	onMinimize,
-	onClose,
-}) => (
+const ChatHeader = ({ onMinimize, onClose }) => (
 	<div className="flex flex-shrink-0 items-center justify-between rounded-t-2xl bg-[#396131] px-4 py-3 text-white">
 		<div className="flex items-center space-x-3">
 			<div className="relative">
-				<div className="bg-opacity-20 flex h-8 w-8 items-center justify-center rounded-full bg-white">
-					<Sparkles className="h-4 w-4" />
+				<div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
+					<Sparkles className="h-4 w-4 text-white" />
 				</div>
 				<div className="absolute -right-1 -bottom-1 h-3 w-3 rounded-full border-2 border-white bg-green-400"></div>
 			</div>
 			<div>
-				<h3 className="text-sm font-semibold">AI Assistant</h3>
+				<h3 className="text-sm font-semibold">ValleyBot</h3>
 				<p className="text-xs opacity-90">Online</p>
 			</div>
 		</div>
@@ -97,7 +94,7 @@ const ChatMessage = ({ message }) => {
 	const isUser = message.sender === 'user';
 	const hasError = message.error;
 	const hasSources = message.sources && message.sources.length > 0;
-	
+
 	return (
 		<div
 			className={`animate-fade-in flex items-start space-x-2 ${
@@ -121,21 +118,21 @@ const ChatMessage = ({ message }) => {
 						isUser
 							? 'rounded-tr-sm bg-[#396131] text-white'
 							: hasError
-								? 'rounded-tl-sm bg-red-50 text-red-800 border border-red-200'
+								? 'rounded-tl-sm border border-red-200 bg-red-50 text-red-800'
 								: 'rounded-tl-sm bg-gray-100 text-gray-800'
 					}`}
 				>
 					{hasError && (
-						<div className="flex items-center gap-1 mb-1 text-red-600">
+						<div className="mb-1 flex items-center gap-1 text-red-600">
 							<AlertCircle className="h-3 w-3" />
 							<span className="text-xs font-semibold">Error</span>
 						</div>
 					)}
 					<p className="leading-relaxed whitespace-pre-wrap">{message.text}</p>
-					
+
 					{hasSources && !isUser && (
-						<div className="mt-2 pt-2 border-t border-gray-300">
-							<div className="flex items-center gap-1 text-xs text-gray-600 mb-1">
+						<div className="mt-2 border-t border-gray-300 pt-2">
+							<div className="mb-1 flex items-center gap-1 text-xs text-gray-600">
 								<FileText className="h-3 w-3" />
 								<span className="font-semibold">Sources:</span>
 							</div>
@@ -143,12 +140,12 @@ const ChatMessage = ({ message }) => {
 								{message.sources.slice(0, 2).map((source, idx) => {
 									if (!source || !source.content) return null;
 									return (
-										<div key={idx} className="text-xs text-gray-600 bg-white p-1.5 rounded">
+										<div key={idx} className="rounded bg-white p-1.5 text-xs text-gray-600">
 											<div className="flex items-start gap-1">
 												<span className="font-semibold text-[#396131]">#{idx + 1}</span>
 												<span className="line-clamp-2">{source.content.substring(0, 100)}...</span>
 											</div>
-											<div className="text-[10px] text-gray-500 mt-0.5">
+											<div className="mt-0.5 text-[10px] text-gray-500">
 												Relevance: {((source.similarity || 0) * 100).toFixed(0)}%
 											</div>
 										</div>
@@ -167,7 +164,7 @@ const ChatMessage = ({ message }) => {
 };
 
 const DocumentSelector = ({ documents, selectedDocId, onSelect, loading }) => (
-	<div className="border-b border-gray-200 p-3 bg-gray-50">
+	<div className="border-b border-gray-200 bg-gray-50 p-3">
 		<div className="flex items-center gap-2">
 			<FileText className="h-4 w-4 text-[#396131]" />
 			<div className="flex-1">
@@ -179,7 +176,7 @@ const DocumentSelector = ({ documents, selectedDocId, onSelect, loading }) => (
 					<select
 						value={selectedDocId || ''}
 						onChange={(e) => onSelect(e.target.value)}
-						className="w-full text-xs rounded-lg border-gray-300 focus:border-[#396131] focus:ring-[#396131] bg-white"
+						className="w-full rounded-lg border-gray-300 bg-white text-xs focus:border-[#396131] focus:ring-[#396131]"
 					>
 						<option value="">All Documents</option>
 						{documents.map((doc) => (
@@ -200,14 +197,7 @@ const DocumentSelector = ({ documents, selectedDocId, onSelect, loading }) => (
 	</div>
 );
 
-const ChatInput = ({
-	inputRef,
-	inputText,
-	isTyping,
-	onChange,
-	onKeyPress,
-	onSend,
-}) => (
+const ChatInput = ({ inputRef, inputText, isTyping, onChange, onKeyPress, onSend }) => (
 	<div className="flex-shrink-0 border-t border-gray-200 p-4">
 		<div className="mb-3 flex items-center space-x-2">
 			<div className="relative flex flex-1">
@@ -252,14 +242,16 @@ export default function ChatBox() {
 			sender: 'ai',
 			timestamp: new Date().toLocaleTimeString([], {
 				hour: '2-digit',
-				minute: '2-digit',
-			}),
-		},
+				minute: '2-digit'
+			})
+		}
 	]);
 	const [inputText, setInputText] = useState('');
 	const [isTyping, setIsTyping] = useState(false);
 	const [documents, setDocuments] = useState([]);
-	const [selectedDocumentId, setSelectedDocumentId] = useState(null);
+	// HARDCODED document ID below (replace with actual doc id as desired)
+	const HARDCODED_DOCUMENT_ID = '761b8be7-fe90-4309-b10b-7efcbfae21b8';
+	const [selectedDocumentId, setSelectedDocumentId] = useState(HARDCODED_DOCUMENT_ID);
 	const [loadingDocuments, setLoadingDocuments] = useState(false);
 	const [sessionId, setSessionId] = useState(null);
 
@@ -279,11 +271,8 @@ export default function ChatBox() {
 			// Get or create session ID
 			const sid = chatbotService.getRAGSessionId();
 			setSessionId(sid);
-			// Load saved document selection
-			const savedDocId = chatbotService.getSelectedDocumentId();
-			if (savedDocId) {
-				setSelectedDocumentId(savedDocId);
-			}
+			// Use HARDCODED document selection
+			setSelectedDocumentId(HARDCODED_DOCUMENT_ID);
 		}
 	}, [isOpen]);
 
@@ -293,9 +282,10 @@ export default function ChatBox() {
 		setLoadingDocuments(true);
 		try {
 			const response = await chatbotService.getDocuments();
+			console.log('Documents:', response.data);
 			if (response.success) {
 				// Filter to only show completed documents
-				const completedDocs = response.data.filter(doc => doc.status === 'completed');
+				const completedDocs = response.data.filter((doc) => doc.status === 'completed');
 				setDocuments(completedDocs);
 			} else {
 				console.error('Failed to load documents:', response.error);
@@ -311,19 +301,19 @@ export default function ChatBox() {
 
 	const handleSendMessage = async () => {
 		if (!inputText.trim()) return;
-		
+
 		const timestamp = new Date().toLocaleTimeString([], {
 			hour: '2-digit',
-			minute: '2-digit',
+			minute: '2-digit'
 		});
-		
+
 		const userMessage = {
 			id: Date.now(),
 			text: inputText,
 			sender: 'user',
-			timestamp,
+			timestamp
 		};
-		
+
 		setMessages((prev) => [...prev, userMessage]);
 		const question = inputText;
 		setInputText('');
@@ -331,28 +321,24 @@ export default function ChatBox() {
 
 		try {
 			// Call RAG API
-			const response = await chatbotService.askRAG(
-				question,
-				selectedDocumentId,
-				sessionId
-			);
+			const response = await chatbotService.askRAG(question, HARDCODED_DOCUMENT_ID, sessionId);
 
 			if (response.success) {
 				// Filter and validate sources to ensure they have required properties
 				const validSources = (response.data.sources || []).filter(
-					source => source && source.content && typeof source.content === 'string'
+					(source) => source && source.content && typeof source.content === 'string'
 				);
-				
+
 				const aiMessage = {
 					id: Date.now() + 1,
 					text: response.data.answer || 'I apologize, but I could not generate a response.',
 					sender: 'ai',
 					timestamp: new Date().toLocaleTimeString([], {
 						hour: '2-digit',
-						minute: '2-digit',
+						minute: '2-digit'
 					}),
 					sources: validSources,
-					confidence: response.data.confidence,
+					confidence: response.data.confidence
 				};
 				setMessages((prev) => [...prev, aiMessage]);
 			} else {
@@ -363,9 +349,9 @@ export default function ChatBox() {
 					sender: 'ai',
 					timestamp: new Date().toLocaleTimeString([], {
 						hour: '2-digit',
-						minute: '2-digit',
+						minute: '2-digit'
 					}),
-					error: true,
+					error: true
 				};
 				setMessages((prev) => [...prev, errorMessage]);
 			}
@@ -377,9 +363,9 @@ export default function ChatBox() {
 				sender: 'ai',
 				timestamp: new Date().toLocaleTimeString([], {
 					hour: '2-digit',
-					minute: '2-digit',
+					minute: '2-digit'
 				}),
-				error: true,
+				error: true
 			};
 			setMessages((prev) => [...prev, errorMessage]);
 		} finally {
@@ -390,23 +376,24 @@ export default function ChatBox() {
 	const handleDocumentSelect = (docId) => {
 		setSelectedDocumentId(docId || null);
 		chatbotService.saveSelectedDocumentId(docId);
-		
+
 		// Add a system message about document selection
 		const timestamp = new Date().toLocaleTimeString([], {
 			hour: '2-digit',
-			minute: '2-digit',
+			minute: '2-digit'
 		});
-		
-		const selectedDoc = documents.find(d => d.id === docId);
-		const messageText = docId && selectedDoc
-			? `Now querying: "${selectedDoc.title}"`
-			: 'Now querying all available documents';
-		
+
+		const selectedDoc = documents.find((d) => d.id === docId);
+		const messageText =
+			docId && selectedDoc
+				? `Now querying: "${selectedDoc.title}"`
+				: 'Now querying all available documents';
+
 		const systemMessage = {
 			id: Date.now(),
 			text: messageText,
 			sender: 'ai',
-			timestamp,
+			timestamp
 		};
 		setMessages((prev) => [...prev, systemMessage]);
 	};
@@ -441,13 +428,15 @@ export default function ChatBox() {
 					{!isMinimized && (
 						<>
 							{/* Document Selector */}
+							{/*
 							<DocumentSelector
 								documents={documents}
 								selectedDocId={selectedDocumentId}
 								onSelect={handleDocumentSelect}
 								loading={loadingDocuments}
 							/>
-							
+							*/}
+
 							{/* Messages List */}
 							<div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-4">
 								{messages.map((message) => (
@@ -456,7 +445,7 @@ export default function ChatBox() {
 								{isTyping && <TypingIndicator />}
 								<div ref={messagesEndRef} />
 							</div>
-							
+
 							{/* Chat Input */}
 							<ChatInput
 								inputRef={inputRef}
