@@ -381,51 +381,6 @@ export default function AboutUs() {
 		]
 	};
 
-	const branchDirectories = [
-		{
-			image: img9,
-			name: 'Baroy',
-			location: 'Poblacion, Baroy,  Lanao del Norte',
-			contact_numbers: '0917-849-6985 / 0955-512-2468 / 063-227-7142',
-			email: 'baroy@1vb.com.ph'
-		},
-		{
-			image: img9,
-			name: 'Baroy',
-			location: 'Poblacion, Baroy,  Lanao del Norte',
-			contact_numbers: '0917-849-6985 / 0955-512-2468 / 063-227-7142',
-			email: 'baroy@1vb.com.ph'
-		},
-		{
-			image: img9,
-			name: 'Baroy',
-			location: 'Poblacion, Baroy,  Lanao del Norte',
-			contact_numbers: '0917-849-6985 / 0955-512-2468 / 063-227-7142',
-			email: 'baroy@1vb.com.ph'
-		},
-		{
-			image: img9,
-			name: 'Baroy',
-			location: 'Poblacion, Baroy,  Lanao del Norte',
-			contact_numbers: '0917-849-6985 / 0955-512-2468 / 063-227-7142',
-			email: 'baroy@1vb.com.ph'
-		},
-		{
-			image: img9,
-			name: 'Baroy',
-			location: 'Poblacion, Baroy,  Lanao del Norte',
-			contact_numbers: '0917-849-6985 / 0955-512-2468 / 063-227-7142',
-			email: 'baroy@1vb.com.ph'
-		},
-		{
-			image: img9,
-			name: 'Baroy',
-			location: 'Poblacion, Baroy,  Lanao del Norte',
-			contact_numbers: '0917-849-6985 / 0955-512-2468 / 063-227-7142',
-			email: 'baroy@1vb.com.ph'
-		}
-	];
-
 	useEffect(() => {
 		const observers = [];
 
@@ -509,7 +464,7 @@ export default function AboutUs() {
 			subtitle: 'Your Trusted Development Bank',
 			description:
 				'Founded in 1956, 1st Valley Bank has a long and distinguished history of banking excellence. We started as a rural bank operating in Northern Mindanao and have grown exponentially as a development bank with 78 branches and branch lites in Mindanao and certain areas in the Visayas.',
-			image: logo,
+			image: carouselImg1,
 			imageAlt: '1st Valley Bank Logo',
 			route: '#description',
 			buttonText: 'Learn About Our Profile',

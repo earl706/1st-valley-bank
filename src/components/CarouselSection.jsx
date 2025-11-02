@@ -151,7 +151,7 @@ export default function CarouselSection({
 																: 'translate-y-4 opacity-0'
 														}`}
 													>
-														{slide.title}
+														{slide.title || slide.name}
 													</span>
 													{slide.subtitle && (
 														<span
@@ -203,8 +203,8 @@ export default function CarouselSection({
 
 												{/* Learn More Button */}
 												{showLearnMoreButton &&
-													slide.route &&
-													slide.showButton !== false &&
+													(slide.route || slide.button_route) &&
+													(slide.showButton !== false || slide.button_text) &&
 													!excludeLearnMoreForTitles.includes(slide.title) && (
 														<div
 															className={`transform pt-8 transition-all delay-500 duration-700 ${
@@ -227,7 +227,7 @@ export default function CarouselSection({
 																</button>
 															) : (
 																<NavLink
-																	to={slide.route}
+																	to={slide.route || slide.button_route}
 																	className="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 																	style={{
 																		background: `linear-gradient(to right, ${brandColor}, ${brandColor}dd)`

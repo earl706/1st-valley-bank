@@ -4,12 +4,6 @@ import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import { ArrowLeft, Users, Building, User, DollarSign, ArrowRight } from 'lucide-react';
 import CarouselSection from '../components/CarouselSection';
-import carouselImg1 from '/src/assets/carousel/1.png';
-import carouselImg2 from '/src/assets/carousel/2.png';
-import carouselImg3 from '/src/assets/carousel/3.png';
-import carouselImg4 from '/src/assets/carousel/4.png';
-import carouselImg5 from '/src/assets/carousel/5.png';
-import carouselImg6 from '/src/assets/carousel/6.png';
 import { DarkHeader, LightHeader } from '../components/Header';
 import { getSavingsAccounts } from '../services/depositService';
 
@@ -26,119 +20,6 @@ export default function SavingsAccount() {
 			setSavingsAccounts(response.results);
 		});
 	}, []);
-
-	// const savingsAccounts = [
-	// 	{
-	// 		title: 'Regular Savings',
-	// 		description: 'For individuals 18+, ideal for personal savings and monthly interest.',
-	// 		initialDeposit: '₱1,000.00',
-	// 		minimumBalance: '₱1,000.00',
-	// 		interestRate: '0.10% - 0.15% p.a.',
-	// 		features: ['Personal savings', 'Age 18+', 'Monthly interest', 'ATM access'],
-	// 		image: carouselImg1,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		title: 'Kiddie and Teens Savings',
-	// 		description: 'For ages 8-17, helps kids and teens save with parental guidance.',
-	// 		initialDeposit: '₱100.00',
-	// 		minimumBalance: '₱500.00',
-	// 		interestRate: '0.10% - 0.15% p.a.',
-	// 		features: [
-	// 			'Ages 8-17',
-	// 			'Educational savings',
-	// 			'Parent/guardian supervision',
-	// 			'Transition to regular account'
-	// 		],
-	// 		image: carouselImg2,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		title: 'SSD Regular Savings',
-	// 		description: 'For regular customers seeking enhanced benefits and premium services.',
-	// 		initialDeposit: '₱1,000.00',
-	// 		minimumBalance: '₱1,000.00',
-	// 		interestRate: '0.10% - 0.15% p.a',
-	// 		features: [
-	// 			'Enhanced benefits',
-	// 			'Regular customers',
-	// 			'Higher interest potential',
-	// 			'Premium services'
-	// 		],
-	// 		image: carouselImg3,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		title: 'SSD Microfinance Savings',
-	// 		description: 'For microfinance clients, offers flexible terms and community banking.',
-	// 		initialDeposit: '₱100.00',
-	// 		minimumBalance: '₱500.00',
-	// 		interestRate: '0.10% - 0.15% p.a',
-	// 		features: [
-	// 			'Microfinance clients',
-	// 			'Flexible terms',
-	// 			'Community banking',
-	// 			'Financial inclusion'
-	// 		],
-	// 		image: carouselImg4,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		title: 'SD Handog Savings',
-	// 		description: 'Special account with unique features for targeted customer segments.',
-	// 		initialDeposit: '₱1,000.00',
-	// 		minimumBalance: '₱1,000.00',
-	// 		interestRate: '0.10% - 0.15% p.a',
-	// 		features: ['Special features', 'Unique benefits', 'Targeted segments', 'Enhanced services'],
-	// 		image: carouselImg5,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		title: 'Basic Deposit Account',
-	// 		description: 'For 18+, promotes financial inclusion with no minimum balance required.',
-	// 		initialDeposit: '₱100.00',
-	// 		minimumBalance: 'None',
-	// 		interestRate: '0.10% - 0.15% p.a',
-	// 		features: [
-	// 			'Financial inclusion',
-	// 			'No minimum balance',
-	// 			'Micro-entrepreneurs',
-	// 			'Basic banking services'
-	// 		],
-	// 		image: carouselImg6,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		title: 'Payroll Served',
-	// 		description: 'For employers using the Bank’s ATM payroll for employee salaries.',
-	// 		initialDeposit: 'Based on Agreement',
-	// 		minimumBalance: '₱1,000.00',
-	// 		interestRate: '0.10% - 0.15% p.a',
-	// 		features: ['Payroll services', 'Employer accounts', 'ATM access', 'Salary distribution'],
-	// 		image: carouselImg1,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		title: 'ATM Savings',
-	// 		description: 'For individuals 18+, offers ATM access and convenient cashless banking.',
-	// 		initialDeposit: '₱1,000.00',
-	// 		minimumBalance: '₱1,000.00',
-	// 		interestRate: '0.10% - 0.15% p.a',
-	// 		features: ['ATM access', 'Convenient banking', 'Cashless transactions', '24/7 access'],
-	// 		image: carouselImg2,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		title: 'Student ATM Savings',
-	// 		description: 'For ages 7-19, low deposit, higher interest, and educational focus.',
-	// 		initialDeposit: '₱100.00',
-	// 		minimumBalance: '₱500.00',
-	// 		interestRate: '1.00% p.a',
-	// 		features: ['Ages 7-19', 'Low initial deposit', 'Higher interest rate', 'Educational focus'],
-	// 		image: carouselImg3,
-	// 		route: '/contact-us'
-	// 	}
-	// ];
 
 	useEffect(() => {
 		const handleScroll = () => setScrollY(window.scrollY);

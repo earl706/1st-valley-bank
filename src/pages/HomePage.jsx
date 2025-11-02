@@ -7,36 +7,21 @@ import {
 	Calendar,
 	ArrowRight,
 	MessageCircle,
-	Star,
-	CheckCircle,
 	Mail,
 	ShieldCheck,
 	Phone,
 	MapPin,
 	Handshake,
 	Quote,
-	Sparkles,
-	PiggyBank,
-	Building2,
-	Home,
-	Shield,
 	Users,
 	TrendingUp,
 	ChevronUp,
 	ChevronDown
 } from 'lucide-react';
 
-import img1 from '/src/assets/homepage/1.png';
-import img2 from '/src/assets/homepage/2.png';
-import img3 from '/src/assets/homepage/3.png';
-import img4 from '/src/assets/homepage/4.png';
-import img5 from '/src/assets/homepage/5.png';
-import img6 from '/src/assets/homepage/6.png';
-import logo from '/src/assets/logo.png';
 import CarouselSection from '../components/CarouselSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import carouselImg1 from '/src/assets/carousel/1.png';
-import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
 import carouselImg4 from '/src/assets/carousel/4.png';
 import carouselImg5 from '/src/assets/carousel/5.png';
@@ -138,6 +123,7 @@ export default function HomePage() {
 	const [testimonials, setTestimonials] = useState([]);
 	const [faqs, setFaqs] = useState([]);
 	const [services, setServices] = useState([]);
+	const [heroSlides, setHeroSlides] = useState([]);
 
 	const fetchPageData = async () => {
 		try {
@@ -147,6 +133,7 @@ export default function HomePage() {
 			setTestimonials(response.data.testimonials);
 			setFaqs(response.data.faqs);
 			setServices(response.data.services);
+			setHeroSlides(response.data.hero_sections);
 		} catch (error) {
 			console.error('Error fetching page data:', error);
 		}
@@ -212,63 +199,63 @@ export default function HomePage() {
 		}
 	];
 
-	const heroSlides = [
-		{
-			title: 'Bank with ease, Bank with 1VB ATM',
-			subtitle: '',
-			description:
-				'Access your money anytime, anywhere with our reliable ATM network. Withdraw cash, check balances, and more—day or night.',
-			image: carouselImg3,
-			imageAlt: 'ATM Services',
-			route: '/atm-locator',
-			buttonText: 'Find an ATM',
-			showButton: true
-		},
-		{
-			title: 'GCash Services for Easy Transactions',
-			subtitle: '',
-			description:
-				'Link your account to GCash for seamless digital payments, fund transfers, and more. Experience the convenience of cashless banking.',
-			image: carouselImg1,
-			imageAlt: 'GCash Services',
-			route: '/gcash-services',
-			buttonText: 'Learn More',
-			showButton: true
-		},
-		{
-			title: 'Secure Your Future with Smart Savings',
-			subtitle: '',
-			description:
-				'Start building your wealth today with our high-yield savings accounts and investment products designed to help you reach your financial goals faster.',
-			image: carouselImg4,
-			imageAlt: 'Savings & Deposits',
-			route: '/deposits',
-			buttonText: 'Open Savings Account',
-			showButton: true
-		},
-		{
-			title: 'Grow Your Business with Flexible Loans',
-			subtitle: '',
-			description:
-				'Get the funding you need to expand your business, purchase equipment, or invest in new opportunities with our competitive loan products.',
-			image: carouselImg5,
-			imageAlt: 'Loans & Credit',
-			route: '/loans',
-			buttonText: 'Apply for Loan',
-			showButton: true
-		},
-		{
-			title: 'Find Your Dream Property Today',
-			subtitle: '',
-			description:
-				'Browse our exclusive collection of prime real estate and vehicles. We offer flexible financing options to make your property dreams come true.',
-			image: carouselImg6,
-			imageAlt: 'Properties for Sale',
-			route: '/properties-for-sale',
-			buttonText: 'Browse Properties',
-			showButton: true
-		}
-	];
+	// const heroSlides = [
+	// 	{
+	// 		title: 'Bank with ease, Bank with 1VB ATM',
+	// 		subtitle: '',
+	// 		description:
+	// 			'Access your money anytime, anywhere with our reliable ATM network. Withdraw cash, check balances, and more—day or night.',
+	// 		image: carouselImg3,
+	// 		imageAlt: 'ATM Services',
+	// 		route: '/atm-locator',
+	// 		buttonText: 'Find an ATM',
+	// 		showButton: true
+	// 	},
+	// 	{
+	// 		title: 'GCash Services for Easy Transactions',
+	// 		subtitle: '',
+	// 		description:
+	// 			'Link your account to GCash for seamless digital payments, fund transfers, and more. Experience the convenience of cashless banking.',
+	// 		image: carouselImg1,
+	// 		imageAlt: 'GCash Services',
+	// 		route: '/gcash-services',
+	// 		buttonText: 'Learn More',
+	// 		showButton: true
+	// 	},
+	// 	{
+	// 		title: 'Secure Your Future with Smart Savings',
+	// 		subtitle: '',
+	// 		description:
+	// 			'Start building your wealth today with our high-yield savings accounts and investment products designed to help you reach your financial goals faster.',
+	// 		image: carouselImg4,
+	// 		imageAlt: 'Savings & Deposits',
+	// 		route: '/deposits',
+	// 		buttonText: 'Open Savings Account',
+	// 		showButton: true
+	// 	},
+	// 	{
+	// 		title: 'Grow Your Business with Flexible Loans',
+	// 		subtitle: '',
+	// 		description:
+	// 			'Get the funding you need to expand your business, purchase equipment, or invest in new opportunities with our competitive loan products.',
+	// 		image: carouselImg5,
+	// 		imageAlt: 'Loans & Credit',
+	// 		route: '/loans',
+	// 		buttonText: 'Apply for Loan',
+	// 		showButton: true
+	// 	},
+	// 	{
+	// 		title: 'Find Your Dream Property Today',
+	// 		subtitle: '',
+	// 		description:
+	// 			'Browse our exclusive collection of prime real estate and vehicles. We offer flexible financing options to make your property dreams come true.',
+	// 		image: carouselImg6,
+	// 		imageAlt: 'Properties for Sale',
+	// 		route: '/properties-for-sale',
+	// 		buttonText: 'Browse Properties',
+	// 		showButton: true
+	// 	}
+	// ];
 
 	useEffect(() => {
 		newsletterService.getNewsletters({ page: 1, page_size: 3 }).then((response) => {

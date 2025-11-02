@@ -1,156 +1,141 @@
-import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faExpand,
-  faPlus,
-  faPlusCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExpand, faPlus, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 export default function DepositsRegularSavings() {
-  const [scrollY, setScrollY] = useState(0);
-  const [isVisible, setIsVisible] = useState({});
-  const [activeSection, setActiveSection] = useState("");
+	const [scrollY, setScrollY] = useState(0);
+	const [isVisible, setIsVisible] = useState({});
+	const [activeSection, setActiveSection] = useState('');
 
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+	useEffect(() => {
+		const handleScroll = () => setScrollY(window.scrollY);
+		window.addEventListener('scroll', handleScroll);
+		return () => window.removeEventListener('scroll', handleScroll);
+	}, []);
 
-  useEffect(() => {
-    const observers = [];
+	useEffect(() => {
+		const observers = [];
 
-    const createObserver = (threshold = 0.01) => {
-      return new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            setIsVisible((prev) => ({
-              ...prev,
-              [entry.target.id]: entry.isIntersecting,
-            }));
+		const createObserver = (threshold = 0.01) => {
+			return new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						setIsVisible((prev) => ({
+							...prev,
+							[entry.target.id]: entry.isIntersecting
+						}));
 
-            if (entry.isIntersecting) {
-              setActiveSection(entry.target.id);
-            }
-          });
-        },
-        { threshold, rootMargin: "-50px 0px" }
-      );
-    };
+						if (entry.isIntersecting) {
+							setActiveSection(entry.target.id);
+						}
+					});
+				},
+				{ threshold, rootMargin: '-50px 0px' }
+			);
+		};
 
-    const observer = createObserver();
-    const elements = document.querySelectorAll("[data-scroll]");
-    elements.forEach((el) => observer.observe(el));
-    observers.push(observer);
+		const observer = createObserver();
+		const elements = document.querySelectorAll('[data-scroll]');
+		elements.forEach((el) => observer.observe(el));
+		observers.push(observer);
 
-    return () => observers.forEach((obs) => obs.disconnect());
-  }, []);
+		return () => observers.forEach((obs) => obs.disconnect());
+	}, []);
 
-  const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
+	const scrollToSection = (id) => {
+		document.getElementById(id)?.scrollIntoView({
+			behavior: 'smooth',
+			block: 'start'
+		});
+	};
 
-  return (
-    <>
-      <main className="flex flex-col gap-[50px] lg:gap-[120px] pb-[50px]">
-        <nav className="fixed top-35 right-4 z-40 bg-black bg-opacity-50 backdrop-blur-lg rounded-2xl p-2">
-          <div className="flex flex-col gap-2">
-            {["main", "sd-plus", "first-checking-account"].map((section) => (
-              <button
-                key={section}
-                onClick={() => scrollToSection(section)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  activeSection === section
-                    ? "bg-[#396131] scale-125 cursor-pointer"
-                    : "bg-gray-500 hover:bg-gray-300 cursor-pointer"
-                }`}
-              />
-            ))}
-          </div>
-        </nav>
-        <section
-          id="main"
-          data-scroll
-          className="text-[#396131] bg-white drop-shadow-lg mx-[5px] rounded-[8px]"
-        >
-          <div className="flex flex-col gap-[20px] px-[20px] py-[30px] lg:py-[80px] lg:px-[60px] mx-[10px]">
-            <div className="flex flex-col gap-[10px]">
-              <span className="text-[2rem]/[2rem] lg:text-[4rem]/[4rem] font-bold">
-                Deposits / Regular Savings
-              </span>
-              <span className="text-[1rem]/[1rem] lg:text-[1.5rem]/[1.5rem] font-bold">
-                Saving with a smile
-              </span>
-            </div>
-            <span className="text-[0.8rem]/[1.6rem] lg:text-[1rem]/[2rem] lg:w-1/2">
-              This savings account offers an annual interest rate that is 0.5%
-              higher than what most banks typically provide. It stands out as a
-              wise and practical option for individuals looking to securely park
-              their cash while earning a slightly better return compared to
-              conventional savings accounts, making it a smart financial
-              decision
-            </span>
-          </div>
-        </section>
-        <section id="sd-plus" data-scroll className="mx-[10px] lg:mx-[40px]">
-          <div className="flex flex-col justify-center gap-[70px] px-[20px] lg:px-[80px] text-[#396131]">
-            <div className="flex flex-col lg:flex-row justify-center gap-[30px]">
-              <div className="flex justify-center lg:w-1/5">
-                {" "}
-                <FontAwesomeIcon
-                  icon={faPlusCircle}
-                  className="flex aspect-square"
-                  style={{ width: "250px", height: "250px" }}
-                />
-              </div>
-              <div className="flex flex-col justify-start gap-[20px] lg:w-4/5">
-                <span className="text-[1.5rem]/[3rem] font-bold">SD PLUS</span>
-                <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
-                  1VB Deposit has grown bigger with a portfolio increase of
-                  784.063 million. It is now at Php7.5B with a good mix of low
-                  and high-cost deposit. 40 ATMs have been deployed
-                  strategically enabling 1VB consumers to experience convenient
-                  banking.
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section
-          id="first-checking-account"
-          data-scroll
-          className="mx-[5px] lg:mx-[15px]"
-        >
-          <div className="flex flex-col justify-center gap-[70px] p-[30px] lg:p-[80px] rounded-[8px] bg-[#396131] text-white drop-shadow-lg">
-            <div className="flex flex-col-reverse lg:flex-row justify-center gap-[30px]">
-              <div className="flex flex-col justify-start gap-[20px] lg:w-4/5">
-                <span className="text-[1.5rem]/[3rem] font-bold">
-                  1ST CHECKING ACCOUNT
-                </span>
-                <span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
-                  1st Checking Account is a demand deposit that earns interest
-                  and comes with a passbook. It can be a personal account or a
-                  business account. It can also be tied up with ones loan
-                  account with us. This demand deposit allows clients to enjoy
-                  lower loan interest rates. All applications for account
-                  opening are subject to evaluation.
-                </span>
-              </div>
-              <div className="flex justify-center lg:w-1/5">
-                {" "}
-                <FontAwesomeIcon
-                  icon={faPlusCircle}
-                  className="flex aspect-square"
-                  style={{ width: "250px", height: "250px" }}
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </>
-  );
+	return (
+		<>
+			<main className="flex flex-col gap-[50px] pb-[50px] lg:gap-[120px]">
+				<nav className="bg-opacity-50 fixed top-35 right-4 z-40 rounded-2xl bg-black p-2 backdrop-blur-lg">
+					<div className="flex flex-col gap-2">
+						{['main', 'sd-plus', 'first-checking-account'].map((section) => (
+							<button
+								key={section}
+								onClick={() => scrollToSection(section)}
+								className={`h-3 w-3 rounded-full transition-all duration-300 ${
+									activeSection === section
+										? 'scale-125 cursor-pointer bg-[#396131]'
+										: 'cursor-pointer bg-gray-500 hover:bg-gray-300'
+								}`}
+							/>
+						))}
+					</div>
+				</nav>
+				<section
+					id="main"
+					data-scroll
+					className="mx-[5px] rounded-[8px] bg-white text-[#396131] drop-shadow-lg"
+				>
+					<div className="mx-[10px] flex flex-col gap-[20px] px-[20px] py-[30px] lg:px-[60px] lg:py-[80px]">
+						<div className="flex flex-col gap-[10px]">
+							<span className="text-[2rem]/[2rem] font-bold lg:text-[4rem]/[4rem]">
+								Deposits / Regular Savings
+							</span>
+							<span className="text-[1rem]/[1rem] font-bold lg:text-[1.5rem]/[1.5rem]">
+								Saving with a smile
+							</span>
+						</div>
+						<span className="text-[0.8rem]/[1.6rem] lg:w-1/2 lg:text-[1rem]/[2rem]">
+							This savings account offers an annual interest rate that is 0.5% higher than what most
+							banks typically provide. It stands out as a wise and practical option for individuals
+							looking to securely park their cash while earning a slightly better return compared to
+							conventional savings accounts, making it a smart financial decision
+						</span>
+					</div>
+				</section>
+				<section id="sd-plus" data-scroll className="mx-[10px] lg:mx-[40px]">
+					<div className="flex flex-col justify-center gap-[70px] px-[20px] text-[#396131] lg:px-[80px]">
+						<div className="flex flex-col justify-center gap-[30px] lg:flex-row">
+							<div className="flex justify-center lg:w-1/5">
+								{' '}
+								<FontAwesomeIcon
+									icon={faPlusCircle}
+									className="flex aspect-square"
+									style={{ width: '250px', height: '250px' }}
+								/>
+							</div>
+							<div className="flex flex-col justify-start gap-[20px] lg:w-4/5">
+								<span className="text-[1.5rem]/[3rem] font-bold">SD PLUS</span>
+								<span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
+									1VB Deposit has grown bigger with a portfolio increase of 784.063 million. It is
+									now at Php7.5B with a good mix of low and high-cost deposit. 40 ATMs have been
+									deployed strategically enabling 1VB consumers to experience convenient banking.
+								</span>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section id="first-checking-account" data-scroll className="mx-[5px] lg:mx-[15px]">
+					<div className="flex flex-col justify-center gap-[70px] rounded-[8px] bg-[#396131] p-[30px] text-white drop-shadow-lg lg:p-[80px]">
+						<div className="flex flex-col-reverse justify-center gap-[30px] lg:flex-row">
+							<div className="flex flex-col justify-start gap-[20px] lg:w-4/5">
+								<span className="text-[1.5rem]/[3rem] font-bold">1ST CHECKING ACCOUNT</span>
+								<span className="text-[0.8rem]/[2.4rem] lg:text-[1rem]/[3rem]">
+									1st Checking Account is a demand deposit that earns interest and comes with a
+									passbook. It can be a personal account or a business account. It can also be tied
+									up with ones loan account with us. This demand deposit allows clients to enjoy
+									lower loan interest rates. All applications for account opening are subject to
+									evaluation.
+								</span>
+							</div>
+							<div className="flex justify-center lg:w-1/5">
+								{' '}
+								<FontAwesomeIcon
+									icon={faPlusCircle}
+									className="flex aspect-square"
+									style={{ width: '250px', height: '250px' }}
+								/>
+							</div>
+						</div>
+					</div>
+				</section>
+			</main>
+		</>
+	);
 }
