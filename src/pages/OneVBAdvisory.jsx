@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import HeroSection from '../components/HeroSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import advisoryService from '../services/advisoryService';
+import { X } from 'lucide-react';
 
 const OptimizedImageGallery = () => {
 	const [selectedImage, setSelectedImage] = useState(null);
