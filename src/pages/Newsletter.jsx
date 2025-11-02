@@ -17,9 +17,7 @@ import newsletterService from '../services/newsletterService';
 // PDF Viewer Modal Component
 function PDFModal({ pdfUrl, title, onClose, id }) {
 	useEffect(() => {
-		newsletterService.incrementViewCount(id).then((response) => {
-			console.log(response);
-		});
+		newsletterService.incrementViewCount(id).then((response) => {});
 	}, []);
 
 	return (

@@ -53,6 +53,7 @@ import { LightHeader, DarkHeader } from '../components/Header';
 import { NewsletterGrid } from './Newsletter';
 import pdf1 from '/src/assets/newsletter/document.pdf';
 import newsletterService from '../services/newsletterService';
+import landingService from '../services/landingService';
 
 // Utility to find links in plain text and convert them to <a> tags.
 function renderAnswer(answer) {
@@ -127,56 +128,33 @@ function FAQSection({ faqs }) {
 	);
 }
 
-// Example FAQ data for 3 topics: Accounts, Online Banking, Loans
-const faqs = [
-	// Topic: Accounts
-	{
-		question: 'How can I pay my 1st Valley Bank loan through GCash?',
-		answer:
-			'You can conveniently pay your 1st Valley Bank loan through GCash Bank Transfer by following these steps:\n1. Open the GCash App.\n2. Tap Bank Transfer and select Local.\n3. Choose BDO or Chinabank as the recipient bank, then enter the official 1st Valley Bank account details; BDO: 00322-001071-1 or Chinabank: 1161-0000-6594.\nPlease ensure payments are made only to these official accounts, as transactions sent to personal GCash numbers or unofficial accounts will not be acknowledged or accepted. \n For more information, please visit this link: https://www.facebook.com/1stValleyBank/posts/1069427195303924?rdid=riGbbaYG48sPOthu'
-	},
-	{
-		question: 'How can I pay my 1st Valley Bank loan online?',
-		answer:
-			'Online Fund Transfer (BDO Online / GCash Bank Transfer)\n\nSTEPS:\n1. Log in to your BDO Online Banking or Mobile App.\n2. Transfer funds to our official BDO account: 00322-001071-1.\n   Alternatively, you may use GCash Bank Transfer and send your payment to:\n   • BDO: 00322-001071-1\n   • Chinabank: 1161-0000-6594\n3. Enter your Promissory Note Number and Account Name in the remarks section.\n4. Confirm the transaction and take a screenshot or save your receipt as proof of payment.\n\n⚠️ Please ensure that payments are made only to these official accounts.\nTransactions sent to personal GCash numbers or unofficial accounts will not be acknowledged or accepted. \n For more information, please visit this link: https://www.facebook.com/1stValleyBank/posts/924469796466332?rdid=OrVPGhmXmfCssfYT#'
-	},
-	{
-		question: 'How do I open a new account at 1st Valley Bank?',
-		answer:
-			'Opening a new account is easy! Visit your nearest 1st Valley Bank branch with a valid ID and proof of address. Our friendly staff will guide you through the application process. You can also begin the process online on our website.'
-	},
-	{
-		question: 'Is there a minimum balance required to maintain my account?',
-		answer:
-			'Yes, most of our accounts require a maintaining balance of PHP 1,000. Some account types may have different requirements, so please check our Deposits page or contact customer service for complete details.'
-	},
-
-	// Topic: Online Banking
-	{
-		question: 'How can I enroll in online banking?',
-		answer:
-			'Currently, online banking is not yet available with 1st Valley Bank. Please visit your nearest branch or contact our customer service team for any account needs or inquiries.'
-	},
-	{
-		question: 'Is digital banking with 1st Valley Bank secure?',
-		answer:
-			'Digital banking is not yet offered by 1st Valley Bank. Rest assured, all existing customer transactions and data remain protected using strict bank-level security protocols. For updates on future services, please follow our official channels.'
-	},
-
-	// Topic: Loans
-	{
-		question: 'What types of loans does 1st Valley Bank offer?',
-		answer:
-			'We offer a range of loans including personal, business, agricultural, and property loans. Whatever your goal, we’re here to help you achieve it! Check our Loans page to learn more and see current offers.'
-	}
-];
-
 export default function HomePage() {
 	const [email, setEmail] = useState('');
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [newsletterArticles, setNewsletterArticles] = useState([]);
+	const [pageData, setPageData] = useState(null);
+	const [testimonials, setTestimonials] = useState([]);
+	const [faqs, setFaqs] = useState([]);
+	const [services, setServices] = useState([]);
+
+	const fetchPageData = async () => {
+		try {
+			const response = await landingService.getLandingPageFull();
+			console.log(response);
+			setPageData(response.data);
+			setTestimonials(response.data.testimonials);
+			setFaqs(response.data.faqs);
+			setServices(response.data.services);
+		} catch (error) {
+			console.error('Error fetching page data:', error);
+		}
+	};
+
+	useEffect(() => {
+		fetchPageData();
+	}, []);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -192,7 +170,6 @@ export default function HomePage() {
 		setIsSubmitting(true);
 		try {
 			const response = await newsletterService.subscribe(email);
-			console.log(response);
 			if (response.success) {
 				setSuccess(response.message);
 				setError('');
@@ -210,36 +187,6 @@ export default function HomePage() {
 			setIsSubmitting(false);
 		}
 	};
-
-	const services = [
-		{
-			image: carouselImg1,
-			title: 'Savings & Deposits',
-			description:
-				'Secure your future with our comprehensive savings solutions designed to help you grow your wealth steadily.',
-			features: ['High Interest Rates', 'Flexible Terms', 'Online Banking', 'Mobile App'],
-			path: '/deposits',
-			gradient: 'from-[#396131] to-[#4a7c3a]'
-		},
-		{
-			image: carouselImg2,
-			title: 'Loans & Credit',
-			description:
-				'Achieve your dreams with our flexible loan products tailored for businesses, agriculture, and personal needs.',
-			features: ['Quick Approval', 'Competitive Rates', 'Flexible Payment', 'Expert Guidance'],
-			path: '/loans',
-			gradient: 'from-[#396131] to-[#4a7c3a]'
-		},
-		{
-			image: carouselImg3,
-			title: 'Properties',
-			description:
-				'Discover prime real estate and vehicle opportunities with our exclusive property listings and financing.',
-			features: ['Prime Locations', 'Flexible Financing', 'Expert Valuation', 'Legal Support'],
-			path: '/properties-for-sale',
-			gradient: 'from-[#396131] to-[#4a7c3a]'
-		}
-	];
 
 	const features = [
 		{
@@ -262,33 +209,6 @@ export default function HomePage() {
 			description:
 				'From startup to success, we support your business journey with tailored financial solutions.',
 			stats: '25+ Years'
-		}
-	];
-
-	const testimonials = [
-		{
-			name: 'Maria Santos',
-			role: 'Small Business Owner',
-			content:
-				'1st Valley Bank helped me grow my business from a small sari-sari store to a thriving grocery chain. Their support is unmatched.',
-			rating: 5,
-			image: logo
-		},
-		{
-			name: 'Juan Dela Cruz',
-			role: 'Farmer',
-			content:
-				'The agricultural loan program gave me the capital I needed to expand my rice farm. Now I can provide for my family better.',
-			rating: 5,
-			image: logo
-		},
-		{
-			name: 'Ana Rodriguez',
-			role: 'Teacher',
-			content:
-				'Their home loan made my dream of owning a house come true. The process was smooth and the rates were very reasonable.',
-			rating: 5,
-			image: logo
 		}
 	];
 
@@ -352,7 +272,6 @@ export default function HomePage() {
 
 	useEffect(() => {
 		newsletterService.getNewsletters({ page: 1, page_size: 3 }).then((response) => {
-			console.log(response);
 			setNewsletterArticles(response.results);
 		});
 	}, []);
@@ -410,7 +329,18 @@ export default function HomePage() {
 								</p>
 
 								<DarkPrimaryButton
-									to={service.path}
+									to={(() => {
+										switch (index) {
+											case 0:
+												return '/deposits';
+											case 1:
+												return '/loans';
+											case 2:
+												return '/properties-for-sale';
+											default:
+												return '#';
+										}
+									})()}
 									secondaryIcon={
 										<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
 									}
@@ -500,12 +430,6 @@ export default function HomePage() {
 									<div className="ml-auto">
 										<Quote className="h-8 w-8 text-gray-100/30" />
 									</div>
-								</div>
-
-								<div className="mb-4 flex">
-									{[...Array(testimonial.rating)].map((_, i) => (
-										<Star key={i} className="h-5 w-5 fill-current text-yellow-400" />
-									))}
 								</div>
 
 								<blockquote className="text-sm leading-relaxed font-normal text-white italic">
