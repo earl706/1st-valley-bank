@@ -96,7 +96,7 @@ const ContactUsForm = () => {
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			fetchMapCoordinates();
-		}, 1000);
+		}, 30000);
 
 		return () => clearTimeout(timer);
 	}, [formData.barangay, formData.municipality, formData.province]);
