@@ -157,8 +157,13 @@ export default function HomePage() {
 		setIsSubmitting(true);
 		try {
 			const response = await newsletterService.subscribe(email);
+			console.log(response);
 			if (response.success) {
-				setSuccess(response.message);
+				if (response.data.message) {
+					setSuccess(response.data.message);
+				} else {
+					setSuccess('Successfully subscribed to newsletter');
+				}
 				setError('');
 				setEmail('');
 			} else {

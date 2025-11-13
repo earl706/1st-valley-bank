@@ -85,6 +85,52 @@ const locationService = {
 	},
 
 	/**
+	 * Search places via backend Google Maps proxy
+	 * @param {string} query - Free-form address text
+	 * @param {Object} params - Additional query params (limit, country, etc.)
+	 */
+	async searchPlaces(query, params = {}) {
+		if (!query || !query.trim()) {
+			return { success: true, data: [] };
+		}
+
+		try {
+			const response = await api.get('/locations/google-geocode/', {
+				params: {
+					query,
+					limit: params.limit ?? 5,
+					region: params.country ?? 'PH'
+				}
+			});
+			return { success: true, data: response.data?.results || [] };
+		} catch (error) {
+			const apiError = handleApiError(error);
+			return { success: false, ...apiError };
+		}
+	},
+
+	/**
+	 * Reverse geocode coordinates via backend Google Maps proxy
+	 * @param {number} latitude
+	 * @param {number} longitude
+	 */
+	async reverseGeocode({ latitude, longitude }) {
+		if (latitude === undefined || longitude === undefined) {
+			return { success: false, message: 'Latitude and longitude are required.' };
+		}
+
+		try {
+			const response = await api.get('/locations/google-reverse-geocode/', {
+				params: { latitude, longitude }
+			});
+			return { success: true, data: response.data?.result || null };
+		} catch (error) {
+			const apiError = handleApiError(error);
+			return { success: false, ...apiError };
+		}
+	},
+
+	/**
 	 * Find nearest branch or ATM
 	 * @param {number} latitude - User's latitude
 	 * @param {number} longitude - User's longitude

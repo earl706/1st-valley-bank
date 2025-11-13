@@ -1,11 +1,12 @@
 import { faTty } from '@fortawesome/free-solid-svg-icons/faTty';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import ContactPageMap from '../components/ContactPageMap';
 import { MapPin, User, Mail, Phone, MessageSquare, FileText, Map, ArrowRight } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import { DarkHeader } from '../components/Header';
+import { useJsApiLoader } from '@react-google-maps/api';
 import { contactService } from '../services/index';
 
 const ContactUsForm = () => {
@@ -14,9 +15,11 @@ const ContactUsForm = () => {
 		email: '',
 		subject: 'general',
 		contact_number: '',
+		street: '',
 		barangay: '',
-		municipality: '',
+		city: '',
 		province: '',
+		postal_code: '',
 		message: ''
 	};
 
@@ -28,6 +31,23 @@ const ContactUsForm = () => {
 
 	const [mapCoordinates, setMapCoordinates] = useState(null);
 	const [isMapLoading, setIsMapLoading] = useState(false);
+	const [mapError, setMapError] = useState('');
+
+	const apiKey = useMemo(() => import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '', []);
+	const libraries = useMemo(() => ['places', 'maps'], []);
+	const { isLoaded: mapsLoaded, loadError: mapsLoadError } = useJsApiLoader({
+		id: 'google-maps-script',
+		googleMapsApiKey: apiKey || '',
+		libraries
+	});
+	const geocoderRef = useRef(null);
+
+	useEffect(() => {
+		if (!mapsLoaded || geocoderRef.current || !window.google?.maps?.Geocoder) {
+			return;
+		}
+		geocoderRef.current = new window.google.maps.Geocoder();
+	}, [mapsLoaded]);
 
 	const subjects = [
 		{ display: 'General Inquiry', value: 'general' },
@@ -44,52 +64,86 @@ const ContactUsForm = () => {
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
-		// Fix: Support flat fields and nested address fields
-		if (name.startsWith('address.')) {
-			const field = name.replace('address.', '');
-			setFormData((prev) => ({
-				...prev,
-				[field]: value
-			}));
-		} else {
-			setFormData((prev) => ({
-				...prev,
-				[name]: value
-			}));
-		}
+		setFormData((prev) => ({
+			...prev,
+			[name]: value
+		}));
 	};
 
 	const fetchMapCoordinates = async () => {
-		const { barangay, municipality, province } = formData;
-		if (barangay.trim() && municipality.trim() && province.trim()) {
-			const fullAddress = `${barangay}, ${municipality}, ${province}, Philippines`;
-			const encodedAddress = encodeURIComponent(fullAddress);
+		const { street, barangay, city, province, postal_code } = formData;
+		// Form full address string with all elements to increase pinpoint accuracy
+		let addressParts = [street, barangay, city, province, postal_code, 'Philippines'].filter(
+			Boolean
+		);
+		const fullAddress = addressParts.join(', ');
 
+		if (!apiKey) {
+			setIsMapLoading(false);
+			setMapError('Google Maps API key missing. Please configure VITE_GOOGLE_MAPS_API_KEY.');
+			return;
+		}
+
+		if (mapsLoadError) {
+			setIsMapLoading(false);
+			setMapError('Failed to load Google Maps libraries. Please try again later.');
+			return;
+		}
+
+		if (!mapsLoaded || !geocoderRef.current) {
+			setIsMapLoading(false);
+			return;
+		}
+
+		if (street.trim() && barangay.trim() && city.trim() && province.trim()) {
 			try {
 				setIsMapLoading(true);
-				const response = await fetch(
-					`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedAddress}.json?access_token=pk.eyJ1IjoiZWFybDcwNiIsImEiOiJjbTk1a3Q2dm0xMW9pMm5zZm5kb2EwcXR4In0.aoOboZNNC-ib2-1o2BAOCg&limit=1`
+				setMapError('');
+				const geocoder = geocoderRef.current;
+				geocoder.geocode(
+					{
+						address: fullAddress,
+						componentRestrictions: { country: 'PH' }
+					},
+					(results, status) => {
+						if (status === 'OK' && results && results.length > 0) {
+							const firstResult = results[0];
+							const location = firstResult.geometry?.location;
+							if (location) {
+								const latitude = location.lat();
+								const longitude = location.lng();
+								setMapCoordinates({
+									lat: latitude,
+									lng: longitude,
+									placeName: firstResult.formatted_address || fullAddress
+								});
+								setMapError('');
+							} else {
+								setMapCoordinates(null);
+								setMapError('Location found but missing coordinates.');
+							}
+						} else if (status === 'ZERO_RESULTS') {
+							setMapCoordinates(null);
+							setMapError('No matching locations found.');
+						} else {
+							console.warn('Google geocode status:', status, results);
+							setMapCoordinates(null);
+							setMapError('Unable to fetch location preview right now. Please try again.');
+						}
+						setIsMapLoading(false);
+					}
 				);
-				const data = await response.json();
-
-				if (data.features && data.features.length > 0) {
-					const coordinates = data.features[0].geometry.coordinates;
-					setMapCoordinates({
-						lng: coordinates[0],
-						lat: coordinates[1],
-						placeName: data.features[0].place_name
-					});
-				} else {
-					setMapCoordinates(null);
-				}
+				return;
 			} catch (error) {
 				console.error('Error fetching coordinates:', error);
 				setMapCoordinates(null);
-			} finally {
+				setMapError('Unable to fetch location preview right now. Please try again.');
 				setIsMapLoading(false);
 			}
 		} else {
 			setMapCoordinates(null);
+			setMapError('');
+			setIsMapLoading(false);
 		}
 	};
 
@@ -99,20 +153,31 @@ const ContactUsForm = () => {
 		}, 30000);
 
 		return () => clearTimeout(timer);
-	}, [formData.barangay, formData.municipality, formData.province]);
+	}, [
+		formData.street,
+		formData.barangay,
+		formData.city,
+		formData.province,
+		formData.postal_code,
+		apiKey,
+		mapsLoaded,
+		mapsLoadError
+	]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		// Prepare the payload as required (flat format)
+		// Prepare the payload as required (flat format with new address fields)
 		const payload = {
 			name: formData.name,
 			email: formData.email,
 			subject: formData.subject,
 			contact_number: formData.contact_number,
+			street: formData.street,
 			barangay: formData.barangay,
-			municipality: formData.municipality,
+			city: formData.city,
 			province: formData.province,
+			postal_code: formData.postal_code,
 			message: formData.message
 		};
 
@@ -227,38 +292,57 @@ const ContactUsForm = () => {
 								{/* Address Fields */}
 								<div className="space-y-4">
 									<label className="block text-base leading-tight font-bold text-[#396131]">
-										Address
+										Exact Address
 									</label>
-									<div className="relative">
+									<div className="relative mb-2">
 										<MapPin className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transform text-[#4a7c3a]" />
 										<input
 											type="text"
-											name="address.barangay"
-											value={formData.barangay}
+											name="street"
+											value={formData.street}
 											onChange={handleInputChange}
 											className="w-full rounded-xl border border-gray-200 bg-white/60 py-4 pr-4 pl-12 text-base leading-relaxed font-normal text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
-											placeholder="Barangay"
+											placeholder="Street, Building, Lot No., Purok, Zone, etc"
 											required
 										/>
 									</div>
 									<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 										<input
 											type="text"
-											name="address.municipality"
-											value={formData.municipality}
+											name="barangay"
+											value={formData.barangay}
 											onChange={handleInputChange}
 											className="w-full rounded-xl border border-gray-200 bg-white/60 px-4 py-4 text-base leading-relaxed font-normal text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
-											placeholder="Municipality/City"
+											placeholder="Barangay"
 											required
 										/>
 										<input
 											type="text"
-											name="address.province"
+											name="city"
+											value={formData.city}
+											onChange={handleInputChange}
+											className="w-full rounded-xl border border-gray-200 bg-white/60 px-4 py-4 text-base leading-relaxed font-normal text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
+											placeholder="City / Municipality"
+											required
+										/>
+									</div>
+									<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+										<input
+											type="text"
+											name="province"
 											value={formData.province}
 											onChange={handleInputChange}
 											className="w-full rounded-xl border border-gray-200 bg-white/60 px-4 py-4 text-base leading-relaxed font-normal text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
 											placeholder="Province"
 											required
+										/>
+										<input
+											type="text"
+											name="postal_code"
+											value={formData.postal_code}
+											onChange={handleInputChange}
+											className="w-full rounded-xl border border-gray-200 bg-white/60 px-4 py-4 text-base leading-relaxed font-normal text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
+											placeholder="Postal Code (Optional)"
 										/>
 									</div>
 								</div>
@@ -347,10 +431,7 @@ const ContactUsForm = () => {
 
 							<div className="flex-1 overflow-hidden rounded-2xl bg-white/95 shadow-inner">
 								{mapCoordinates ? (
-									<ContactPageMap
-										lat={mapCoordinates.lat.toFixed(6)}
-										lon={mapCoordinates.lng.toFixed(6)}
-									/>
+									<ContactPageMap lat={mapCoordinates.lat} lon={mapCoordinates.lng} />
 								) : (
 									<div className="flex h-full min-h-[400px] items-center justify-center">
 										<div className="text-center">
@@ -359,7 +440,7 @@ const ContactUsForm = () => {
 												Address Preview
 											</p>
 											<p className="max-w-xs text-base leading-relaxed font-normal text-gray-400">
-												Fill in the address fields to see the location on the map
+												Fill in your complete address to see the location on the map
 											</p>
 										</div>
 									</div>
@@ -380,8 +461,7 @@ const ContactUsForm = () => {
 									</p>
 								</div>
 							)}
-
-							{(formData.barangay || formData.municipality || formData.province) &&
+							{(formData.street || formData.barangay || formData.city || formData.province) &&
 								!mapCoordinates &&
 								!isMapLoading && (
 									<div className="mt-6 rounded-xl border border-yellow-200 bg-yellow-50 p-4">
@@ -389,14 +469,26 @@ const ContactUsForm = () => {
 											Searching for location...
 										</h4>
 										<p className="text-base leading-relaxed font-normal text-yellow-600">
-											{[formData.barangay, formData.municipality, formData.province]
+											{[
+												formData.street,
+												formData.barangay,
+												formData.city,
+												formData.province,
+												formData.postal_code
+											]
 												.filter(Boolean)
 												.join(', ')}
-											{formData.barangay &&
-												formData.municipality &&
+											{formData.street &&
+												formData.barangay &&
+												formData.city &&
 												formData.province &&
 												', Philippines'}
 										</p>
+										{mapError && (
+											<p className="mt-2 text-sm leading-relaxed font-normal text-yellow-700">
+												{mapError}
+											</p>
+										)}
 									</div>
 								)}
 						</div>

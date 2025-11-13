@@ -1,11 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { MapPinned, Building2, Landmark, X, CreditCard, ArrowRight } from 'lucide-react';
+import React, { useMemo, useState, useEffect } from 'react';
+import {
+	MapPinned,
+	Building2,
+	Landmark,
+	X,
+	CreditCard,
+	ArrowRight,
+	MapPin,
+	Search
+} from 'lucide-react';
 import HeroSection from '../components/HeroSection';
-import { Link } from 'react-router-dom';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import { DarkHeader } from '../components/Header';
 import locationService from '../services/locationService';
+import LocationsMap from '../components/LocationsMap';
+import { findNearestLocation } from '../utils/geo';
 
 function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 	return (
@@ -49,7 +59,7 @@ function AllBranchesModal({ title, branches, icon: Icon, onContact, onClose }) {
 			>
 				<X className="h-5 w-5 text-white" />
 			</button>
-			<div className="relative max-h-[80vh] w-full max-w-7xl overflow-y-auto rounded-xl bg-gradient-to-l from-[#396131] to-[#4a7c3a] p-8 shadow-2xl">
+			<div className="relative max-h-[80vh] w-full max-w-7xl overflow-y-auto rounded-xl bg-linear-to-l from-[#396131] to-[#4a7c3a] p-8 shadow-2xl">
 				<h2 className="mb-6 flex items-center gap-2 text-3xl leading-tight font-bold text-white md:text-5xl">
 					<Icon className="h-8 w-8 text-white" />
 					{title}
@@ -61,7 +71,7 @@ function AllBranchesModal({ title, branches, icon: Icon, onContact, onClose }) {
 							icon={Icon}
 							name={branch.name}
 							address={branch.address}
-							atm={branch.atm}
+							atm={branch.has_atm}
 							onContact={() => onContact(branch.name)}
 						/>
 					))}
@@ -78,15 +88,27 @@ export default function Branches() {
 	const [visayasBranches, setVisayasBranches] = useState([]);
 	const [luzonBranches, setLuzonBranches] = useState([]);
 	const [regionalCenters, setRegionalCenters] = useState([]);
+	const [allBranches, setAllBranches] = useState([]);
+	const [locatorQuery, setLocatorQuery] = useState('');
+	const [locatorLoading, setLocatorLoading] = useState(false);
+	const [locatorMessage, setLocatorMessage] = useState('');
+	const [userLocation, setUserLocation] = useState(null);
+	const [nearestBranch, setNearestBranch] = useState(null);
 
 	const fetchBranches = async () => {
 		try {
-			const response = await locationService.getBranches({ page: 1, page_size: 100 });
-			console.log(response.data);
-			setMindanaoBranches(response.data.filter((branch) => branch.region === 'mindanao'));
-			setVisayasBranches(response.data.filter((branch) => branch.region === 'visayas'));
-			setLuzonBranches(response.data.filter((branch) => branch.region === 'luzon'));
-			setRegionalCenters(response.data.filter((branch) => branch.region === 'ncr'));
+			const result = await locationService.getBranches({ page: 1, page_size: 200 });
+			if (!result.success) {
+				console.error('Failed to fetch branches:', result.message || result.error);
+				return;
+			}
+			const branchList = Array.isArray(result.data) ? result.data : [];
+			setBranches(branchList);
+			setAllBranches(branchList);
+			setMindanaoBranches(branchList.filter((branch) => branch.region === 'mindanao'));
+			setVisayasBranches(branchList.filter((branch) => branch.region === 'visayas'));
+			setLuzonBranches(branchList.filter((branch) => branch.region === 'luzon'));
+			setRegionalCenters(branchList.filter((branch) => branch.region === 'ncr'));
 		} catch (error) {
 			console.error('Failed to fetch branches:', error);
 		}
@@ -95,6 +117,85 @@ export default function Branches() {
 	useEffect(() => {
 		fetchBranches({ region: 'mindanao' });
 	}, []);
+
+	const handleLocatorSubmit = async (event) => {
+		event.preventDefault();
+		if (!locatorQuery.trim()) {
+			setLocatorMessage('Please enter an address to locate the nearest branch.');
+			return;
+		}
+
+		setLocatorLoading(true);
+		setLocatorMessage('');
+		setNearestBranch(null);
+
+		try {
+			const result = await locationService.searchPlaces(locatorQuery, { limit: 5 });
+			if (!result.success) {
+				setLocatorMessage(result.message || 'Unable to search for that address.');
+				return;
+			}
+
+			const [firstMatch] = result.data || [];
+			if (!firstMatch) {
+				setLocatorMessage('No matches found for that address. Please refine your search.');
+				return;
+			}
+
+			const userPoint = {
+				latitude: Number(firstMatch.latitude),
+				longitude: Number(firstMatch.longitude),
+				label: firstMatch.place_name
+			};
+			setUserLocation(userPoint);
+
+			const nearest = findNearestLocation(userPoint, allBranches);
+			if (nearest) {
+				setNearestBranch(nearest);
+				setLocatorMessage(
+					`Closest branch: ${nearest.name} (${nearest.region?.toUpperCase() || 'Regional'}) — ${nearest.distanceKm.toFixed(
+						2
+					)} km away.`
+				);
+			} else {
+				setLocatorMessage('No branch coordinates are available to compute the nearest branch.');
+			}
+		} catch (error) {
+			console.error('Failed to locate address:', error);
+			setLocatorMessage('Something went wrong while searching. Please try again later.');
+		} finally {
+			setLocatorLoading(false);
+		}
+	};
+
+	const handleClearLocator = () => {
+		setLocatorQuery('');
+		setLocatorMessage('');
+		setNearestBranch(null);
+		setUserLocation(null);
+	};
+
+	const branchMarkers = useMemo(
+		() =>
+			allBranches
+				.filter(
+					(branch) =>
+						branch.latitude !== null &&
+						branch.latitude !== undefined &&
+						branch.longitude !== null &&
+						branch.longitude !== undefined
+				)
+				.map((branch) => ({
+					id: `branch-${branch.id}`,
+					name: branch.name,
+					address: branch.address || '',
+					subtitle: branch.region ? branch.region.toUpperCase() : '',
+					latitude: Number(branch.latitude),
+					longitude: Number(branch.longitude),
+					type: 'branch'
+				})),
+		[allBranches]
+	);
 
 	const handleContact = (branchName) => {
 		// This is a stub for "Contact Us" - does nothing here
@@ -133,7 +234,7 @@ export default function Branches() {
 					icon={Icon}
 					name={branch.name}
 					address={branch.address}
-					atm={branch.atm}
+					atm={branch.has_atm}
 					onContact={() => handleContact(branch.name)}
 				/>
 			));
@@ -146,7 +247,7 @@ export default function Branches() {
 				bgColor="#396131"
 				textColor="#fff"
 			/>
-			<div className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-4 py-20">
+			<div className="bg-linear-to-l from-[#396131] to-[#4a7c3a] px-4 py-20">
 				<DarkHeader
 					badgeText="Our Network"
 					title="Branches"
@@ -173,7 +274,13 @@ export default function Branches() {
 							)}
 						</div>
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-							{renderPreviewBranches(mindanaoBranches, Building2)}
+							{mindanaoBranches.length === 0 ? (
+								<div className="col-span-3 py-8 text-center text-white/80">
+									No branches in Mindanao.
+								</div>
+							) : (
+								renderPreviewBranches(mindanaoBranches, Building2)
+							)}
 						</div>
 					</section>
 					{/* Visayas Section */}
@@ -193,7 +300,13 @@ export default function Branches() {
 							)}
 						</div>
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-							{renderPreviewBranches(visayasBranches, Building2)}
+							{visayasBranches.length === 0 ? (
+								<div className="col-span-3 py-8 text-center text-white/80">
+									No branches in Visayas.
+								</div>
+							) : (
+								renderPreviewBranches(visayasBranches, Building2)
+							)}
 						</div>
 					</section>
 					{/* Luzon Section */}
@@ -213,7 +326,13 @@ export default function Branches() {
 							)}
 						</div>
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-							{renderPreviewBranches(luzonBranches, Landmark)}
+							{luzonBranches.length === 0 ? (
+								<div className="col-span-3 py-8 text-center text-white/80">
+									No branches in Luzon.
+								</div>
+							) : (
+								renderPreviewBranches(luzonBranches, Landmark)
+							)}
 						</div>
 					</section>
 					{/* Regional Section */}
@@ -233,7 +352,63 @@ export default function Branches() {
 							)}
 						</div>
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-							{renderPreviewBranches(regionalCenters, Landmark)}
+							{regionalCenters.length === 0 ? (
+								<div className="col-span-3 py-8 text-center text-white/80">
+									No regional or national centers found.
+								</div>
+							) : (
+								renderPreviewBranches(regionalCenters, Landmark)
+							)}
+						</div>
+					</section>
+
+					<section className="rounded-3xl bg-white/90 p-8 shadow-xl backdrop-blur">
+						<div className="mb-6 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+							<h2 className="text-2xl font-semibold text-[#396131] md:text-3xl">
+								Find the closest branch
+							</h2>
+							<p className="text-sm text-gray-600">
+								Enter your address to locate the nearest 1st Valley Bank branch.
+							</p>
+						</div>
+						<form onSubmit={handleLocatorSubmit} className="flex flex-col gap-3 md:flex-row">
+							<div className="relative flex-1">
+								<Search className="pointer-events-none absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-gray-400" />
+								<input
+									type="text"
+									value={locatorQuery}
+									onChange={(event) => setLocatorQuery(event.target.value)}
+									placeholder="Street, city, or landmark..."
+									disabled={locatorLoading}
+									className="w-full rounded-xl border border-gray-200 bg-white px-10 py-3 text-sm text-gray-700 shadow focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none disabled:bg-gray-100"
+								/>
+							</div>
+							<div className="flex gap-2">
+								<button
+									type="submit"
+									disabled={locatorLoading}
+									className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-5 py-3 text-sm font-semibold text-white shadow hover:bg-[#2e4f29] disabled:cursor-not-allowed disabled:opacity-60"
+								>
+									{locatorLoading ? 'Locating...' : 'Locate branch'}
+								</button>
+								<button
+									type="button"
+									onClick={handleClearLocator}
+									disabled={locatorLoading || (!userLocation && !nearestBranch && !locatorMessage)}
+									className="inline-flex items-center justify-center rounded-xl border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-600 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
+								>
+									Clear
+								</button>
+							</div>
+						</form>
+						{locatorMessage && <p className="mt-4 text-sm text-gray-700">{locatorMessage}</p>}
+						<div className="mt-8 overflow-hidden rounded-3xl">
+							<LocationsMap
+								markers={branchMarkers}
+								userLocation={userLocation}
+								selectedId={nearestBranch ? `branch-${nearestBranch.id}` : null}
+								height={420}
+							/>
 						</div>
 					</section>
 				</section>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import HeroSection from '../components/HeroSection';
 import {
 	MapPin,
@@ -8,12 +8,15 @@ import {
 	X,
 	CreditCard,
 	Contact2,
-	Globe
+	Globe,
+	Search
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import locationService from '../services/locationService';
+import LocationsMap from '../components/LocationsMap';
+import { findNearestLocation } from '../utils/geo';
 
 function ATMCard({ icon: Icon, name, address, onContact, atm }) {
 	return (
@@ -49,7 +52,7 @@ function AllATMsModal({ title, atms, icon: Icon, onContact, onClose }) {
 			>
 				<X className="h-5 w-5 text-white" />
 			</button>
-			<div className="relative w-full max-w-7xl rounded-xl bg-gradient-to-l from-[#396131] to-[#4a7c3a] p-8 shadow-2xl">
+			<div className="relative w-full max-w-7xl rounded-xl bg-linear-to-l from-[#396131] to-[#4a7c3a] p-8 shadow-2xl">
 				<h2 className="mb-6 flex items-center gap-2 text-3xl leading-tight font-bold text-white md:text-5xl">
 					<Icon className="h-6 w-6 text-white" />
 					{title}
@@ -78,18 +81,26 @@ export default function ATMLocator() {
 	const [luzonATMs, setLuzonATMs] = useState([]);
 	const [ncrATMs, setNCRATMs] = useState([]);
 	const [branchlessATMs, setBranchlessATMs] = useState([]);
+	const [userLocation, setUserLocation] = useState(null);
+	const [nearestATM, setNearestATM] = useState(null);
+	const [locatorQuery, setLocatorQuery] = useState('');
+	const [locatorLoading, setLocatorLoading] = useState(false);
+	const [locatorMessage, setLocatorMessage] = useState('');
 
 	const fetchATMs = async () => {
 		try {
-			const response = await locationService.getATMs({ page_size: 100 });
-			setATMs(response.data);
-			setMindanaoATMs(
-				response.data.filter((atm) => atm.branch && atm.branch.region === 'mindanao')
-			);
-			setVisayasATMs(response.data.filter((atm) => atm.branch && atm.branch.region === 'visayas'));
-			setLuzonATMs(response.data.filter((atm) => atm.branch && atm.branch.region === 'luzon'));
-			setNCRATMs(response.data.filter((atm) => atm.branch && atm.branch.region === 'ncr'));
-			setBranchlessATMs(response.data.filter((atm) => !atm.branch || atm.branch.region === null));
+			const result = await locationService.getATMs({ page_size: 200 });
+			if (!result.success) {
+				console.error('Failed to fetch ATMs:', result.message || result.error);
+				return;
+			}
+			const atmList = Array.isArray(result.data) ? result.data : [];
+			setATMs(atmList);
+			setMindanaoATMs(atmList.filter((atm) => atm.branch && atm.branch.region === 'mindanao'));
+			setVisayasATMs(atmList.filter((atm) => atm.branch && atm.branch.region === 'visayas'));
+			setLuzonATMs(atmList.filter((atm) => atm.branch && atm.branch.region === 'luzon'));
+			setNCRATMs(atmList.filter((atm) => atm.branch && atm.branch.region === 'ncr'));
+			setBranchlessATMs(atmList.filter((atm) => !atm.branch || atm.branch.region === null));
 		} catch (error) {
 			console.error('Failed to fetch ATMs:', error);
 		}
@@ -134,6 +145,85 @@ export default function ATMLocator() {
 				<ATMCard key={atm.name} icon={Icon} name={atm.name} address={atm.address} atm={atm} />
 			));
 
+	const atmMarkers = useMemo(
+		() =>
+			atms
+				.filter(
+					(atm) =>
+						atm.latitude !== null &&
+						atm.latitude !== undefined &&
+						atm.longitude !== null &&
+						atm.longitude !== undefined
+				)
+				.map((atm) => ({
+					id: `atm-${atm.id}`,
+					name: atm.name,
+					address: atm.address || '',
+					subtitle: atm.branch?.name ? `Branch: ${atm.branch.name}` : undefined,
+					latitude: Number(atm.latitude),
+					longitude: Number(atm.longitude),
+					type: 'atm'
+				})),
+		[atms]
+	);
+
+	const handleLocatorSubmit = async (event) => {
+		event.preventDefault();
+		if (!locatorQuery.trim()) {
+			setLocatorMessage('Please enter an address to locate the nearest ATM.');
+			return;
+		}
+		setLocatorLoading(true);
+		setLocatorMessage('');
+		setNearestATM(null);
+
+		try {
+			const result = await locationService.searchPlaces(locatorQuery, { limit: 5 });
+			if (!result.success) {
+				setLocatorMessage(result.message || 'Unable to search for that address.');
+				return;
+			}
+
+			const [firstMatch] = result.data || [];
+			if (!firstMatch) {
+				setLocatorMessage('No matches found for that address. Please refine your search.');
+				return;
+			}
+
+			const userPoint = {
+				latitude: Number(firstMatch.latitude),
+				longitude: Number(firstMatch.longitude),
+				label: firstMatch.place_name
+			};
+			setUserLocation(userPoint);
+
+			const nearest = findNearestLocation(userPoint, atms);
+			if (nearest) {
+				setNearestATM(nearest);
+				const descriptor = nearest.branch?.name
+					? `in ${nearest.branch.name}`
+					: 'standalone location';
+				setLocatorMessage(
+					`Closest ATM: ${nearest.name} (${descriptor}) — ${nearest.distanceKm.toFixed(2)} km away.`
+				);
+			} else {
+				setLocatorMessage('No ATM coordinates are available to compute the nearest ATM.');
+			}
+		} catch (error) {
+			console.error('Failed to locate ATM:', error);
+			setLocatorMessage('Something went wrong while searching. Please try again later.');
+		} finally {
+			setLocatorLoading(false);
+		}
+	};
+
+	const handleClearLocator = () => {
+		setLocatorQuery('');
+		setLocatorMessage('');
+		setNearestATM(null);
+		setUserLocation(null);
+	};
+
 	return (
 		<div className="min-h-screen bg-[#f6fbf8] pb-12">
 			<HeroSection
@@ -142,12 +232,62 @@ export default function ATMLocator() {
 				bgColor="#396131"
 				textColor="#fff"
 			/>
-			<div className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-4 py-20">
+			<div className="bg-linear-to-l from-[#396131] to-[#4a7c3a] px-4 py-20">
+				<section className="mx-auto mb-16 max-w-7xl rounded-3xl bg-white/90 p-8 shadow-xl backdrop-blur">
+					<div className="mb-6 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+						<h2 className="text-2xl font-semibold text-[#396131] md:text-3xl">
+							Find the closest ATM
+						</h2>
+						<p className="text-sm text-gray-600">
+							Enter your address to locate the nearest ATM-equipped branch or stand-alone ATM.
+						</p>
+					</div>
+					<form onSubmit={handleLocatorSubmit} className="flex flex-col gap-3 md:flex-row">
+						<div className="relative flex-1">
+							<Search className="pointer-events-none absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-gray-400" />
+							<input
+								type="text"
+								value={locatorQuery}
+								onChange={(event) => setLocatorQuery(event.target.value)}
+								placeholder="Street, city, or landmark..."
+								disabled={locatorLoading}
+								className="w-full rounded-xl border border-gray-200 bg-white px-10 py-3 text-sm text-gray-700 shadow focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none disabled:bg-gray-100"
+							/>
+						</div>
+						<div className="flex gap-2">
+							<button
+								type="submit"
+								disabled={locatorLoading}
+								className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-5 py-3 text-sm font-semibold text-white shadow hover:bg-[#2e4f29] disabled:cursor-not-allowed disabled:opacity-60"
+							>
+								{locatorLoading ? 'Locating...' : 'Locate ATM'}
+							</button>
+							<button
+								type="button"
+								onClick={handleClearLocator}
+								disabled={locatorLoading || (!locatorMessage && !userLocation && !nearestATM)}
+								className="inline-flex items-center justify-center rounded-xl border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-600 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
+							>
+								Clear
+							</button>
+						</div>
+					</form>
+					{locatorMessage && <p className="mt-4 text-sm text-gray-700">{locatorMessage}</p>}
+					<div className="mt-8 overflow-hidden rounded-3xl">
+						<LocationsMap
+							markers={atmMarkers}
+							userLocation={userLocation}
+							selectedId={nearestATM ? `atm-${nearestATM.id}` : null}
+							height={420}
+						/>
+					</div>
+				</section>
+
 				<div className="mb-16 text-center">
 					<h1 className="mb-4 text-5xl leading-tight font-bold text-white md:text-6xl">
 						ATM LOCATOR
 					</h1>
-					<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white to-[#E9F2EA]"></div>
+					<div className="mx-auto h-1 w-24 rounded-full bg-linear-to-r from-white to-[#E9F2EA]"></div>
 					<p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed font-normal text-gray-200">
 						See which branches and stand-alone locations offer ATM facilities – across Mindanao,
 						Visayas, the regions, and more.
