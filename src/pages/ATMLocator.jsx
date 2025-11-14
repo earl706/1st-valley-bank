@@ -1,22 +1,13 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import HeroSection from '../components/HeroSection';
-import {
-	MapPin,
-	MapPinned,
-	Building2,
-	Landmark,
-	X,
-	CreditCard,
-	Contact2,
-	Globe,
-	Search
-} from 'lucide-react';
+import { MapPin, MapPinned, Building2, Landmark, X, CreditCard, Globe } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import locationService from '../services/locationService';
 import LocationsMap from '../components/LocationsMap';
-import { findNearestLocation } from '../utils/geo';
+
+const PSGC_API_BASE = 'https://psgc.gitlab.io/api';
 
 function ATMCard({ icon: Icon, name, address, onContact, atm }) {
 	return (
@@ -83,9 +74,19 @@ export default function ATMLocator() {
 	const [branchlessATMs, setBranchlessATMs] = useState([]);
 	const [userLocation, setUserLocation] = useState(null);
 	const [nearestATM, setNearestATM] = useState(null);
-	const [locatorQuery, setLocatorQuery] = useState('');
 	const [locatorLoading, setLocatorLoading] = useState(false);
 	const [locatorMessage, setLocatorMessage] = useState('');
+	const [activeMarkerId, setActiveMarkerId] = useState(null);
+	const [provinceOptions, setProvinceOptions] = useState([]);
+	const [provinceLoading, setProvinceLoading] = useState(false);
+	const [cityOptions, setCityOptions] = useState([]);
+	const [cityLoading, setCityLoading] = useState(false);
+	const [barangayOptions, setBarangayOptions] = useState([]);
+	const [barangayLoading, setBarangayLoading] = useState(false);
+	const [selectedProvince, setSelectedProvince] = useState('');
+	const [selectedCity, setSelectedCity] = useState('');
+	const [selectedBarangay, setSelectedBarangay] = useState('');
+	const [addressFieldError, setAddressFieldError] = useState('');
 
 	const fetchATMs = async () => {
 		try {
@@ -109,6 +110,128 @@ export default function ATMLocator() {
 	useEffect(() => {
 		fetchATMs();
 	}, []);
+
+	useEffect(() => {
+		const controller = new AbortController();
+
+		const loadProvinces = async () => {
+			setProvinceLoading(true);
+			try {
+				const response = await fetch(`${PSGC_API_BASE}/provinces/`, {
+					signal: controller.signal
+				});
+				if (!response.ok) {
+					throw new Error(`Failed to load provinces: ${response.status}`);
+				}
+				const data = await response.json();
+				const formatted = (Array.isArray(data) ? data : [])
+					.map((province) => ({
+						code: province.code,
+						name: province.name,
+						regionName: province.regionName
+					}))
+					.sort((a, b) => a.name.localeCompare(b.name));
+				setProvinceOptions(formatted);
+				setAddressFieldError('');
+			} catch (error) {
+				if (error.name !== 'AbortError') {
+					console.error('Failed to load provinces:', error);
+					setAddressFieldError('Unable to load provinces. Please refresh the page.');
+				}
+			} finally {
+				setProvinceLoading(false);
+			}
+		};
+
+		loadProvinces();
+
+		return () => controller.abort();
+	}, []);
+
+	useEffect(() => {
+		if (!selectedProvince) {
+			return;
+		}
+
+		const controller = new AbortController();
+
+		const loadCities = async () => {
+			setCityLoading(true);
+			try {
+				const response = await fetch(
+					`${PSGC_API_BASE}/provinces/${selectedProvince}/cities-municipalities/`,
+					{ signal: controller.signal }
+				);
+				if (!response.ok) {
+					throw new Error(`Failed to load cities: ${response.status}`);
+				}
+				const data = await response.json();
+				const formatted = (Array.isArray(data) ? data : [])
+					.map((city) => ({
+						code: city.code,
+						name: city.name,
+						isCity: city.isCity
+					}))
+					.sort((a, b) => a.name.localeCompare(b.name));
+				setCityOptions(formatted);
+				setAddressFieldError('');
+			} catch (error) {
+				if (error.name !== 'AbortError') {
+					console.error('Failed to load cities/municipalities:', error);
+					setAddressFieldError(
+						'Unable to load cities or municipalities for the selected province.'
+					);
+				}
+			} finally {
+				setCityLoading(false);
+			}
+		};
+
+		loadCities();
+
+		return () => controller.abort();
+	}, [selectedProvince]);
+
+	useEffect(() => {
+		if (!selectedCity) {
+			return;
+		}
+
+		const controller = new AbortController();
+
+		const loadBarangays = async () => {
+			setBarangayLoading(true);
+			try {
+				const response = await fetch(
+					`${PSGC_API_BASE}/cities-municipalities/${selectedCity}/barangays/`,
+					{ signal: controller.signal }
+				);
+				if (!response.ok) {
+					throw new Error(`Failed to load barangays: ${response.status}`);
+				}
+				const data = await response.json();
+				const formatted = (Array.isArray(data) ? data : [])
+					.map((barangay) => ({
+						code: barangay.code,
+						name: barangay.name
+					}))
+					.sort((a, b) => a.name.localeCompare(b.name));
+				setBarangayOptions(formatted);
+				setAddressFieldError('');
+			} catch (error) {
+				if (error.name !== 'AbortError') {
+					console.error('Failed to load barangays:', error);
+					setAddressFieldError('Unable to load barangays for the selected city or municipality.');
+				}
+			} finally {
+				setBarangayLoading(false);
+			}
+		};
+
+		loadBarangays();
+
+		return () => controller.abort();
+	}, [selectedCity]);
 
 	const modalProps = {
 		mindanao: {
@@ -162,67 +285,188 @@ export default function ATMLocator() {
 					subtitle: atm.branch?.name ? `Branch: ${atm.branch.name}` : undefined,
 					latitude: Number(atm.latitude),
 					longitude: Number(atm.longitude),
-					type: 'atm'
+					type: 'atm',
+					raw: atm
 				})),
 		[atms]
 	);
 
+	const selectedProvinceOption = useMemo(
+		() => provinceOptions.find((province) => province.code === selectedProvince) || null,
+		[provinceOptions, selectedProvince]
+	);
+
+	const selectedCityOption = useMemo(
+		() => cityOptions.find((city) => city.code === selectedCity) || null,
+		[cityOptions, selectedCity]
+	);
+
+	const selectedBarangayOption = useMemo(
+		() => barangayOptions.find((barangay) => barangay.code === selectedBarangay) || null,
+		[barangayOptions, selectedBarangay]
+	);
+
+	const locatorQuery = useMemo(() => {
+		if (!selectedProvinceOption || !selectedCityOption || !selectedBarangayOption) {
+			return '';
+		}
+
+		return `${selectedBarangayOption.name}, ${selectedCityOption.name}, ${selectedProvinceOption.name}, Philippines`;
+	}, [selectedProvinceOption, selectedCityOption, selectedBarangayOption]);
+
+	const isLocateDisabled =
+		locatorLoading ||
+		provinceLoading ||
+		cityLoading ||
+		barangayLoading ||
+		!selectedProvinceOption ||
+		!selectedCityOption ||
+		!selectedBarangayOption;
+
+	const canClearLocator = Boolean(
+		selectedProvince ||
+			selectedCity ||
+			selectedBarangay ||
+			userLocation ||
+			nearestATM ||
+			locatorMessage
+	);
+
+	const handleProvinceChange = (event) => {
+		const value = event.target.value;
+		setSelectedProvince(value);
+		setSelectedCity('');
+		setSelectedBarangay('');
+		setCityOptions([]);
+		setBarangayOptions([]);
+		setAddressFieldError('');
+		setLocatorMessage('');
+	};
+
+	const handleCityChange = (event) => {
+		const value = event.target.value;
+		setSelectedCity(value);
+		setSelectedBarangay('');
+		setBarangayOptions([]);
+		setAddressFieldError('');
+		setLocatorMessage('');
+	};
+
+	const handleBarangayChange = (event) => {
+		setSelectedBarangay(event.target.value);
+		setAddressFieldError('');
+		setLocatorMessage('');
+	};
+
 	const handleLocatorSubmit = async (event) => {
 		event.preventDefault();
-		if (!locatorQuery.trim()) {
-			setLocatorMessage('Please enter an address to locate the nearest ATM.');
+		if (!locatorQuery) {
+			setAddressFieldError(
+				'Please select a Province, City/Municipality, and Barangay to locate the nearest ATM.'
+			);
 			return;
 		}
+
 		setLocatorLoading(true);
 		setLocatorMessage('');
+		setAddressFieldError('');
 		setNearestATM(null);
 
 		try {
-			const result = await locationService.searchPlaces(locatorQuery, { limit: 5 });
-			if (!result.success) {
-				setLocatorMessage(result.message || 'Unable to search for that address.');
-				return;
-			}
-
-			const [firstMatch] = result.data || [];
-			if (!firstMatch) {
-				setLocatorMessage('No matches found for that address. Please refine your search.');
-				return;
-			}
-
-			const userPoint = {
-				latitude: Number(firstMatch.latitude),
-				longitude: Number(firstMatch.longitude),
-				label: firstMatch.place_name
+			const payload = {
+				address: locatorQuery,
+				province: selectedProvinceOption?.name || '',
+				municipality: selectedCityOption?.name || '',
+				barangay: selectedBarangayOption?.name || ''
 			};
-			setUserLocation(userPoint);
 
-			const nearest = findNearestLocation(userPoint, atms);
-			if (nearest) {
-				setNearestATM(nearest);
-				const descriptor = nearest.branch?.name
-					? `in ${nearest.branch.name}`
-					: 'standalone location';
+			const result = await locationService.findNearestATMByAddress(payload);
+			if (!result.success) {
 				setLocatorMessage(
-					`Closest ATM: ${nearest.name} (${descriptor}) — ${nearest.distanceKm.toFixed(2)} km away.`
+					result.message || 'Unable to determine the nearest ATM. Please try again later.'
 				);
-			} else {
-				setLocatorMessage('No ATM coordinates are available to compute the nearest ATM.');
+				setActiveMarkerId(null);
+				setUserLocation(null);
+				return;
 			}
+
+			const { nearest_atm: atm, query } = result.data || {};
+			if (!atm) {
+				setLocatorMessage('No ATM coordinates are available to compute the nearest ATM.');
+				setActiveMarkerId(null);
+				setUserLocation(null);
+				return;
+			}
+
+			const distanceValue = Number(atm.distance_km ?? atm.distanceKm);
+			const formattedATM = {
+				...atm,
+				distanceKm: Number.isFinite(distanceValue) ? distanceValue : null
+			};
+			setNearestATM(formattedATM);
+
+			if (
+				query &&
+				query.latitude !== undefined &&
+				query.longitude !== undefined &&
+				query.latitude !== null &&
+				query.longitude !== null
+			) {
+				setUserLocation({
+					latitude: Number(query.latitude),
+					longitude: Number(query.longitude),
+					label: query.address || locatorQuery
+				});
+			} else {
+				setUserLocation(null);
+			}
+
+			const markerId = `atm-${atm.id}`;
+			const markerExists = atms?.some?.((existing) => existing.id === atm.id);
+			setActiveMarkerId(markerExists ? markerId : null);
+
+			const descriptor = atm.branch?.name ? `in ${atm.branch.name}` : 'standalone location';
+			let message = `Closest ATM: ${atm.name} (${descriptor})`;
+			if (Number.isFinite(formattedATM.distanceKm)) {
+				message += ` — ${formattedATM.distanceKm.toFixed(2)} km away.`;
+			} else {
+				message += '.';
+			}
+			setLocatorMessage(message);
 		} catch (error) {
 			console.error('Failed to locate ATM:', error);
 			setLocatorMessage('Something went wrong while searching. Please try again later.');
+			setActiveMarkerId(null);
+			setUserLocation(null);
 		} finally {
 			setLocatorLoading(false);
 		}
 	};
 
 	const handleClearLocator = () => {
-		setLocatorQuery('');
+		setSelectedProvince('');
+		setSelectedCity('');
+		setSelectedBarangay('');
+		setCityOptions([]);
+		setBarangayOptions([]);
 		setLocatorMessage('');
 		setNearestATM(null);
 		setUserLocation(null);
+		setActiveMarkerId(null);
+		setAddressFieldError('');
 	};
+
+	const handleMarkerSelect = useCallback((marker) => {
+		if (!marker || marker.id === 'user') return;
+		setActiveMarkerId(marker.id);
+	}, []);
+
+	useEffect(() => {
+		if (!activeMarkerId) return;
+		if (!atmMarkers.some((marker) => marker.id === activeMarkerId)) {
+			setActiveMarkerId(null);
+		}
+	}, [activeMarkerId, atmMarkers]);
 
 	return (
 		<div className="min-h-screen bg-[#f6fbf8] pb-12">
@@ -242,43 +486,123 @@ export default function ATMLocator() {
 							Enter your address to locate the nearest ATM-equipped branch or stand-alone ATM.
 						</p>
 					</div>
-					<form onSubmit={handleLocatorSubmit} className="flex flex-col gap-3 md:flex-row">
-						<div className="relative flex-1">
-							<Search className="pointer-events-none absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-gray-400" />
-							<input
-								type="text"
-								value={locatorQuery}
-								onChange={(event) => setLocatorQuery(event.target.value)}
-								placeholder="Street, city, or landmark..."
-								disabled={locatorLoading}
-								className="w-full rounded-xl border border-gray-200 bg-white px-10 py-3 text-sm text-gray-700 shadow focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none disabled:bg-gray-100"
-							/>
+					<form onSubmit={handleLocatorSubmit} className="space-y-4">
+						<div className="grid gap-3 md:grid-cols-3">
+							<div className="flex flex-col">
+								<label className="mb-1 text-sm font-medium text-gray-700" htmlFor="province-select">
+									Province
+								</label>
+								<select
+									id="province-select"
+									value={selectedProvince}
+									onChange={handleProvinceChange}
+									disabled={provinceLoading || locatorLoading}
+									className="w-full rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm text-gray-700 shadow focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none disabled:bg-gray-100"
+								>
+									<option value="">Select Province</option>
+									{provinceOptions.map((province) => (
+										<option key={province.code} value={province.code}>
+											{province.name}
+										</option>
+									))}
+								</select>
+								{provinceLoading && (
+									<p className="mt-1 text-xs text-gray-500">Loading provinces…</p>
+								)}
+							</div>
+							<div className="flex flex-col">
+								<label className="mb-1 text-sm font-medium text-gray-700" htmlFor="city-select">
+									City / Municipality
+								</label>
+								<select
+									id="city-select"
+									value={selectedCity}
+									onChange={handleCityChange}
+									disabled={!selectedProvince || cityLoading || locatorLoading}
+									className="w-full rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm text-gray-700 shadow focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none disabled:bg-gray-100"
+								>
+									<option value="">Select City or Municipality</option>
+									{cityOptions.map((city) => (
+										<option key={city.code} value={city.code}>
+											{city.name}
+										</option>
+									))}
+								</select>
+								{cityLoading && (
+									<p className="mt-1 text-xs text-gray-500">Loading cities and municipalities…</p>
+								)}
+							</div>
+							<div className="flex flex-col">
+								<label className="mb-1 text-sm font-medium text-gray-700" htmlFor="barangay-select">
+									Barangay
+								</label>
+								<select
+									id="barangay-select"
+									value={selectedBarangay}
+									onChange={handleBarangayChange}
+									disabled={!selectedCity || barangayLoading || locatorLoading}
+									className="w-full rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm text-gray-700 shadow focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none disabled:bg-gray-100"
+								>
+									<option value="">Select Barangay</option>
+									{barangayOptions.map((barangay) => (
+										<option key={barangay.code} value={barangay.code}>
+											{barangay.name}
+										</option>
+									))}
+								</select>
+								{barangayLoading && (
+									<p className="mt-1 text-xs text-gray-500">Loading barangays…</p>
+								)}
+							</div>
 						</div>
-						<div className="flex gap-2">
-							<button
-								type="submit"
-								disabled={locatorLoading}
-								className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-5 py-3 text-sm font-semibold text-white shadow hover:bg-[#2e4f29] disabled:cursor-not-allowed disabled:opacity-60"
-							>
-								{locatorLoading ? 'Locating...' : 'Locate ATM'}
-							</button>
-							<button
-								type="button"
-								onClick={handleClearLocator}
-								disabled={locatorLoading || (!locatorMessage && !userLocation && !nearestATM)}
-								className="inline-flex items-center justify-center rounded-xl border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-600 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
-							>
-								Clear
-							</button>
+						<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+							<p className="text-xs text-gray-500">
+								Data source: Philippine Statistics Authority (PSGC)
+							</p>
+							<div className="flex gap-2">
+								<button
+									type="submit"
+									disabled={isLocateDisabled}
+									className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-5 py-3 text-sm font-semibold text-white shadow hover:bg-[#2e4f29] disabled:cursor-not-allowed disabled:opacity-60"
+								>
+									{locatorLoading ? 'Locating...' : 'Locate ATM'}
+								</button>
+								<button
+									type="button"
+									onClick={handleClearLocator}
+									disabled={locatorLoading || !canClearLocator}
+									className="inline-flex items-center justify-center rounded-xl border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-600 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
+								>
+									Clear
+								</button>
+							</div>
 						</div>
 					</form>
+					{addressFieldError && <p className="mt-2 text-sm text-red-600">{addressFieldError}</p>}
 					{locatorMessage && <p className="mt-4 text-sm text-gray-700">{locatorMessage}</p>}
+					{nearestATM && (
+						<div className="mt-4 rounded-2xl border border-gray-200 bg-white/80 p-4 text-sm text-gray-700 shadow-sm">
+							<p className="text-base font-semibold text-[#396131]">{nearestATM.name}</p>
+							{nearestATM.address && <p className="mt-1 text-gray-600">{nearestATM.address}</p>}
+							{nearestATM.branch?.name && (
+								<p className="mt-1 text-xs tracking-wide text-gray-500 uppercase">
+									Branch: {nearestATM.branch.name}
+								</p>
+							)}
+							{Number.isFinite(nearestATM.distanceKm) && (
+								<p className="mt-2 text-xs text-gray-600">
+									Approximately {nearestATM.distanceKm.toFixed(2)} km away
+								</p>
+							)}
+						</div>
+					)}
 					<div className="mt-8 overflow-hidden rounded-3xl">
 						<LocationsMap
 							markers={atmMarkers}
 							userLocation={userLocation}
-							selectedId={nearestATM ? `atm-${nearestATM.id}` : null}
+							selectedId={activeMarkerId}
 							height={420}
+							onMarkerSelect={handleMarkerSelect}
 						/>
 					</div>
 				</section>

@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useRef } from 'react';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
 
-const DEFAULT_CENTER = [121.774, 12.8797]; // [lng, lat]
+const DEFAULT_CENTER = { lat: 12.8797, lng: 121.774 }; // Philippines centroid
 const DEFAULT_ZOOM = 5;
-const MAP_STYLE = 'mapbox://styles/mapbox/streets-v12';
+const MAX_FIT_ZOOM = 13;
+const MAP_LIBRARIES = ['places', 'maps'];
+const MAP_CONTAINER_STYLE = { width: '100%', height: '100%' };
 
 const markerColors = {
 	branch: '#1f7a4d',
@@ -13,29 +14,29 @@ const markerColors = {
 	user: '#ff6b00'
 };
 
-function buildMarkerElement(color) {
-	const el = document.createElement('span');
-	el.style.display = 'block';
-	el.style.width = '18px';
-	el.style.height = '18px';
-	el.style.borderRadius = '9999px';
-	el.style.background = color;
-	el.style.border = '2px solid #ffffff';
-	el.style.boxShadow = '0 0 0 2px rgba(0, 0, 0, 0.2)';
-	return el;
-}
-
 export default function LocationsMap({
 	markers = [],
 	userLocation = null,
 	selectedId = null,
-	height = 440
+	height = 440,
+	onMarkerSelect = undefined
 }) {
-	const mapContainerRef = useRef(null);
 	const mapRef = useRef(null);
-	const renderedMarkersRef = useRef([]);
+	const iconCacheRef = useRef({});
+	const [activeInfoId, setActiveInfoId] = useState(null);
 
-	const accessToken = useMemo(() => import.meta.env.VITE_MAPBOX_PUBLIC_TOKEN || '', []);
+	const apiKey = useMemo(() => import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '', []);
+
+	const { isLoaded, loadError } = useJsApiLoader(
+		useMemo(
+			() => ({
+				id: 'google-locations-map',
+				googleMapsApiKey: apiKey || '',
+				libraries: MAP_LIBRARIES
+			}),
+			[apiKey]
+		)
+	);
 
 	const normalizedMarkers = useMemo(
 		() =>
@@ -49,7 +50,10 @@ export default function LocationsMap({
 				)
 				.map((marker) => ({
 					...marker,
-					lngLat: [Number(marker.longitude), Number(marker.latitude)],
+					position: {
+						lat: Number(marker.latitude),
+						lng: Number(marker.longitude)
+					},
 					color:
 						marker.id === selectedId
 							? markerColors.selected
@@ -66,108 +70,216 @@ export default function LocationsMap({
 		) {
 			return null;
 		}
+
 		return {
 			...userLocation,
-			lngLat: [Number(userLocation.longitude), Number(userLocation.latitude)],
+			id: 'user',
+			position: {
+				lat: Number(userLocation.latitude),
+				lng: Number(userLocation.longitude)
+			},
 			color: markerColors.user
 		};
 	}, [userLocation]);
 
 	useEffect(() => {
-		if (mapRef.current || !mapContainerRef.current) return;
-
-		if (!accessToken) {
-			console.warn('Mapbox public token (VITE_MAPBOX_PUBLIC_TOKEN) is not configured.');
-			return;
+		if (selectedId) {
+			setActiveInfoId(selectedId);
+		} else {
+			setActiveInfoId((prev) => (prev && prev !== 'user' ? null : prev));
 		}
+	}, [selectedId]);
 
-		mapboxgl.accessToken = accessToken;
-
-		mapRef.current = new mapboxgl.Map({
-			container: mapContainerRef.current,
-			style: MAP_STYLE,
-			center: DEFAULT_CENTER,
-			zoom: DEFAULT_ZOOM
-		});
-
-		mapRef.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
-
-		return () => {
-			if (mapRef.current) {
-				mapRef.current.remove();
-				mapRef.current = null;
+	const getMarkerIcon = useCallback(
+		(color, scale = 8) => {
+			if (!isLoaded || !window.google?.maps?.SymbolPath?.CIRCLE) {
+				return undefined;
 			}
-		};
-	}, [accessToken]);
+
+			if (!iconCacheRef.current[color]) {
+				iconCacheRef.current[color] = {
+					path: window.google.maps.SymbolPath.CIRCLE,
+					scale,
+					fillColor: color,
+					fillOpacity: 1,
+					strokeColor: '#ffffff',
+					strokeOpacity: 1,
+					strokeWeight: 2
+				};
+			}
+
+			return iconCacheRef.current[color];
+		},
+		[isLoaded]
+	);
+
+	const handleMapLoad = useCallback((mapInstance) => {
+		mapRef.current = mapInstance;
+	}, []);
+
+	const handleMapUnmount = useCallback(() => {
+		mapRef.current = null;
+	}, []);
+
+	const handleMapClick = useCallback(() => {
+		setActiveInfoId(null);
+	}, []);
+
+	const handleMarkerClick = useCallback(
+		(marker) => {
+			if (!marker) return;
+			setActiveInfoId(marker.id);
+			onMarkerSelect?.(marker);
+		},
+		[onMarkerSelect]
+	);
+
+	const handleUserMarkerClick = useCallback(() => {
+		if (!userPoint) return;
+		setActiveInfoId('user');
+		onMarkerSelect?.(userPoint);
+	}, [onMarkerSelect, userPoint]);
 
 	useEffect(() => {
 		const map = mapRef.current;
-		if (!map) return;
+		if (!map || !isLoaded || !window.google?.maps) {
+			return;
+		}
 
-		// Remove existing markers
-		renderedMarkersRef.current.forEach((marker) => marker.remove());
-		renderedMarkersRef.current = [];
+		const points = [
+			...normalizedMarkers.map((marker) => marker.position),
+			...(userPoint ? [userPoint.position] : [])
+		];
 
-		const bounds = new mapboxgl.LngLatBounds();
-		let hasBounds = false;
+		if (points.length === 0) {
+			map.panTo(DEFAULT_CENTER);
+			map.setZoom(DEFAULT_ZOOM);
+			return;
+		}
 
-		normalizedMarkers.forEach((marker) => {
-			const element = buildMarkerElement(marker.color);
-			const mapboxMarker = new mapboxgl.Marker({ element }).setLngLat(marker.lngLat).addTo(map);
+		if (points.length === 1) {
+			map.panTo(points[0]);
+			map.setZoom(MAX_FIT_ZOOM);
+			return;
+		}
 
-			const popupHtml = `
-				<div style="max-width:220px;">
-					<strong>${marker.name || 'Location'}</strong><br/>
-					${marker.address ? `<span>${marker.address}</span><br/>` : ''}
-					${marker.subtitle ? `<span style="color:#4b5563;">${marker.subtitle}</span>` : ''}
-				</div>
-			`;
-			mapboxMarker.setPopup(new mapboxgl.Popup({ offset: 16 }).setHTML(popupHtml));
+		const bounds = new window.google.maps.LatLngBounds();
+		points.forEach((point) => bounds.extend(point));
 
-			renderedMarkersRef.current.push(mapboxMarker);
-			bounds.extend(marker.lngLat);
-			hasBounds = true;
+		map.fitBounds(bounds);
+
+		const listener = window.google.maps.event.addListenerOnce(map, 'idle', () => {
+			if (map.getZoom() > MAX_FIT_ZOOM) {
+				map.setZoom(MAX_FIT_ZOOM);
+			}
 		});
 
-		if (userPoint) {
-			const element = buildMarkerElement(userPoint.color);
-			const userMarker = new mapboxgl.Marker({ element }).setLngLat(userPoint.lngLat).addTo(map);
-			userMarker.setPopup(
-				new mapboxgl.Popup({ offset: 16 }).setHTML(
-					`<div style="max-width:220px;"><strong>${
-						userPoint.label || 'Your location'
-					}</strong></div>`
-				)
-			);
-			renderedMarkersRef.current.push(userMarker);
-			bounds.extend(userPoint.lngLat);
-			hasBounds = true;
-		}
+		return () => {
+			window.google.maps.event.removeListener(listener);
+		};
+	}, [normalizedMarkers, userPoint, isLoaded]);
 
-		if (hasBounds) {
-			map.fitBounds(bounds, { padding: 60, maxZoom: 13, duration: 800 });
-		} else {
-			map.setCenter(DEFAULT_CENTER);
-			map.setZoom(DEFAULT_ZOOM);
-		}
-	}, [normalizedMarkers, userPoint]);
-
-	if (!accessToken) {
+	if (!apiKey) {
 		return (
 			<div
 				className="flex items-center justify-center rounded-xl border border-gray-200 bg-gray-100 text-sm text-gray-500"
 				style={{ height }}
 			>
-				Mapbox token missing. Set VITE_MAPBOX_PUBLIC_TOKEN to enable the map.
+				Google Maps API key missing. Set VITE_GOOGLE_MAPS_API_KEY to enable the map.
 			</div>
 		);
 	}
 
+	if (loadError) {
+		return (
+			<div
+				className="flex items-center justify-center rounded-xl border border-gray-200 bg-red-50 text-sm text-red-600"
+				style={{ height }}
+			>
+				Failed to load Google Maps.
+			</div>
+		);
+	}
+
+	if (!isLoaded) {
+		return (
+			<div
+				className="flex items-center justify-center rounded-xl border border-gray-200 bg-gray-50 text-sm text-gray-500"
+				style={{ height }}
+			>
+				Loading map...
+			</div>
+		);
+	}
+
+	const handleInfoWindowClose = () => {
+		setActiveInfoId(null);
+	};
+
 	return (
-		<div
-			ref={mapContainerRef}
-			className="overflow-hidden rounded-xl border border-gray-200 shadow-sm"
-			style={{ height }}
-		/>
+		<div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm" style={{ height }}>
+			<GoogleMap
+				onLoad={handleMapLoad}
+				onUnmount={handleMapUnmount}
+				onClick={handleMapClick}
+				center={DEFAULT_CENTER}
+				zoom={DEFAULT_ZOOM}
+				mapContainerStyle={MAP_CONTAINER_STYLE}
+				options={{
+					disableDefaultUI: false,
+					fullscreenControl: false,
+					streetViewControl: false,
+					mapTypeControl: false,
+					clickableIcons: true,
+					styles: [
+						{
+							featureType: 'poi',
+							stylers: [{ visibility: 'off' }]
+						}
+					]
+				}}
+			>
+				{normalizedMarkers.map((marker) => {
+					const isActive = marker.id === selectedId || activeInfoId === marker.id;
+					return (
+						<Marker
+							key={marker.id}
+							position={marker.position}
+							icon={getMarkerIcon(
+								isActive ? markerColors.selected : marker.color,
+								isActive ? 9 : 7
+							)}
+							onClick={() => handleMarkerClick(marker)}
+						>
+							{activeInfoId === marker.id && (
+								<InfoWindow onCloseClick={handleInfoWindowClose}>
+									<div style={{ maxWidth: 220 }}>
+										<strong>{marker.name || 'Location'}</strong>
+										{marker.address && <div>{marker.address}</div>}
+										{marker.subtitle && <div style={{ color: '#4b5563' }}>{marker.subtitle}</div>}
+									</div>
+								</InfoWindow>
+							)}
+						</Marker>
+					);
+				})}
+
+				{userPoint && (
+					<Marker
+						position={userPoint.position}
+						icon={getMarkerIcon(userPoint.color, 8)}
+						onClick={handleUserMarkerClick}
+					>
+						{activeInfoId === 'user' && (
+							<InfoWindow onCloseClick={handleInfoWindowClose}>
+								<div style={{ maxWidth: 220 }}>
+									<strong>{userPoint.label || 'Your location'}</strong>
+								</div>
+							</InfoWindow>
+						)}
+					</Marker>
+				)}
+			</GoogleMap>
+		</div>
 	);
 }

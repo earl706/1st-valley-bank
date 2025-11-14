@@ -95,14 +95,62 @@ const locationService = {
 		}
 
 		try {
-			const response = await api.get('/locations/google-geocode/', {
+			const response = await api.get('/locations/autocomplete/', {
 				params: {
 					query,
 					limit: params.limit ?? 5,
-					region: params.country ?? 'PH'
+					region: params.region ?? params.country ?? 'ph',
+					language: params.language ?? 'en',
+					session_token: params.sessionToken
 				}
 			});
 			return { success: true, data: response.data?.results || [] };
+		} catch (error) {
+			const apiError = handleApiError(error);
+			return { success: false, ...apiError };
+		}
+	},
+
+	/**
+	 * Find the nearest branch based on a structured Philippine address.
+	 * @param {Object} payload
+	 * @param {string} payload.province
+	 * @param {string} payload.municipality
+	 * @param {string} payload.barangay
+	 * @param {string} [payload.address] - Optional full address string override
+	 */
+	async findNearestBranchByAddress({ province, municipality, barangay, address }) {
+		try {
+			const response = await api.post('/locations/branches/nearest/', {
+				province,
+				municipality,
+				barangay,
+				address
+			});
+			return { success: true, data: response.data };
+		} catch (error) {
+			const apiError = handleApiError(error);
+			return { success: false, ...apiError };
+		}
+	},
+
+	/**
+	 * Find the nearest ATM based on a structured Philippine address.
+	 * @param {Object} payload
+	 * @param {string} payload.province
+	 * @param {string} payload.municipality
+	 * @param {string} payload.barangay
+	 * @param {string} [payload.address] - Optional full address string override
+	 */
+	async findNearestATMByAddress({ province, municipality, barangay, address }) {
+		try {
+			const response = await api.post('/locations/atms/nearest/', {
+				province,
+				municipality,
+				barangay,
+				address
+			});
+			return { success: true, data: response.data };
 		} catch (error) {
 			const apiError = handleApiError(error);
 			return { success: false, ...apiError };

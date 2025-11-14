@@ -1,21 +1,13 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import {
-	MapPinned,
-	Building2,
-	Landmark,
-	X,
-	CreditCard,
-	ArrowRight,
-	MapPin,
-	Search
-} from 'lucide-react';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
+import { MapPinned, Building2, Landmark, X, CreditCard, ArrowRight } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import { DarkHeader } from '../components/Header';
 import locationService from '../services/locationService';
 import LocationsMap from '../components/LocationsMap';
-import { findNearestLocation } from '../utils/geo';
+
+const PSGC_API_BASE = 'https://psgc.gitlab.io/api';
 
 function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 	return (
@@ -81,6 +73,475 @@ function AllBranchesModal({ title, branches, icon: Icon, onContact, onClose }) {
 	);
 }
 
+// New reusable component for "Find the closest branch"
+function ClosestBranchSection({ allBranches }) {
+	const [locatorLoading, setLocatorLoading] = useState(false);
+	const [locatorMessage, setLocatorMessage] = useState('');
+	const [userLocation, setUserLocation] = useState(null);
+	const [nearestBranch, setNearestBranch] = useState(null);
+	const [activeMarkerId, setActiveMarkerId] = useState(null);
+	const [provinceOptions, setProvinceOptions] = useState([]);
+	const [provinceLoading, setProvinceLoading] = useState(false);
+	const [cityOptions, setCityOptions] = useState([]);
+	const [cityLoading, setCityLoading] = useState(false);
+	const [barangayOptions, setBarangayOptions] = useState([]);
+	const [barangayLoading, setBarangayLoading] = useState(false);
+	const [selectedProvince, setSelectedProvince] = useState('');
+	const [selectedCity, setSelectedCity] = useState('');
+	const [selectedBarangay, setSelectedBarangay] = useState('');
+	const [addressFieldError, setAddressFieldError] = useState('');
+
+	const selectedProvinceOption = useMemo(
+		() => provinceOptions.find((province) => province.code === selectedProvince) || null,
+		[provinceOptions, selectedProvince]
+	);
+
+	const selectedCityOption = useMemo(
+		() => cityOptions.find((city) => city.code === selectedCity) || null,
+		[cityOptions, selectedCity]
+	);
+
+	const selectedBarangayOption = useMemo(
+		() => barangayOptions.find((barangay) => barangay.code === selectedBarangay) || null,
+		[barangayOptions, selectedBarangay]
+	);
+
+	const locatorQuery = useMemo(() => {
+		if (!selectedProvinceOption || !selectedCityOption || !selectedBarangayOption) {
+			return '';
+		}
+		return `${selectedBarangayOption.name}, ${selectedCityOption.name}, ${selectedProvinceOption.name}, Philippines`;
+	}, [selectedProvinceOption, selectedCityOption, selectedBarangayOption]);
+
+	const isLocateDisabled =
+		locatorLoading ||
+		provinceLoading ||
+		cityLoading ||
+		barangayLoading ||
+		!selectedProvinceOption ||
+		!selectedCityOption ||
+		!selectedBarangayOption;
+
+	const canClearLocator = Boolean(
+		selectedProvince ||
+			selectedCity ||
+			selectedBarangay ||
+			userLocation ||
+			nearestBranch ||
+			locatorMessage
+	);
+
+	const handleProvinceChange = (event) => {
+		const value = event.target.value;
+		setSelectedProvince(value);
+		setSelectedCity('');
+		setSelectedBarangay('');
+		setCityOptions([]);
+		setBarangayOptions([]);
+		setAddressFieldError('');
+		setLocatorMessage('');
+	};
+
+	const handleCityChange = (event) => {
+		const value = event.target.value;
+		setSelectedCity(value);
+		setSelectedBarangay('');
+		setBarangayOptions([]);
+		setAddressFieldError('');
+		setLocatorMessage('');
+	};
+
+	const handleBarangayChange = (event) => {
+		setSelectedBarangay(event.target.value);
+		setAddressFieldError('');
+		setLocatorMessage('');
+	};
+
+	useEffect(() => {
+		const controller = new AbortController();
+
+		const loadProvinces = async () => {
+			setProvinceLoading(true);
+			try {
+				const response = await fetch(`${PSGC_API_BASE}/provinces/`, {
+					signal: controller.signal
+				});
+				if (!response.ok) {
+					throw new Error(`Failed to load provinces: ${response.status}`);
+				}
+				const data = await response.json();
+				const formatted = (Array.isArray(data) ? data : [])
+					.map((province) => ({
+						code: province.code,
+						name: province.name,
+						regionName: province.regionName
+					}))
+					.sort((a, b) => a.name.localeCompare(b.name));
+				setProvinceOptions(formatted);
+				setAddressFieldError('');
+			} catch (error) {
+				if (error.name !== 'AbortError') {
+					console.error('Failed to load provinces:', error);
+					setAddressFieldError('Unable to load provinces. Please refresh the page.');
+				}
+			} finally {
+				setProvinceLoading(false);
+			}
+		};
+
+		loadProvinces();
+
+		return () => controller.abort();
+	}, []);
+
+	useEffect(() => {
+		if (!selectedProvince) {
+			return;
+		}
+
+		const controller = new AbortController();
+
+		const loadCities = async () => {
+			setCityLoading(true);
+			try {
+				const response = await fetch(
+					`${PSGC_API_BASE}/provinces/${selectedProvince}/cities-municipalities/`,
+					{ signal: controller.signal }
+				);
+				if (!response.ok) {
+					throw new Error(`Failed to load cities: ${response.status}`);
+				}
+				const data = await response.json();
+				const formatted = (Array.isArray(data) ? data : [])
+					.map((city) => ({
+						code: city.code,
+						name: city.name,
+						isCity: city.isCity
+					}))
+					.sort((a, b) => a.name.localeCompare(b.name));
+				setCityOptions(formatted);
+				setAddressFieldError('');
+			} catch (error) {
+				if (error.name !== 'AbortError') {
+					console.error('Failed to load cities/municipalities:', error);
+					setAddressFieldError(
+						'Unable to load cities or municipalities for the selected province.'
+					);
+				}
+			} finally {
+				setCityLoading(false);
+			}
+		};
+
+		loadCities();
+
+		return () => controller.abort();
+	}, [selectedProvince]);
+
+	useEffect(() => {
+		if (!selectedCity) {
+			return;
+		}
+
+		const controller = new AbortController();
+
+		const loadBarangays = async () => {
+			setBarangayLoading(true);
+			try {
+				const response = await fetch(
+					`${PSGC_API_BASE}/cities-municipalities/${selectedCity}/barangays/`,
+					{ signal: controller.signal }
+				);
+				if (!response.ok) {
+					throw new Error(`Failed to load barangays: ${response.status}`);
+				}
+				const data = await response.json();
+				const formatted = (Array.isArray(data) ? data : [])
+					.map((barangay) => ({
+						code: barangay.code,
+						name: barangay.name
+					}))
+					.sort((a, b) => a.name.localeCompare(b.name));
+				setBarangayOptions(formatted);
+				setAddressFieldError('');
+			} catch (error) {
+				if (error.name !== 'AbortError') {
+					console.error('Failed to load barangays:', error);
+					setAddressFieldError('Unable to load barangays for the selected city or municipality.');
+				}
+			} finally {
+				setBarangayLoading(false);
+			}
+		};
+
+		loadBarangays();
+
+		return () => controller.abort();
+	}, [selectedCity]);
+
+	const handleLocatorSubmit = async (event) => {
+		event.preventDefault();
+		if (!locatorQuery) {
+			setAddressFieldError(
+				'Please select a Province, City/Municipality, and Barangay to locate the nearest branch.'
+			);
+			return;
+		}
+
+		setLocatorLoading(true);
+		setLocatorMessage('');
+		setAddressFieldError('');
+		setNearestBranch(null);
+
+		try {
+			const payload = {
+				address: locatorQuery,
+				province: selectedProvinceOption?.name || '',
+				municipality: selectedCityOption?.name || '',
+				barangay: selectedBarangayOption?.name || ''
+			};
+
+			const result = await locationService.findNearestBranchByAddress(payload);
+			if (!result.success) {
+				setLocatorMessage(
+					result.message || 'Unable to determine the nearest branch. Please try again later.'
+				);
+				setActiveMarkerId(null);
+				setUserLocation(null);
+				return;
+			}
+
+			const { nearest_branch: branch, query } = result.data || {};
+			if (!branch) {
+				setLocatorMessage('No branch coordinates are available to compute the nearest branch.');
+				setActiveMarkerId(null);
+				setUserLocation(null);
+				return;
+			}
+
+			const distanceValue = Number(branch.distance_km ?? branch.distanceKm);
+			const formattedBranch = {
+				...branch,
+				distanceKm: Number.isFinite(distanceValue) ? distanceValue : null
+			};
+			setNearestBranch(formattedBranch);
+
+			if (
+				query &&
+				query.latitude !== undefined &&
+				query.longitude !== undefined &&
+				query.latitude !== null &&
+				query.longitude !== null
+			) {
+				setUserLocation({
+					latitude: Number(query.latitude),
+					longitude: Number(query.longitude),
+					label: query.address || locatorQuery
+				});
+			} else {
+				setUserLocation(null);
+			}
+
+			const markerId = `branch-${branch.id}`;
+			const markerExists = allBranches?.some?.((existingBranch) => existingBranch.id === branch.id);
+			setActiveMarkerId(markerExists ? markerId : null);
+
+			const regionLabel =
+				branch.region_display ||
+				(typeof branch.region === 'string' ? branch.region.toUpperCase() : null);
+
+			let message = `Closest branch: ${branch.name}${regionLabel ? ` (${regionLabel})` : ''}`;
+			if (Number.isFinite(formattedBranch.distanceKm)) {
+				message += ` — ${formattedBranch.distanceKm.toFixed(2)} km away.`;
+			} else {
+				message += '.';
+			}
+			setLocatorMessage(message);
+		} catch (error) {
+			console.error('Failed to locate address:', error);
+			setLocatorMessage('Something went wrong while searching. Please try again later.');
+			setActiveMarkerId(null);
+			setUserLocation(null);
+		} finally {
+			setLocatorLoading(false);
+		}
+	};
+
+	const handleClearLocator = () => {
+		setSelectedProvince('');
+		setSelectedCity('');
+		setSelectedBarangay('');
+		setCityOptions([]);
+		setBarangayOptions([]);
+		setLocatorMessage('');
+		setNearestBranch(null);
+		setUserLocation(null);
+		setActiveMarkerId(null);
+		setAddressFieldError('');
+	};
+
+	const branchMarkers = useMemo(
+		() =>
+			allBranches
+				.filter(
+					(branch) =>
+						branch.latitude !== null &&
+						branch.latitude !== undefined &&
+						branch.longitude !== null &&
+						branch.longitude !== undefined
+				)
+				.map((branch) => ({
+					id: `branch-${branch.id}`,
+					name: branch.name,
+					address: branch.address || '',
+					subtitle: branch.region ? branch.region.toUpperCase() : '',
+					latitude: Number(branch.latitude),
+					longitude: Number(branch.longitude),
+					type: 'branch',
+					raw: branch
+				})),
+		[allBranches]
+	);
+
+	const handleMarkerSelect = useCallback((marker) => {
+		if (!marker || marker.id === 'user') return;
+		setActiveMarkerId(marker.id);
+	}, []);
+
+	useEffect(() => {
+		if (!activeMarkerId) return;
+		if (!branchMarkers.some((marker) => marker.id === activeMarkerId)) {
+			setActiveMarkerId(null);
+		}
+	}, [activeMarkerId, branchMarkers]);
+
+	return (
+		<section className="rounded-3xl bg-white/90 p-8 shadow-xl backdrop-blur">
+			<div className="mb-6 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+				<h2 className="text-2xl font-semibold text-[#396131] md:text-3xl">
+					Find the closest branch
+				</h2>
+				<p className="text-sm text-gray-600">
+					Enter your address to locate the nearest 1st Valley Bank branch.
+				</p>
+			</div>
+			<form onSubmit={handleLocatorSubmit} className="space-y-4">
+				<div className="grid gap-3 md:grid-cols-3">
+					<div className="flex flex-col">
+						<label className="mb-1 text-sm font-medium text-gray-700" htmlFor="province-select">
+							Province
+						</label>
+						<select
+							id="province-select"
+							value={selectedProvince}
+							onChange={handleProvinceChange}
+							disabled={provinceLoading || locatorLoading}
+							className="w-full rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm text-gray-700 shadow focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none disabled:bg-gray-100"
+						>
+							<option value="">Select Province</option>
+							{provinceOptions.map((province) => (
+								<option key={province.code} value={province.code}>
+									{province.name}
+								</option>
+							))}
+						</select>
+						{provinceLoading && <p className="mt-1 text-xs text-gray-500">Loading provinces…</p>}
+					</div>
+					<div className="flex flex-col">
+						<label className="mb-1 text-sm font-medium text-gray-700" htmlFor="city-select">
+							City / Municipality
+						</label>
+						<select
+							id="city-select"
+							value={selectedCity}
+							onChange={handleCityChange}
+							disabled={!selectedProvince || cityLoading || locatorLoading}
+							className="w-full rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm text-gray-700 shadow focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none disabled:bg-gray-100"
+						>
+							<option value="">Select City or Municipality</option>
+							{cityOptions.map((city) => (
+								<option key={city.code} value={city.code}>
+									{city.name}
+								</option>
+							))}
+						</select>
+						{cityLoading && (
+							<p className="mt-1 text-xs text-gray-500">Loading cities and municipalities…</p>
+						)}
+					</div>
+					<div className="flex flex-col">
+						<label className="mb-1 text-sm font-medium text-gray-700" htmlFor="barangay-select">
+							Barangay
+						</label>
+						<select
+							id="barangay-select"
+							value={selectedBarangay}
+							onChange={handleBarangayChange}
+							disabled={!selectedCity || barangayLoading || locatorLoading}
+							className="w-full rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm text-gray-700 shadow focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none disabled:bg-gray-100"
+						>
+							<option value="">Select Barangay</option>
+							{barangayOptions.map((barangay) => (
+								<option key={barangay.code} value={barangay.code}>
+									{barangay.name}
+								</option>
+							))}
+						</select>
+						{barangayLoading && <p className="mt-1 text-xs text-gray-500">Loading barangays…</p>}
+					</div>
+				</div>
+				<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+					<p className="text-xs text-gray-500">
+						Data source: Philippine Statistics Authority (PSGC)
+					</p>
+					<div className="flex gap-2">
+						<button
+							type="submit"
+							disabled={isLocateDisabled}
+							className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-5 py-3 text-sm font-semibold text-white shadow hover:bg-[#2e4f29] disabled:cursor-not-allowed disabled:opacity-60"
+						>
+							{locatorLoading ? 'Locating...' : 'Locate branch'}
+						</button>
+						<button
+							type="button"
+							onClick={handleClearLocator}
+							disabled={locatorLoading || !canClearLocator}
+							className="inline-flex items-center justify-center rounded-xl border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-600 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
+						>
+							Clear
+						</button>
+					</div>
+				</div>
+			</form>
+			{addressFieldError && <p className="mt-2 text-sm text-red-600">{addressFieldError}</p>}
+			{locatorMessage && <p className="mt-4 text-sm text-gray-700">{locatorMessage}</p>}
+			{nearestBranch && (
+				<div className="mt-4 rounded-2xl border border-gray-200 bg-white/80 p-4 text-sm text-gray-700 shadow-sm">
+					<p className="text-base font-semibold text-[#396131]">{nearestBranch.name}</p>
+					{nearestBranch.address && <p className="mt-1 text-gray-600">{nearestBranch.address}</p>}
+					<p className="mt-2 text-xs tracking-wide text-gray-500 uppercase">
+						Region: {nearestBranch.region_display || nearestBranch.region}
+						{Number.isFinite(nearestBranch.distanceKm) && (
+							<span className="ml-2 text-gray-600 normal-case">
+								Approximately {nearestBranch.distanceKm.toFixed(2)} km away
+							</span>
+						)}
+					</p>
+				</div>
+			)}
+			<div className="mt-8 overflow-hidden rounded-3xl">
+				<LocationsMap
+					markers={branchMarkers}
+					userLocation={userLocation}
+					selectedId={activeMarkerId}
+					height={420}
+					onMarkerSelect={handleMarkerSelect}
+				/>
+			</div>
+		</section>
+	);
+}
+
 export default function Branches() {
 	const [branches, setBranches] = useState([]);
 	const [visibleModal, setVisibleModal] = useState(null); // 'mindanao', 'visayas', 'regional', or null
@@ -89,11 +550,6 @@ export default function Branches() {
 	const [luzonBranches, setLuzonBranches] = useState([]);
 	const [regionalCenters, setRegionalCenters] = useState([]);
 	const [allBranches, setAllBranches] = useState([]);
-	const [locatorQuery, setLocatorQuery] = useState('');
-	const [locatorLoading, setLocatorLoading] = useState(false);
-	const [locatorMessage, setLocatorMessage] = useState('');
-	const [userLocation, setUserLocation] = useState(null);
-	const [nearestBranch, setNearestBranch] = useState(null);
 
 	const fetchBranches = async () => {
 		try {
@@ -117,85 +573,6 @@ export default function Branches() {
 	useEffect(() => {
 		fetchBranches({ region: 'mindanao' });
 	}, []);
-
-	const handleLocatorSubmit = async (event) => {
-		event.preventDefault();
-		if (!locatorQuery.trim()) {
-			setLocatorMessage('Please enter an address to locate the nearest branch.');
-			return;
-		}
-
-		setLocatorLoading(true);
-		setLocatorMessage('');
-		setNearestBranch(null);
-
-		try {
-			const result = await locationService.searchPlaces(locatorQuery, { limit: 5 });
-			if (!result.success) {
-				setLocatorMessage(result.message || 'Unable to search for that address.');
-				return;
-			}
-
-			const [firstMatch] = result.data || [];
-			if (!firstMatch) {
-				setLocatorMessage('No matches found for that address. Please refine your search.');
-				return;
-			}
-
-			const userPoint = {
-				latitude: Number(firstMatch.latitude),
-				longitude: Number(firstMatch.longitude),
-				label: firstMatch.place_name
-			};
-			setUserLocation(userPoint);
-
-			const nearest = findNearestLocation(userPoint, allBranches);
-			if (nearest) {
-				setNearestBranch(nearest);
-				setLocatorMessage(
-					`Closest branch: ${nearest.name} (${nearest.region?.toUpperCase() || 'Regional'}) — ${nearest.distanceKm.toFixed(
-						2
-					)} km away.`
-				);
-			} else {
-				setLocatorMessage('No branch coordinates are available to compute the nearest branch.');
-			}
-		} catch (error) {
-			console.error('Failed to locate address:', error);
-			setLocatorMessage('Something went wrong while searching. Please try again later.');
-		} finally {
-			setLocatorLoading(false);
-		}
-	};
-
-	const handleClearLocator = () => {
-		setLocatorQuery('');
-		setLocatorMessage('');
-		setNearestBranch(null);
-		setUserLocation(null);
-	};
-
-	const branchMarkers = useMemo(
-		() =>
-			allBranches
-				.filter(
-					(branch) =>
-						branch.latitude !== null &&
-						branch.latitude !== undefined &&
-						branch.longitude !== null &&
-						branch.longitude !== undefined
-				)
-				.map((branch) => ({
-					id: `branch-${branch.id}`,
-					name: branch.name,
-					address: branch.address || '',
-					subtitle: branch.region ? branch.region.toUpperCase() : '',
-					latitude: Number(branch.latitude),
-					longitude: Number(branch.longitude),
-					type: 'branch'
-				})),
-		[allBranches]
-	);
 
 	const handleContact = (branchName) => {
 		// This is a stub for "Contact Us" - does nothing here
@@ -362,55 +739,7 @@ export default function Branches() {
 						</div>
 					</section>
 
-					<section className="rounded-3xl bg-white/90 p-8 shadow-xl backdrop-blur">
-						<div className="mb-6 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-							<h2 className="text-2xl font-semibold text-[#396131] md:text-3xl">
-								Find the closest branch
-							</h2>
-							<p className="text-sm text-gray-600">
-								Enter your address to locate the nearest 1st Valley Bank branch.
-							</p>
-						</div>
-						<form onSubmit={handleLocatorSubmit} className="flex flex-col gap-3 md:flex-row">
-							<div className="relative flex-1">
-								<Search className="pointer-events-none absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-gray-400" />
-								<input
-									type="text"
-									value={locatorQuery}
-									onChange={(event) => setLocatorQuery(event.target.value)}
-									placeholder="Street, city, or landmark..."
-									disabled={locatorLoading}
-									className="w-full rounded-xl border border-gray-200 bg-white px-10 py-3 text-sm text-gray-700 shadow focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none disabled:bg-gray-100"
-								/>
-							</div>
-							<div className="flex gap-2">
-								<button
-									type="submit"
-									disabled={locatorLoading}
-									className="inline-flex items-center justify-center rounded-xl bg-[#396131] px-5 py-3 text-sm font-semibold text-white shadow hover:bg-[#2e4f29] disabled:cursor-not-allowed disabled:opacity-60"
-								>
-									{locatorLoading ? 'Locating...' : 'Locate branch'}
-								</button>
-								<button
-									type="button"
-									onClick={handleClearLocator}
-									disabled={locatorLoading || (!userLocation && !nearestBranch && !locatorMessage)}
-									className="inline-flex items-center justify-center rounded-xl border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-600 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
-								>
-									Clear
-								</button>
-							</div>
-						</form>
-						{locatorMessage && <p className="mt-4 text-sm text-gray-700">{locatorMessage}</p>}
-						<div className="mt-8 overflow-hidden rounded-3xl">
-							<LocationsMap
-								markers={branchMarkers}
-								userLocation={userLocation}
-								selectedId={nearestBranch ? `branch-${nearestBranch.id}` : null}
-								height={420}
-							/>
-						</div>
-					</section>
+					<ClosestBranchSection allBranches={allBranches} />
 				</section>
 				{visibleModal && (
 					<AllBranchesModal
