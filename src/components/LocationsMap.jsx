@@ -30,7 +30,7 @@ export default function LocationsMap({
 	const { isLoaded, loadError } = useJsApiLoader(
 		useMemo(
 			() => ({
-				id: 'google-locations-map',
+				id: 'google-maps-script',
 				googleMapsApiKey: apiKey || '',
 				libraries: MAP_LIBRARIES
 			}),
@@ -84,11 +84,18 @@ export default function LocationsMap({
 
 	useEffect(() => {
 		if (selectedId) {
-			setActiveInfoId(selectedId);
+			// Only set activeInfoId if the marker exists in normalizedMarkers or it's the user location
+			const markerExists = normalizedMarkers.some((m) => m.id === selectedId);
+			const isUserLocation = selectedId === 'user' && userPoint;
+			if (markerExists || isUserLocation) {
+				setActiveInfoId(selectedId);
+			} else {
+				setActiveInfoId(null);
+			}
 		} else {
 			setActiveInfoId((prev) => (prev && prev !== 'user' ? null : prev));
 		}
-	}, [selectedId]);
+	}, [selectedId, normalizedMarkers, userPoint]);
 
 	const getMarkerIcon = useCallback(
 		(color, scale = 8) => {
@@ -241,6 +248,17 @@ export default function LocationsMap({
 			>
 				{normalizedMarkers.map((marker) => {
 					const isActive = marker.id === selectedId || activeInfoId === marker.id;
+					const hasValidPosition =
+						marker.position &&
+						typeof marker.position.lat === 'number' &&
+						typeof marker.position.lng === 'number' &&
+						!isNaN(marker.position.lat) &&
+						!isNaN(marker.position.lng);
+
+					if (!hasValidPosition) {
+						return null;
+					}
+
 					return (
 						<Marker
 							key={marker.id}

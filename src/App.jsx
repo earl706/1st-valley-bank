@@ -13,6 +13,7 @@ import ConsumerProtectionProductRequirements from './pages/ConsumerProtectionPro
 import ConsumerProtectionHub from './pages/ConsumerProtectionHub';
 import OneVBAdvisory from './pages/OneVBAdvisory';
 import Newsletter from './pages/Newsletter';
+import NewsletterDetail from './pages/NewsletterDetail';
 import Deposits from './pages/Deposits';
 import Loans from './pages/Loans';
 import PropertiesForSale from './pages/PropertiesForSale';
@@ -76,6 +77,10 @@ function App() {
 		{
 			component: <Newsletter />,
 			route: '/newsletter'
+		},
+		{
+			component: <NewsletterDetail />,
+			route: '/newsletter/:id'
 		},
 		{
 			component: <Deposits />,

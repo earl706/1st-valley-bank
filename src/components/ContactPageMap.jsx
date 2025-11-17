@@ -10,7 +10,7 @@ export default function ContactPageMap({ lat, lon }) {
 
 	const { isLoaded, loadError } = useJsApiLoader({
 		id: 'google-maps-script',
-		googleMapsApiKey: apiKey,
+		googleMapsApiKey: apiKey || '',
 		libraries
 	});
 

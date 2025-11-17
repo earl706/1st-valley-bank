@@ -32,7 +32,7 @@ const newsletterService = {
 	 */
 	async getNewsletter(id) {
 		try {
-			const response = await api.get(`/newsletters/${id}/`);
+			const response = await api.get(`/newsletter/newsletters/${id}/`);
 			return { success: true, data: response.data };
 		} catch (error) {
 			const apiError = handleApiError(error);
