@@ -17,7 +17,7 @@ const ContactUsForm = () => {
 		contact_number: '',
 		street: '',
 		barangay: '',
-		city: '',
+		municipality: '',
 		province: '',
 		postal_code: '',
 		message: ''
@@ -73,9 +73,14 @@ const ContactUsForm = () => {
 	const fetchMapCoordinates = async () => {
 		const { street, barangay, city, province, postal_code } = formData;
 		// Form full address string with all elements to increase pinpoint accuracy
-		let addressParts = [street, barangay, city, province, postal_code, 'Philippines'].filter(
-			Boolean
-		);
+		let addressParts = [
+			street,
+			barangay,
+			municipality,
+			province,
+			postal_code,
+			'Philippines'
+		].filter(Boolean);
 		const fullAddress = addressParts.join(', ');
 
 		if (!apiKey) {
@@ -156,7 +161,7 @@ const ContactUsForm = () => {
 	}, [
 		formData.street,
 		formData.barangay,
-		formData.city,
+		formData.municipality,
 		formData.province,
 		formData.postal_code,
 		apiKey,
@@ -175,7 +180,7 @@ const ContactUsForm = () => {
 			contact_number: formData.contact_number,
 			street: formData.street,
 			barangay: formData.barangay,
-			city: formData.city,
+			municipality: formData.municipality,
 			province: formData.province,
 			postal_code: formData.postal_code,
 			message: formData.message
@@ -183,6 +188,7 @@ const ContactUsForm = () => {
 
 		try {
 			setIsSubmitting(true);
+			console.log('Form data:', payload);
 			const response = await contactService.submitContact(payload);
 			console.log('Form submitted:', response);
 			if (response.success) {
@@ -318,8 +324,8 @@ const ContactUsForm = () => {
 										/>
 										<input
 											type="text"
-											name="city"
-											value={formData.city}
+											name="municipality"
+											value={formData.municipality}
 											onChange={handleInputChange}
 											className="w-full rounded-xl border border-gray-200 bg-white/60 px-4 py-4 text-base leading-relaxed font-normal text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
 											placeholder="City / Municipality"
