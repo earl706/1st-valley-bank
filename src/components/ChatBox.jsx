@@ -130,7 +130,7 @@ const ChatMessage = ({ message }) => {
 					)}
 					<p className="leading-relaxed whitespace-pre-wrap">{message.text}</p>
 
-					{hasSources && !isUser && (
+					{/* {hasSources && !isUser && (
 						<div className="mt-2 border-t border-gray-300 pt-2">
 							<div className="mb-1 flex items-center gap-1 text-xs text-gray-600">
 								<FileText className="h-3 w-3" />
@@ -153,7 +153,7 @@ const ChatMessage = ({ message }) => {
 								})}
 							</div>
 						</div>
-					)}
+					)} */}
 				</div>
 				<p className={`mt-1 text-xs text-gray-500 ${isUser ? 'text-right' : ''}`}>
 					{message.timestamp}
@@ -238,7 +238,7 @@ export default function ChatBox() {
 	const [messages, setMessages] = useState([
 		{
 			id: 1,
-			text: "Hello! I'm your AI assistant. Select a document and ask me anything about it!",
+			text: "Hello! I'm your AI assistant. How can I help you today?",
 			sender: 'ai',
 			timestamp: new Date().toLocaleTimeString([], {
 				hour: '2-digit',
@@ -250,7 +250,10 @@ export default function ChatBox() {
 	const [isTyping, setIsTyping] = useState(false);
 	const [documents, setDocuments] = useState([]);
 	// HARDCODED document ID below (replace with actual doc id as desired)
-	const HARDCODED_DOCUMENT_ID = '761b8be7-fe90-4309-b10b-7efcbfae21b8';
+	const HARDCODED_DOCUMENT_ID =
+		import.meta.env.VITE_PRODUCTION == 'true'
+			? 'f48ac2e6-7ab6-40eb-bb37-b0df13428b87'
+			: '761b8be7-fe90-4309-b10b-7efcbfae21b8';
 	const [selectedDocumentId, setSelectedDocumentId] = useState(HARDCODED_DOCUMENT_ID);
 	const [loadingDocuments, setLoadingDocuments] = useState(false);
 	const [sessionId, setSessionId] = useState(null);
