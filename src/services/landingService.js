@@ -72,6 +72,11 @@ const landingService = {
 	},
 	async getBankStatistic(id) {
 		return await api.get(`${BASE_URL}/statistics/${id}/`);
+	},
+
+	// Footer
+	async getFooter() {
+		return await api.get(`${BASE_URL}/footer/full/`);
 	}
 };
 

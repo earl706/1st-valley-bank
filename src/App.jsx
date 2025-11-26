@@ -14,6 +14,7 @@ import ConsumerProtectionHub from './pages/ConsumerProtectionHub';
 import OneVBAdvisory from './pages/OneVBAdvisory';
 import Newsletter from './pages/Newsletter';
 import NewsletterDetail from './pages/NewsletterDetail';
+import Footer from './components/Footer';
 import Deposits from './pages/Deposits';
 import Loans from './pages/Loans';
 import PropertiesForSale from './pages/PropertiesForSale';
@@ -159,7 +160,8 @@ function App() {
 		{ component: <ConsumerProtectionHub />, route: '/consumer-protection-hub' },
 		{ component: <Branches />, route: '/branches' },
 		{ component: <ATMLocator />, route: '/atm-locator' },
-		{ component: <SearchResults />, route: '/search' }
+		{ component: <SearchResults />, route: '/search' },
+		{ component: <Footer />, route: '/footer' }
 	];
 
 	return (

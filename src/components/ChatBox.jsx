@@ -250,7 +250,6 @@ export default function ChatBox() {
 	const [isTyping, setIsTyping] = useState(false);
 	const [documents, setDocuments] = useState([]);
 	// HARDCODED document ID below (replace with actual doc id as desired)
-	console.log(import.meta.env.VITE_PRODUCTION);
 	const HARDCODED_DOCUMENT_ID =
 		import.meta.env.VITE_PRODUCTION === 'True'
 			? 'f48ac2e6-7ab6-40eb-bb37-b0df13428b87'
