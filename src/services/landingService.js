@@ -77,6 +77,11 @@ const landingService = {
 	// Footer
 	async getFooter() {
 		return await api.get(`${BASE_URL}/footer/full/`);
+	},
+
+	// About Page
+	async getAboutPage() {
+		return await api.get(`${BASE_URL}/about-page/`);
 	}
 };
 
