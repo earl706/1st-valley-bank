@@ -42,6 +42,7 @@ import SearchResults from './pages/SearchResults';
 function App() {
 	const [showSplash, setShowSplash] = useState(false);
 	const [isFirstVisit, setIsFirstVisit] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		setIsFirstVisit(true);
