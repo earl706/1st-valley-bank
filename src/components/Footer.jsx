@@ -348,7 +348,6 @@ const Footer = () => {
 												socialLinks.map((social, index) => {
 													const IconComponent =
 														ICONS[social.label] || ICONS[social.icon_name] || ExternalLink;
-													console.log(IconComponent);
 													return (
 														<a
 															key={social.id || index}

@@ -82,6 +82,14 @@ const landingService = {
 	// About Page
 	async getAboutPage() {
 		return await api.get(`${BASE_URL}/about-page/`);
+	},
+
+	// Product Area Management Officers
+	async getProductAreaManagementOfficers(params = {}) {
+		return await api.get(`${BASE_URL}/product-area-management-officers/`, { params });
+	},
+	async getProductAreaManagementOfficer(id) {
+		return await api.get(`${BASE_URL}/product-area-management-officers/${id}/`);
 	}
 };
 

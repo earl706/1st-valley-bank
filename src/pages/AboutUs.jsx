@@ -42,6 +42,7 @@ import { LightHeader, DarkHeader } from '../components/Header';
 // --- API service import for live annual reports data ---
 import annualReportService from '../services/annualReportService';
 import aboutPageService from '../services/aboutPageService';
+import landingService from '../services/landingService';
 
 // Utility icon mapping for lucide-react
 const lucideIconMap = {
@@ -219,6 +220,9 @@ export default function AboutUs() {
 	const [scrollY, setScrollY] = useState(0);
 	const [isVisible, setIsVisible] = useState({});
 	const [activeSection, setActiveSection] = useState('');
+	const [president, setPresident] = useState(null);
+	const [seniorManagement, setSeniorManagement] = useState([]);
+	const [productManagement, setProductManagement] = useState([]);
 
 	const [imageLoaded1, setImageLoaded1] = useState(false);
 	const [imageLoaded2, setImageLoaded2] = useState(false);
@@ -238,7 +242,58 @@ export default function AboutUs() {
 	const [aboutPageLoading, setAboutPageLoading] = useState(true);
 	const [aboutPageError, setAboutPageError] = useState(null);
 
-	// Helper function to map icon names to lucide-react icon components
+	// Fetch Product Area Management Officers
+	const fetchProductAreaManagementOfficers = async (mountedRef) => {
+		try {
+			const data = await landingService.getProductAreaManagementOfficers();
+			console.log(data);
+			if (mountedRef.current) {
+				// Filter by management level (senior or product_area) and sort by display_order
+				const seniorOfficers = data.data
+					.filter((officer) => officer.management_level === 'senior')
+					.sort((a, b) => {
+						// Sort by display_order first, then by name
+						const orderA = a.display_order ?? 0;
+						const orderB = b.display_order ?? 0;
+						if (orderA !== orderB) {
+							return orderA - orderB;
+						}
+						return (a.name || '').localeCompare(b.name || '');
+					});
+				const productOfficers = data.data
+					.filter((officer) => officer.management_level === 'product_area')
+					.sort((a, b) => {
+						// Sort by display_order first, then by name
+						const orderA = a.display_order ?? 0;
+						const orderB = b.display_order ?? 0;
+						if (orderA !== orderB) {
+							return orderA - orderB;
+						}
+						return (a.name || '').localeCompare(b.name || '');
+					});
+
+				setPresident(seniorOfficers[0] || null);
+				setSeniorManagement(seniorOfficers);
+				setProductManagement(productOfficers);
+			}
+		} catch (err) {
+			console.error('Error fetching officers:', err);
+			if (mountedRef.current) {
+				setPresident(null);
+				setSeniorManagement([]);
+				setProductManagement([]);
+			}
+		}
+	};
+
+	useEffect(() => {
+		const mountedRef = { current: true };
+		fetchProductAreaManagementOfficers(mountedRef);
+		return () => {
+			mountedRef.current = false;
+		};
+	}, []);
+
 	const getIconComponent = (iconName) => getLucideIcon(iconName);
 
 	const fallbackServices = [
@@ -294,134 +349,6 @@ export default function AboutUs() {
 		: fallbackServices;
 
 	const awards = aboutPage?.awards?.length ? aboutPage.awards : fallbackAwards;
-
-	const corporateProfile = {
-		senior_management: [
-			{
-				name: 'Nicolette Lim-Gica',
-				position: 'VICE PRESIDENT FOR OPERATIONS',
-				image: logo
-			},
-			{ name: 'Glenn A. Mendez', position: 'CHIEF OF STAFF', image: logo },
-			{
-				name: 'Anavic A. Sarsale',
-				position: 'VICE PRESIDENT FOR FINANCE',
-				image: logo
-			},
-			{
-				name: 'Alfredo F. Girbes',
-				position: 'BUSINESS DEVELOPMENT HEAD',
-				image: logo
-			},
-			{
-				name: 'Atty. Samuel Ryan C. Rudinas',
-				position: 'CHIEF LEGAL OFFICER',
-				image: logo
-			},
-			{
-				name: 'Atty. Zara Teodora D. Cabanlet',
-				position: 'CORPORATE SECRETARY',
-				image: logo
-			},
-			{ name: 'Vivian V. Lim', position: 'HR DIRECTOR', image: logo },
-			{ name: 'Emily E. Enad', position: 'CHIEF RISK OFFICER', image: logo },
-			{
-				name: 'Benjie Tadeo M. Abad, Jr.',
-				position: 'CHIEF COMPLIANCE OFFICER',
-				image: logo
-			},
-			{
-				name: 'Onisimo L. Prado',
-				position: 'CHIEF INTERNAL AUDITOR',
-				image: logo
-			},
-			{ name: 'Felizardo A. Enad', position: 'IT DIRECTOR', image: logo },
-			{ name: 'Annie Lisa G. Estrera', position: 'CREDIT HEAD', image: logo },
-			{ name: 'Estrella E. Florida', position: 'COMPTROLLER', image: logo }
-		],
-		product_management: [
-			{
-				name: 'Bernard C. Paderes',
-				position: 'SMALL & MEDIUM ENTERPRISE LOANS',
-				image: logo
-			},
-			{
-				name: 'Errol C. Dioso',
-				position: 'SUPERVISED CREDIT',
-				image: logo
-			},
-			{
-				name: 'Muamar Carba Yap',
-				position: 'AGRICULTURAL LOANS',
-				image: logo
-			},
-			{
-				name: 'Andre M. Ates',
-				position: 'MICROFINANCE & JEWELRY LOANS',
-				image: logo
-			},
-			{
-				name: 'Jubal Y. Yu',
-				position: 'SALARY LOANS',
-				image: logo
-			},
-			{
-				name: 'Stella Maris S. Aranas',
-				position: 'DEPOSIT',
-				image: logo
-			},
-			{
-				name: 'Glenn G. Bagaloyos',
-				position: 'LANAO AURORA',
-				image: logo
-			},
-			{
-				name: 'Hazel O. Geromo',
-				position: 'MISAMIS ORIENTAL',
-				image: logo
-			},
-			{
-				name: 'Peter M. Alfon',
-				position: 'ZAMBOANGA SIBUGAY 1',
-				image: logo
-			},
-			{
-				name: 'Romulo P. Fiel',
-				position: 'VISAYAS',
-				image: logo
-			},
-			{
-				name: 'Cecil C. Palenzuela',
-				position: 'COTABATO DAVAO',
-				image: logo
-			},
-			{
-				name: 'Jamael M. Dangnan',
-				position: 'MISAMIS ORIENTAL CDO',
-				image: logo
-			},
-			{
-				name: 'Samson Cababan, Jr.',
-				position: 'ZAMBOANGA SIBUGAY 2',
-				image: logo
-			},
-			{
-				name: 'Frederick I. Paringit',
-				position: 'CARAGA DAVAO NORTH',
-				image: logo
-			},
-			{
-				name: 'Heracleo Gaan, Jr.',
-				position: 'BUKIDNON SOUTH',
-				image: logo
-			},
-			{
-				name: 'Christopher M. Obedencio',
-				position: 'BUKIDNON NORTH',
-				image: logo
-			}
-		]
-	};
 
 	useEffect(() => {
 		const observers = [];
@@ -1230,75 +1157,95 @@ export default function AboutUs() {
 							<span className="text-center text-xl leading-tight font-bold tracking-wider text-white/80 uppercase">
 								Senior Management
 							</span>
-							<div className="flex flex-col items-center gap-3">
-								<div className="relative flex flex-col items-center justify-center gap-2">
-									<div className="relative">
-										<img
-											src={logo}
-											alt="Atty. Nicolas J. Lim"
-											className="h-20 w-20 rounded-full bg-white object-cover shadow-lg transition-transform duration-300 hover:scale-105"
-										/>
-									</div>
-									<div className="flex flex-col items-center">
-										<span className="text-center text-xl font-bold tracking-tight text-white">
-											Atty. Nicolas J. Lim
-										</span>
-										<span className="text-xs font-medium tracking-wide text-white/80 uppercase group-hover:text-white">
-											PRESIDENT
-										</span>
-									</div>
-								</div>
-							</div>
-							<div className="grid grid-cols-2 gap-x-2 gap-y-5 text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-x-4 lg:gap-y-6">
-								{corporateProfile.senior_management.map((officer, index) => (
-									<div
-										className="group flex flex-col items-center justify-center gap-2 rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-white/20 hover:shadow-lg"
-										key={index}
-									>
-										<img
-											src={officer.image || logo}
-											alt={officer.name}
-											className="h-12 w-12 rounded-full bg-white object-cover shadow transition-transform duration-300 group-hover:scale-105"
-										/>
+							{/* President Section - Show first officer prominently if exists */}
+							{president && (
+								<div className="flex flex-col items-center gap-3">
+									<div className="relative flex flex-col items-center justify-center gap-2">
+										<div className="relative">
+											<img
+												src={president.image || logo}
+												alt={president.name}
+												className="h-20 w-20 rounded-full bg-white object-cover shadow-lg transition-transform duration-300 hover:scale-105"
+											/>
+										</div>
 										<div className="flex flex-col items-center">
-											<span className="text-base leading-tight font-semibold text-white">
-												{officer.name}
+											<span className="text-center text-xl font-bold tracking-tight text-white">
+												{president.name}
 											</span>
-											<span className="text-xs font-medium tracking-wide text-white/70 uppercase group-hover:text-white">
-												{officer.position}
+											<span className="text-xs font-medium tracking-wide text-white/80 uppercase group-hover:text-white">
+												{president.position}
 											</span>
 										</div>
 									</div>
-								))}
-							</div>
+								</div>
+							)}
+							{/* Other Senior Management Officers */}
+							{seniorManagement.length > 0 && (
+								<div className="grid grid-cols-2 gap-x-2 gap-y-5 text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-x-4 lg:gap-y-6">
+									{seniorManagement
+										.filter((officer) => !president || officer.id !== president.id)
+										.map((officer, index) => (
+											<div
+												className="group flex flex-col items-center justify-center gap-2 rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-white/20 hover:shadow-lg"
+												key={officer.id || index}
+											>
+												<img
+													src={officer.image || logo}
+													alt={officer.name}
+													className="h-12 w-12 rounded-full bg-white object-cover shadow transition-transform duration-300 group-hover:scale-105"
+												/>
+												<div className="flex flex-col items-center">
+													<span className="text-base leading-tight font-semibold text-white">
+														{officer.name}
+													</span>
+													<span className="text-xs font-medium tracking-wide text-white/70 uppercase group-hover:text-white">
+														{officer.position}
+													</span>
+												</div>
+											</div>
+										))}
+								</div>
+							)}
+							{/* Fallback message if no data */}
+							{seniorManagement.length === 0 && !president && (
+								<div className="text-center text-white/70">
+									<p>No senior management information available.</p>
+								</div>
+							)}
 						</div>
 						{/* Product & Area Management Modernized */}
 						<div className="flex flex-col gap-6">
 							<span className="text-center text-xl leading-tight font-bold tracking-wider text-white/80 uppercase">
 								Product &amp; Area Management
 							</span>
-							<div className="grid grid-cols-2 gap-x-2 gap-y-5 text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-x-4 lg:gap-y-6">
-								{corporateProfile.product_management.map((officer, index) => (
-									<div
-										className="group flex flex-col items-center justify-center gap-2 rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-white/20 hover:shadow-lg"
-										key={index}
-									>
-										<img
-											src={officer.image || logo}
-											alt={officer.name}
-											className="h-12 w-12 rounded-full bg-white object-cover shadow transition-transform duration-300 group-hover:scale-105"
-										/>
-										<div className="flex flex-col items-center">
-											<span className="text-base leading-tight font-semibold text-white group-hover:text-white">
-												{officer.name}
-											</span>
-											<span className="text-xs font-medium tracking-wide text-white/70 uppercase group-hover:text-white">
-												{officer.position}
-											</span>
+							{productManagement.length > 0 ? (
+								<div className="grid grid-cols-2 gap-x-2 gap-y-5 text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-x-4 lg:gap-y-6">
+									{productManagement.map((officer, index) => (
+										<div
+											className="group flex flex-col items-center justify-center gap-2 rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-white/20 hover:shadow-lg"
+											key={officer.id || index}
+										>
+											<img
+												src={officer.image || logo}
+												alt={officer.name}
+												className="h-12 w-12 rounded-full bg-white object-cover shadow transition-transform duration-300 group-hover:scale-105"
+											/>
+											<div className="flex flex-col items-center">
+												<span className="text-base leading-tight font-semibold text-white group-hover:text-white">
+													{officer.name}
+												</span>
+												<span className="text-xs font-medium tracking-wide text-white/70 uppercase group-hover:text-white">
+													{officer.position}
+												</span>
+											</div>
 										</div>
-									</div>
-								))}
-							</div>
+									))}
+								</div>
+							) : (
+								<div className="text-center text-white/70">
+									<p>No product & area management information available.</p>
+								</div>
+							)}
 						</div>
 					</div>
 				</section>
