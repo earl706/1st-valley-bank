@@ -1,32 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBuildingColumns } from '@fortawesome/free-solid-svg-icons/faBuildingColumns';
 import logo from '/src/assets/logo.png';
 
 import img8 from '/src/assets/about-us/8.jpg';
 import img9 from '/src/assets/about-us/9.jpg';
 import gcashLogo from '/src/assets/gcash-logo.png';
 import { NavLink } from 'react-router-dom';
-import { Clock, User, HandCoins, Smartphone, ArrowRight } from 'lucide-react';
 import {
-	faArrowUpRightDots,
-	faBuilding,
-	faBuildingFlag,
-	faCashRegister,
-	faCodeBranch,
-	faLeaf,
-	faLightbulb,
-	faHandHoldingHand,
-	faHandSparkles,
-	faMobile,
-	faSeedling,
-	faTrophy,
-	faUsersGear,
-	faFilePdf,
-	faTimes,
-	faChevronLeft,
-	faChevronRight
-} from '@fortawesome/free-solid-svg-icons';
+	Clock,
+	User,
+	HandCoins,
+	Smartphone,
+	ArrowRight,
+	Trophy,
+	Lightbulb,
+	Leaf,
+	Handshake,
+	Shield,
+	Users,
+	Users2,
+	Building,
+	Building2,
+	ChevronLeft,
+	ChevronRight,
+	X,
+	FileText,
+	Sprout
+} from 'lucide-react';
 
 import CarouselSection from '../components/CarouselSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
@@ -42,6 +41,33 @@ import { LightHeader, DarkHeader } from '../components/Header';
 
 // --- API service import for live annual reports data ---
 import annualReportService from '../services/annualReportService';
+import aboutPageService from '../services/aboutPageService';
+
+// Utility icon mapping for lucide-react
+const lucideIconMap = {
+	calendar: Clock,
+	user: User,
+	users: Users,
+	lightbulb: Lightbulb,
+	heart: HandCoins,
+	'trending-up': Smartphone,
+	award: Trophy,
+	star: Trophy,
+	handshake: Handshake,
+	trophy: Trophy,
+	smile: HandCoins,
+	shield: Shield,
+	leaf: Leaf,
+	building: Building,
+	'building-flag': Building2,
+	'users-gear': Users2,
+	seedling: Sprout,
+	'arrow-up-right-dots': Smartphone, // No direct mapping, fallback to Smartphone
+	filePdf: FileText,
+	pdf: FileText
+};
+
+const getLucideIcon = (iconName) => lucideIconMap[iconName] || Lightbulb;
 
 const PDFModal = ({ open, onClose, pdfUrl }) => {
 	if (!open) return null;
@@ -53,11 +79,11 @@ const PDFModal = ({ open, onClose, pdfUrl }) => {
 					onClick={onClose}
 					aria-label="Close"
 				>
-					<FontAwesomeIcon icon={faTimes} />
+					<X className="h-6 w-6" />
 				</button>
 				<div className="p-6 pt-12">
 					<h2 className="mb-2 flex items-center gap-2 text-2xl font-bold text-[#396131]">
-						<FontAwesomeIcon icon={faFilePdf} className="text-rose-700" />
+						<FileText className="h-6 w-6 text-rose-700" />
 						Report PDF Preview
 					</h2>
 					{pdfUrl ? (
@@ -89,8 +115,6 @@ const AnnualReportModal = ({
 	showNext
 }) => {
 	if (!open || !report) return null;
-
-	// Helper: render object key/value pairs (for key_figures, comparative_growth)
 	const renderKeyValueList = (obj) =>
 		obj && typeof obj === 'object'
 			? Object.entries(obj).map(([key, value]) => (
@@ -99,7 +123,6 @@ const AnnualReportModal = ({
 					</li>
 				))
 			: null;
-
 	return (
 		<div className="bg-opacity-60 fixed inset-0 z-[9998] flex items-center justify-center bg-black/70">
 			<button
@@ -107,7 +130,7 @@ const AnnualReportModal = ({
 				onClick={onClose}
 				aria-label="Close"
 			>
-				<FontAwesomeIcon icon={faTimes} />
+				<X className="h-7 w-7" />
 			</button>
 			<div className="relative max-h-[90vh] w-full max-w-7xl overflow-y-auto rounded-xl bg-white shadow-2xl">
 				<div className="flex items-center justify-between p-4">
@@ -117,7 +140,7 @@ const AnnualReportModal = ({
 							title="Previous"
 							onClick={onPrev}
 						>
-							<FontAwesomeIcon icon={faChevronLeft} />
+							<ChevronLeft className="h-5 w-5" />
 						</button>
 					)}
 					<span className="flex-1 text-center text-lg font-bold text-[#396131] uppercase">
@@ -129,7 +152,7 @@ const AnnualReportModal = ({
 							title="Next"
 							onClick={onNext}
 						>
-							<FontAwesomeIcon icon={faChevronRight} />
+							<ChevronRight className="h-5 w-5" />
 						</button>
 					)}
 				</div>
@@ -182,7 +205,7 @@ const AnnualReportModal = ({
 							className="flex flex-1 items-center justify-center gap-2"
 							onClick={onViewPDF}
 						>
-							<FontAwesomeIcon icon={faFilePdf} className="text-rose-700" />
+							<FileText className="h-5 w-5 text-rose-700" />
 							View PDF
 						</LightPrimaryButton>
 					</div>
@@ -210,7 +233,15 @@ export default function AboutUs() {
 	const [annualReportsLoading, setAnnualReportsLoading] = useState(true);
 	const [annualReportsError, setAnnualReportsError] = useState(null);
 
-	const services = [
+	// --- Live data: AboutPage state and loader ---
+	const [aboutPage, setAboutPage] = useState(null);
+	const [aboutPageLoading, setAboutPageLoading] = useState(true);
+	const [aboutPageError, setAboutPageError] = useState(null);
+
+	// Helper function to map icon names to lucide-react icon components
+	const getIconComponent = (iconName) => getLucideIcon(iconName);
+
+	const fallbackServices = [
 		{
 			name: 'BRANCH NETWORKING',
 			image: carouselImg2,
@@ -230,7 +261,7 @@ export default function AboutUs() {
 		}
 	];
 
-	const awards = [
+	const fallbackAwards = [
 		{
 			header: "Landbank's GOLDEN AWARD",
 			description: 'For sustained sound and profitable operations.'
@@ -252,6 +283,17 @@ export default function AboutUs() {
 			description: 'Ranked 3rd largest by the Rural Bankers Association of the Philippines.'
 		}
 	];
+
+	const services = aboutPage?.services_features?.length
+		? aboutPage.services_features.map((service) => ({
+				name: service.name || '',
+				image: service.image_url || carouselImg2,
+				description: service.description || '',
+				link: service.link || '#'
+			}))
+		: fallbackServices;
+
+	const awards = aboutPage?.awards?.length ? aboutPage.awards : fallbackAwards;
 
 	const corporateProfile = {
 		senior_management: [
@@ -410,8 +452,6 @@ export default function AboutUs() {
 		return () => observers.forEach((obs) => obs.disconnect());
 	}, []);
 
-	// --- Live data: Fetch annual reports on mount ---
-
 	const fetchAnnualReports = async (mountedRef) => {
 		setAnnualReportsLoading(true);
 		setAnnualReportsError(null);
@@ -446,7 +486,35 @@ export default function AboutUs() {
 		};
 	}, []);
 
-	// Custom anchor navigation function
+	const fetchAboutPage = async (mountedRef) => {
+		setAboutPageLoading(true);
+		setAboutPageError(null);
+		try {
+			const data = await aboutPageService.getAboutPage();
+			if (mountedRef.current) {
+				setAboutPage(data);
+				setAboutPageLoading(false);
+			}
+		} catch (err) {
+			console.log(err);
+			if (mountedRef.current) {
+				setAboutPageError(
+					err?.message || 'Failed to load about page data. Please try again later.'
+				);
+				setAboutPage(null);
+				setAboutPageLoading(false);
+			}
+		}
+	};
+
+	useEffect(() => {
+		const mountedRef = { current: true };
+		fetchAboutPage(mountedRef);
+		return () => {
+			mountedRef.current = false;
+		};
+	}, []);
+
 	const scrollToSection = (sectionId) => {
 		const element = document.getElementById(sectionId.replace('#', ''));
 		if (element) {
@@ -457,7 +525,6 @@ export default function AboutUs() {
 		}
 	};
 
-	// Carousel slides data for About Us sections
 	const aboutUsSlides = [
 		{
 			title: 'About 1st Valley Bank',
@@ -600,40 +667,54 @@ export default function AboutUs() {
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<DarkHeader
 							badgeText="Bank Overview"
-							title="About 1st Valley Bank"
-							subtitle="One of the largest independent development banks dedicated to funding development projects and businesses in the Philippines."
+							title={aboutPage?.overview_title || 'About 1st Valley Bank'}
+							subtitle={
+								aboutPage?.overview_subtitle ||
+								'One of the largest independent development banks dedicated to funding development projects and businesses in the Philippines.'
+							}
 						/>
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-2/5">
 								<div className="flex h-auto w-full items-center justify-center">
 									<img
-										src={carouselImg4}
+										src={aboutPage?.overview_image || carouselImg4}
 										alt="1st Valley Bank Building"
 										className="h-auto w-full object-cover transition-transform duration-300 hover:scale-105"
 									/>
 								</div>
 							</div>
 							<div className="flex-1">
-								<p className="mb-4 text-base leading-relaxed font-normal text-white/90">
-									<strong>1st Valley Bank (1VB)</strong> is one of the largest independent
-									developmental banks dedicated to funding development projects and businesses
-									through the provision of loan capital. While the Bank's primary clients are
-									entrepreneurs and farmers, it also serves the financial needs of teachers,
-									barangay officials, regular employees of local government units, as well as
-									individuals who are in need of fast cash.
-								</p>
-								<p className="mb-4 text-base leading-relaxed font-normal text-white/90">
-									On <strong>27 December 2019</strong>, the merger between 1st Valley Bank (1VB),
-									Sugbuanon Rural Bank, Inc. (SRBI), and D'Asian Hills Bank, Inc. (DAHBI) was
-									declared official, with 1VB as the surviving entity. With the completion of the
-									merger, clients can expect greater customer service satisfaction.
-								</p>
-								<p className="text-base leading-relaxed font-normal text-white/90">
-									1st Valley Bank ranks <strong>3rd in terms of assets</strong> and is considered
-									one of the fastest-growing development banks in the country. Its audited financial
-									statements show that as of December 2019, the Bank has a total of Php10B+ in
-									resources.
-								</p>
+								{aboutPage?.overview_content ? (
+									<div
+										className="text-base leading-relaxed font-normal text-white/90"
+										dangerouslySetInnerHTML={{
+											__html: aboutPage.overview_content.replace(/\n/g, '<br />')
+										}}
+									/>
+								) : (
+									<>
+										<p className="mb-4 text-base leading-relaxed font-normal text-white/90">
+											<strong>1st Valley Bank (1VB)</strong> is one of the largest independent
+											developmental banks dedicated to funding development projects and businesses
+											through the provision of loan capital. While the Bank's primary clients are
+											entrepreneurs and farmers, it also serves the financial needs of teachers,
+											barangay officials, regular employees of local government units, as well as
+											individuals who are in need of fast cash.
+										</p>
+										<p className="mb-4 text-base leading-relaxed font-normal text-white/90">
+											On <strong>27 December 2019</strong>, the merger between 1st Valley Bank
+											(1VB), Sugbuanon Rural Bank, Inc. (SRBI), and D'Asian Hills Bank, Inc. (DAHBI)
+											was declared official, with 1VB as the surviving entity. With the completion
+											of the merger, clients can expect greater customer service satisfaction.
+										</p>
+										<p className="text-base leading-relaxed font-normal text-white/90">
+											1st Valley Bank ranks <strong>3rd in terms of assets</strong> and is
+											considered one of the fastest-growing development banks in the country. Its
+											audited financial statements show that as of December 2019, the Bank has a
+											total of Php10B+ in resources.
+										</p>
+									</>
+								)}
 							</div>
 						</div>
 					</div>
@@ -642,55 +723,70 @@ export default function AboutUs() {
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<LightHeader
 							badgeText="Brief History"
-							title="Our Roots"
-							subtitle="Explore the origins and milestones that shaped 1st Valley Bank's growth from its humble beginnings to present-day achievements."
+							title={aboutPage?.history_title || 'Our Roots'}
+							subtitle={
+								aboutPage?.history_subtitle ||
+								"Explore the origins and milestones that shaped 1st Valley Bank's growth from its humble beginnings to present-day achievements."
+							}
 						/>
 						<div className="flex flex-col-reverse items-center gap-8 lg:flex-row">
 							<div className="flex-1">
-								<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
-									<strong className="text-[#396131]">1st Valley Bank</strong>, a rapidly growing
-									development bank in Mindanao and Visayas, traces its roots in the rural banking
-									industry.
-								</p>
-								<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
-									1st Valley Bank was formerly known as the{' '}
-									<strong className="text-[#396131]">
-										Rural Bank of Kapatagan Valley (RUBANKA)
-									</strong>{' '}
-									first, and then{' '}
-									<strong className="text-[#396131]">Kapatagan Valley Bank (KVB)</strong>. It earned
-									its license to operate on{' '}
-									<strong className="text-[#396131]">November 24, 1956</strong> and became the 75th
-									rural bank in the country.
-								</p>
-								<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
-									On <strong className="text-[#396131]">April 5, 1957</strong>, the Bank earned its
-									prestigious membership in the Rural Bank Association of the Philippines (RBAP).
-								</p>
-								<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
-									In <strong className="text-[#396131]">April 2004</strong>, Kapatagan Valley Bank
-									entered into a consolidation agreement with Rural Bank of Sinacaban. On{' '}
-									<strong className="text-[#396131]">August 30, 2005</strong>, the Securities and
-									Exchange Commission (SEC) issued the Certificate of Consolidation and Certificate
-									of Incorporation to the merging institutions. This official merger gave birth to
-									1st Valley Bank.
-								</p>
-								<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
-									On <strong className="text-[#396131]">August 1, 2013</strong>, 1st Valley Bank
-									progressed into a development bank. It seeks to provide sufficient loan capital
-									for productive investment along with technical assistance to help guarantee the
-									success of its borrowers.
-								</p>
-								<p className="text-base leading-relaxed font-normal text-gray-700">
-									Today, following the successful completion of its merger with SRBI and DAHBI,{' '}
-									<strong className="text-[#396131]">1VB</strong> is operating on a vast network of{' '}
-									<strong className="text-[#396131]">78 branches and branch lites</strong>.
-								</p>
+								{aboutPage?.history_content ? (
+									<div
+										className="text-base leading-relaxed font-normal text-gray-700"
+										dangerouslySetInnerHTML={{
+											__html: aboutPage.history_content.replace(/\n/g, '<br />')
+										}}
+									/>
+								) : (
+									<>
+										<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
+											<strong className="text-[#396131]">1st Valley Bank</strong>, a rapidly growing
+											development bank in Mindanao and Visayas, traces its roots in the rural
+											banking industry.
+										</p>
+										<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
+											1st Valley Bank was formerly known as the{' '}
+											<strong className="text-[#396131]">
+												Rural Bank of Kapatagan Valley (RUBANKA)
+											</strong>{' '}
+											first, and then{' '}
+											<strong className="text-[#396131]">Kapatagan Valley Bank (KVB)</strong>. It
+											earned its license to operate on{' '}
+											<strong className="text-[#396131]">November 24, 1956</strong> and became the
+											75th rural bank in the country.
+										</p>
+										<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
+											On <strong className="text-[#396131]">April 5, 1957</strong>, the Bank earned
+											its prestigious membership in the Rural Bank Association of the Philippines
+											(RBAP).
+										</p>
+										<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
+											In <strong className="text-[#396131]">April 2004</strong>, Kapatagan Valley
+											Bank entered into a consolidation agreement with Rural Bank of Sinacaban. On{' '}
+											<strong className="text-[#396131]">August 30, 2005</strong>, the Securities
+											and Exchange Commission (SEC) issued the Certificate of Consolidation and
+											Certificate of Incorporation to the merging institutions. This official merger
+											gave birth to 1st Valley Bank.
+										</p>
+										<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
+											On <strong className="text-[#396131]">August 1, 2013</strong>, 1st Valley Bank
+											progressed into a development bank. It seeks to provide sufficient loan
+											capital for productive investment along with technical assistance to help
+											guarantee the success of its borrowers.
+										</p>
+										<p className="text-base leading-relaxed font-normal text-gray-700">
+											Today, following the successful completion of its merger with SRBI and DAHBI,{' '}
+											<strong className="text-[#396131]">1VB</strong> is operating on a vast network
+											of <strong className="text-[#396131]">78 branches and branch lites</strong>.
+										</p>
+									</>
+								)}
 							</div>
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-2/5">
 								<div className="flex h-auto w-full items-center justify-center">
 									<img
-										src={carouselImg7}
+										src={aboutPage?.history_image || carouselImg7}
 										alt="1st Valley Bank Building"
 										className="h-auto w-full object-cover transition-transform duration-300 hover:scale-105"
 									/>
@@ -707,15 +803,17 @@ export default function AboutUs() {
 					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<DarkHeader
 							badgeText="Why Choose Us"
-							title="Your Trusted Banking Partner"
-							subtitle="Experience the difference of a bank that puts your needs first, with a legacy of
-									excellence and a commitment to your financial success."
+							title={aboutPage?.why_choose_us_title || 'Your Trusted Banking Partner'}
+							subtitle={
+								aboutPage?.why_choose_us_subtitle ||
+								'Experience the difference of a bank that puts your needs first, with a legacy of excellence and a commitment to your financial success.'
+							}
 						/>
 						<div className="flex flex-col items-center gap-8 lg:flex-row">
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-2/5">
 								<div className="flex h-72 w-72 items-center justify-center">
 									<img
-										src={carouselImg4}
+										src={aboutPage?.why_choose_us_image || carouselImg4}
 										alt="1st Valley Bank Building"
 										className="h-64 w-64 object-cover transition-transform duration-300 hover:scale-105"
 									/>
@@ -723,24 +821,29 @@ export default function AboutUs() {
 							</div>
 							<div className="flex-1">
 								{(() => {
-									const whyChooseUsItems = [
-										{
-											text: '64+ years of trusted banking',
-											icon: Clock
-										},
-										{
-											text: 'Personalized, friendly service',
-											icon: User
-										},
-										{
-											text: 'Comprehensive financial solutions',
-											icon: HandCoins
-										},
-										{
-											text: 'Seamless banking',
-											icon: Smartphone
-										}
-									];
+									const whyChooseUsItems = aboutPage?.why_choose_us_items?.length
+										? aboutPage.why_choose_us_items.map((item) => ({
+												text: item.text || '',
+												icon: getIconComponent(item.icon || 'lightbulb')
+											}))
+										: [
+												{
+													text: '64+ years of trusted banking',
+													icon: Clock
+												},
+												{
+													text: 'Personalized, friendly service',
+													icon: User
+												},
+												{
+													text: 'Comprehensive financial solutions',
+													icon: HandCoins
+												},
+												{
+													text: 'Seamless banking',
+													icon: Smartphone
+												}
+											];
 									return (
 										<ul className="mb-4 flex flex-col gap-3">
 											{whyChooseUsItems.map((item, idx) => {
@@ -765,17 +868,19 @@ export default function AboutUs() {
 					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 						<LightHeader
 							badgeText="Services"
-							title="Comprehensive Banking Solutions"
-							subtitle="Comprehensive financial solutions designed to meet all your banking needs."
+							title={aboutPage?.services_section_title || 'Comprehensive Banking Solutions'}
+							subtitle={
+								aboutPage?.services_section_subtitle ||
+								'Comprehensive financial solutions designed to meet all your banking needs.'
+							}
 						/>
 						{/* Services Grid */}
-						<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+						<div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
 							{services.map((service, index) => (
 								<LightCard
 									className="group relative flex h-full flex-col items-center text-center"
 									key={index}
 								>
-									{/* Icon Container */}
 									<div className="mb-8 lg:mb-10">
 										<div className="relative inline-block">
 											<div className="mx-auto flex h-32 w-32 items-center justify-center transition-all duration-500 group-hover:scale-101 lg:h-40 lg:w-40">
@@ -787,7 +892,6 @@ export default function AboutUs() {
 											</div>
 										</div>
 									</div>
-									{/* Content */}
 									<div className="flex h-full w-full flex-col space-y-4 lg:space-y-6">
 										<h3 className="text-xl leading-tight font-bold text-[#396131] transition-colors duration-300 group-hover:text-[#4a7a3f]">
 											{service.name}
@@ -798,7 +902,7 @@ export default function AboutUs() {
 										</p>
 										<div className="mt-auto flex w-full justify-center pt-4">
 											<LightPrimaryButton
-												to={service.link || '#'}
+												to={service.link || service.name.toLowerCase().replace(/\s+/g, '-') || '#'}
 												secondaryIcon={
 													<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
 												}
@@ -821,8 +925,11 @@ export default function AboutUs() {
 					<div className="mx-auto max-w-5xl px-2 sm:px-4">
 						<DarkHeader
 							badgeText="Awards"
-							title="Awards & Recognition"
-							subtitle="Recognized for excellence in service and financial leadership."
+							title={aboutPage?.awards_section_title || 'Awards & Recognition'}
+							subtitle={
+								aboutPage?.awards_section_subtitle ||
+								'Recognized for excellence in service and financial leadership.'
+							}
 						/>
 						{/* Header & Trophy */}
 						<div className="flex flex-col-reverse items-center gap-6 md:flex-row md:gap-8">
@@ -830,41 +937,63 @@ export default function AboutUs() {
 							<div className="flex-1 text-center md:text-left">
 								{/* Featured Awards */}
 								<div className="flex flex-col gap-4">
-									<div className="flex items-start gap-3 p-4">
-										<div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/80">
-											<span className="text-xl font-bold text-[#396131]">A+</span>
-										</div>
-										<div>
-											<span className="mb-1 block text-2xl leading-tight font-bold text-white">
-												RATED A+
-											</span>
-											<p className="text-base leading-relaxed font-normal text-white">
-												By PhilRatings, a BSP-recognized credit rating agency.
-											</p>
-										</div>
-									</div>
-									<div className="flex items-start gap-3 p-4">
-										<div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/80">
-											<FontAwesomeIcon icon={faTrophy} className="text-xl text-[#396131]" />
-										</div>
-										<div>
-											<span className="mb-1 block text-2xl leading-tight font-bold text-white">
-												EAGLE AWARD FOR MICROFINANCE
-											</span>
-											<p className="text-base leading-relaxed font-normal text-white">
-												From USAID via MABS, for expanding rural microfinance services.
-											</p>
-										</div>
-									</div>
+									{aboutPage?.featured_awards?.length
+										? aboutPage.featured_awards.map((award, idx) => {
+												const IconComponent = getIconComponent(award.icon || 'award');
+												return (
+													<div key={idx} className="flex items-start gap-3 p-4">
+														<div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/80">
+															{award.icon === 'award' && award.title?.includes('A+') ? (
+																<span className="text-xl font-bold text-[#396131]">A+</span>
+															) : (
+																<IconComponent className="h-6 w-6 text-[#396131]" />
+															)}
+														</div>
+														<div>
+															<span className="mb-1 block text-2xl leading-tight font-bold text-white">
+																{award.title?.toUpperCase() || ''}
+															</span>
+															<p className="text-base leading-relaxed font-normal text-white">
+																{award.description || ''}
+															</p>
+														</div>
+													</div>
+												);
+											})
+										: [
+												<div key="fallback-1" className="flex items-start gap-3 p-4">
+													<div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/80">
+														<span className="text-xl font-bold text-[#396131]">A+</span>
+													</div>
+													<div>
+														<span className="mb-1 block text-2xl leading-tight font-bold text-white">
+															RATED A+
+														</span>
+														<p className="text-base leading-relaxed font-normal text-white">
+															By PhilRatings, a BSP-recognized credit rating agency.
+														</p>
+													</div>
+												</div>,
+												<div key="fallback-2" className="flex items-start gap-3 p-4">
+													<div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/80">
+														<Trophy className="h-6 w-6 text-[#396131]" />
+													</div>
+													<div>
+														<span className="mb-1 block text-2xl leading-tight font-bold text-white">
+															EAGLE AWARD FOR MICROFINANCE
+														</span>
+														<p className="text-base leading-relaxed font-normal text-white">
+															From USAID via MABS, for expanding rural microfinance services.
+														</p>
+													</div>
+												</div>
+											]}
 								</div>
 							</div>
 							{/* Trophy Icon */}
 							<div className="mb-4 flex flex-1 justify-center md:mb-0 md:justify-end">
 								<div className="flex h-24 w-24 items-center justify-center rounded-full bg-white/80 shadow-lg md:h-32 md:w-32">
-									<FontAwesomeIcon
-										icon={faTrophy}
-										className="text-5xl text-[#396131] md:text-7xl"
-									/>
+									<Trophy className="h-14 w-14 text-5xl text-[#396131] md:h-24 md:w-24 md:text-7xl" />
 								</div>
 							</div>
 						</div>
@@ -883,7 +1012,7 @@ export default function AboutUs() {
 										className="group flex items-start gap-3 p-3 transition-all duration-200"
 									>
 										<div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-white/80 transition-transform duration-200 group-hover:scale-105">
-											<FontAwesomeIcon icon={faTrophy} className="text-base text-[#396131]" />
+											<Trophy className="h-4 w-4 text-[#396131]" />
 										</div>
 										<div className="flex-1">
 											<span className="block text-base leading-tight font-semibold text-white">
@@ -903,8 +1032,11 @@ export default function AboutUs() {
 					<div className="mx-auto max-w-5xl px-2 sm:px-4">
 						<LightHeader
 							badgeText="Vision & Mission"
-							title="Our Vision, Mission & Values"
-							subtitle="Guided by a clear vision, a resolute mission, and enduring core values."
+							title={aboutPage?.vision_mission_title || 'Our Vision, Mission & Values'}
+							subtitle={
+								aboutPage?.vision_mission_subtitle ||
+								'Guided by a clear vision, a resolute mission, and enduring core values.'
+							}
 						/>
 						{/* Vision & Mission - Compact Modern Layout */}
 						<div className="flex flex-col-reverse items-center gap-8 md:flex-row md:gap-10">
@@ -913,29 +1045,29 @@ export default function AboutUs() {
 								<div className="flex flex-col gap-4">
 									<div className="flex items-start gap-3 p-4">
 										<div className="flex h-9 w-9 items-center justify-center">
-											<FontAwesomeIcon icon={faLightbulb} className="text-2xl text-[#396131]" />
+											<Lightbulb className="h-7 w-7 text-[#396131]" />
 										</div>
 										<div>
 											<span className="mb-1 block text-2xl leading-tight font-bold text-[#396131]">
 												Vision
 											</span>
 											<p className="text-base leading-relaxed font-normal text-gray-700">
-												We envision to be the preferred banking institution in delivering innovative
-												and customer-centered services.
+												{aboutPage?.vision_text ||
+													'We envision to be the preferred banking institution in delivering innovative and customer-centered services.'}
 											</p>
 										</div>
 									</div>
 									<div className="flex items-start gap-3 p-4">
 										<div className="flex h-9 w-9 items-center justify-center">
-											<FontAwesomeIcon icon={faLeaf} className="text-2xl text-[#396131]" />
+											<Leaf className="h-7 w-7 text-[#396131]" />
 										</div>
 										<div>
 											<span className="mb-1 block text-2xl leading-tight font-bold text-[#396131]">
 												Mission
 											</span>
 											<p className="text-base leading-relaxed font-normal text-gray-700">
-												Committed to delivering exceptional banking services while fostering growth
-												for our customers, employees, stakeholders, and communities.
+												{aboutPage?.mission_text ||
+													'Committed to delivering exceptional banking services while fostering growth for our customers, employees, stakeholders, and communities.'}
 											</p>
 										</div>
 									</div>
@@ -944,7 +1076,7 @@ export default function AboutUs() {
 							{/* Icon */}
 							<div className="flex flex-1 justify-center md:justify-end">
 								<div className="flex h-32 w-32 items-center justify-center rounded-full bg-[#396131] shadow-lg md:h-40 md:w-40">
-									<FontAwesomeIcon icon={faLightbulb} className="text-5xl text-white md:text-7xl" />
+									<Lightbulb className="h-20 w-20 text-5xl text-white md:h-28 md:w-28 md:text-7xl" />
 								</div>
 							</div>
 						</div>
@@ -956,38 +1088,60 @@ export default function AboutUs() {
 									Mission Points
 								</h3>
 								<div className="flex flex-col gap-3">
-									{[
-										[
-											'Customer First',
-											'Be one 1st Valley Bank; be the go-to bank for our customers',
-											faBuildingFlag
-										],
-										['Top Employer', 'Be the top employer for our staff', faUsersGear],
-										[
-											'High Returns',
-											'Ensure delivery of high returns for our stakeholders',
-											faSeedling
-										],
-										[
-											'Community Development',
-											'Promote development in the areas where we operate',
-											faArrowUpRightDots
-										]
-									].map((point, idx) => (
-										<div key={idx} className="flex items-start gap-3 p-3">
-											<div className="flex h-8 w-8 items-center justify-center rounded">
-												<FontAwesomeIcon icon={point[2]} className="text-xl text-[#396131]" />
-											</div>
-											<div>
-												<span className="block text-base leading-tight font-semibold text-[#396131]">
-													{point[0]}
-												</span>
-												<p className="text-sm leading-relaxed font-normal text-gray-700">
-													{point[1]}
-												</p>
-											</div>
-										</div>
-									))}
+									{aboutPage?.mission_points?.length
+										? aboutPage.mission_points.map((point, idx) => {
+												const IconComponent = getIconComponent(point.icon || 'lightbulb');
+												return (
+													<div key={idx} className="flex items-start gap-3 p-3">
+														<div className="flex h-8 w-8 items-center justify-center rounded">
+															<IconComponent className="h-5 w-5 text-[#396131]" />
+														</div>
+														<div>
+															<span className="block text-base leading-tight font-semibold text-[#396131]">
+																{point.title || ''}
+															</span>
+															<p className="text-sm leading-relaxed font-normal text-gray-700">
+																{point.description || ''}
+															</p>
+														</div>
+													</div>
+												);
+											})
+										: [
+												[
+													'Customer First',
+													'Be one 1st Valley Bank; be the go-to bank for our customers',
+													'building-flag'
+												],
+												['Top Employer', 'Be the top employer for our staff', 'users-gear'],
+												[
+													'High Returns',
+													'Ensure delivery of high returns for our stakeholders',
+													'seedling'
+												],
+												[
+													'Community Development',
+													'Promote development in the areas where we operate',
+													'arrow-up-right-dots'
+												]
+											].map((point, idx) => {
+												const IconComponent = getIconComponent(point[2]);
+												return (
+													<div key={idx} className="flex items-start gap-3 p-3">
+														<div className="flex h-8 w-8 items-center justify-center rounded">
+															<IconComponent className="h-5 w-5 text-[#396131]" />
+														</div>
+														<div>
+															<span className="block text-base leading-tight font-semibold text-[#396131]">
+																{point[0]}
+															</span>
+															<p className="text-sm leading-relaxed font-normal text-gray-700">
+																{point[1]}
+															</p>
+														</div>
+													</div>
+												);
+											})}
 								</div>
 							</div>
 							{/* Core Values */}
@@ -996,37 +1150,65 @@ export default function AboutUs() {
 									Core Values
 								</h3>
 								<div className="flex flex-col gap-3">
-									{[
-										[
-											'Integrity & Transparency',
-											'We conduct our business with integrity, transparency, honesty, and the highest ethical standards.',
-											faHandSparkles
-										],
-										[
-											'Equality & Respect',
-											'Treating our customers with equality, fairness, and respect is foremost in our delivery of excellent banking services.',
-											faHandHoldingHand
-										],
-										[
-											'Innovation & Excellence',
-											'We develop our business through innovation, enthusiasm, creativity, and our constant quest for excellence.',
-											faLightbulb
-										]
-									].map((value, idx) => (
-										<div key={idx} className="flex items-start gap-3 rounded-lg bg-white/80 p-3">
-											<div className="flex h-8 w-8 items-center justify-center rounded">
-												<FontAwesomeIcon icon={value[2]} className="text-xl text-[#396131]" />
-											</div>
-											<div>
-												<span className="block text-base leading-tight font-semibold text-[#396131]">
-													{value[0]}
-												</span>
-												<p className="text-sm leading-relaxed font-normal text-gray-700">
-													{value[1]}
-												</p>
-											</div>
-										</div>
-									))}
+									{aboutPage?.core_values?.length
+										? aboutPage.core_values.map((value, idx) => {
+												const IconComponent = getIconComponent(value.icon || 'lightbulb');
+												return (
+													<div
+														key={idx}
+														className="flex items-start gap-3 rounded-lg bg-white/80 p-3"
+													>
+														<div className="flex h-8 w-8 items-center justify-center rounded">
+															<IconComponent className="h-5 w-5 text-[#396131]" />
+														</div>
+														<div>
+															<span className="block text-base leading-tight font-semibold text-[#396131]">
+																{value.title || ''}
+															</span>
+															<p className="text-sm leading-relaxed font-normal text-gray-700">
+																{value.description || ''}
+															</p>
+														</div>
+													</div>
+												);
+											})
+										: [
+												[
+													'Integrity & Transparency',
+													'We conduct our business with integrity, transparency, honesty, and the highest ethical standards.',
+													'handshake'
+												],
+												[
+													'Equality & Respect',
+													'Treating our customers with equality, fairness, and respect is foremost in our delivery of excellent banking services.',
+													'handshake'
+												],
+												[
+													'Innovation & Excellence',
+													'We develop our business through innovation, enthusiasm, creativity, and our constant quest for excellence.',
+													'lightbulb'
+												]
+											].map((value, idx) => {
+												const IconComponent = getIconComponent(value[2]);
+												return (
+													<div
+														key={idx}
+														className="flex items-start gap-3 rounded-lg bg-white/80 p-3"
+													>
+														<div className="flex h-8 w-8 items-center justify-center rounded">
+															<IconComponent className="h-5 w-5 text-[#396131]" />
+														</div>
+														<div>
+															<span className="block text-base leading-tight font-semibold text-[#396131]">
+																{value[0]}
+															</span>
+															<p className="text-sm leading-relaxed font-normal text-gray-700">
+																{value[1]}
+															</p>
+														</div>
+													</div>
+												);
+											})}
 								</div>
 							</div>
 						</div>
@@ -1180,7 +1362,6 @@ export default function AboutUs() {
 							</LightCard>
 						))}
 					</div>
-					{/* Modal for detail view */}
 					<AnnualReportModal
 						open={annualReportModalIdx !== null}
 						report={
@@ -1201,7 +1382,6 @@ export default function AboutUs() {
 							annualReportModalIdx < annualReports.length - 1
 						}
 					/>
-					{/* Modal for PDF viewer */}
 					<PDFModal
 						open={pdfModalOpen}
 						onClose={() => setPdfModalOpen(false)}
