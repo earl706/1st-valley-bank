@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import searchService from '../services/searchService';
+import {
+	Loader2,
+	Banknote,
+	CreditCard,
+	Home,
+	Building2,
+	Landmark,
+	CircleHelp,
+	Newspaper,
+	FileText
+} from 'lucide-react';
 
-// Example site structure for searching. Replace/extend with your actual site structure or search logic.
+// Static site pages for routes that don't have dynamic content
 const SITE_PAGES = [
 	{
 		title: 'Home',
@@ -594,7 +606,7 @@ const SITE_PAGES = [
 	}
 ];
 
-// Simple function for matching query with titles and keywords.
+// Simple function for matching query with titles and keywords (for static pages).
 function searchPages(query) {
 	if (!query) return [];
 	const normalizedQuery = query.trim().toLowerCase();
@@ -605,16 +617,89 @@ function searchPages(query) {
 	);
 }
 
+const CATEGORY_INFO = {
+	deposits: { label: 'Deposit Products', icon: Banknote, color: 'bg-blue-500/20' },
+	loans: { label: 'Loan Products', icon: CreditCard, color: 'bg-green-500/20' },
+	properties: { label: 'Properties for Sale', icon: Home, color: 'bg-purple-500/20' },
+	branches: { label: 'Branches', icon: Building2, color: 'bg-orange-500/20' },
+	atms: { label: 'ATM Locations', icon: Landmark, color: 'bg-cyan-500/20' },
+	faqs: { label: 'FAQs', icon: CircleHelp, color: 'bg-yellow-500/20' },
+	newsletters: { label: 'Newsletters', icon: Newspaper, color: 'bg-red-500/20' },
+	pages: { label: 'Pages', icon: FileText, color: 'bg-gray-500/20' }
+};
+
 export default function SearchResults() {
 	const location = useLocation();
 	const queryParam = new URLSearchParams(location.search);
 	const searchTerm = queryParam.get('q') || '';
-	const [results, setResults] = useState([]);
+	const [results, setResults] = useState({
+		deposits: [],
+		loans: [],
+		properties: [],
+		branches: [],
+		atms: [],
+		faqs: [],
+		newsletters: [],
+		pages: []
+	});
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		// Simulate async fetch/filter if needed
-		setResults(searchPages(searchTerm));
+		const performSearch = async () => {
+			if (!searchTerm.trim()) {
+				setResults({
+					deposits: [],
+					loans: [],
+					properties: [],
+					branches: [],
+					atms: [],
+					faqs: [],
+					newsletters: [],
+					pages: []
+				});
+				return;
+			}
+
+			setLoading(true);
+			setError(null);
+
+			try {
+				// Perform dynamic search
+				const searchResponse = await searchService.search(searchTerm);
+
+				if (searchResponse.success) {
+					// Also search static pages
+					const staticPages = searchPages(searchTerm).map((page) => ({
+						id: page.path,
+						title: page.title,
+						subtitle: '',
+						description: '',
+						type: 'page',
+						path: page.path,
+						keywords: page.keywords
+					}));
+
+					setResults({
+						...searchResponse.data,
+						pages: staticPages
+					});
+				} else {
+					setError(searchResponse.error || 'Search failed');
+				}
+			} catch (err) {
+				console.error('Search error:', err);
+				setError('An error occurred while searching. Please try again.');
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		performSearch();
 	}, [searchTerm]);
+
+	// Calculate total results count
+	const totalResults = Object.values(results).reduce((sum, arr) => sum + arr.length, 0);
 
 	return (
 		<div className="bg-gradient-to-l from-[#396131] to-[#4a7c3a]">
@@ -633,7 +718,24 @@ export default function SearchResults() {
 						</p>
 					</div>
 				)}
-				{searchTerm !== '' && results.length === 0 && (
+
+				{loading && (
+					<div className="flex flex-col items-center justify-center py-10">
+						<Loader2 className="mb-3 h-12 w-12 animate-spin text-white/70" />
+						<p className="text-center text-base leading-relaxed font-normal text-white">
+							Searching...
+						</p>
+					</div>
+				)}
+
+				{error && (
+					<div className="flex flex-col items-center justify-center py-10">
+						<span className="mb-3 text-5xl leading-tight text-white/70">⚠️</span>
+						<p className="text-center text-base leading-relaxed font-normal text-white">{error}</p>
+					</div>
+				)}
+
+				{!loading && !error && searchTerm !== '' && totalResults === 0 && (
 					<div className="flex flex-col items-center justify-center py-10">
 						<span className="mb-3 text-5xl leading-tight text-white/70">😕</span>
 						<p className="text-center text-base leading-relaxed font-normal text-white">
@@ -645,33 +747,84 @@ export default function SearchResults() {
 						</p>
 					</div>
 				)}
-				{results.length > 0 && (
-					<div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-						{results.map((page) => (
-							<Link
-								to={page.path}
-								key={page.path}
-								className="flex h-full cursor-pointer flex-col rounded-lg border border-white/10 bg-white/10 shadow transition-all duration-200 hover:bg-white/10 hover:shadow-md"
-							>
-								<div className="block w-full rounded-lg px-6 py-5 text-2xl leading-tight font-bold text-white">
-									{page.title}
-									<span className="ml-2 align-middle text-base leading-relaxed font-normal">→</span>
-								</div>
-								{page.keywords && (
-									<div className="flex flex-wrap gap-2 px-6 pt-1 pb-3">
-										{page.keywords.slice(0, 3).map((word, idx) => (
-											<span
-												key={word + idx}
-												className="rounded-full bg-white/10 px-2 py-1 text-xs font-normal text-white"
-											>
-												{word}
+
+				{!loading && !error && totalResults > 0 && (
+					<>
+						<div className="mb-6 text-center">
+							<p className="text-lg leading-relaxed font-normal text-white/90">
+								Found <span className="leading-tight font-bold text-white">{totalResults}</span>{' '}
+								result
+								{totalResults !== 1 ? 's' : ''} for{' '}
+								<span className="leading-tight font-bold text-white">&quot;{searchTerm}&quot;</span>
+							</p>
+						</div>
+						<div className="space-y-8">
+							{Object.entries(results).map(([category, items]) => {
+								if (items.length === 0) return null;
+								const categoryInfo = CATEGORY_INFO[category] || {
+									label: category,
+									icon: FileText,
+									color: 'bg-gray-500/20'
+								};
+								const IconComponent = categoryInfo.icon;
+
+								return (
+									<div key={category}>
+										<div className="mb-4 flex items-center gap-2">
+											<IconComponent className="h-6 w-6 text-white" />
+											<h2 className="text-2xl leading-tight font-bold text-white">
+												{categoryInfo.label}
+											</h2>
+											<span className="rounded-full bg-white/20 px-3 py-1 text-sm font-semibold text-white">
+												{items.length}
 											</span>
-										))}
+										</div>
+										<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+											{items.map((item) => (
+												<Link
+													to={item.path}
+													key={`${category}-${item.id}`}
+													className="flex h-full cursor-pointer flex-col rounded-lg border border-white/10 bg-white/10 p-5 shadow transition-all duration-200 hover:bg-white/20 hover:shadow-lg"
+												>
+													<div className="mb-2 flex items-start justify-between">
+														<h3 className="flex-1 text-lg leading-tight font-bold text-white">
+															{item.title}
+														</h3>
+														<span className="ml-2 text-base leading-relaxed font-normal text-white/70">
+															→
+														</span>
+													</div>
+													{item.subtitle && (
+														<p className="mb-2 text-sm leading-relaxed font-medium text-white/80">
+															{item.subtitle}
+														</p>
+													)}
+													{item.description && (
+														<p className="mb-3 line-clamp-2 text-sm leading-relaxed font-normal text-white/70">
+															{item.description.replace(/<[^>]*>/g, '').substring(0, 100)}
+															{item.description.length > 100 ? '...' : ''}
+														</p>
+													)}
+													{item.keywords && item.keywords.length > 0 && (
+														<div className="mt-auto flex flex-wrap gap-2">
+															{item.keywords.slice(0, 3).map((keyword, idx) => (
+																<span
+																	key={`${item.id}-keyword-${idx}`}
+																	className="rounded-[10px] bg-white/10 px-2 py-1 text-xs font-normal text-white/80"
+																>
+																	{keyword}
+																</span>
+															))}
+														</div>
+													)}
+												</Link>
+											))}
+										</div>
 									</div>
-								)}
-							</Link>
-						))}
-					</div>
+								);
+							})}
+						</div>
+					</>
 				)}
 			</div>
 		</div>
