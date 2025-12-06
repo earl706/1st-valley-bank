@@ -9,6 +9,8 @@ import { DarkHeader } from '../components/Header';
 import { useJsApiLoader } from '@react-google-maps/api';
 import { contactService } from '../services/index';
 
+const PSGC_API_BASE = 'https://psgc.gitlab.io/api';
+
 const ContactUsForm = () => {
 	const initialFormData = {
 		name: '',
@@ -28,6 +30,15 @@ const ContactUsForm = () => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitSuccess, setSubmitSuccess] = useState(false);
 	const [submitError, setSubmitError] = useState(null);
+
+	// Address dropdown data (using PSGC API like ATMLocator)
+	const [provinceOptions, setProvinceOptions] = useState([]);
+	const [provinceLoading, setProvinceLoading] = useState(false);
+	const [cityOptions, setCityOptions] = useState([]);
+	const [cityLoading, setCityLoading] = useState(false);
+	const [barangayOptions, setBarangayOptions] = useState([]);
+	const [barangayLoading, setBarangayLoading] = useState(false);
+	const [addressFieldError, setAddressFieldError] = useState('');
 
 	const [mapCoordinates, setMapCoordinates] = useState(null);
 	const [isMapLoading, setIsMapLoading] = useState(false);
@@ -70,8 +81,164 @@ const ContactUsForm = () => {
 		}));
 	};
 
+	// Fetch provinces on component mount (using PSGC API)
+	useEffect(() => {
+		const controller = new AbortController();
+
+		const loadProvinces = async () => {
+			setProvinceLoading(true);
+			setAddressFieldError('');
+			try {
+				const response = await fetch(`${PSGC_API_BASE}/provinces/`, {
+					signal: controller.signal
+				});
+				if (!response.ok) {
+					throw new Error(`Failed to load provinces: ${response.status}`);
+				}
+				const data = await response.json();
+				const formatted = (Array.isArray(data) ? data : [])
+					.map((province) => ({
+						code: province.code,
+						name: province.name,
+						regionName: province.regionName
+					}))
+					.sort((a, b) => a.name.localeCompare(b.name));
+				setProvinceOptions(formatted);
+				setAddressFieldError('');
+			} catch (error) {
+				if (error.name !== 'AbortError') {
+					console.error('Failed to load provinces:', error);
+					setAddressFieldError('Unable to load provinces. Please refresh the page.');
+				}
+			} finally {
+				setProvinceLoading(false);
+			}
+		};
+
+		loadProvinces();
+
+		return () => controller.abort();
+	}, []);
+
+	// Fetch cities/municipalities when province is selected
+	useEffect(() => {
+		if (!formData.province) {
+			setCityOptions([]);
+			setBarangayOptions([]);
+			setFormData((prev) => ({
+				...prev,
+				municipality: '',
+				barangay: ''
+			}));
+			return;
+		}
+
+		const controller = new AbortController();
+
+		const loadCities = async () => {
+			setCityLoading(true);
+			setAddressFieldError('');
+			try {
+				const response = await fetch(
+					`${PSGC_API_BASE}/provinces/${formData.province}/cities-municipalities/`,
+					{ signal: controller.signal }
+				);
+				if (!response.ok) {
+					throw new Error(`Failed to load cities: ${response.status}`);
+				}
+				const data = await response.json();
+				const formatted = (Array.isArray(data) ? data : [])
+					.map((city) => ({
+						code: city.code,
+						name: city.name,
+						isCity: city.isCity
+					}))
+					.sort((a, b) => a.name.localeCompare(b.name));
+				setCityOptions(formatted);
+				setAddressFieldError('');
+			} catch (error) {
+				if (error.name !== 'AbortError') {
+					console.error('Failed to load cities/municipalities:', error);
+					setAddressFieldError(
+						'Unable to load cities or municipalities for the selected province.'
+					);
+				}
+			} finally {
+				setCityLoading(false);
+			}
+		};
+
+		loadCities();
+
+		return () => controller.abort();
+	}, [formData.province]);
+
+	// Fetch barangays when municipality is selected
+	useEffect(() => {
+		if (!formData.municipality) {
+			setBarangayOptions([]);
+			setFormData((prev) => ({
+				...prev,
+				barangay: ''
+			}));
+			return;
+		}
+
+		const controller = new AbortController();
+
+		const loadBarangays = async () => {
+			setBarangayLoading(true);
+			setAddressFieldError('');
+			try {
+				const response = await fetch(
+					`${PSGC_API_BASE}/cities-municipalities/${formData.municipality}/barangays/`,
+					{ signal: controller.signal }
+				);
+				if (!response.ok) {
+					throw new Error(`Failed to load barangays: ${response.status}`);
+				}
+				const data = await response.json();
+				const formatted = (Array.isArray(data) ? data : [])
+					.map((barangay) => ({
+						code: barangay.code,
+						name: barangay.name
+					}))
+					.sort((a, b) => a.name.localeCompare(b.name));
+				setBarangayOptions(formatted);
+				setAddressFieldError('');
+			} catch (error) {
+				if (error.name !== 'AbortError') {
+					console.error('Failed to load barangays:', error);
+					setAddressFieldError('Unable to load barangays for the selected city or municipality.');
+				}
+			} finally {
+				setBarangayLoading(false);
+			}
+		};
+
+		loadBarangays();
+
+		return () => controller.abort();
+	}, [formData.municipality]);
+
+	// Helper functions to get selected option names
+	const selectedProvinceOption = useMemo(
+		() => provinceOptions.find((province) => province.code === formData.province) || null,
+		[provinceOptions, formData.province]
+	);
+
+	const selectedCityOption = useMemo(
+		() => cityOptions.find((city) => city.code === formData.municipality) || null,
+		[cityOptions, formData.municipality]
+	);
+
+	const selectedBarangayOption = useMemo(
+		() => barangayOptions.find((barangay) => barangay.code === formData.barangay) || null,
+		[barangayOptions, formData.barangay]
+	);
+
 	const fetchMapCoordinates = async () => {
-		const { street, barangay, city, province, postal_code } = formData;
+		const { street, barangay, municipality, province, postal_code } = formData;
 		// Form full address string with all elements to increase pinpoint accuracy
 		let addressParts = [
 			street,
@@ -100,7 +267,7 @@ const ContactUsForm = () => {
 			return;
 		}
 
-		if (street.trim() && barangay.trim() && city.trim() && province.trim()) {
+		if (street.trim() && barangay.trim() && municipality.trim() && province.trim()) {
 			try {
 				setIsMapLoading(true);
 				setMapError('');
@@ -172,16 +339,16 @@ const ContactUsForm = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		// Prepare the payload as required (flat format with new address fields)
+		// Prepare the payload with names from selected options
 		const payload = {
 			name: formData.name,
 			email: formData.email,
 			subject: formData.subject,
 			contact_number: formData.contact_number,
 			street: formData.street,
-			barangay: formData.barangay,
-			municipality: formData.municipality,
-			province: formData.province,
+			barangay: selectedBarangayOption ? selectedBarangayOption.name : formData.barangay,
+			municipality: selectedCityOption ? selectedCityOption.name : formData.municipality,
+			province: selectedProvinceOption ? selectedProvinceOption.name : formData.province,
 			postal_code: formData.postal_code,
 			message: formData.message
 		};
@@ -312,36 +479,88 @@ const ContactUsForm = () => {
 											required
 										/>
 									</div>
-									<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-										<input
-											type="text"
-											name="barangay"
-											value={formData.barangay}
-											onChange={handleInputChange}
-											className="w-full rounded-xl border border-gray-200 bg-white/60 px-4 py-4 text-base leading-relaxed font-normal text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
-											placeholder="Barangay"
-											required
-										/>
-										<input
-											type="text"
-											name="municipality"
-											value={formData.municipality}
-											onChange={handleInputChange}
-											className="w-full rounded-xl border border-gray-200 bg-white/60 px-4 py-4 text-base leading-relaxed font-normal text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
-											placeholder="City / Municipality"
-											required
-										/>
-									</div>
-									<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-										<input
-											type="text"
+									{/* Province Dropdown */}
+									<div className="relative">
+										<MapPin className="absolute top-1/2 left-4 z-10 h-5 w-5 -translate-y-1/2 transform text-[#4a7c3a]" />
+										<select
 											name="province"
 											value={formData.province}
 											onChange={handleInputChange}
-											className="w-full rounded-xl border border-gray-200 bg-white/60 px-4 py-4 text-base leading-relaxed font-normal text-[#2c4125] placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131]"
-											placeholder="Province"
+											className="w-full appearance-none rounded-xl border border-gray-200 bg-white/60 py-4 pr-4 pl-12 text-base leading-relaxed font-normal text-[#2c4125] transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131] disabled:bg-gray-100"
 											required
-										/>
+											disabled={provinceLoading}
+										>
+											<option value="">Select Province</option>
+											{provinceOptions.map((province) => (
+												<option key={province.code} value={province.code}>
+													{province.name}
+												</option>
+											))}
+										</select>
+										{provinceLoading && (
+											<p className="mt-1 text-xs text-gray-500">Loading provinces…</p>
+										)}
+									</div>
+									{/* Municipality Dropdown */}
+									<div className="relative">
+										<MapPin className="absolute top-1/2 left-4 z-10 h-5 w-5 -translate-y-1/2 transform text-[#4a7c3a]" />
+										<select
+											name="municipality"
+											value={formData.municipality}
+											onChange={handleInputChange}
+											className="w-full appearance-none rounded-xl border border-gray-200 bg-white/60 py-4 pr-4 pl-12 text-base leading-relaxed font-normal text-[#2c4125] transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131] disabled:bg-gray-100"
+											required
+											disabled={!formData.province || cityLoading}
+										>
+											<option value="">
+												{!formData.province
+													? 'Select Province First'
+													: cityLoading
+														? 'Loading...'
+														: 'Select City or Municipality'}
+											</option>
+											{cityOptions.map((city) => (
+												<option key={city.code} value={city.code}>
+													{city.name}
+												</option>
+											))}
+										</select>
+										{cityLoading && (
+											<p className="mt-1 text-xs text-gray-500">
+												Loading cities and municipalities…
+											</p>
+										)}
+									</div>
+									{/* Barangay Dropdown */}
+									<div className="relative">
+										<MapPin className="absolute top-1/2 left-4 z-10 h-5 w-5 -translate-y-1/2 transform text-[#4a7c3a]" />
+										<select
+											name="barangay"
+											value={formData.barangay}
+											onChange={handleInputChange}
+											className="w-full appearance-none rounded-xl border border-gray-200 bg-white/60 py-4 pr-4 pl-12 text-base leading-relaxed font-normal text-[#2c4125] transition-all duration-200 focus:border-transparent focus:bg-white focus:ring-2 focus:ring-[#396131] disabled:bg-gray-100"
+											required
+											disabled={!formData.municipality || barangayLoading}
+										>
+											<option value="">
+												{!formData.municipality
+													? 'Select Municipality First'
+													: barangayLoading
+														? 'Loading...'
+														: 'Select Barangay'}
+											</option>
+											{barangayOptions.map((barangay) => (
+												<option key={barangay.code} value={barangay.code}>
+													{barangay.name}
+												</option>
+											))}
+										</select>
+										{barangayLoading && (
+											<p className="mt-1 text-xs text-gray-500">Loading barangays…</p>
+										)}
+									</div>
+									{/* Postal Code */}
+									<div className="relative">
 										<input
 											type="text"
 											name="postal_code"
@@ -467,7 +686,10 @@ const ContactUsForm = () => {
 									</p>
 								</div>
 							)}
-							{(formData.street || formData.barangay || formData.city || formData.province) &&
+							{(formData.street ||
+								formData.barangay ||
+								formData.municipality ||
+								formData.province) &&
 								!mapCoordinates &&
 								!isMapLoading && (
 									<div className="mt-6 rounded-xl border border-yellow-200 bg-yellow-50 p-4">
@@ -478,7 +700,7 @@ const ContactUsForm = () => {
 											{[
 												formData.street,
 												formData.barangay,
-												formData.city,
+												formData.municipality,
 												formData.province,
 												formData.postal_code
 											]
@@ -486,7 +708,7 @@ const ContactUsForm = () => {
 												.join(', ')}
 											{formData.street &&
 												formData.barangay &&
-												formData.city &&
+												formData.municipality &&
 												formData.province &&
 												', Philippines'}
 										</p>
