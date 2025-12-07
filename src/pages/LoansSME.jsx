@@ -15,6 +15,7 @@ import img6 from '/src/assets/homepage/6.png';
 import PageHeroSection from '../components/PageHeroSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
+import RequirementsSection from '../components/RequirementsSection';
 import React, { useState, useEffect } from 'react';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
@@ -46,8 +47,8 @@ export default function LoansSME() {
 	const getSuccessStories = async () => {
 		try {
 			const response = await successStoriesService.getByLoanType('sme');
-			if (response.success && response.data) {
-				const transformed = response.data.map((story) => ({
+			if (response.success && response.data.results) {
+				const transformed = response.data.results.map((story) => ({
 					img: story.image || img1,
 					alt: story.alt_text || story.name,
 					name: story.name,
@@ -151,6 +152,17 @@ export default function LoansSME() {
 				ctaPrimaryText="Get Expert Consultation"
 				ctaSecondaryText="View All Loans"
 			/>
+
+			{smeTypes.length > 0 && smeTypes[0]?.requirements && (
+				<RequirementsSection
+					requirements={smeTypes[0].requirements}
+					title="Requirements"
+					subtitle="What you need to apply for an SME loan"
+					badgeText="SME Loans"
+					layout="two-column"
+					showIcons={true}
+				/>
+			)}
 
 			<SuccessStoriesSection
 				id="sme-success-stories"

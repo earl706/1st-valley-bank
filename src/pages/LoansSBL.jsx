@@ -51,8 +51,8 @@ export default function LoansSBL() {
 	const getSuccessStories = async () => {
 		try {
 			const response = await successStoriesService.getByLoanType('sbl');
-			if (response.success && response.data) {
-				const transformed = response.data.map((story) => ({
+			if (response.success && response.data.results) {
+				const transformed = response.data.results.map((story) => ({
 					img: story.image || img1,
 					alt: story.alt_text || story.name,
 					name: story.name,

@@ -4,6 +4,7 @@ import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import PageHeroSection from '../components/PageHeroSection';
 import CarouselSection from '../components/CarouselSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
+import RequirementsSection from '../components/RequirementsSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
@@ -31,8 +32,8 @@ export default function LoansSUCRE() {
 	const getSuccessStories = async () => {
 		try {
 			const response = await successStoriesService.getByLoanType('sucre');
-			if (response.success && response.data) {
-				const transformed = response.data.map((story) => ({
+			if (response.success && response.data.results) {
+				const transformed = response.data.results.map((story) => ({
 					img: story.image || img1,
 					alt: story.alt_text || story.name,
 					name: story.name,
@@ -120,6 +121,16 @@ export default function LoansSUCRE() {
 					tagText="Loan Types"
 					loanTypes={sucreTypes}
 				/>
+				{sucreTypes.length > 0 && sucreTypes[0]?.requirements && (
+					<RequirementsSection
+						requirements={sucreTypes[0].requirements}
+						title="Requirements"
+						subtitle="What you need to apply for a supervised credit loan"
+						badgeText="SUCRE Loans"
+						layout="two-column"
+						showIcons={true}
+					/>
+				)}
 				<SuccessStoriesSection
 					id="sucre-success-stories"
 					sectionTitle="Success Stories"

@@ -6,6 +6,7 @@ import { ArrowLeft, Users, Building, User, DollarSign, ArrowRight } from 'lucide
 import PageHeroSection from '../components/PageHeroSection';
 import CarouselSection from '../components/CarouselSection';
 import { DarkHeader, LightHeader } from '../components/Header';
+import RequirementsSection from '../components/RequirementsSection';
 import { getSavingsAccounts } from '../services/depositService';
 
 export default function SavingsAccount() {
@@ -99,89 +100,16 @@ export default function SavingsAccount() {
 				</section>
 
 				{/* Requirements Section */}
-				<section id="requirements" data-scroll className="bg-white text-gray-900">
-					<div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-						<LightHeader
-							badgeText="Savings Accounts"
-							title="Requirements"
-							subtitle="What you need to open a savings account"
-							alignment="left"
-							level={3}
-						/>
-
-						<div className="grid gap-8 md:grid-cols-2">
-							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
-								<div className="mb-6 flex items-center gap-4">
-									<User className="h-8 w-8 text-gray-400" />
-									<h3 className="text-2xl leading-tight font-bold">Individual Requirements</h3>
-								</div>
-								<ul className="space-y-4">
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Colored photocopy of 2 Valid IDs
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Three pieces 2x2 pictures
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											If you have business - Business Permit, DTI Permit
-										</span>
-									</li>
-								</ul>
-							</div>
-
-							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
-								<div className="mb-6 flex items-center gap-4">
-									<Building className="h-8 w-8 text-gray-400" />
-									<h3 className="text-2xl leading-tight font-bold">Corporate Requirements</h3>
-								</div>
-								<ul className="space-y-4">
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											SEC Certificate of Registration
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Notarized Secretary Certificate
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Articles Of Incorporation & By-Laws
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Notarized Board Resolution
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Two Valid IDs of Signatories
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">Business Permit</span>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</section>
+				{savingsAccounts.length > 0 && savingsAccounts[0]?.requirements && (
+					<RequirementsSection
+						requirements={savingsAccounts[0].requirements}
+						title="Requirements"
+						subtitle="What you need to open a savings account"
+						badgeText="Savings Accounts"
+						layout="two-column"
+						showIcons={true}
+					/>
+				)}
 			</main>
 		</>
 	);

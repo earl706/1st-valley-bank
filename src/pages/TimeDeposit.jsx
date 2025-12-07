@@ -19,6 +19,7 @@ import carouselImg4 from '/src/assets/carousel/4.png';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import { DarkHeader, LightHeader } from '../components/Header';
+import RequirementsSection from '../components/RequirementsSection';
 import { getTimeDeposits } from '../services/depositService';
 
 export default function TimeDeposit() {
@@ -157,91 +158,16 @@ export default function TimeDeposit() {
 				</section>
 
 				{/* Requirements Section */}
-				<section id="requirements" data-scroll className="bg-white text-gray-900">
-					<div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-						<LightHeader
-							badgeText="Time Deposit"
-							title="Requirements"
-							subtitle="What you need to open a time deposit account"
-							alignment="left"
-							level={3}
-						/>
-
-						<div className="grid gap-8 md:grid-cols-2">
-							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
-								<div className="mb-6 flex items-center gap-4">
-									<DollarSign className="h-8 w-8 text-gray-400" />
-									<h3 className="text-2xl leading-tight font-bold">Investment Requirements</h3>
-								</div>
-								<ul className="space-y-4">
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Minimum initial deposit amount
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Valid government-issued ID
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Proof of income or source of funds
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Completed application form
-										</span>
-									</li>
-								</ul>
-							</div>
-
-							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
-								<div className="mb-6 flex items-center gap-4">
-									<Shield className="h-8 w-8 text-gray-400" />
-									<h3 className="text-2xl leading-tight font-bold">Terms & Conditions</h3>
-								</div>
-								<ul className="space-y-4">
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Fixed term commitment
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Early withdrawal penalties apply
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Interest credited at maturity
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Automatic renewal option available
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											PDIC insured up to ₱500,000
-										</span>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</section>
+				{timeDeposits.length > 0 && timeDeposits[0]?.requirements && (
+					<RequirementsSection
+						requirements={timeDeposits[0].requirements}
+						title="Requirements"
+						subtitle="What you need to open a time deposit account"
+						badgeText="Time Deposit"
+						layout="two-column"
+						showIcons={true}
+					/>
+				)}
 			</main>
 		</>
 	);

@@ -14,8 +14,8 @@ export default function LoansMicrofinance() {
 	const getSuccessStories = async () => {
 		try {
 			const response = await successStoriesService.getByLoanType('microfinance');
-			if (response.success && response.data) {
-				const transformed = response.data.map((story) => ({
+			if (response.success && response.data.results) {
+				const transformed = response.data.results.map((story) => ({
 					img: story.image || carouselImg2,
 					alt: story.alt_text || story.name,
 					name: story.name,

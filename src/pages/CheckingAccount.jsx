@@ -6,6 +6,7 @@ import { DarkPrimaryButton } from '../components/Buttons';
 import PageHeroSection from '../components/PageHeroSection';
 import CarouselSection from '../components/CarouselSection';
 import { DarkHeader, LightHeader } from '../components/Header';
+import RequirementsSection from '../components/RequirementsSection';
 import { getCheckingAccounts } from '../services/depositService';
 
 export default function CheckingAccount() {
@@ -146,93 +147,16 @@ export default function CheckingAccount() {
 				</section>
 
 				{/* Requirements Section */}
-				<section id="requirements" data-scroll className="border-gray-200 bg-white text-gray-900">
-					<div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-						<LightHeader
-							badgeText="Checking Accounts"
-							title="Requirements"
-							subtitle="What you need to open a checking account"
-							alignment="left"
-							level={3}
-						/>
-						<div className="grid gap-8 md:grid-cols-2">
-							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
-								<div className="mb-6 flex items-center gap-4">
-									<User className="h-8 w-8 text-gray-400" />
-									<h3 className="text-xl leading-tight font-bold">Individual Requirements</h3>
-								</div>
-								<ul className="space-y-4">
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Colored photocopy of 2 Valid IDs
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Three pieces 2x2 pictures
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Proof of income (payslip, ITR, etc.)
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Initial deposit amount
-										</span>
-									</li>
-								</ul>
-							</div>
-							<div className="rounded-2xl border border-gray-100 bg-gray-50 p-8">
-								<div className="mb-6 flex items-center gap-4">
-									<Building className="h-8 w-8 text-gray-400" />
-									<h3 className="text-xl leading-tight font-bold">Business Requirements</h3>
-								</div>
-								<ul className="space-y-4">
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											SEC Certificate of Registration
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Articles of Incorporation
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Board Resolution for account opening
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Valid IDs of authorized signatories
-										</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">Business Permit</span>
-									</li>
-									<li className="flex items-start gap-3">
-										<div className="mt-2 h-2 w-2 rounded-full bg-gray-400"></div>
-										<span className="text-base leading-relaxed font-normal">
-											Financial statements (if applicable)
-										</span>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</section>
+				{checkingAccounts.length > 0 && checkingAccounts[0]?.requirements && (
+					<RequirementsSection
+						requirements={checkingAccounts[0].requirements}
+						title="Requirements"
+						subtitle="What you need to open a checking account"
+						badgeText="Checking Accounts"
+						layout="two-column"
+						showIcons={true}
+					/>
+				)}
 			</main>
 		</>
 	);

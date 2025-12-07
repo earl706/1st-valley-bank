@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CarouselSection from '../components/CarouselSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
+import RequirementsSection from '../components/RequirementsSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
@@ -72,6 +73,16 @@ export default function LoansSalary() {
 					ctaPrimaryText="Get Expert Consultation"
 					ctaSecondaryText="View All Loans"
 				/>
+				{salaryLoanTypes.length > 0 && salaryLoanTypes[0]?.requirements && (
+					<RequirementsSection
+						requirements={salaryLoanTypes[0].requirements}
+						title="Requirements"
+						subtitle="What you need to apply for a salary loan"
+						badgeText="Salary Loans"
+						layout="two-column"
+						showIcons={true}
+					/>
+				)}
 				<SuccessStoriesSection
 					id="salary-success-stories"
 					title="Salary Loan Success Stories"
