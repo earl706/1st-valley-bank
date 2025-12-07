@@ -27,10 +27,12 @@ import carouselImg3 from '/src/assets/carousel/3.png';
 import carouselImg7 from '/src/assets/carousel/7.png';
 
 import loanService from '../services/loanService';
+import successStoriesService from '../services/successStoriesService';
 
 export default function LoansSBL() {
 	// Small Business Loan subcategories data
 	const [sblTypes, setSblTypes] = useState([]);
+	const [successStories, setSuccessStories] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	const getSblTypes = async () => {
@@ -46,8 +48,29 @@ export default function LoansSBL() {
 		}
 	};
 
+	const getSuccessStories = async () => {
+		try {
+			const response = await successStoriesService.getByLoanType('sbl');
+			if (response.success && response.data) {
+				const transformed = response.data.map((story) => ({
+					img: story.image || img1,
+					alt: story.alt_text || story.name,
+					name: story.name,
+					location: story.location,
+					description: story.description,
+					route: story.route
+				}));
+				setSuccessStories(transformed);
+			}
+		} catch (error) {
+			console.error('Failed to fetch success stories:', error);
+			setSuccessStories([]);
+		}
+	};
+
 	useEffect(() => {
 		getSblTypes();
+		getSuccessStories();
 	}, []);
 
 	const whoCanApply = [
@@ -140,49 +163,6 @@ export default function LoansSBL() {
 			imageAlt: 'Non-Collateral SBL',
 			route: '/contact-us',
 			buttonText: 'Apply Now'
-		}
-	];
-
-	// Success stories data for SBL
-	const sblSuccessStories = [
-		{
-			img: img1,
-			alt: 'Lopez Sari-Sari Store',
-			name: 'Lopez Sari-Sari Store',
-			location: 'Cagayan de Oro City',
-			description:
-				'Expanded their sari-sari store into a mini-grocery using our Small Business Loan.',
-			route: '/success-stories/lopez-sari-sari',
-			paragraphs: [
-				'The Lopez family ran a small sari-sari store in Cagayan de Oro for over 8 years. With a dream to serve more of the community and grow their income, they availed the Small Business Loan and used the additional capital to purchase more goods and offer new services.',
-				'Today, their store operates as a mini-grocery, supplying not just snacks and daily needs but also offering LPG refills and frozen goods. The loan allowed them to renovate their space, expand their inventory, and hire two helpers, empowering them to serve more customers and support their family even better.'
-			]
-		},
-		{
-			img: img2,
-			alt: 'Dela Cruz Eatery',
-			name: 'Dela Cruz Eatery',
-			location: 'Dipolog City',
-			description:
-				'Achieved their first branch expansion through non-collateral Small Business Loan funding.',
-			route: '/success-stories/dela-cruz-eatery',
-			paragraphs: [
-				'Ms. Dela Cruz started her eatery as a single food stall. Through word-of-mouth and loyal customers, she dreamt of opening a second branch but lacked the capital for the lease and renovation.',
-				'With 1st Valley Bank’s Small Business Loan (No Collateral), she secured the needed funding to bring her expansion to life. Her second location opened within three months, serving as proof that with persistence and the right financing, local food ventures can grow sustainably.'
-			]
-		},
-		{
-			img: img3,
-			alt: 'Santos Print Shop',
-			name: 'Santos Print Shop',
-			location: 'Iligan City',
-			description:
-				'Updated shop equipment and tripled business orders thanks to timely loan support.',
-			route: '/success-stories/santos-print-shop',
-			paragraphs: [
-				'The Santos siblings ran a small print shop offering basic services but struggled with slow old printers. When school enrollment season loomed, they realized the need for newer, faster machines to handle bulk orders.',
-				'With a Small Business Loan from 1VB, they upgraded to faster equipment, expanded to digital printing, and their volume of orders—and profitability—tripled within six months.'
-			]
 		}
 	];
 
@@ -311,7 +291,7 @@ export default function LoansSBL() {
 					id="sbl-success-stories"
 					title="Small Business Success Stories"
 					subtitle="Real stories from local businesses who have grown with our Small Business Loans."
-					stories={sblSuccessStories}
+					stories={successStories}
 					brandColor="#396131"
 				/>
 			</main>

@@ -24,9 +24,11 @@ import carouselImg5 from '/src/assets/carousel/5.png';
 import carouselImg6 from '/src/assets/carousel/6.png';
 import carouselImg7 from '/src/assets/carousel/7.png';
 import loanService from '../services/loanService';
+import successStoriesService from '../services/successStoriesService';
 
 export default function LoansSME() {
 	const [smeTypes, setSmeTypes] = useState([]);
+	const [successStories, setSuccessStories] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	const getSmeTypes = async () => {
@@ -41,8 +43,29 @@ export default function LoansSME() {
 		}
 	};
 
+	const getSuccessStories = async () => {
+		try {
+			const response = await successStoriesService.getByLoanType('sme');
+			if (response.success && response.data) {
+				const transformed = response.data.map((story) => ({
+					img: story.image || img1,
+					alt: story.alt_text || story.name,
+					name: story.name,
+					location: story.location,
+					description: story.description,
+					route: story.route
+				}));
+				setSuccessStories(transformed);
+			}
+		} catch (error) {
+			console.error('Failed to fetch success stories:', error);
+			setSuccessStories([]);
+		}
+	};
+
 	useEffect(() => {
 		getSmeTypes();
+		getSuccessStories();
 	}, []);
 
 	// Carousel slides combining hero and SME loan types
@@ -105,50 +128,6 @@ export default function LoansSME() {
 		}
 	];
 
-	// SME success stories data
-	const smeSuccessStories = [
-		{
-			img: img1,
-			alt: 'Golden Sunrise Eatery',
-			name: 'Jenny Uy',
-			location: 'Owner, Golden Sunrise Eatery, Iligan',
-			description:
-				'Jenny transformed her small carinderia into a thriving family eatery thanks to an SME Chattel Financing loan from 1st Valley Bank.',
-			route: '/success-stories/golden-sunrise-eatery',
-			paragraphs: [
-				"Running a carinderia was never easy for Jenny Uy until she accessed 1st Valley Bank's SME Chattel Financing. With new kitchen equipment and a delivery van, she was able to serve more customers and expand into catering services.",
-				'"1st Valley Bank understood my needs and offered flexible payment terms. My family business is now thriving more than ever."',
-				'Jenny has since opened a second branch and employs 7 staff from her local community.'
-			]
-		},
-		{
-			img: img2,
-			alt: 'TechParts Distributor',
-			name: 'Rodolfo Sarmiento',
-			location: 'Proprietor, TechParts Distributor, CDO',
-			description:
-				'Rodolfo scaled up his electronics parts distribution business, improving inventory and logistics with an SME Term Loan.',
-			route: '/success-stories/techparts-distributor',
-			paragraphs: [
-				'Rodolfo saw demand surging for affordable electronics parts in Northern Mindanao, but cash flow was tight. A Term Loan from 1st Valley Bank let him bulk-purchase inventory and upgrade his warehouse.',
-				'He reports, "The bank became a real partner. Now I can deliver bigger orders to clients on time, and revenues have doubled since last year."'
-			]
-		},
-		{
-			img: img3,
-			alt: 'Moments Flower Shop',
-			name: 'Clarissa Bustamante',
-			location: 'Owner, Moments Flower Shop, Pagadian',
-			description:
-				'Clarissa turned her passion for flowers into a full-service shop with upgraded delivery and cool storage, thanks to SME financing.',
-			route: '/success-stories/moments-flower-shop',
-			paragraphs: [
-				'Clarissa operated her flower stall in the public market for years. Through 1st Valley Bank and an SME loan, she bought her first delivery motorcycle and invested in a small cold room, extending product freshness.',
-				'"Customers now rely on us for weddings, anniversaries and even online orders. This loan was a game changer!"'
-			]
-		}
-	];
-
 	return (
 		<>
 			<PageHeroSection
@@ -176,7 +155,7 @@ export default function LoansSME() {
 				id="sme-success-stories"
 				title="SME Success Stories"
 				subtitle="Discover how our SME loan clients achieved their goals"
-				stories={smeSuccessStories}
+				stories={successStories}
 				brandColor="#396131"
 			/>
 
