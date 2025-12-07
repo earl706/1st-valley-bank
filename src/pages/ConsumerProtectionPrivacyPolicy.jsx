@@ -29,6 +29,37 @@ import PageHeroSection from '../components/PageHeroSection';
 import HeroSection from '../components/HeroSection';
 import { LightCard } from '../components/Card';
 import { LightSecondaryButton, LightPrimaryButton } from '../components/Buttons';
+import consumerProtectionPrivacyPolicyPageService from '../services/consumerProtectionPrivacyPolicyPageService';
+
+// Icon mapping for CMS icon names to lucide-react components
+const iconMap = {
+	shield: Shield,
+	lock: Lock,
+	database: Database,
+	filetext: FileText,
+	file_text: FileText,
+	qrcode: QrCode,
+	qr_code: QrCode,
+	laptop: Laptop,
+	upload: Upload,
+	server: Server,
+	baby: Baby,
+	star: Star,
+	info: Info,
+	eye: Eye,
+	usercheck: UserCheck,
+	user_check: UserCheck,
+	globe: Globe,
+	users: Users,
+	checkcircle: CheckCircle,
+	check_circle: CheckCircle
+};
+
+const getIconComponent = (iconName) => {
+	if (!iconName) return Info;
+	const normalized = iconName.toLowerCase().replace(/[_-]/g, '');
+	return iconMap[normalized] || Info;
+};
 
 function FeedbackForm({ onClose, onSuccess, onError }) {
 	const [form, setForm] = useState({
@@ -434,6 +465,30 @@ export default function ConsumerProtectionPrivacyPolicy() {
 	const [showComplaintForm, setShowComplaintForm] = useState(false);
 	const [formStatus, setFormStatus] = useState(''); // '', 'success', 'error'
 
+	// CMS data state
+	const [privacyPage, setPrivacyPage] = useState(null);
+	const [privacyPageLoading, setPrivacyPageLoading] = useState(true);
+	const [privacyPageError, setPrivacyPageError] = useState(null);
+
+	// Fetch CMS data
+	useEffect(() => {
+		const fetchPrivacyPage = async () => {
+			setPrivacyPageLoading(true);
+			setPrivacyPageError(null);
+			try {
+				const data = await consumerProtectionPrivacyPolicyPageService.getPrivacyPolicyPage();
+				setPrivacyPage(data);
+			} catch (err) {
+				console.error('Error fetching privacy policy page:', err);
+				setPrivacyPageError(err?.message || 'Failed to load privacy policy page data.');
+			} finally {
+				setPrivacyPageLoading(false);
+			}
+		};
+
+		fetchPrivacyPage();
+	}, []);
+
 	// Scroll tracking
 	useEffect(() => {
 		const handleScroll = () => {
@@ -514,21 +569,42 @@ export default function ConsumerProtectionPrivacyPolicy() {
 								<div className="mb-4 flex items-center gap-2">
 									<Info className="h-4 w-4 text-white" />
 									<span className="text-sm leading-tight font-semibold text-white">
-										Legal Framework
+										{privacyPage?.application_privacy_badge || 'Legal Framework'}
 									</span>
 								</div>
 								<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
-									Application Privacy Statement
+									{privacyPage?.application_privacy_title || 'Application Privacy Statement'}
 								</h2>
-								<p className="mb-4 text-base leading-relaxed font-normal text-white/80">
-									This statement covers how we handle your personal information in connection with
-									our application services.
-								</p>
-								<div className="rounded-lg border-l-4 border-white bg-white/10 p-4">
-									<p className="text-base leading-relaxed font-normal text-white">
-										By using our services, you accept the practices in this Privacy Statement.
+								{privacyPage?.application_privacy_subtitle && (
+									<p className="mb-4 text-base leading-relaxed font-normal text-white/80">
+										{privacyPage.application_privacy_subtitle}
 									</p>
-								</div>
+								)}
+								{privacyPage?.application_privacy_content && (
+									<p className="mb-4 text-base leading-relaxed font-normal text-white/80">
+										{privacyPage.application_privacy_content}
+									</p>
+								)}
+								{privacyPage?.application_privacy_highlight && (
+									<div className="rounded-lg border-l-4 border-white bg-white/10 p-4">
+										<p className="text-base leading-relaxed font-normal text-white">
+											{privacyPage.application_privacy_highlight}
+										</p>
+									</div>
+								)}
+								{!privacyPage && (
+									<>
+										<p className="mb-4 text-base leading-relaxed font-normal text-white/80">
+											This statement covers how we handle your personal information in connection
+											with our application services.
+										</p>
+										<div className="rounded-lg border-l-4 border-white bg-white/10 p-4">
+											<p className="text-base leading-relaxed font-normal text-white">
+												By using our services, you accept the practices in this Privacy Statement.
+											</p>
+										</div>
+									</>
+								)}
 							</div>
 						</div>
 					</div>
@@ -541,34 +617,53 @@ export default function ConsumerProtectionPrivacyPolicy() {
 								<div className="mb-4 flex items-center gap-2">
 									<Database className="h-4 w-4 text-[#396131]" />
 									<span className="text-sm leading-tight font-semibold text-[#396131]">
-										Data Collection
+										{privacyPage?.user_data_badge || 'Data Collection'}
 									</span>
 								</div>
 								<h2 className="mb-4 text-3xl leading-tight font-bold text-[#396131] md:text-5xl">
-									User Data
+									{privacyPage?.user_data_title || 'User Data'}
 								</h2>
 								<div className="space-y-6">
-									<div className="rounded-lg border border-[#396131]/10 p-4">
-										<h3 className="mb-2 flex items-center gap-2 text-xl leading-tight font-bold text-[#396131]">
-											<UserCheck className="h-5 w-5" />
-											Personal Information You Provide
-										</h3>
-										<p className="text-base leading-relaxed font-normal text-gray-700">
-											We collect and store information you provide, such as your name, email, and
-											other details needed to deliver our services.
-										</p>
-									</div>
-									<div className="rounded-lg border border-[#396131]/10 p-4">
-										<h3 className="mb-2 flex items-center gap-2 text-xl leading-tight font-bold text-[#396131]">
-											<Globe className="h-5 w-5" />
-											Information Collected Automatically
-										</h3>
-										<p className="text-base leading-relaxed font-normal text-gray-700">
-											We automatically collect usage data (such as IP address, browser info, and
-											visited URLs) when you use our application. This may be shared in aggregate
-											with partners.
-										</p>
-									</div>
+									{privacyPage?.user_data_items && privacyPage.user_data_items.length > 0 ? (
+										privacyPage.user_data_items.map((item, index) => {
+											const IconComponent = getIconComponent(item.icon);
+											return (
+												<div key={index} className="rounded-lg border border-[#396131]/10 p-4">
+													<h3 className="mb-2 flex items-center gap-2 text-xl leading-tight font-bold text-[#396131]">
+														<IconComponent className="h-5 w-5" />
+														{item.title || ''}
+													</h3>
+													<p className="text-base leading-relaxed font-normal text-gray-700">
+														{item.description || ''}
+													</p>
+												</div>
+											);
+										})
+									) : (
+										<>
+											<div className="rounded-lg border border-[#396131]/10 p-4">
+												<h3 className="mb-2 flex items-center gap-2 text-xl leading-tight font-bold text-[#396131]">
+													<UserCheck className="h-5 w-5" />
+													Personal Information You Provide
+												</h3>
+												<p className="text-base leading-relaxed font-normal text-gray-700">
+													We collect and store information you provide, such as your name, email,
+													and other details needed to deliver our services.
+												</p>
+											</div>
+											<div className="rounded-lg border border-[#396131]/10 p-4">
+												<h3 className="mb-2 flex items-center gap-2 text-xl leading-tight font-bold text-[#396131]">
+													<Globe className="h-5 w-5" />
+													Information Collected Automatically
+												</h3>
+												<p className="text-base leading-relaxed font-normal text-gray-700">
+													We automatically collect usage data (such as IP address, browser info, and
+													visited URLs) when you use our application. This may be shared in
+													aggregate with partners.
+												</p>
+											</div>
+										</>
+									)}
 								</div>
 							</div>
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-1/3">
@@ -595,47 +690,76 @@ export default function ConsumerProtectionPrivacyPolicy() {
 							<div className="flex-1">
 								<div className="mb-4 flex items-center gap-2">
 									<FileText className="h-4 w-4 text-white" />
-									<span className="text-sm leading-tight font-semibold text-white">Data Usage</span>
+									<span className="text-sm leading-tight font-semibold text-white">
+										{privacyPage?.information_usage_badge || 'Data Usage'}
+									</span>
 								</div>
 								<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
-									How We Use Your Information
+									{privacyPage?.information_usage_title || 'How We Use Your Information'}
 								</h2>
-								<p className="mb-4 text-base leading-relaxed font-normal text-white/80">
-									1st Valley Bank uses the collected information in the following ways:
-								</p>
+								{privacyPage?.information_usage_subtitle && (
+									<p className="mb-4 text-base leading-relaxed font-normal text-white/80">
+										{privacyPage.information_usage_subtitle}
+									</p>
+								)}
+								{!privacyPage && (
+									<p className="mb-4 text-base leading-relaxed font-normal text-white/80">
+										1st Valley Bank uses the collected information in the following ways:
+									</p>
+								)}
 								<div className="space-y-4">
-									{[
-										{
-											icon: <FileText className="h-5 w-5 text-white" />,
-											title: 'Internal Analysis',
-											description: 'To analyze, develop and improve our products and services'
-										},
-										{
-											icon: <Users className="h-5 w-5 text-white" />,
-											title: 'Customer Contact',
-											description:
-												'To contact you regarding offers and services that may interest you'
-										},
-										{
-											icon: <Shield className="h-5 w-5 text-white" />,
-											title: 'Legal Compliance',
-											description: 'As outlined in our information sharing policies below'
-										}
-									].map((item, index) => (
-										<div key={index} className="flex gap-3 p-3">
-											<div className="flex h-8 w-8 items-center justify-center rounded bg-white/10 text-white">
-												{item.icon}
-											</div>
-											<div>
-												<h3 className="mb-1 text-xl leading-tight font-bold text-white">
-													{item.title}
-												</h3>
-												<p className="text-base leading-relaxed font-normal text-white/80">
-													{item.description}
-												</p>
-											</div>
-										</div>
-									))}
+									{privacyPage?.information_usage_items &&
+									privacyPage.information_usage_items.length > 0
+										? privacyPage.information_usage_items.map((item, index) => {
+												const IconComponent = getIconComponent(item.icon);
+												return (
+													<div key={index} className="flex gap-3 p-3">
+														<div className="flex h-8 w-8 items-center justify-center rounded bg-white/10 text-white">
+															<IconComponent className="h-5 w-5 text-white" />
+														</div>
+														<div>
+															<h3 className="mb-1 text-xl leading-tight font-bold text-white">
+																{item.title || ''}
+															</h3>
+															<p className="text-base leading-relaxed font-normal text-white/80">
+																{item.description || ''}
+															</p>
+														</div>
+													</div>
+												);
+											})
+										: [
+												{
+													icon: <FileText className="h-5 w-5 text-white" />,
+													title: 'Internal Analysis',
+													description: 'To analyze, develop and improve our products and services'
+												},
+												{
+													icon: <Users className="h-5 w-5 text-white" />,
+													title: 'Customer Contact',
+													description:
+														'To contact you regarding offers and services that may interest you'
+												},
+												{
+													icon: <Shield className="h-5 w-5 text-white" />,
+													title: 'Legal Compliance',
+													description: 'As outlined in our information sharing policies below'
+												}
+											].map((item, index) => (
+												<div key={index} className="flex gap-3 p-3">
+													<div className="flex h-8 w-8 items-center justify-center rounded bg-white/10 text-white">
+														{item.icon}
+													</div>
+													<div>
+														<h3 className="mb-1 text-xl leading-tight font-bold text-white">
+															{item.title}
+														</h3>
+														<p className="text-base leading-relaxed font-normal text-white/80">
+															{item.description}
+														</p>
+													</div>
+												</div>
+											))}
 								</div>
 							</div>
 						</div>
@@ -649,23 +773,39 @@ export default function ConsumerProtectionPrivacyPolicy() {
 								<div className="mb-4 flex items-center gap-2">
 									<QrCode className="h-4 w-4 text-[#396131]" />
 									<span className="text-sm leading-tight font-semibold text-[#396131]">
-										Partnership Policy
+										{privacyPage?.partner_treatment_badge || 'Partnership Policy'}
 									</span>
 								</div>
 								<h2 className="mb-4 text-3xl leading-tight font-bold text-[#396131] md:text-5xl">
-									Application Partner Treatment
+									{privacyPage?.partner_treatment_title || 'Application Partner Treatment'}
 								</h2>
-								<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
-									1st Valley Bank may provide personal information to applicable Application
-									Partners. Each partner's use of your personal information is subject to their
-									separate privacy policy, not this Privacy Statement.
-								</p>
-								<div className="rounded-lg border border-[#396131]/10 bg-white p-4">
-									<p className="text-base leading-relaxed font-normal text-[#396131]">
-										Application Partner privacy policies are linked from within their respective
-										applications and platforms.
+								{privacyPage?.partner_treatment_content && (
+									<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
+										{privacyPage.partner_treatment_content}
 									</p>
-								</div>
+								)}
+								{privacyPage?.partner_treatment_highlight && (
+									<div className="rounded-lg border border-[#396131]/10 bg-white p-4">
+										<p className="text-base leading-relaxed font-normal text-[#396131]">
+											{privacyPage.partner_treatment_highlight}
+										</p>
+									</div>
+								)}
+								{!privacyPage && (
+									<>
+										<p className="mb-4 text-base leading-relaxed font-normal text-gray-700">
+											1st Valley Bank may provide personal information to applicable Application
+											Partners. Each partner's use of your personal information is subject to their
+											separate privacy policy, not this Privacy Statement.
+										</p>
+										<div className="rounded-lg border border-[#396131]/10 bg-white p-4">
+											<p className="text-base leading-relaxed font-normal text-[#396131]">
+												Application Partner privacy policies are linked from within their respective
+												applications and platforms.
+											</p>
+										</div>
+									</>
+								)}
 							</div>
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-1/3">
 								<div className="flex h-40 w-40 items-center justify-center rounded-2xl border border-[#396131]/20 bg-white">
@@ -686,53 +826,81 @@ export default function ConsumerProtectionPrivacyPolicy() {
 							<div className="mb-3 flex items-center justify-center gap-2">
 								<Users className="h-4 w-4 text-white" />
 								<span className="text-sm leading-tight font-semibold text-white">
-									Sharing Policy
+									{privacyPage?.information_sharing_badge || 'Sharing Policy'}
 								</span>
 							</div>
 							<h2 className="mb-3 text-3xl leading-tight font-bold text-white md:text-5xl">
-								Information Sharing Policy
+								{privacyPage?.information_sharing_title || 'Information Sharing Policy'}
 							</h2>
-							<p className="mx-auto max-w-2xl text-base leading-relaxed font-normal text-white/80">
-								Personal information about our users is integral to our business. We neither rent
-								nor sell your personal information to anyone, with limited exceptions as described
-								below.
-							</p>
+							{privacyPage?.information_sharing_subtitle && (
+								<p className="mx-auto max-w-2xl text-base leading-relaxed font-normal text-white/80">
+									{privacyPage.information_sharing_subtitle}
+								</p>
+							)}
+							{!privacyPage && (
+								<p className="mx-auto max-w-2xl text-base leading-relaxed font-normal text-white/80">
+									Personal information about our users is integral to our business. We neither rent
+									nor sell your personal information to anyone, with limited exceptions as described
+									below.
+								</p>
+							)}
 						</div>
 						<div className="grid gap-6 md:grid-cols-2">
-							{[
-								{
-									icon: <Shield className="h-6 w-6 text-white" />,
-									title: 'Protection of 1st Valley Bank and Others',
-									description:
-										'We may share information to comply with laws or protect rights and safety.'
-								},
-								{
-									icon: <FileText className="h-6 w-6 text-white" />,
-									title: 'Business Transfers',
-									description: 'Customer information may be transferred in business transactions.'
-								},
-								{
-									icon: <Users className="h-6 w-6 text-white" />,
-									title: 'Service Agents',
-									description: 'We share information with agents who help us provide services.'
-								},
-								{
-									icon: <CheckCircle className="h-6 w-6 text-white" />,
-									title: 'With Your Consent',
-									description:
-										'You will be notified and can opt out before we share your information.'
-								}
-							].map((item, index) => (
-								<div key={index} className="flex flex-col items-start p-4">
-									<div className="mb-2 flex h-10 w-10 items-center justify-center rounded bg-white/10 text-white">
-										{item.icon}
-									</div>
-									<h3 className="mb-1 text-xl leading-tight font-bold text-white">{item.title}</h3>
-									<p className="text-base leading-relaxed font-normal text-white/80">
-										{item.description}
-									</p>
-								</div>
-							))}
+							{privacyPage?.information_sharing_items &&
+							privacyPage.information_sharing_items.length > 0
+								? privacyPage.information_sharing_items.map((item, index) => {
+										const IconComponent = getIconComponent(item.icon);
+										return (
+											<div key={index} className="flex flex-col items-start p-4">
+												<div className="mb-2 flex h-10 w-10 items-center justify-center rounded bg-white/10 text-white">
+													<IconComponent className="h-6 w-6 text-white" />
+												</div>
+												<h3 className="mb-1 text-xl leading-tight font-bold text-white">
+													{item.title || ''}
+												</h3>
+												<p className="text-base leading-relaxed font-normal text-white/80">
+													{item.description || ''}
+												</p>
+											</div>
+										);
+									})
+								: [
+										{
+											icon: <Shield className="h-6 w-6 text-white" />,
+											title: 'Protection of 1st Valley Bank and Others',
+											description:
+												'We may share information to comply with laws or protect rights and safety.'
+										},
+										{
+											icon: <FileText className="h-6 w-6 text-white" />,
+											title: 'Business Transfers',
+											description:
+												'Customer information may be transferred in business transactions.'
+										},
+										{
+											icon: <Users className="h-6 w-6 text-white" />,
+											title: 'Service Agents',
+											description: 'We share information with agents who help us provide services.'
+										},
+										{
+											icon: <CheckCircle className="h-6 w-6 text-white" />,
+											title: 'With Your Consent',
+											description:
+												'You will be notified and can opt out before we share your information.'
+										}
+									].map((item, index) => (
+										<div key={index} className="flex flex-col items-start p-4">
+											<div className="mb-2 flex h-10 w-10 items-center justify-center rounded bg-white/10 text-white">
+												{item.icon}
+											</div>
+											<h3 className="mb-1 text-xl leading-tight font-bold text-white">
+												{item.title}
+											</h3>
+											<p className="text-base leading-relaxed font-normal text-white/80">
+												{item.description}
+											</p>
+										</div>
+									))}
 						</div>
 					</div>
 				</section>
@@ -749,16 +917,22 @@ export default function ConsumerProtectionPrivacyPolicy() {
 								<div className="mb-4 flex items-center gap-2">
 									<Laptop className="h-4 w-4 text-[#396131]" />
 									<span className="text-sm leading-tight font-semibold text-[#396131]">
-										External Links
+										{privacyPage?.third_party_badge || 'External Links'}
 									</span>
 								</div>
 								<h2 className="mb-4 text-3xl leading-tight font-bold text-[#396131] md:text-5xl">
-									Third Party Applications/Websites
+									{privacyPage?.third_party_title || 'Third Party Applications/Websites'}
 								</h2>
-								<p className="text-base leading-relaxed font-normal text-gray-700">
-									The Application may link to third party sites not controlled by 1st Valley Bank.
-									We are not responsible for their content or privacy practices.
-								</p>
+								{privacyPage?.third_party_content ? (
+									<p className="text-base leading-relaxed font-normal text-gray-700">
+										{privacyPage.third_party_content}
+									</p>
+								) : (
+									<p className="text-base leading-relaxed font-normal text-gray-700">
+										The Application may link to third party sites not controlled by 1st Valley Bank.
+										We are not responsible for their content or privacy practices.
+									</p>
+								)}
 							</div>
 						</div>
 					</div>
@@ -775,32 +949,50 @@ export default function ConsumerProtectionPrivacyPolicy() {
 								<div className="mb-4 flex items-center gap-2">
 									<Eye className="h-4 w-4 text-white" />
 									<span className="text-sm leading-tight font-semibold text-white">
-										Data Access
+										{privacyPage?.personal_access_badge || 'Data Access'}
 									</span>
 								</div>
 								<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
-									What Personal Information Can I Access?
+									{privacyPage?.personal_access_title || 'What Personal Information Can I Access?'}
 								</h2>
-								<p className="mb-4 text-base leading-relaxed font-normal text-white">
-									You can view and update the following personal information. This list may change
-									as the Application evolves.
-								</p>
+								{privacyPage?.personal_access_subtitle && (
+									<p className="mb-4 text-base leading-relaxed font-normal text-white">
+										{privacyPage.personal_access_subtitle}
+									</p>
+								)}
+								{!privacyPage && (
+									<p className="mb-4 text-base leading-relaxed font-normal text-white">
+										You can view and update the following personal information. This list may change
+										as the Application evolves.
+									</p>
+								)}
 								<ul className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
-									{[
-										'Account/profile info',
-										'Email address',
-										'Facebook info',
-										'Preferences',
-										'App data'
-									].map((item, index) => (
-										<li
-											key={index}
-											className="flex items-center gap-2 text-base leading-relaxed font-normal text-white"
-										>
-											<CheckCircle className="h-4 w-4 text-white" />
-											<span>{item}</span>
-										</li>
-									))}
+									{privacyPage?.personal_access_items &&
+									privacyPage.personal_access_items.length > 0
+										? privacyPage.personal_access_items.map((item, index) => (
+												<li
+													key={index}
+													className="flex items-center gap-2 text-base leading-relaxed font-normal text-white"
+												>
+													<CheckCircle className="h-4 w-4 text-white" />
+													<span>{item}</span>
+												</li>
+											))
+										: [
+												'Account/profile info',
+												'Email address',
+												'Facebook info',
+												'Preferences',
+												'App data'
+											].map((item, index) => (
+												<li
+													key={index}
+													className="flex items-center gap-2 text-base leading-relaxed font-normal text-white"
+												>
+													<CheckCircle className="h-4 w-4 text-white" />
+													<span>{item}</span>
+												</li>
+											))}
 								</ul>
 							</div>
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-1/3">
@@ -824,16 +1016,22 @@ export default function ConsumerProtectionPrivacyPolicy() {
 								<div className="mb-4 flex items-center gap-2">
 									<Baby className="h-4 w-4 text-[#396131]" />
 									<span className="text-sm leading-tight font-semibold text-[#396131]">
-										Child Protection
+										{privacyPage?.children_policy_badge || 'Child Protection'}
 									</span>
 								</div>
 								<h2 className="mb-4 text-3xl leading-tight font-bold text-[#396131] md:text-5xl">
-									Can Children Use The Application?
+									{privacyPage?.children_policy_title || 'Can Children Use The Application?'}
 								</h2>
-								<p className="text-base leading-relaxed font-normal text-gray-700">
-									1st Valley Bank does not knowingly collect information from children under 13.
-									Parental consent is advised for minors.
-								</p>
+								{privacyPage?.children_policy_content ? (
+									<p className="text-base leading-relaxed font-normal text-gray-700">
+										{privacyPage.children_policy_content}
+									</p>
+								) : (
+									<p className="text-base leading-relaxed font-normal text-gray-700">
+										1st Valley Bank does not knowingly collect information from children under 13.
+										Parental consent is advised for minors.
+									</p>
+								)}
 							</div>
 						</div>
 					</div>
@@ -850,17 +1048,23 @@ export default function ConsumerProtectionPrivacyPolicy() {
 								<div className="mb-4 flex items-center gap-2">
 									<Upload className="h-4 w-4 text-white" />
 									<span className="text-sm leading-tight font-semibold text-white">
-										Updates & Changes
+										{privacyPage?.privacy_changes_badge || 'Updates & Changes'}
 									</span>
 								</div>
 								<h2 className="mb-4 text-3xl leading-tight font-bold text-white md:text-5xl">
-									Changes To This Privacy Statement
+									{privacyPage?.privacy_changes_title || 'Changes To This Privacy Statement'}
 								</h2>
-								<p className="text-base leading-relaxed font-normal text-white">
-									1st Valley Bank may update this Privacy Statement at any time. Changes will be
-									posted here or emailed to you. Continued use of our services means you accept the
-									updated policy.
-								</p>
+								{privacyPage?.privacy_changes_content ? (
+									<p className="text-base leading-relaxed font-normal text-white">
+										{privacyPage.privacy_changes_content}
+									</p>
+								) : (
+									<p className="text-base leading-relaxed font-normal text-white">
+										1st Valley Bank may update this Privacy Statement at any time. Changes will be
+										posted here or emailed to you. Continued use of our services means you accept
+										the updated policy.
+									</p>
+								)}
 							</div>
 							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-1/3">
 								<div className="flex h-40 w-40 items-center justify-center rounded-2xl border border-white/20 bg-white/10">

@@ -39,7 +39,6 @@ const Footer = () => {
 			setLoading(true);
 			try {
 				const data = await landingService.getFooter();
-				console.log(data.data);
 				setFooterData(data.data);
 			} catch (error) {
 				console.error('Error fetching footer data:', error);
