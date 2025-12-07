@@ -1,7 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, X } from 'lucide-react';
+import { ArrowRight, X, FileText, Download } from 'lucide-react';
 
-function StoryModal({ open, onClose, story, brandColor }) {
+function PDFModal({ open, onClose, pdfUrl, title }) {
+	useEffect(() => {
+		if (open) {
+			const originalOverflow = document.body.style.overflow;
+			document.body.style.overflow = 'hidden';
+			return () => {
+				document.body.style.overflow = originalOverflow;
+			};
+		}
+	}, [open]);
+
+	if (!open || !pdfUrl) return null;
+
+	return (
+		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+			<div className="relative flex h-[90vh] w-full max-w-7xl flex-col rounded-xl bg-white shadow-2xl">
+				<button
+					className="absolute top-3 right-3 z-10 cursor-pointer rounded-full bg-white p-2 shadow hover:bg-gray-100"
+					onClick={onClose}
+					aria-label="Close PDF"
+				>
+					<X size={20} />
+				</button>
+				<div className="flex flex-shrink-0 items-center gap-4 px-6 pt-6 pb-2">
+					<FileText className="h-5 w-5 text-[#396131]" />
+					<h2 className="truncate text-lg font-bold text-[#396131]" title={title}>
+						{title}
+					</h2>
+				</div>
+				<div className="flex-1 overflow-hidden rounded-b-xl">
+					<iframe
+						src={pdfUrl}
+						title={title}
+						className="h-full w-full border-0"
+						allowFullScreen
+						style={{ background: 'white', minHeight: 400 }}
+					/>
+				</div>
+			</div>
+		</div>
+	);
+}
+
+function StoryModal({ open, onClose, story, brandColor, onViewPDF }) {
 	if (!open || !story) return null;
 
 	return (
@@ -48,6 +91,19 @@ function StoryModal({ open, onClose, story, brandColor }) {
 							</p>
 						)}
 					</div>
+					{story.pdf_file && (
+						<button
+							type="button"
+							onClick={(e) => {
+								e.stopPropagation();
+								onViewPDF(story.pdf_file, story.name || story.title);
+							}}
+							className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#396131] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#294624]"
+						>
+							<FileText size={18} />
+							View PDF Story
+						</button>
+					)}
 				</div>
 			</div>
 		</div>
@@ -67,9 +123,27 @@ export default function SuccessStoriesSection({
 	showButton = true
 }) {
 	const [openModalIndex, setOpenModalIndex] = useState(null);
+	const [pdfModal, setPdfModal] = useState({ open: false, pdfUrl: null, title: '' });
 
-	const handleOpenModal = (idx) => setOpenModalIndex(idx);
+	const handleOpenModal = (idx) => {
+		const story = stories[idx];
+		// If story has PDF, show PDF directly instead of story modal
+		if (story && story.pdf_file) {
+			handleViewPDF(story.pdf_file, story.name || story.title);
+		} else {
+			setOpenModalIndex(idx);
+		}
+	};
 	const handleCloseModal = () => setOpenModalIndex(null);
+
+	const handleViewPDF = (pdfUrl, title) => {
+		setPdfModal({ open: true, pdfUrl, title });
+		setOpenModalIndex(null); // Close story modal when opening PDF
+	};
+
+	const handleClosePDF = () => {
+		setPdfModal({ open: false, pdfUrl: null, title: '' });
+	};
 
 	// Disable scroll on body when modal is open
 	useEffect(() => {
@@ -84,6 +158,13 @@ export default function SuccessStoriesSection({
 
 	return (
 		<section id={id} className={`${containerClassName} ${className} py-24`}>
+			<PDFModal
+				open={pdfModal.open}
+				onClose={handleClosePDF}
+				pdfUrl={pdfModal.pdfUrl}
+				title={pdfModal.title}
+			/>
+
 			<header className="mb-8 text-center">
 				<h2 className="text-3xl leading-tight font-bold md:text-5xl" style={{ color: brandColor }}>
 					{title}
@@ -112,30 +193,33 @@ export default function SuccessStoriesSection({
 						<p className="mb-4 text-center text-base leading-relaxed font-normal text-gray-700">
 							{story.description}
 						</p>
-						{showButton && (
-							<button
-								type="button"
-								className="group mt-auto inline-flex transform cursor-pointer items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-								onClick={() => handleOpenModal(index)}
-							>
-								<span className="text-center text-base leading-tight font-semibold">
-									{buttonText}
-								</span>
-								<span className="ml-2 flex items-center justify-center">
-									<ArrowRight
-										size={16}
-										strokeWidth={2}
-										className="stroke-white transition-transform duration-300 group-hover:translate-x-1"
-									/>
-								</span>
-							</button>
-						)}
+						<div className="mt-auto flex w-full flex-col gap-2">
+							{showButton && (
+								<button
+									type="button"
+									className="group inline-flex transform cursor-pointer items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+									onClick={() => handleOpenModal(index)}
+								>
+									<span className="text-center text-base leading-tight font-semibold">
+										{buttonText}
+									</span>
+									<span className="ml-2 flex items-center justify-center">
+										<ArrowRight
+											size={16}
+											strokeWidth={2}
+											className="stroke-white transition-transform duration-300 group-hover:translate-x-1"
+										/>
+									</span>
+								</button>
+							)}
+						</div>
 						{openModalIndex === index && (
 							<StoryModal
 								open={openModalIndex === index}
 								onClose={handleCloseModal}
 								story={story}
 								brandColor={brandColor}
+								onViewPDF={handleViewPDF}
 							/>
 						)}
 					</div>

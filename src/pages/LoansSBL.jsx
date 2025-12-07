@@ -58,7 +58,8 @@ export default function LoansSBL() {
 					name: story.name,
 					location: story.location,
 					description: story.description,
-					route: story.route
+					route: story.route,
+					pdf_file: story.pdf_file || null
 				}));
 				setSuccessStories(transformed);
 			}

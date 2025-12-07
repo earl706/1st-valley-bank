@@ -19,7 +19,8 @@ export default function LoansGoldAndGems() {
 					name: story.name,
 					location: story.location,
 					description: story.description,
-					route: story.route
+					route: story.route,
+					pdf_file: story.pdf_file || null
 				}));
 				setSuccessStories(transformed);
 			}

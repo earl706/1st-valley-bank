@@ -21,7 +21,6 @@ export default function LoansSalary() {
 	const getSalaryLoanTypes = async () => {
 		try {
 			const response = await loanService.getByType('salary');
-			console.log(response);
 			setSalaryLoanTypes(response.results);
 		} catch (error) {
 			console.error('Failed to fetch salary loan types:', error);
@@ -34,15 +33,17 @@ export default function LoansSalary() {
 	const getSuccessStories = async () => {
 		try {
 			const response = await successStoriesService.getByLoanType('salary');
-			if (response.success && response.data) {
+			console.log(response);
+			if (response.success && response.data.results) {
 				// Transform API response to match component format
-				const transformed = response.data.map((story) => ({
+				const transformed = response.data.results.map((story) => ({
 					img: story.image || carouselImg3,
 					alt: story.alt_text || story.name,
 					name: story.name,
 					location: story.location,
 					description: story.description,
-					route: story.route
+					route: story.route,
+					pdf_file: story.pdf_file || null
 				}));
 				setSuccessStories(transformed);
 			}
