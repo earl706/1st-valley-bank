@@ -25,6 +25,7 @@ import {
 import img1 from '/src/assets/consumer-protection/privacy-policy/1.jpg';
 import img2 from '/src/assets/consumer-protection/privacy-policy/2.jpg';
 import img from '/src/assets/homepage/heroSectionImage.png';
+import PageHeroSection from '../components/PageHeroSection';
 import HeroSection from '../components/HeroSection';
 import { LightCard } from '../components/Card';
 import { LightSecondaryButton, LightPrimaryButton } from '../components/Buttons';
@@ -496,16 +497,7 @@ export default function ConsumerProtectionPrivacyPolicy() {
 	return (
 		<>
 			<main className="relative">
-				<HeroSection
-					title="Consumer Protection"
-					subtitle="Privacy Policy"
-					description="Your privacy matters at 1st Valley Bank. Through our comprehensive Consumer
-									Protection & Privacy Policy, we safeguard your personal data with the highest
-									standards of security, transparency, and integrity."
-					features={[]}
-					image={img}
-					imageAlt="Gold & Gems"
-				/>
+				<PageHeroSection pageSlug="consumer-protection" />
 				<section
 					id="application-privacy"
 					data-section

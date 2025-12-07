@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropertyCard from '../components/PropertyCard';
 import img from '/src/assets/homepage/heroSectionImage.png';
-import HeroSection from '../components/HeroSection';
+import PageHeroSection from '../components/PageHeroSection';
 import propertyService from '../services/propertyService';
 
 export default function PropertiesForSaleRealEstate() {
@@ -91,19 +91,7 @@ export default function PropertiesForSaleRealEstate() {
 	return (
 		<>
 			<main className="flex flex-col">
-				<HeroSection
-					title="Properties for Sale"
-					subtitle="Real Estate and Other Properties Acquired for Sale"
-					description="Discover great-value real estate and properties for sale at 1st Valley Bank. Find your ideal lot, home, or space—affordable, trusted, and ready for you!"
-					image={img}
-					imageAlt="Properties for Sale"
-					showCta={false}
-					className="mx-[10px] rounded-[8px] drop-shadow-lg"
-					backgroundColor="from-white via-white to-green-50"
-					titleColor="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
-				>
-					{/* Optionally, you could pass a custom icon as image if HeroSection supports it */}
-				</HeroSection>
+				<PageHeroSection pageSlug="properties-for-sale-real-estate-and-other-properties-acquired-for-sale" />
 				<section id="vehicles" className="mx-[10px] mb-4 lg:mx-[80px]">
 					<div className="my-16 text-center">
 						<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">

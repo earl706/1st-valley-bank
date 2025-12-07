@@ -8,6 +8,7 @@ import img6 from '/src/assets/newsletter/6.jpg';
 import React, { useState, useEffect } from 'react';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import CarouselSection from '../components/CarouselSection';
+import PageHeroSection from '../components/PageHeroSection';
 
 import pdf1 from '/src/assets/newsletter/document.pdf';
 import { DarkCard, LightCard } from '../components/Card';
@@ -361,30 +362,14 @@ export default function Newsletter() {
 
 	useEffect(() => {
 		newsletterService.getNewsletters().then((response) => {
-			console.log(response);
 			setNewsletters(response.results);
 		});
 	}, [newsletterService]);
 	return (
 		<>
 			<main className="flex flex-col">
-				<CarouselSection
-					id="newsletter-hero-carousel"
-					slides={[
-						{
-							title: '1VB Newsletter',
-							subtitle: null,
-							description:
-								'Get expert financial tips and updates from 1VB Advisory—helping you make smart decisions for a brighter future.',
-							image: img,
-							imageAlt: 'Newsletter Envelope Icon',
-							route: null
-						},
-						...newsletters?.slice(0, 5).map((newsletter) => newsletter)
-					]}
-					brandGradient="from-[#396131] via-[#396131] to-[#396131]"
-					brandColor="#396131"
-				/>
+				<PageHeroSection pageSlug="newsletter" />
+
 				<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-6 py-24">
 					<div className="mx-auto max-w-7xl">
 						<div className="mb-16 text-center">

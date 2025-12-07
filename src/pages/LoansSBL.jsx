@@ -15,6 +15,7 @@ import { NavLink } from 'react-router-dom';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import CarouselSection from '../components/CarouselSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
+import PageHeroSection from '../components/PageHeroSection';
 
 import img1 from '/src/assets/homepage/1.png';
 import img2 from '/src/assets/homepage/2.png';
@@ -35,6 +36,7 @@ export default function LoansSBL() {
 	const getSblTypes = async () => {
 		try {
 			const response = await loanService.getByType('sbl');
+			console.log(response.results);
 			setSblTypes(response.results);
 		} catch (error) {
 			console.error('Failed to fetch SBL types:', error);
@@ -47,43 +49,6 @@ export default function LoansSBL() {
 	useEffect(() => {
 		getSblTypes();
 	}, []);
-
-	// const sblTypes = [
-	// 	{
-	// 		id: 1,
-	// 		title: 'Collateral',
-	// 		description:
-	// 			'Secure your business loan with collateral for better terms and higher loan amounts. Land titles or four-wheel vehicles can be used as collateral.',
-	// 		features: ['feature 1', 'feature 2', 'feature 3'],
-	// 		requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
-	// 		term_options: ['6 months', '12 months'],
-	// 		interest_rate: '6.5% - 8.5%',
-	// 		min_amount: 10000,
-	// 		max_amount: 100000,
-	// 		interest_rate_below: 6.5,
-	// 		interest_rate_above: 8.5,
-	// 		term_min_months: 6,
-	// 		image: carouselImg7,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		title: 'Without Collateral',
-	// 		description:
-	// 			'Get a business loan without collateral based on your business performance and creditworthiness. Perfect for established businesses with good track records.',
-	// 		features: ['feature 1', 'feature 2', 'feature 3'],
-	// 		requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
-	// 		term_options: ['6 months', '12 months'],
-	// 		interest_rate: '6.5% - 8.5%',
-	// 		min_amount: 10000,
-	// 		max_amount: 100000,
-	// 		interest_rate_below: 6.5,
-	// 		interest_rate_above: 8.5,
-	// 		term_min_months: 6,
-	// 		image: carouselImg7,
-	// 		route: '/contact-us'
-	// 	}
-	// ];
 
 	const whoCanApply = [
 		{
@@ -223,18 +188,8 @@ export default function LoansSBL() {
 
 	return (
 		<>
-			<CarouselSection
-				id="sbl-carousel"
-				slides={sblSlides}
-				autoPlay={true}
-				autoPlayInterval={6000}
-				backgroundColor="from-green-50 via-white to-emerald-50"
-				brandColor="#396131"
-				brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
-				minHeight="min-h-[600px] lg:min-h-[700px]"
-				showLearnMoreButton={true}
-				learnMoreText="Apply Now"
-			/>
+			<PageHeroSection pageSlug="loans-sbl" />
+
 			<LoanSubcategoriesSection
 				id="sbl-types"
 				sectionTitle="Small Business Loan Types"

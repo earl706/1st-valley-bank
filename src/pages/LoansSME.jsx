@@ -5,19 +5,17 @@ import {
 	LockKeyOpenIcon,
 	CashRegisterIcon
 } from '@phosphor-icons/react/dist/ssr';
-import { LucideChartCandlestick, TrendingUp, ArrowUpRight, Target } from 'lucide-react';
+import { TrendingUp, ArrowUpRight, Target } from 'lucide-react';
 import img1 from '/src/assets/loans/sme/1.jpg';
 import img2 from '/src/assets/homepage/2.png';
 import img3 from '/src/assets/homepage/3.png';
 import img4 from '/src/assets/homepage/4.png';
 import img5 from '/src/assets/homepage/5.png';
 import img6 from '/src/assets/homepage/6.png';
-import HeroSection from '../components/HeroSection';
+import PageHeroSection from '../components/PageHeroSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
-import CarouselSection from '../components/CarouselSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
@@ -153,12 +151,8 @@ export default function LoansSME() {
 
 	return (
 		<>
-			<CarouselSection
-				id="sme-carousel"
-				slides={smeSlides}
-				autoPlay={true}
-				autoPlayInterval={6000}
-				backgroundColor="from-purple-50 via-white to-indigo-50"
+			<PageHeroSection
+				pageSlug="loans-sme"
 				brandColor="#396131"
 				brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
 				minHeight="min-h-[600px] lg:min-h-[700px]"

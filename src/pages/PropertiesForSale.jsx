@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 import VehicleCard from '../components/VehicleCard';
 import PropertyCard from '../components/PropertyCard';
-import CarouselSection from '../components/CarouselSection';
+import PageHeroSection from '../components/PageHeroSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
 
 // Import propertyService
@@ -127,33 +127,8 @@ export default function PropertiesForSale() {
 	return (
 		<>
 			<main className="mb-4 flex flex-col lg:mb-8">
-				<CarouselSection
-					id="properties-for-sale-carousel"
-					slides={[
-						{
-							title: 'Vehicles',
-							subtitle: 'Great deals on wheels',
-							description:
-								'Browse quality pre-owned vehicles at affordable prices from 1st Valley Bank. Find your next car today!',
-							image: img,
-							imageAlt: 'Vehicles for Sale',
-							route: '/properties-for-sale/vehicles',
-							buttonText: 'See Vehicles'
-						},
-						{
-							title: 'Properties for Sale',
-							subtitle: 'Featured listings for sale',
-							description:
-								'Explore affordable real estate, vehicles, and more from 1st Valley Bank. Find your next opportunity today!',
-							image: img,
-							imageAlt: 'Properties for Sale',
-							route: '/properties-for-sale/real-estate-and-other-properties-acquired-for-sale',
-							buttonText: 'See Properties'
-						}
-					]}
-					autoPlay={true}
-					autoPlayInterval={7000}
-					backgroundColor="from-green-50 via-white to-emerald-50"
+				<PageHeroSection
+					pageSlug="properties-for-sale"
 					brandColor="#396131"
 					brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
 					showLearnMoreButton={true}

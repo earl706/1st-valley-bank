@@ -19,13 +19,8 @@ import {
 	ChevronDown
 } from 'lucide-react';
 
-import CarouselSection from '../components/CarouselSection';
+import PageHeroSection from '../components/PageHeroSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
-import carouselImg1 from '/src/assets/carousel/1.png';
-import carouselImg3 from '/src/assets/carousel/3.png';
-import carouselImg4 from '/src/assets/carousel/4.png';
-import carouselImg5 from '/src/assets/carousel/5.png';
-import carouselImg6 from '/src/assets/carousel/6.png';
 import carouselImg7 from '/src/assets/carousel/7.png';
 import {
 	DarkPrimaryButton,
@@ -204,64 +199,6 @@ export default function HomePage() {
 		}
 	];
 
-	// const heroSlides = [
-	// 	{
-	// 		title: 'Bank with ease, Bank with 1VB ATM',
-	// 		subtitle: '',
-	// 		description:
-	// 			'Access your money anytime, anywhere with our reliable ATM network. Withdraw cash, check balances, and more—day or night.',
-	// 		image: carouselImg3,
-	// 		imageAlt: 'ATM Services',
-	// 		route: '/atm-locator',
-	// 		buttonText: 'Find an ATM',
-	// 		showButton: true
-	// 	},
-	// 	{
-	// 		title: 'GCash Services for Easy Transactions',
-	// 		subtitle: '',
-	// 		description:
-	// 			'Link your account to GCash for seamless digital payments, fund transfers, and more. Experience the convenience of cashless banking.',
-	// 		image: carouselImg1,
-	// 		imageAlt: 'GCash Services',
-	// 		route: '/gcash-services',
-	// 		buttonText: 'Learn More',
-	// 		showButton: true
-	// 	},
-	// 	{
-	// 		title: 'Secure Your Future with Smart Savings',
-	// 		subtitle: '',
-	// 		description:
-	// 			'Start building your wealth today with our high-yield savings accounts and investment products designed to help you reach your financial goals faster.',
-	// 		image: carouselImg4,
-	// 		imageAlt: 'Savings & Deposits',
-	// 		route: '/deposits',
-	// 		buttonText: 'Open Savings Account',
-	// 		showButton: true
-	// 	},
-	// 	{
-	// 		title: 'Grow Your Business with Flexible Loans',
-	// 		subtitle: '',
-	// 		description:
-	// 			'Get the funding you need to expand your business, purchase equipment, or invest in new opportunities with our competitive loan products.',
-	// 		image: carouselImg5,
-	// 		imageAlt: 'Loans & Credit',
-	// 		route: '/loans',
-	// 		buttonText: 'Apply for Loan',
-	// 		showButton: true
-	// 	},
-	// 	{
-	// 		title: 'Find Your Dream Property Today',
-	// 		subtitle: '',
-	// 		description:
-	// 			'Browse our exclusive collection of prime real estate and vehicles. We offer flexible financing options to make your property dreams come true.',
-	// 		image: carouselImg6,
-	// 		imageAlt: 'Properties for Sale',
-	// 		route: '/properties-for-sale',
-	// 		buttonText: 'Browse Properties',
-	// 		showButton: true
-	// 	}
-	// ];
-
 	useEffect(() => {
 		newsletterService.getNewsletters({ page: 1, page_size: 3 }).then((response) => {
 			setNewsletterArticles(response.results);
@@ -271,18 +208,13 @@ export default function HomePage() {
 	return (
 		<div className="min-h-screen bg-white">
 			{/* Hero Section */}
-			<CarouselSection
-				id="hero-carousel"
-				slides={heroSlides}
-				autoPlay={true}
-				autoPlayInterval={5000}
-				backgroundColor="from-slate-50 via-white to-green-50"
+			<PageHeroSection
+				pageSlug="home"
 				brandColor="#396131"
 				brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
 				minHeight="min-h-[560px] lg:min-h-[640px]"
 				showLearnMoreButton={true}
 				learnMoreText="Learn More"
-				excludeLearnMoreForTitles={[]}
 			/>
 			{/* Services Section */}
 			<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20 text-white">

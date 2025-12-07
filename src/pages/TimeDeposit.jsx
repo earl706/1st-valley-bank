@@ -9,6 +9,7 @@ import {
 	Shield,
 	ArrowRight
 } from 'lucide-react';
+import PageHeroSection from '../components/PageHeroSection';
 import CarouselSection from '../components/CarouselSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import carouselImg1 from '/src/assets/carousel/1.png';
@@ -33,88 +34,6 @@ export default function TimeDeposit() {
 			setTimeDeposits(response.results);
 		});
 	}, []);
-	// const timeDeposits = [
-	// 	{
-	// 		title: '3 Months',
-	// 		description: 'Short-term investment with competitive rates.',
-	// 		initialAmount: '₱5,000.00',
-	// 		interestRate: '4.00% gross (renewal) / 4.50% gross (new)',
-	// 		features: [
-	// 			'Short-term commitment',
-	// 			'Competitive interest rates',
-	// 			'Flexible renewal options',
-	// 			'Early withdrawal available with penalty'
-	// 		],
-	// 		benefits: [
-	// 			'Quick returns',
-	// 			'Low risk investment',
-	// 			'Liquidity after 3 months',
-	// 			'Higher than savings rates'
-	// 		],
-	// 		image: carouselImg1,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		title: '6 Months',
-	// 		description: 'Medium-term investment with attractive rates.',
-	// 		initialAmount: '₱5,000.00',
-	// 		interestRate: '4.75% gross (renewal) / 4.50% gross (new)',
-	// 		features: [
-	// 			'Medium-term commitment',
-	// 			'Enhanced interest rates',
-	// 			'Automatic renewal option',
-	// 			'Partial withdrawal allowed'
-	// 		],
-	// 		benefits: [
-	// 			'Better returns than 3-month',
-	// 			'Balanced risk-reward',
-	// 			'Planning for mid-term goals',
-	// 			'Stable investment option'
-	// 		],
-	// 		image: carouselImg2,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		title: '1 Year',
-	// 		description: 'Annual investment for long-term savings goals.',
-	// 		initialAmount: '₱50,000.00',
-	// 		interestRate: '6.00% gross (renewal) / 4.50% gross (new)',
-	// 		features: [
-	// 			'Annual commitment',
-	// 			'Premium interest rates',
-	// 			'Compound interest benefits',
-	// 			'Flexible maturity options'
-	// 		],
-	// 		benefits: [
-	// 			'Maximum returns',
-	// 			'Long-term wealth building',
-	// 			'Compound interest growth',
-	// 			'Financial goal achievement'
-	// 		],
-	// 		image: carouselImg3,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		title: '5 Years',
-	// 		description: 'Long-term investment with the highest rates.',
-	// 		initialAmount: '₱50,000.00',
-	// 		interestRate: '6.0% net (credited annually) / 6.0% net (credited upon maturity)',
-	// 		features: [
-	// 			'Long-term commitment',
-	// 			'Maximum interest rates',
-	// 			'Annual interest crediting',
-	// 			'Retirement planning tool'
-	// 		],
-	// 		benefits: [
-	// 			'Highest possible returns',
-	// 			'Retirement planning',
-	// 			'Long-term wealth accumulation',
-	// 			'Annual interest payments'
-	// 		],
-	// 		image: carouselImg4,
-	// 		route: '/contact-us'
-	// 	}
-	// ];
 
 	useEffect(() => {
 		const handleScroll = () => setScrollY(window.scrollY);
@@ -161,37 +80,7 @@ export default function TimeDeposit() {
 	return (
 		<>
 			<main className="flex flex-col">
-				<CarouselSection
-					id="main"
-					title={
-						<>
-							<span className="block bg-gradient-to-r from-[#396131] via-[#4a7c3a] to-[#5a8c4a] bg-clip-text text-5xl leading-tight font-black text-transparent sm:text-6xl lg:text-7xl">
-								Time Deposit
-							</span>
-							<span className="block bg-gradient-to-r from-[#396131] via-[#4a7c3a] to-[#5a8c4a] bg-clip-text text-2xl leading-tight font-bold text-transparent sm:text-3xl lg:text-4xl">
-								Higher returns, guaranteed
-							</span>
-						</>
-					}
-					description="Secure your future with fixed-term deposits offering competitive interest rates and guaranteed returns on your investment."
-					stats={[
-						{ icon: <Calendar className="h-4 w-4" />, label: '4 Terms Available' },
-						{ icon: <Shield className="h-4 w-4" />, label: 'Guaranteed Returns' }
-					]}
-					extra={
-						<NavLink
-							to="/deposits"
-							className="group inline-flex items-center text-[#396131] transition-colors duration-300 hover:text-[#4a7c3a]"
-						>
-							<ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
-							Back to Deposits
-						</NavLink>
-					}
-					slides={timeDeposits}
-					icon={
-						<TrendingUp className="mx-auto h-48 w-48 text-[#396131] drop-shadow-2xl lg:h-64 lg:w-64" />
-					}
-				/>
+				<PageHeroSection pageSlug="deposits-time-deposit" />
 
 				{/* Deposits Section */}
 				<section

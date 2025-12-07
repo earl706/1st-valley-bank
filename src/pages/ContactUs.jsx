@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import ContactPageMap from '../components/ContactPageMap';
 import { MapPin, User, Mail, Phone, MessageSquare, FileText, Map, ArrowRight } from 'lucide-react';
-import HeroSection from '../components/HeroSection';
+import PageHeroSection from '../components/PageHeroSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import { DarkHeader } from '../components/Header';
 import { useJsApiLoader } from '@react-google-maps/api';
@@ -731,14 +731,7 @@ export default function ContactUs() {
 	return (
 		<>
 			<main className="flex flex-col">
-				<HeroSection
-					title="Contact Us"
-					subtitle=""
-					description="Questions? Contact 1st Valley Bank anytime. By phone, email, or in person. We're here to help!"
-					features={[]}
-					image={carouselImg1}
-					imageAlt="Contact Us"
-				/>
+				<PageHeroSection pageSlug="contact-us" />
 
 				<section id="form">
 					<ContactUsForm />

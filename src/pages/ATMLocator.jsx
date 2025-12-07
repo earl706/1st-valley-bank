@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect, useCallback } from 'react';
-import HeroSection from '../components/HeroSection';
+import PageHeroSection from '../components/PageHeroSection';
 import { MapPin, MapPinned, Building2, Landmark, X, CreditCard, Globe } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { DarkCard } from '../components/Card';
@@ -95,7 +95,7 @@ export default function ATMLocator() {
 				console.error('Failed to fetch ATMs:', result.message || result.error);
 				return;
 			}
-			const atmList = Array.isArray(result.data) ? result.data : [];
+			const atmList = Array.isArray(result.data.results) ? result.data.results : [];
 			setATMs(atmList);
 			setMindanaoATMs(atmList.filter((atm) => atm.branch && atm.branch.region === 'mindanao'));
 			setVisayasATMs(atmList.filter((atm) => atm.branch && atm.branch.region === 'visayas'));
@@ -470,12 +470,7 @@ export default function ATMLocator() {
 
 	return (
 		<div className="min-h-screen bg-[#f6fbf8] pb-12">
-			<HeroSection
-				title="ATM Locator"
-				subtitle="Find ATM-equipped branches in Mindanao, Visayas, the regions, and branchless locations"
-				bgColor="#396131"
-				textColor="#fff"
-			/>
+			<PageHeroSection pageSlug="atm-locator" />
 			<div className="bg-linear-to-l from-[#396131] to-[#4a7c3a] px-4 py-20">
 				<section className="mx-auto mb-16 max-w-7xl rounded-3xl bg-white/90 p-8 shadow-xl backdrop-blur">
 					<div className="mb-6 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">

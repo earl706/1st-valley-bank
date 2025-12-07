@@ -12,6 +12,7 @@ import {
 	Sprout
 } from 'lucide-react';
 import CarouselSection from '../components/CarouselSection';
+import PageHeroSection from '../components/PageHeroSection';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import { DarkHeader } from '../components/Header';
@@ -141,18 +142,13 @@ export default function Loans() {
 		<>
 			<main className="flex flex-col">
 				{/* Loans Carousel Hero Section */}
-				<CarouselSection
-					id="main"
-					slides={loanSlides}
-					autoPlay={true}
-					autoPlayInterval={5000}
-					backgroundColor="from-slate-50 via-white to-green-50"
+				<PageHeroSection
+					pageSlug="loans"
 					brandColor="#396131"
 					brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
 					minHeight="min-h-[560px] lg:min-h-[640px]"
 					showLearnMoreButton={true}
 					learnMoreText="Learn More"
-					excludeLearnMoreForTitles={['Loans']}
 				/>
 				<section id="loans" className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-24">
 					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

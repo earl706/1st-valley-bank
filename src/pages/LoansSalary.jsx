@@ -13,6 +13,7 @@ import carouselImg5 from '/src/assets/carousel/5.png';
 import carouselImg6 from '/src/assets/carousel/6.png';
 import carouselImg7 from '/src/assets/carousel/7.png';
 import loanService from '../services/loanService';
+import PageHeroSection from '../components/PageHeroSection';
 
 export default function LoansSalary() {
 	const [salaryLoanTypes, setSalaryLoanTypes] = useState([]);
@@ -34,140 +35,6 @@ export default function LoansSalary() {
 	useEffect(() => {
 		getSalaryLoanTypes();
 	}, []);
-
-	// const salaryLoanTypes = [
-	// 	{
-	// 		id: 1,
-	// 		title: "Government Teacher's Loan",
-	// 		description:
-	// 			'Specially designed for government teachers with competitive rates and flexible terms tailored to the teaching profession.',
-	// 		features: ['feature 1', 'feature 2', 'feature 3'],
-	// 		requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
-	// 		term_options: ['6 months', '12 months'],
-	// 		interest_rate: '6.5% - 8.5%',
-	// 		min_amount: 10000,
-	// 		max_amount: 100000,
-	// 		interest_rate_below: 6.5,
-	// 		interest_rate_above: 8.5,
-	// 		term_min_months: 6,
-	// 		term_max_months: 12,
-	// 		image: carouselImg4,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		title: 'ATM and Bonus Loans',
-	// 		description:
-	// 			'Access funds through your ATM and secure loans against your expected bonuses with convenient withdrawal options.',
-	// 		features: ['feature 1', 'feature 2', 'feature 3'],
-	// 		requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
-	// 		term_options: ['6 months', '12 months'],
-	// 		interest_rate: '6.5% - 8.5%',
-	// 		min_amount: 10000,
-	// 		max_amount: 100000,
-	// 		interest_rate_below: 6.5,
-	// 		interest_rate_above: 8.5,
-	// 		term_min_months: 6,
-	// 		term_max_months: 12,
-	// 		image: carouselImg4,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		title: 'LGU Loan',
-	// 		description:
-	// 			'Designed for Local Government Unit employees with specialized terms and conditions that cater to public sector workers.',
-	// 		features: ['feature 1', 'feature 2', 'feature 3'],
-	// 		requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
-	// 		term_options: ['6 months', '12 months'],
-	// 		interest_rate: '6.5% - 8.5%',
-	// 		min_amount: 10000,
-	// 		max_amount: 100000,
-	// 		interest_rate_below: 6.5,
-	// 		interest_rate_above: 8.5,
-	// 		term_min_months: 6,
-	// 		term_max_months: 12,
-	// 		image: carouselImg4,
-	// 		route: '/contact-us'
-	// 	},
-	// 	{
-	// 		id: 4,
-	// 		title: 'Barangay Loan',
-	// 		description:
-	// 			'Community-focused loans for barangay officials and employees, supporting local governance with accessible financing options.',
-	// 		features: ['feature 1', 'feature 2', 'feature 3'],
-	// 		requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
-	// 		term_options: ['6 months', '12 months'],
-	// 		interest_rate: '6.5% - 8.5%',
-	// 		min_amount: 10000,
-	// 		max_amount: 100000,
-	// 		interest_rate_below: 6.5,
-	// 		interest_rate_above: 8.5,
-	// 		term_min_months: 6,
-	// 		image: carouselImg7,
-	// 		route: '/contact-us'
-	// 	}
-	// ];
-
-	// Carousel slides combining hero and salary loan types
-	const salaryLoanSlides = [
-		{
-			title: 'Salary Loans',
-			subtitle: 'Cash when you need it',
-			description:
-				"Need extra funds before payday? 1st Valley Bank's Salary Loan offers fast, convenient, and affordable financing for employed individuals. Enjoy low interest rates, quick approval, and flexible payment terms. Whether it's for bills, emergencies, or personal needs—get the support you need, right when you need it.",
-			features: [],
-			image: carouselImg1,
-			showButton: false,
-			imageAlt: 'Salary Loans Overview',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		},
-		{
-			title: "Government Teacher's Loan",
-			subtitle: 'Specially designed for educators',
-			description:
-				'Specially designed for government teachers with competitive rates and flexible terms tailored to the teaching profession. Get the financial support you need with terms that understand your unique employment structure.',
-			features: [],
-			image: carouselImg2,
-			imageAlt: "Government Teacher's Loan",
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		},
-		{
-			title: 'ATM and Bonus Loans',
-			subtitle: 'Convenient access to funds',
-			description:
-				'Access funds through your ATM and secure loans against your expected bonuses with convenient withdrawal options. Perfect for immediate cash needs with easy repayment.',
-			features: [],
-			image: carouselImg3,
-			imageAlt: 'ATM and Bonus Loans',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		},
-		{
-			title: 'LGU Loan',
-			subtitle: 'For local government employees',
-			description:
-				'Designed for Local Government Unit employees with specialized terms and conditions that cater to public sector workers. Supporting those who serve the community.',
-			features: [],
-			image: carouselImg4,
-			imageAlt: 'LGU Loan',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		},
-		{
-			title: 'Barangay Loan',
-			subtitle: 'Community-focused financing',
-			description:
-				'Community-focused loans for barangay officials and employees, supporting local governance with accessible financing options. Empowering grassroots leadership.',
-			features: [],
-			image: carouselImg5,
-			imageAlt: 'Barangay Loan',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		}
-	];
 
 	// Success stories data for Salary Loans
 	const salarySuccessStories = [
@@ -217,18 +84,7 @@ export default function LoansSalary() {
 	return (
 		<>
 			<main className="flex flex-col pb-[50px]">
-				<CarouselSection
-					id="salary-loans-carousel"
-					slides={salaryLoanSlides}
-					autoPlay={true}
-					autoPlayInterval={7000}
-					backgroundColor="from-blue-50 via-white to-indigo-50"
-					brandColor="#396131"
-					brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
-					minHeight="min-h-[600px] lg:min-h-[700px]"
-					showLearnMoreButton={true}
-					learnMoreText="Apply Now"
-				/>
+				<PageHeroSection pageSlug="loans-salary" />
 				<LoanSubcategoriesSection
 					id="salary-loan-types"
 					sectionTitle="Salary Loan Types"

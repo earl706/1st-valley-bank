@@ -26,7 +26,7 @@ import {
 	FileText,
 	Sprout
 } from 'lucide-react';
-
+import PageHeroSection from '../components/PageHeroSection';
 import CarouselSection from '../components/CarouselSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
@@ -571,18 +571,13 @@ export default function AboutUs() {
 
 	return (
 		<>
-			<CarouselSection
-				id="about-us-carousel"
-				slides={aboutUsSlides}
-				autoPlay={true}
-				autoPlayInterval={6000}
-				backgroundColor="from-slate-50 via-white to-green-50"
+			<PageHeroSection
+				pageSlug="about-us"
 				brandColor="#396131"
 				brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
 				minHeight="min-h-[560px] lg:min-h-[640px]"
 				showLearnMoreButton={true}
 				learnMoreText="Learn More"
-				excludeLearnMoreForTitles={[]}
 			/>
 			<main className="flex flex-col">
 				{/* Hero Carousel Section */}

@@ -1,9 +1,8 @@
 import React from 'react';
 import img1 from '/src/assets/loans/gold-and-gems/1.jpg';
 import img3 from '/src/assets/homepage/3.png';
-import HeroSection from '../components/HeroSection';
+import PageHeroSection from '../components/PageHeroSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
-import carouselImg1 from '/src/assets/carousel/1.png';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
 
 export default function LoansGoldAndGems() {
@@ -40,16 +39,7 @@ export default function LoansGoldAndGems() {
 
 	return (
 		<>
-			<HeroSection
-				title="Gold & Gems"
-				subtitle="Secure Quick Cash"
-				description="Individual borrowers may pledge their genuine pieces of jewelry for instant cash for personal purposes. This is through the Gold & Gems jewelry loan. Interest rates are most affordable, and the term is guaranteed to be flexible."
-				features={[]}
-				image={carouselImg1}
-				imageAlt="Gold & Gems"
-				ctaText="Apply Now"
-				ctaLink="/contact-us"
-			/>
+			<PageHeroSection pageSlug="loans-gold-gems" />
 			<main className="flex flex-col pb-[50px]">
 				<LoanSubcategoriesSection
 					id="gold-and-gems-types"

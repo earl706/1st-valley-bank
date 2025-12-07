@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import img2 from '/src/assets/loans/agriculture/2.jpg';
+import PageHeroSection from '../components/PageHeroSection';
 import CarouselSection from '../components/CarouselSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
@@ -28,55 +29,6 @@ export default function LoansAgriculture() {
 	useEffect(() => {
 		getAgricultureTypes();
 	}, []);
-
-	// Carousel slides combining hero and agriculture loan types
-	const agricultureSlides = [
-		{
-			title: 'Agricultural Loans',
-			subtitle: 'Boost Your Farm Productivity',
-			description:
-				'Agricultural loans provide farmers with funds to buy equipment, supplies, improve land, cover costs, or recover from setbacks—helping boost productivity and growth.',
-			features: [],
-			image: carouselImg1,
-			imageAlt: 'Agricultural Loans Overview',
-			route: '/contact-us',
-			buttonText: 'Apply Now',
-			showButton: false
-		},
-		{
-			title: 'Agri-Secured',
-			subtitle: 'Farm land cultivation and expansion',
-			description:
-				'Intends to help farmers in cultivating, improvement and expansion of their farm land or other related activities. Perfect for established agricultural operations looking to grow and improve their farming capabilities.',
-			features: [],
-			image: carouselImg2,
-			imageAlt: 'Agri-Secured Loan',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		},
-		{
-			title: 'Individual Secured',
-			subtitle: 'Personal financial assistance',
-			description:
-				'For clients who seek financial assistance for personal purposes, either house renovation, house construction, placement fee or medical expenses. Flexible terms for various personal needs.',
-			features: [],
-			image: carouselImg3,
-			imageAlt: 'Individual Secured Loan',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		},
-		{
-			title: 'Chattel Financing',
-			subtitle: 'Farm equipment procurement',
-			description:
-				'Intends to help farmers in procuring farm equipment for greater yield and further agricultural activities. The financed equipment serves as collateral for the loan.',
-			features: [],
-			image: carouselImg4,
-			imageAlt: 'Chattel Financing',
-			route: '/contact-us',
-			buttonText: 'Apply Now'
-		}
-	];
 
 	// Agriculture success stories data
 	const agricultureSuccessStories = [
@@ -127,12 +79,8 @@ export default function LoansAgriculture() {
 	return (
 		<>
 			<main className="flex flex-col">
-				<CarouselSection
-					id="agriculture-carousel"
-					slides={agricultureSlides}
-					autoPlay={true}
-					autoPlayInterval={6000}
-					backgroundColor="from-green-50 via-white to-emerald-50"
+				<PageHeroSection
+					pageSlug="loans-agriculture"
 					brandColor="#396131"
 					brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
 					showLearnMoreButton={true}

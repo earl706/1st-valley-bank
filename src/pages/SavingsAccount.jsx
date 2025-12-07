@@ -3,97 +3,25 @@ import { NavLink } from 'react-router-dom';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import { ArrowLeft, Users, Building, User, DollarSign, ArrowRight } from 'lucide-react';
+import PageHeroSection from '../components/PageHeroSection';
 import CarouselSection from '../components/CarouselSection';
 import { DarkHeader, LightHeader } from '../components/Header';
 import { getSavingsAccounts } from '../services/depositService';
 
 export default function SavingsAccount() {
-	const [scrollY, setScrollY] = useState(0);
-	const [isVisible, setIsVisible] = useState({});
-	const [activeSection, setActiveSection] = useState('');
-
 	const [savingsAccounts, setSavingsAccounts] = useState([]);
 
 	useEffect(() => {
 		getSavingsAccounts().then((response) => {
-			console.log(response);
 			setSavingsAccounts(response.results);
 		});
 	}, []);
 
-	useEffect(() => {
-		const handleScroll = () => setScrollY(window.scrollY);
-		window.addEventListener('scroll', handleScroll);
-		return () => window.removeEventListener('scroll', handleScroll);
-	}, []);
-
-	useEffect(() => {
-		const observers = [];
-
-		const createObserver = (threshold = 0.1) => {
-			return new IntersectionObserver(
-				(entries) => {
-					entries.forEach((entry) => {
-						setIsVisible((prev) => ({
-							...prev,
-							[entry.target.id]: entry.isIntersecting
-						}));
-
-						if (entry.isIntersecting) {
-							setActiveSection(entry.target.id);
-						}
-					});
-				},
-				{ threshold, rootMargin: '-50px 0px' }
-			);
-		};
-
-		const observer = createObserver();
-		const elements = document.querySelectorAll('[data-scroll]');
-		elements.forEach((el) => observer.observe(el));
-		observers.push(observer);
-
-		return () => observers.forEach((obs) => obs.disconnect());
-	}, []);
-
-	const scrollToSection = (id) => {
-		document.getElementById(id)?.scrollIntoView({
-			behavior: 'smooth',
-			block: 'start'
-		});
-	};
-
 	return (
 		<>
-			<main className="flex flex-col gap-[40px] pb-[50px] lg:gap-[120px]">
-				<CarouselSection
-					id="main"
-					title={
-						<>
-							<span className="block bg-gradient-to-r from-[#396131] via-[#4a7c3a] to-[#5a8c4a] bg-clip-text text-5xl leading-tight font-black text-transparent sm:text-6xl lg:text-7xl">
-								Savings Account
-							</span>
-							<span className="block bg-gradient-to-r from-[#396131] via-[#4a7c3a] to-[#5a8c4a] bg-clip-text text-2xl leading-tight font-bold text-transparent sm:text-3xl lg:text-4xl">
-								Building your financial future
-							</span>
-						</>
-					}
-					description="Choose from 9 different savings account types tailored to meet your specific financial goals and life stage. Each account offers competitive interest rates and flexible terms."
-					stats={[
-						{ icon: <Users className="h-4 w-4" />, label: '9 Account Types' },
-						{ icon: <DollarSign className="h-4 w-4" />, label: 'Competitive Rates' }
-					]}
-					extra={
-						<NavLink
-							to="/deposits"
-							className="group inline-flex items-center text-[#396131] transition-colors duration-300 hover:text-[#4a7c3a]"
-						>
-							<ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
-							Back to Deposits
-						</NavLink>
-					}
-					slides={savingsAccounts}
-				/>
+			<main className="flex flex-col">
+				<PageHeroSection pageSlug="deposits-savings-account" />
+				{/* Savings Accounts Carousel */}
 
 				<section
 					id="accounts"

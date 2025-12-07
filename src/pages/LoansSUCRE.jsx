@@ -1,6 +1,7 @@
 import img1 from '/src/assets/loans/sucre/1.jpg';
 import React, { useState, useEffect } from 'react';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
+import PageHeroSection from '../components/PageHeroSection';
 import CarouselSection from '../components/CarouselSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
@@ -29,58 +30,6 @@ export default function LoansSUCRE() {
 		getSucreTypes();
 	}, []);
 
-	/*
-	const sucreLoanTypes = [
-		{
-			title: 'Rice Production Loan',
-			description:
-				'Specialized financing for rice farmers to support planting, cultivation, and harvest activities. Get the funding you need to maximize your rice production with competitive rates and flexible terms.',
-			image: carouselImg1,
-			route: '/contact-us',
-			features: ['feature 1', 'feature 2', 'feature 3'],
-			requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
-			term_options: ['6 months', '12 months'],
-			interest_rate: '6.5% - 8.5%',
-			min_amount: 10000,
-			max_amount: 100000,
-			interest_rate_below: 6.5,
-			interest_rate_above: 8.5,
-			term_min_months: 6
-		},
-		{
-			title: 'Cassava Production Loan',
-			description:
-				'Dedicated funding for cassava cultivation to help farmers invest in quality planting materials, equipment, and farm inputs for optimal cassava production and yield.',
-			image: carouselImg2,
-			route: '/contact-us',
-			features: ['feature 1', 'feature 2', 'feature 3'],
-			requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
-			term_options: ['6 months', '12 months'],
-			interest_rate: '6.5% - 8.5%',
-			min_amount: 10000,
-			max_amount: 100000,
-			interest_rate_below: 6.5,
-			interest_rate_above: 8.5,
-			term_min_months: 6
-		},
-		{
-			title: 'Sugarcane Production Loan',
-			description:
-				'Comprehensive financing solution for sugarcane farmers covering all aspects of production from land preparation to harvest, designed to boost productivity and profitability.',
-			image: carouselImg3,
-			route: '/contact-us',
-			features: ['feature 1', 'feature 2', 'feature 3'],
-			requirements: ['requirement 1', 'requirement 2', 'requirement 3'],
-			term_options: ['6 months', '12 months'],
-			interest_rate: '6.5% - 8.5%',
-			min_amount: 10000,
-			max_amount: 100000,
-			interest_rate_below: 6.5,
-			interest_rate_above: 8.5,
-			term_min_months: 6
-		}
-	];
-	*/
 	// Carousel slides combining hero and loan types
 	const sucreLoanSlides = [
 		{
@@ -184,12 +133,8 @@ export default function LoansSUCRE() {
 	return (
 		<>
 			<main className="flex flex-col pb-[50px]">
-				<CarouselSection
-					id="sucre-carousel"
-					slides={sucreLoanSlides}
-					autoPlay={true}
-					autoPlayInterval={6000}
-					backgroundColor="from-green-50 via-white to-emerald-50"
+				<PageHeroSection
+					pageSlug="loans-sucre"
 					brandColor="#396131"
 					brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
 					showLearnMoreButton={true}

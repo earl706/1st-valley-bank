@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import HeroSection from '../components/HeroSection';
+import PageHeroSection from '../components/PageHeroSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import advisoryService from '../services/advisoryService';
 import { X } from 'lucide-react';
@@ -88,14 +88,7 @@ export default function OneVBAdvisory() {
 	return (
 		<>
 			<main className="flex flex-col">
-				<HeroSection
-					title="1VB Advisory"
-					subtitle=""
-					description="Get expert, personalized guidance for every financial decision with 1VB Advisory."
-					features={[]}
-					image={carouselImg1}
-					imageAlt="1VB Advisory"
-				/>
+				<PageHeroSection pageSlug="one-vb-advisory" />
 				<section
 					id="advisory-gallery"
 					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-4 py-8"

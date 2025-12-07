@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { ArrowLeft, Building, User, DollarSign, CheckCircle, ArrowRight } from 'lucide-react';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
+import PageHeroSection from '../components/PageHeroSection';
 import CarouselSection from '../components/CarouselSection';
 import { DarkHeader, LightHeader } from '../components/Header';
 import { getCheckingAccounts } from '../services/depositService';
@@ -16,7 +17,6 @@ export default function CheckingAccount() {
 
 	useEffect(() => {
 		getCheckingAccounts().then((response) => {
-			console.log(response);
 			setCheckingAccounts(response.results);
 		});
 	}, []);
@@ -65,35 +65,8 @@ export default function CheckingAccount() {
 
 	return (
 		<>
-			<main className="flex flex-col gap-[40px] pb-[50px] lg:gap-[120px]">
-				<CarouselSection
-					id="main"
-					title={
-						<>
-							<span className="block bg-gradient-to-r from-[#396131] via-[#4a7c3a] to-[#5a8c4a] bg-clip-text text-5xl leading-tight font-black text-transparent sm:text-6xl lg:text-7xl">
-								Checking Account
-							</span>
-							<span className="block bg-gradient-to-r from-[#396131] via-[#4a7c3a] to-[#5a8c4a] bg-clip-text text-2xl leading-tight font-bold text-transparent sm:text-3xl lg:text-4xl">
-								Convenient business banking
-							</span>
-						</>
-					}
-					description="Professional checking solutions designed for businesses and individuals who need frequent transactions and check-writing capabilities."
-					stats={[
-						{ icon: <CheckCircle className="h-4 w-4" />, label: '3 Account Types' },
-						{ icon: <DollarSign className="h-4 w-4" />, label: 'Check Writing' }
-					]}
-					extra={
-						<NavLink
-							to="/deposits"
-							className="group inline-flex items-center text-[#396131] transition-colors duration-300 hover:text-[#4a7c3a]"
-						>
-							<ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
-							Back to Deposits
-						</NavLink>
-					}
-					slides={checkingAccounts}
-				/>
+			<main className="flex flex-col">
+				<PageHeroSection pageSlug="deposits-checking-account" />
 
 				{/* Accounts Section */}
 				<section

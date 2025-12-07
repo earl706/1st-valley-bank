@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import { MapPinned, Building2, Landmark, X, CreditCard, ArrowRight } from 'lucide-react';
-import HeroSection from '../components/HeroSection';
+import PageHeroSection from '../components/PageHeroSection';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import { DarkHeader } from '../components/Header';
@@ -618,12 +618,7 @@ export default function Branches() {
 
 	return (
 		<div className="min-h-screen bg-[#f6fbf8] pb-12">
-			<HeroSection
-				title="Bank Branches"
-				subtitle="Find us across Mindanao, Visayas, and the regions"
-				bgColor="#396131"
-				textColor="#fff"
-			/>
+			<PageHeroSection pageSlug="branches" />
 			<div className="bg-linear-to-l from-[#396131] to-[#4a7c3a] px-4 py-20">
 				<DarkHeader
 					badgeText="Our Network"
