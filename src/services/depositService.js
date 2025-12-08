@@ -106,9 +106,29 @@ export const getCheckingAccounts = (options = {}) =>
 export const getTimeDeposits = (options = {}) =>
 	getDepositProducts({ ...options, productType: 'time_deposit' });
 
+/**
+ * Get requirements for a specific product type
+ * @param {string} productType - Product type (savings, checking, time_deposit)
+ * @returns {Promise<Object>} Requirements data
+ */
+export const getProductTypeRequirements = async (productType) => {
+	try {
+		const response = await api.get(`${BASE_URL}requirements/${productType}/`);
+		return response.data;
+	} catch (error) {
+		console.error(`Error fetching requirements for ${productType}:`, error);
+		// Return empty requirements if not found
+		return {
+			product_type: productType,
+			requirements: []
+		};
+	}
+};
+
 export default {
 	getSavingsAccounts,
 	getCheckingAccounts,
 	getTimeDeposits,
-	getDepositProducts
+	getDepositProducts,
+	getProductTypeRequirements
 };

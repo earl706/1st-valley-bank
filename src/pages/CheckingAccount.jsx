@@ -7,7 +7,7 @@ import PageHeroSection from '../components/PageHeroSection';
 import CarouselSection from '../components/CarouselSection';
 import { DarkHeader, LightHeader } from '../components/Header';
 import RequirementsSection from '../components/RequirementsSection';
-import { getCheckingAccounts } from '../services/depositService';
+import { getCheckingAccounts, getProductTypeRequirements } from '../services/depositService';
 
 export default function CheckingAccount() {
 	const [scrollY, setScrollY] = useState(0);
@@ -15,10 +15,14 @@ export default function CheckingAccount() {
 	const [activeSection, setActiveSection] = useState('');
 
 	const [checkingAccounts, setCheckingAccounts] = useState([]);
+	const [requirements, setRequirements] = useState([]);
 
 	useEffect(() => {
 		getCheckingAccounts().then((response) => {
 			setCheckingAccounts(response.results);
+		});
+		getProductTypeRequirements('checking').then((data) => {
+			setRequirements(data.requirements || []);
 		});
 	}, []);
 
@@ -147,9 +151,9 @@ export default function CheckingAccount() {
 				</section>
 
 				{/* Requirements Section */}
-				{checkingAccounts.length > 0 && checkingAccounts[0]?.requirements && (
+				{requirements.length > 0 && (
 					<RequirementsSection
-						requirements={checkingAccounts[0].requirements}
+						requirements={requirements}
 						title="Requirements"
 						subtitle="What you need to open a checking account"
 						badgeText="Checking Accounts"

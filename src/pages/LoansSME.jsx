@@ -153,17 +153,6 @@ export default function LoansSME() {
 				ctaSecondaryText="View All Loans"
 			/>
 
-			{smeTypes.length > 0 && smeTypes[0]?.requirements && (
-				<RequirementsSection
-					requirements={smeTypes[0].requirements}
-					title="Requirements"
-					subtitle="What you need to apply for an SME loan"
-					badgeText="SME Loans"
-					layout="two-column"
-					showIcons={true}
-				/>
-			)}
-
 			<SuccessStoriesSection
 				id="sme-success-stories"
 				title="SME Success Stories"

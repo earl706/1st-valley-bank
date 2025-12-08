@@ -7,14 +7,18 @@ import PageHeroSection from '../components/PageHeroSection';
 import CarouselSection from '../components/CarouselSection';
 import { DarkHeader, LightHeader } from '../components/Header';
 import RequirementsSection from '../components/RequirementsSection';
-import { getSavingsAccounts } from '../services/depositService';
+import { getSavingsAccounts, getProductTypeRequirements } from '../services/depositService';
 
 export default function SavingsAccount() {
 	const [savingsAccounts, setSavingsAccounts] = useState([]);
+	const [requirements, setRequirements] = useState([]);
 
 	useEffect(() => {
 		getSavingsAccounts().then((response) => {
 			setSavingsAccounts(response.results);
+		});
+		getProductTypeRequirements('savings').then((data) => {
+			setRequirements(data.requirements || []);
 		});
 	}, []);
 
@@ -100,9 +104,9 @@ export default function SavingsAccount() {
 				</section>
 
 				{/* Requirements Section */}
-				{savingsAccounts.length > 0 && savingsAccounts[0]?.requirements && (
+				{requirements.length > 0 && (
 					<RequirementsSection
-						requirements={savingsAccounts[0].requirements}
+						requirements={requirements}
 						title="Requirements"
 						subtitle="What you need to open a savings account"
 						badgeText="Savings Accounts"

@@ -22,9 +22,9 @@ export default function LoansSalary() {
 	const getSalaryLoanTypes = async () => {
 		try {
 			const response = await loanService.getByType('salary');
+			console.log(response.results[0]);
 			setSalaryLoanTypes(response.results);
 		} catch (error) {
-			console.error('Failed to fetch salary loan types:', error);
 			setSalaryLoanTypes([]);
 		} finally {
 			setLoading(false);
@@ -34,7 +34,6 @@ export default function LoansSalary() {
 	const getSuccessStories = async () => {
 		try {
 			const response = await successStoriesService.getByLoanType('salary');
-			console.log(response);
 			if (response.success && response.data.results) {
 				// Transform API response to match component format
 				const transformed = response.data.results.map((story) => ({
@@ -73,16 +72,6 @@ export default function LoansSalary() {
 					ctaPrimaryText="Get Expert Consultation"
 					ctaSecondaryText="View All Loans"
 				/>
-				{salaryLoanTypes.length > 0 && salaryLoanTypes[0]?.requirements && (
-					<RequirementsSection
-						requirements={salaryLoanTypes[0].requirements}
-						title="Requirements"
-						subtitle="What you need to apply for a salary loan"
-						badgeText="Salary Loans"
-						layout="two-column"
-						showIcons={true}
-					/>
-				)}
 				<SuccessStoriesSection
 					id="salary-success-stories"
 					title="Salary Loan Success Stories"

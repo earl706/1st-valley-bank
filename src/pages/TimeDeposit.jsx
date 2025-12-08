@@ -20,7 +20,7 @@ import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import { DarkHeader, LightHeader } from '../components/Header';
 import RequirementsSection from '../components/RequirementsSection';
-import { getTimeDeposits } from '../services/depositService';
+import { getTimeDeposits, getProductTypeRequirements } from '../services/depositService';
 
 export default function TimeDeposit() {
 	const [scrollY, setScrollY] = useState(0);
@@ -28,11 +28,15 @@ export default function TimeDeposit() {
 	const [activeSection, setActiveSection] = useState('');
 
 	const [timeDeposits, setTimeDeposits] = useState([]);
+	const [requirements, setRequirements] = useState([]);
 
 	useEffect(() => {
 		getTimeDeposits().then((response) => {
 			console.log('Time Deposits:', response);
 			setTimeDeposits(response.results);
+		});
+		getProductTypeRequirements('time_deposit').then((data) => {
+			setRequirements(data.requirements || []);
 		});
 	}, []);
 
@@ -158,9 +162,9 @@ export default function TimeDeposit() {
 				</section>
 
 				{/* Requirements Section */}
-				{timeDeposits.length > 0 && timeDeposits[0]?.requirements && (
+				{requirements.length > 0 && (
 					<RequirementsSection
-						requirements={timeDeposits[0].requirements}
+						requirements={requirements}
 						title="Requirements"
 						subtitle="What you need to open a time deposit account"
 						badgeText="Time Deposit"

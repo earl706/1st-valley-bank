@@ -4,7 +4,6 @@ import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import PageHeroSection from '../components/PageHeroSection';
 import CarouselSection from '../components/CarouselSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
-import RequirementsSection from '../components/RequirementsSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
@@ -121,16 +120,6 @@ export default function LoansSUCRE() {
 					tagText="Loan Types"
 					loanTypes={sucreTypes}
 				/>
-				{sucreTypes.length > 0 && sucreTypes[0]?.requirements && (
-					<RequirementsSection
-						requirements={sucreTypes[0].requirements}
-						title="Requirements"
-						subtitle="What you need to apply for a supervised credit loan"
-						badgeText="SUCRE Loans"
-						layout="two-column"
-						showIcons={true}
-					/>
-				)}
 				<SuccessStoriesSection
 					id="sucre-success-stories"
 					sectionTitle="Success Stories"
