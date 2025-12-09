@@ -280,9 +280,9 @@ export default function Navbar({ children }) {
 				{/* UNIFIED RESPONSIVE NAVBAR */}
 				<div className="fixed z-49 w-full bg-[#396131]" onMouseLeave={() => setActiveItemHover('')}>
 					{/* Primary Navigation Section */}
-					<div className="flex w-full items-center justify-between border-b-1 border-white bg-transparent px-10 py-4 xl:justify-between">
+					<div className="flex w-full items-center border-b-1 border-white bg-transparent px-10 py-4 xl:justify-between">
 						{/* Logo */}
-						<div className="flex items-center">
+						<div className="flex w-1/3 items-center">
 							<NavLink to="/">
 								<img
 									src={mobileLightlogo}
@@ -298,8 +298,8 @@ export default function Navbar({ children }) {
 						</div>
 
 						{/* Desktop/Tablet Navigation Menu */}
-						<div className="hidden items-center justify-center gap-4 py-4 text-white xl:flex xl:gap-[30px]">
-							<ul className="flex h-full justify-center gap-3 md:gap-4 xl:gap-[30px]">
+						<div className="hidden gap-4 py-4 text-white xl:flex xl:w-1/3 xl:items-center xl:justify-center xl:gap-[30px]">
+							<ul className="flex h-full items-center justify-center gap-3 md:gap-4 xl:gap-[30px]">
 								{navbarNavigationItems.map((navItem, index) => (
 									<li
 										key={index}
@@ -394,7 +394,7 @@ export default function Navbar({ children }) {
 							</ul>
 						</div>
 						{/* --- Search Bar (Desktop/Tablet) --- */}
-						<div className="hidden w-full max-w-[300px] items-center xl:flex">
+						<div className="hidden w-1/3 items-center justify-end xl:flex">
 							<form
 								onSubmit={(e) => {
 									e.preventDefault();
@@ -407,7 +407,7 @@ export default function Navbar({ children }) {
 										setActiveItemHover('');
 									}
 								}}
-								className="flex w-full overflow-hidden rounded-[5px] shadow-md"
+								className="flex w-full max-w-[300px] overflow-hidden rounded-[5px] shadow-md"
 							>
 								<div className="absolute py-2 pl-4">
 									<Search className="h-5 w-5 text-[#396131]" />
