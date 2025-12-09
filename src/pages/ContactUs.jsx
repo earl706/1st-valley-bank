@@ -8,6 +8,7 @@ import carouselImg1 from '/src/assets/carousel/1.png';
 import { DarkHeader } from '../components/Header';
 import { useJsApiLoader } from '@react-google-maps/api';
 import { contactService } from '../services/index';
+import { FormPageSkeleton } from '../components/PageSkeleton';
 
 const PSGC_API_BASE = 'https://psgc.gitlab.io/api';
 
@@ -30,6 +31,7 @@ const ContactUsForm = () => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitSuccess, setSubmitSuccess] = useState(false);
 	const [submitError, setSubmitError] = useState(null);
+	const [initialLoading, setInitialLoading] = useState(true);
 
 	// Address dropdown data (using PSGC API like ATMLocator)
 	const [provinceOptions, setProvinceOptions] = useState([]);
@@ -112,6 +114,7 @@ const ContactUsForm = () => {
 				}
 			} finally {
 				setProvinceLoading(false);
+				setInitialLoading(false);
 			}
 		};
 
@@ -373,6 +376,11 @@ const ContactUsForm = () => {
 			setIsSubmitting(false);
 		}
 	};
+
+	// Show skeleton on initial load
+	if (initialLoading && provinceOptions.length === 0) {
+		return <FormPageSkeleton showHero={false} showForm={true} formFields={10} showMap={true} />;
+	}
 
 	return (
 		<div className="min-h-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-4 py-24 sm:px-6 lg:px-8">

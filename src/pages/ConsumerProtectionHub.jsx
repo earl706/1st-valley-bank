@@ -31,9 +31,19 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HeroSection from '../components/HeroSection';
 import img from '/src/assets/homepage/heroSectionImage.png';
+import { DetailPageSkeleton, CardGridSkeleton } from '../components/PageSkeleton';
 
 export default function ConsumerProtectionHub() {
 	const [scrollY, setScrollY] = useState(0);
+	const [loading, setLoading] = useState(true);
+
+	// Simulate brief loading for static content
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setLoading(false);
+		}, 300);
+		return () => clearTimeout(timer);
+	}, []);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -42,6 +52,11 @@ export default function ConsumerProtectionHub() {
 		window.addEventListener('scroll', handleScroll, { passive: true });
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
+
+	// Show skeleton on initial load
+	if (loading) {
+		return <DetailPageSkeleton showHero={true} showContent={true} contentSections={4} />;
+	}
 
 	const protectionResources = [
 		{

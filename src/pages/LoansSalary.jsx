@@ -13,6 +13,7 @@ import carouselImg7 from '/src/assets/carousel/7.png';
 import loanService from '../services/loanService';
 import successStoriesService from '../services/successStoriesService';
 import PageHeroSection from '../components/PageHeroSection';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 
 export default function LoansSalary() {
 	const [salaryLoanTypes, setSalaryLoanTypes] = useState([]);
@@ -54,9 +55,25 @@ export default function LoansSalary() {
 	};
 
 	useEffect(() => {
-		getSalaryLoanTypes();
-		getSuccessStories();
+		const fetchData = async () => {
+			await Promise.all([getSalaryLoanTypes(), getSuccessStories()]);
+		};
+		fetchData();
 	}, []);
+
+	// Show skeleton on initial load
+	if (loading && salaryLoanTypes.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={3}
+				productRows={2}
+				variant="dark"
+			/>
+		);
+	}
 
 	return (
 		<>

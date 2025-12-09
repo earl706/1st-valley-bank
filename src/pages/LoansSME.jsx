@@ -1,31 +1,17 @@
-import {
-	FarmIcon,
-	CellTowerIcon,
-	TractorIcon,
-	LockKeyOpenIcon,
-	CashRegisterIcon
-} from '@phosphor-icons/react/dist/ssr';
 import { TrendingUp, ArrowUpRight, Target } from 'lucide-react';
 import img1 from '/src/assets/loans/sme/1.jpg';
-import img2 from '/src/assets/homepage/2.png';
-import img3 from '/src/assets/homepage/3.png';
-import img4 from '/src/assets/homepage/4.png';
-import img5 from '/src/assets/homepage/5.png';
-import img6 from '/src/assets/homepage/6.png';
 import PageHeroSection from '../components/PageHeroSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
-import RequirementsSection from '../components/RequirementsSection';
 import React, { useState, useEffect } from 'react';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
 import carouselImg4 from '/src/assets/carousel/4.png';
 import carouselImg5 from '/src/assets/carousel/5.png';
-import carouselImg6 from '/src/assets/carousel/6.png';
-import carouselImg7 from '/src/assets/carousel/7.png';
 import loanService from '../services/loanService';
 import successStoriesService from '../services/successStoriesService';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 
 export default function LoansSME() {
 	const [smeTypes, setSmeTypes] = useState([]);
@@ -66,8 +52,10 @@ export default function LoansSME() {
 	};
 
 	useEffect(() => {
-		getSmeTypes();
-		getSuccessStories();
+		const fetchData = async () => {
+			await Promise.all([getSmeTypes(), getSuccessStories()]);
+		};
+		fetchData();
 	}, []);
 
 	// Carousel slides combining hero and SME loan types
@@ -129,6 +117,20 @@ export default function LoansSME() {
 			buttonText: 'Apply Now'
 		}
 	];
+
+	// Show skeleton on initial load
+	if (loading && smeTypes.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={3}
+				productRows={2}
+				variant="dark"
+			/>
+		);
+	}
 
 	return (
 		<>

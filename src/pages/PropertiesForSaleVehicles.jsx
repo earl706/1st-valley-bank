@@ -3,6 +3,7 @@ import VehicleCard from '../components/VehicleCard';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import PageHeroSection from '../components/PageHeroSection';
 import propertyService from '../services/propertyService';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 
 export default function PropertiesForSaleVehicles() {
 	const [vehicles, setVehicles] = useState([]);
@@ -23,6 +24,20 @@ export default function PropertiesForSaleVehicles() {
 	useEffect(() => {
 		getVehicles();
 	}, []);
+
+	// Show skeleton on initial load
+	if (loading && vehicles.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={3}
+				productRows={3}
+				variant="light"
+			/>
+		);
+	}
 
 	return (
 		<>

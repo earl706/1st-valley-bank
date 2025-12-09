@@ -16,18 +16,22 @@ import PageHeroSection from '../components/PageHeroSection';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import { DarkHeader } from '../components/Header';
-import img1 from '/src/assets/homepage/1.png';
-import img2 from '/src/assets/homepage/2.png';
-import img3 from '/src/assets/homepage/3.png';
-import img4 from '/src/assets/homepage/4.png';
-import img5 from '/src/assets/homepage/5.png';
-import img6 from '/src/assets/homepage/6.png';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 import img from '/src/assets/homepage/heroSectionImage.png';
 
 export default function Loans() {
 	const [scrollY, setScrollY] = useState(0);
 	const [isVisible, setIsVisible] = useState({});
 	const [activeSection, setActiveSection] = useState('');
+	const [loading, setLoading] = useState(true);
+
+	// Simulate loading for static content
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setLoading(false);
+		}, 300);
+		return () => clearTimeout(timer);
+	}, []);
 
 	// Carousel data for loans
 	const loanSlides = [
@@ -137,6 +141,20 @@ export default function Loans() {
 			block: 'start'
 		});
 	};
+
+	// Show skeleton on initial load
+	if (loading) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={3}
+				productRows={3}
+				variant="dark"
+			/>
+		);
+	}
 
 	return (
 		<>

@@ -3,6 +3,7 @@ import PropertyCard from '../components/PropertyCard';
 import img from '/src/assets/homepage/heroSectionImage.png';
 import PageHeroSection from '../components/PageHeroSection';
 import propertyService from '../services/propertyService';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 
 export default function PropertiesForSaleRealEstate() {
 	const [properties, setProperties] = useState([]);
@@ -24,70 +25,20 @@ export default function PropertiesForSaleRealEstate() {
 		getProperties();
 	}, []);
 
-	/*
-	const sampleProperties = [
-		{
-			image: img2,
-			additionalImages: [img2, img2, img2],
-			location: 'Residential Land, Napoloan Pagadian City, Zamboanga del Sur',
-			date: '2018-12-4',
-			number: 'TCT#1372020004737 / TCT#1372020004738',
-			price: 1950000.0,
-			area: 1262,
-			propertyCode: 'K05-03'
-		},
-		{
-			image: img2,
-			additionalImages: [img2, img2, img2],
-			location: 'Residential Land, Napoloan Pagadian City, Zamboanga del Sur',
-			date: '2018-12-4',
-			number: 'TCT#1372020004737 / TCT#1372020004738',
-			price: 1950000.0,
-			area: 1262,
-			propertyCode: 'K05-03'
-		},
-		{
-			image: img2,
-			additionalImages: [img2, img2, img2],
-			location: 'Residential Land, Napoloan Pagadian City, Zamboanga del Sur',
-			date: '2018-12-4',
-			number: 'TCT#1372020004737 / TCT#1372020004738',
-			price: 1950000.0,
-			area: 1262,
-			propertyCode: 'K05-03'
-		},
-		{
-			image: img2,
-			additionalImages: [img2, img2, img2],
-			location: 'Residential Land, Napoloan Pagadian City, Zamboanga del Sur',
-			date: '2018-12-4',
-			number: 'TCT#1372020004737 / TCT#1372020004738',
-			price: 1950000.0,
-			area: 1262,
-			propertyCode: 'K05-03'
-		},
-		{
-			image: img2,
-			additionalImages: [img2, img2, img2],
-			location: 'Residential Land, Napoloan Pagadian City, Zamboanga del Sur',
-			date: '2018-12-4',
-			number: 'TCT#1372020004737 / TCT#1372020004738',
-			price: 1950000.0,
-			area: 1262,
-			propertyCode: 'K05-03'
-		},
-		{
-			image: img2,
-			additionalImages: [img2, img2, img2],
-			location: 'Residential Land, Napoloan Pagadian City, Zamboanga del Sur',
-			date: '2018-12-4',
-			number: 'TCT#1372020004737 / TCT#1372020004738',
-			price: 1950000.0,
-			area: 1262,
-			propertyCode: 'K05-03'
-		}
-	];
-	*/
+	// Show skeleton on initial load
+	if (loading && properties.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={3}
+				productRows={3}
+				variant="light"
+			/>
+		);
+	}
+
 	return (
 		<>
 			<main className="flex flex-col">

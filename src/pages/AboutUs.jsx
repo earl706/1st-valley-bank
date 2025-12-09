@@ -43,7 +43,8 @@ import { LightHeader, DarkHeader } from '../components/Header';
 import annualReportService from '../services/annualReportService';
 import aboutPageService from '../services/aboutPageService';
 import landingService from '../services/landingService';
-
+import { DetailPageSkeleton, CarouselSkeleton, CardGridSkeleton } from '../components/PageSkeleton';
+``;
 // Utility icon mapping for lucide-react
 const lucideIconMap = {
 	calendar: Clock,
@@ -441,6 +442,45 @@ export default function AboutUs() {
 			mountedRef.current = false;
 		};
 	}, []);
+
+	// Show skeleton on initial load
+	if (
+		(aboutPageLoading && !aboutPage) ||
+		(annualReportsLoading && annualReports.length === 0) ||
+		(!president && seniorManagement.length === 0)
+	) {
+		return (
+			<>
+				<PageHeroSection
+					pageSlug="about-us"
+					brandColor="#396131"
+					brandGradient="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
+					minHeight="min-h-[560px] lg:min-h-[640px]"
+					showLearnMoreButton={true}
+					learnMoreText="Learn More"
+				/>
+				<main className="flex flex-col">
+					<DetailPageSkeleton showHero={false} showContent={true} contentSections={5} />
+					<section className="bg-[#396131]/5 py-12">
+						<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+							<CarouselSkeleton slides={3} showDots={true} />
+						</div>
+					</section>
+					<section className="bg-white py-12">
+						<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+							<CardGridSkeleton
+								columns={3}
+								rows={3}
+								variant="light"
+								showImage={true}
+								showButton={true}
+							/>
+						</div>
+					</section>
+				</main>
+			</>
+		);
+	}
 
 	const scrollToSection = (sectionId) => {
 		const element = document.getElementById(sectionId.replace('#', ''));

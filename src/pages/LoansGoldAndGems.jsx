@@ -5,9 +5,11 @@ import PageHeroSection from '../components/PageHeroSection';
 import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
 import successStoriesService from '../services/successStoriesService';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 
 export default function LoansGoldAndGems() {
 	const [successStories, setSuccessStories] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	const getSuccessStories = async () => {
 		try {
@@ -27,12 +29,28 @@ export default function LoansGoldAndGems() {
 		} catch (error) {
 			console.error('Failed to fetch success stories:', error);
 			setSuccessStories([]);
+		} finally {
+			setLoading(false);
 		}
 	};
 
 	useEffect(() => {
 		getSuccessStories();
 	}, []);
+
+	// Show skeleton on initial load
+	if (loading && successStories.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={3}
+				productRows={2}
+				variant="dark"
+			/>
+		);
+	}
 
 	return (
 		<>

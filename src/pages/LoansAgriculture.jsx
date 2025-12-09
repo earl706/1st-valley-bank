@@ -5,6 +5,7 @@ import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
 import loanService from '../services/loanService';
 import successStoriesService from '../services/successStoriesService';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 
 export default function LoansAgriculture() {
 	const [agricultureTypes, setAgricultureTypes] = useState([]);
@@ -45,9 +46,25 @@ export default function LoansAgriculture() {
 	};
 
 	useEffect(() => {
-		getAgricultureTypes();
-		getSuccessStories();
+		const fetchData = async () => {
+			await Promise.all([getAgricultureTypes(), getSuccessStories()]);
+		};
+		fetchData();
 	}, []);
+
+	// Show skeleton on initial load
+	if (loading && agricultureTypes.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={3}
+				productRows={2}
+				variant="dark"
+			/>
+		);
+	}
 
 	return (
 		<>

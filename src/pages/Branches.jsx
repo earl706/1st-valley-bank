@@ -6,6 +6,7 @@ import { DarkPrimaryButton } from '../components/Buttons';
 import { DarkHeader } from '../components/Header';
 import locationService from '../services/locationService';
 import LocationsMap from '../components/LocationsMap';
+import { ProductListingPageSkeleton, MapSkeleton } from '../components/PageSkeleton';
 
 const PSGC_API_BASE = 'https://psgc.gitlab.io/api';
 
@@ -550,9 +551,11 @@ export default function Branches() {
 	const [luzonBranches, setLuzonBranches] = useState([]);
 	const [regionalCenters, setRegionalCenters] = useState([]);
 	const [allBranches, setAllBranches] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	const fetchBranches = async () => {
 		try {
+			setLoading(true);
 			const result = await locationService.getBranches({ page: 1, page_size: 200 });
 			if (!result.success) {
 				console.error('Failed to fetch branches:', result.message || result.error);
@@ -567,6 +570,8 @@ export default function Branches() {
 			setRegionalCenters(branchList.filter((branch) => branch.region === 'ncr'));
 		} catch (error) {
 			console.error('Failed to fetch branches:', error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -615,6 +620,29 @@ export default function Branches() {
 					onContact={() => handleContact(branch.name)}
 				/>
 			));
+
+	// Show skeleton on initial load
+	if (loading && branches.length === 0) {
+		return (
+			<div className="min-h-screen bg-[#f6fbf8] pb-12">
+				<ProductListingPageSkeleton
+					showHero={true}
+					showCarousel={false}
+					showProductGrid={true}
+					productColumns={3}
+					productRows={3}
+					variant="dark"
+				/>
+				<div className="bg-linear-to-l from-[#396131] to-[#4a7c3a] px-4 py-20">
+					<div className="mx-auto max-w-7xl">
+						<div className="mb-8 rounded-3xl bg-white/90 p-8 shadow-xl backdrop-blur">
+							<MapSkeleton height="h-[420px]" />
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="min-h-screen bg-[#f6fbf8] pb-12">
@@ -681,38 +709,13 @@ export default function Branches() {
 							)}
 						</div>
 					</section>
-					{/* Luzon Section */}
-					<section>
-						<div className="mb-5 flex items-center justify-between">
-							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
-								<Landmark className="h-6 w-6 text-white" />
-								Luzon Branches
-							</h2>
-							{luzonBranches.length > 3 && (
-								<DarkPrimaryButton onClick={() => setVisibleModal('luzon')} type="button">
-									<span className="flex items-center">
-										See All
-										<ArrowRight className="ml-3 h-5 w-5" />
-									</span>
-								</DarkPrimaryButton>
-							)}
-						</div>
-						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-							{luzonBranches.length === 0 ? (
-								<div className="col-span-3 py-8 text-center text-white/80">
-									No branches in Luzon.
-								</div>
-							) : (
-								renderPreviewBranches(luzonBranches, Landmark)
-							)}
-						</div>
-					</section>
+
 					{/* Regional Section */}
 					<section>
 						<div className="mb-5 flex items-center justify-between">
 							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
 								<Landmark className="h-6 w-6 text-white" />
-								Regional & National Centers
+								Head Offices
 							</h2>
 							{regionalCenters.length > 3 && (
 								<DarkPrimaryButton onClick={() => setVisibleModal('ncr')} type="button">

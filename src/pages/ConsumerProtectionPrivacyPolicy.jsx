@@ -30,6 +30,7 @@ import HeroSection from '../components/HeroSection';
 import { LightCard } from '../components/Card';
 import { LightSecondaryButton, LightPrimaryButton } from '../components/Buttons';
 import consumerProtectionPrivacyPolicyPageService from '../services/consumerProtectionPrivacyPolicyPageService';
+import { DetailPageSkeleton } from '../components/PageSkeleton';
 
 // Icon mapping for CMS icon names to lucide-react components
 const iconMap = {
@@ -548,6 +549,11 @@ export default function ConsumerProtectionPrivacyPolicy() {
 			element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 		}
 	};
+
+	// Show skeleton on initial load
+	if (privacyPageLoading && !privacyPage) {
+		return <DetailPageSkeleton showHero={true} showContent={true} contentSections={6} />;
+	}
 
 	return (
 		<>

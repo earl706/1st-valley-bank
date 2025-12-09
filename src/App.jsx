@@ -38,6 +38,7 @@ import LoanQualification from './pages/LoanQualification';
 import Branches from './pages/Branches';
 import ATMLocator from './pages/ATMLocator';
 import SearchResults from './pages/SearchResults';
+import FAQPage from './pages/FAQPage';
 
 function App() {
 	const [showSplash, setShowSplash] = useState(false);
@@ -162,6 +163,7 @@ function App() {
 		{ component: <Branches />, route: '/branches' },
 		{ component: <ATMLocator />, route: '/atm-locator' },
 		{ component: <SearchResults />, route: '/search' },
+		{ component: <FAQPage />, route: '/faqs' },
 		{ component: <Footer />, route: '/footer' }
 	];
 
@@ -174,8 +176,6 @@ function App() {
 						<Route key={index} path={route.route} element={<Navbar>{route.component}</Navbar>} />
 					))}
 				</Routes>
-				{/* AI Chatbot - appears on all pages */}
-				<ChatBox />
 			</Router>
 		</>
 	);

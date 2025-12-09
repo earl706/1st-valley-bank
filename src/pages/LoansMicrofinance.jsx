@@ -7,9 +7,11 @@ import carouselImg1 from '/src/assets/carousel/1.png';
 import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
 import successStoriesService from '../services/successStoriesService';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 
 export default function LoansMicrofinance() {
 	const [successStories, setSuccessStories] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	const getSuccessStories = async () => {
 		try {
@@ -29,12 +31,28 @@ export default function LoansMicrofinance() {
 		} catch (error) {
 			console.error('Failed to fetch success stories:', error);
 			setSuccessStories([]);
+		} finally {
+			setLoading(false);
 		}
 	};
 
 	useEffect(() => {
 		getSuccessStories();
 	}, []);
+
+	// Show skeleton on initial load
+	if (loading && successStories.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={3}
+				productRows={2}
+				variant="dark"
+			/>
+		);
+	}
 
 	return (
 		<>

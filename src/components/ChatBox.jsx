@@ -39,7 +39,7 @@ const ChatToggleButton = ({ onClick }) => (
 	<div className="group fixed right-8 bottom-8 z-50 flex items-center">
 		<button
 			onClick={onClick}
-			className="group relative h-20 w-20 cursor-pointer rounded-full bg-gradient-to-br from-[#396131] via-[#4a7c3a] to-[#31542B] shadow-2xl transition-all duration-200 hover:scale-110 active:scale-95"
+			className="group hover:shadow-3xl shadow-5xl relative flex h-20 w-20 cursor-pointer items-center rounded-full bg-gradient-to-br from-yellow-400 via-fuchsia-600 to-blue-600 shadow-fuchsia-500/40 transition-all duration-200 hover:scale-110 hover:shadow-fuchsia-700/70 active:scale-95"
 			aria-label="Open AI Chat Assistant"
 		>
 			{/* Tooltip */}

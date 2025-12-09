@@ -21,6 +21,7 @@ import { DarkPrimaryButton } from '../components/Buttons';
 import { DarkHeader, LightHeader } from '../components/Header';
 import RequirementsSection from '../components/RequirementsSection';
 import { getTimeDeposits, getProductTypeRequirements } from '../services/depositService';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 
 export default function TimeDeposit() {
 	const [scrollY, setScrollY] = useState(0);
@@ -29,15 +30,26 @@ export default function TimeDeposit() {
 
 	const [timeDeposits, setTimeDeposits] = useState([]);
 	const [requirements, setRequirements] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		getTimeDeposits().then((response) => {
-			console.log('Time Deposits:', response);
-			setTimeDeposits(response.results);
-		});
-		getProductTypeRequirements('time_deposit').then((data) => {
-			setRequirements(data.requirements || []);
-		});
+		const fetchData = async () => {
+			try {
+				setLoading(true);
+				const [depositsResponse, requirementsData] = await Promise.all([
+					getTimeDeposits(),
+					getProductTypeRequirements('time_deposit')
+				]);
+				console.log('Time Deposits:', depositsResponse);
+				setTimeDeposits(depositsResponse.results);
+				setRequirements(requirementsData.requirements || []);
+			} catch (error) {
+				console.error('Error fetching time deposit data:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+		fetchData();
 	}, []);
 
 	useEffect(() => {
@@ -81,6 +93,20 @@ export default function TimeDeposit() {
 			block: 'start'
 		});
 	};
+
+	// Show skeleton on initial load
+	if (loading && timeDeposits.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={4}
+				productRows={2}
+				variant="dark"
+			/>
+		);
+	}
 
 	return (
 		<>

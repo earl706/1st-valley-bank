@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import { FormPageSkeleton } from '../components/PageSkeleton';
 
 export default function LoanQualification() {
 	const { loanType } = useParams();
@@ -9,6 +10,15 @@ export default function LoanQualification() {
 	const [answers, setAnswers] = useState({});
 	const [showResults, setShowResults] = useState(false);
 	const [qualificationResult, setQualificationResult] = useState(null);
+	const [loading, setLoading] = useState(true);
+
+	// Simulate brief loading for form initialization
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setLoading(false);
+		}, 300);
+		return () => clearTimeout(timer);
+	}, []);
 
 	// Loan qualification questions based on loan type
 	const getQuestions = (type) => {
@@ -393,6 +403,11 @@ export default function LoanQualification() {
 		setShowResults(false);
 		setQualificationResult(null);
 	};
+
+	// Show skeleton on initial load
+	if (loading) {
+		return <FormPageSkeleton showHero={false} showForm={true} formFields={6} showMap={false} />;
+	}
 
 	if (showResults && qualificationResult) {
 		return (

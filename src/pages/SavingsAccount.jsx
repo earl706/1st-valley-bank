@@ -8,19 +8,45 @@ import CarouselSection from '../components/CarouselSection';
 import { DarkHeader, LightHeader } from '../components/Header';
 import RequirementsSection from '../components/RequirementsSection';
 import { getSavingsAccounts, getProductTypeRequirements } from '../services/depositService';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 
 export default function SavingsAccount() {
 	const [savingsAccounts, setSavingsAccounts] = useState([]);
 	const [requirements, setRequirements] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		getSavingsAccounts().then((response) => {
-			setSavingsAccounts(response.results);
-		});
-		getProductTypeRequirements('savings').then((data) => {
-			setRequirements(data.requirements || []);
-		});
+		const fetchData = async () => {
+			try {
+				setLoading(true);
+				const [accountsResponse, requirementsData] = await Promise.all([
+					getSavingsAccounts(),
+					getProductTypeRequirements('savings')
+				]);
+				setSavingsAccounts(accountsResponse.results);
+				setRequirements(requirementsData.requirements || []);
+			} catch (error) {
+				console.error('Error fetching savings account data:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+		fetchData();
 	}, []);
+
+	// Show skeleton on initial load
+	if (loading && savingsAccounts.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={3}
+				productRows={2}
+				variant="dark"
+			/>
+		);
+	}
 
 	return (
 		<>

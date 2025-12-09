@@ -34,6 +34,12 @@ import { NewsletterGrid } from './Newsletter';
 import pdf1 from '/src/assets/newsletter/document.pdf';
 import newsletterService from '../services/newsletterService';
 import landingService from '../services/landingService';
+import {
+	HeroSectionSkeleton,
+	CardGridSkeleton,
+	SectionHeaderSkeleton,
+	NewsletterPageSkeleton
+} from '../components/PageSkeleton';
 
 // Utility to find links in plain text and convert them to <a> tags.
 function renderAnswer(answer) {
@@ -119,9 +125,11 @@ export default function HomePage() {
 	const [faqs, setFaqs] = useState([]);
 	const [services, setServices] = useState([]);
 	const [heroSlides, setHeroSlides] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	const fetchPageData = async () => {
 		try {
+			setLoading(true);
 			const response = await landingService.getLandingPageFull();
 			console.log(response);
 			setPageData(response.data);
@@ -131,6 +139,8 @@ export default function HomePage() {
 			setHeroSlides(response.data.hero_sections);
 		} catch (error) {
 			console.error('Error fetching page data:', error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -204,6 +214,162 @@ export default function HomePage() {
 			setNewsletterArticles(response.results);
 		});
 	}, []);
+
+	// Show skeleton on initial load
+	if (loading && (!pageData || services.length === 0)) {
+		return (
+			<div className="min-h-screen bg-white">
+				{/* Hero Section */}
+				<HeroSectionSkeleton showButton={true} minHeight="min-h-[560px] lg:min-h-[640px]" />
+
+				{/* Services Section */}
+				<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20 text-white">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+						<SectionHeaderSkeleton
+							showBadge={true}
+							showSubtitle={true}
+							alignment="center"
+							className="mb-16"
+						/>
+						<CardGridSkeleton
+							columns={3}
+							rows={3}
+							variant="light"
+							showImage={true}
+							showButton={true}
+						/>
+					</div>
+				</section>
+
+				{/* Features Section */}
+				<section className="bg-[#E9F2EA] py-20">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+						<SectionHeaderSkeleton
+							showBadge={true}
+							showSubtitle={true}
+							alignment="center"
+							className="mb-16"
+						/>
+						<CardGridSkeleton
+							columns={3}
+							rows={3}
+							variant="light"
+							showImage={false}
+							showButton={false}
+						/>
+					</div>
+				</section>
+
+				{/* Testimonials Section */}
+				<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+						<SectionHeaderSkeleton
+							showBadge={true}
+							showSubtitle={true}
+							alignment="center"
+							className="mb-16"
+						/>
+						<CardGridSkeleton
+							columns={3}
+							rows={3}
+							variant="light"
+							showImage={false}
+							showButton={false}
+						/>
+					</div>
+				</section>
+
+				{/* Newsletter Section */}
+				<section className="flex flex-col items-center bg-[#E9F2EA] py-20">
+					<SectionHeaderSkeleton
+						showBadge={true}
+						showSubtitle={true}
+						alignment="center"
+						className="mb-8"
+					/>
+					<div className="mx-auto mb-8 w-full max-w-3xl">
+						<div className="relative mx-auto flex w-full flex-col items-center gap-3 rounded-xl">
+							<div className="relative w-full flex-1">
+								<div className="h-12 w-full animate-pulse rounded-lg bg-gray-200" />
+							</div>
+							<div className="h-12 w-full animate-pulse rounded-lg bg-gray-200" />
+						</div>
+					</div>
+					<div className="mx-auto w-full max-w-7xl">
+						<CardGridSkeleton
+							columns={3}
+							rows={1}
+							variant="light"
+							showImage={true}
+							showButton={true}
+						/>
+					</div>
+				</section>
+
+				{/* CTA Section */}
+				<section className="bg-gradient-to-l from-[#4a7c3a] to-[#396131] py-20">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+						<div className="flex flex-col-reverse items-center gap-12 lg:flex-row">
+							<div className="flex w-full flex-1 flex-col items-center space-y-6 text-center md:w-1/2 md:items-start md:text-left">
+								<div className="h-16 w-16 animate-pulse rounded-full bg-white/20" />
+								<div className="h-12 w-96 animate-pulse rounded bg-white/20" />
+								<div className="h-6 w-80 animate-pulse rounded bg-white/20" />
+								<div className="flex gap-4">
+									<div className="h-12 w-40 animate-pulse rounded-lg bg-white/20" />
+								</div>
+							</div>
+							<div className="mb-8 flex w-full flex-shrink-0 justify-center md:mb-0 md:w-1/2">
+								<div className="h-72 w-72 animate-pulse rounded-lg bg-white/20 md:h-96 md:w-96" />
+							</div>
+						</div>
+					</div>
+				</section>
+
+				{/* FAQ Section */}
+				<section className="bg-white py-20">
+					<div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+						<SectionHeaderSkeleton
+							showBadge={true}
+							showSubtitle={true}
+							alignment="center"
+							className="mb-10"
+						/>
+						<div className="space-y-4">
+							{Array.from({ length: 5 }).map((_, idx) => (
+								<div key={idx} className="animate-pulse">
+									<div className="h-16 w-full rounded-lg bg-gray-200" />
+								</div>
+							))}
+						</div>
+					</div>
+				</section>
+
+				{/* Need More Help Section */}
+				<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+						<div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+							<div className="order-1 space-y-8 lg:order-0">
+								<div className="h-1 w-16 animate-pulse rounded-full bg-white/20" />
+								<div className="space-y-4">
+									<div className="h-12 w-64 animate-pulse rounded bg-white/20" />
+									<div className="h-6 w-80 animate-pulse rounded bg-white/20" />
+								</div>
+								<div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+									{Array.from({ length: 4 }).map((_, idx) => (
+										<div key={idx} className="h-20 w-full animate-pulse rounded-lg bg-white/20" />
+									))}
+								</div>
+								<div className="h-12 w-64 animate-pulse rounded-lg bg-white/20" />
+							</div>
+							<div className="relative mx-auto h-48 w-48 overflow-hidden sm:h-64 sm:w-64 lg:h-full lg:w-full">
+								<div className="h-full w-full animate-pulse rounded-lg bg-white/20" />
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		);
+	}
 
 	return (
 		<div className="min-h-screen bg-white">

@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CheckCircle, XCircle, AlertCircle, ArrowLeft, Phone, Mail } from 'lucide-react';
+import { DetailPageSkeleton } from '../components/PageSkeleton';
 
 export default function LoanQualificationResults() {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const { result, loanType } = location.state || {};
+	const [loading, setLoading] = useState(true);
+
+	// Simulate brief loading for consistency
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setLoading(false);
+		}, 300);
+		return () => clearTimeout(timer);
+	}, []);
+
+	// Show skeleton on initial load
+	if (loading) {
+		return <DetailPageSkeleton showHero={true} showContent={true} contentSections={2} />;
+	}
 
 	if (!result) {
 		return (

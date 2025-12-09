@@ -4,6 +4,7 @@ import { Calendar, ArrowLeft, Eye, Clock, X, ArrowRight } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import { DarkPrimaryButton } from '../components/Buttons';
 import newsletterService from '../services/newsletterService';
+import { DetailPageSkeleton } from '../components/PageSkeleton';
 
 // PDF Viewer Modal Component
 function PDFModal({ pdfUrl, title, onClose, id }) {
@@ -102,22 +103,7 @@ export default function NewsletterDetail() {
 	};
 
 	if (loading) {
-		return (
-			<div className="min-h-screen bg-[#f6fbf8]">
-				<HeroSection
-					title="Loading Newsletter..."
-					subtitle="Please wait while we load the article"
-					bgColor="#396131"
-					textColor="#fff"
-				/>
-				<div className="flex min-h-[60vh] items-center justify-center">
-					<div className="text-center">
-						<div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-[#396131] border-t-transparent"></div>
-						<p className="text-gray-600">Loading newsletter article...</p>
-					</div>
-				</div>
-			</div>
-		);
+		return <DetailPageSkeleton showHero={true} showContent={true} contentSections={3} />;
 	}
 
 	if (error || !newsletter) {

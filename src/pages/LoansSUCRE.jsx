@@ -10,6 +10,7 @@ import carouselImg3 from '/src/assets/carousel/3.png';
 import carouselImg4 from '/src/assets/carousel/4.png';
 import loanService from '../services/loanService';
 import successStoriesService from '../services/successStoriesService';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 
 export default function LoansSUCRE() {
 	const [sucreTypes, setSucreTypes] = useState([]);
@@ -50,8 +51,10 @@ export default function LoansSUCRE() {
 	};
 
 	useEffect(() => {
-		getSucreTypes();
-		getSuccessStories();
+		const fetchData = async () => {
+			await Promise.all([getSucreTypes(), getSuccessStories()]);
+		};
+		fetchData();
 	}, []);
 
 	// Carousel slides combining hero and loan types
@@ -102,6 +105,20 @@ export default function LoansSUCRE() {
 			buttonText: 'Apply Now'
 		}
 	];
+
+	// Show skeleton on initial load
+	if (loading && sucreTypes.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={3}
+				productRows={2}
+				variant="dark"
+			/>
+		);
+	}
 
 	return (
 		<>

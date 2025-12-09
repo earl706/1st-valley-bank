@@ -15,6 +15,11 @@ import img from '/src/assets/homepage/heroSectionImage.png';
 
 // Import propertyService
 import propertyService from '../services/propertyService';
+import {
+	ProductListingPageSkeleton,
+	CardGridSkeleton,
+	SectionHeaderSkeleton
+} from '../components/PageSkeleton';
 
 export default function PropertiesForSale() {
 	const [scrollY, setScrollY] = useState(0);
@@ -124,6 +129,20 @@ export default function PropertiesForSale() {
 		fetchRealEstate();
 	}, []);
 
+	// Show skeleton on initial load
+	if (vehiclesLoading && vehicles.length === 0 && realEstateLoading && realEstate.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={3}
+				productRows={2}
+				variant="light"
+			/>
+		);
+	}
+
 	return (
 		<>
 			<main className="mb-4 flex flex-col lg:mb-8">
@@ -146,8 +165,14 @@ export default function PropertiesForSale() {
 						</p>
 					</div>
 					<div className="h-8 lg:h-12" />
-					{vehiclesLoading ? (
-						<div className="text-center text-[#396131] opacity-80">Loading vehicles...</div>
+					{vehiclesLoading && vehicles.length === 0 ? (
+						<CardGridSkeleton
+							columns={3}
+							rows={2}
+							variant="light"
+							showImage={true}
+							showButton={false}
+						/>
 					) : vehiclesError ? (
 						<div className="text-center text-red-600">{vehiclesError}</div>
 					) : (
@@ -191,8 +216,14 @@ export default function PropertiesForSale() {
 						</p>
 					</div>
 					<div className="h-8 lg:h-12" />
-					{realEstateLoading ? (
-						<div className="text-center text-[#396131] opacity-80">Loading real estate...</div>
+					{realEstateLoading && realEstate.length === 0 ? (
+						<CardGridSkeleton
+							columns={3}
+							rows={2}
+							variant="light"
+							showImage={true}
+							showButton={false}
+						/>
 					) : realEstateError ? (
 						<div className="text-center text-red-600">{realEstateError}</div>
 					) : (

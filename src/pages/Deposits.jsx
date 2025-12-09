@@ -9,6 +9,7 @@ import { DarkCard } from '../components/Card';
 import { LightPrimaryButton } from '../components/Buttons';
 import { DarkHeader } from '../components/Header';
 import { getAllDepositProducts } from '../services/depositService';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 
 // Mapping product types to category metadata
 const PRODUCT_TYPE_METADATA = {
@@ -126,6 +127,20 @@ export default function Deposits() {
 		fetchDepositProducts();
 	}, []);
 
+	// Show skeleton on initial load
+	if (loading && products.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={1}
+				productRows={3}
+				variant="dark"
+			/>
+		);
+	}
+
 	return (
 		<>
 			<main className="flex flex-col">
@@ -156,14 +171,7 @@ export default function Deposits() {
 						/>
 
 						{/* Products Array */}
-						{loading ? (
-							<div className="flex min-h-[400px] items-center justify-center">
-								<div className="text-center">
-									<div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-white border-t-transparent"></div>
-									<p className="mt-4 text-sm text-white/80">Loading deposit products...</p>
-								</div>
-							</div>
-						) : error ? (
+						{error ? (
 							<div className="flex min-h-[400px] items-center justify-center">
 								<div className="text-center">
 									<p className="text-lg text-white/90">{error}</p>

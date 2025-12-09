@@ -6,6 +6,7 @@ import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
 import locationService from '../services/locationService';
 import LocationsMap from '../components/LocationsMap';
+import { ProductListingPageSkeleton, MapSkeleton } from '../components/PageSkeleton';
 
 const PSGC_API_BASE = 'https://psgc.gitlab.io/api';
 
@@ -87,9 +88,11 @@ export default function ATMLocator() {
 	const [selectedCity, setSelectedCity] = useState('');
 	const [selectedBarangay, setSelectedBarangay] = useState('');
 	const [addressFieldError, setAddressFieldError] = useState('');
+	const [loading, setLoading] = useState(true);
 
 	const fetchATMs = async () => {
 		try {
+			setLoading(true);
 			const result = await locationService.getATMs({ page_size: 200 });
 			if (!result.success) {
 				console.error('Failed to fetch ATMs:', result.message || result.error);
@@ -104,6 +107,8 @@ export default function ATMLocator() {
 			setBranchlessATMs(atmList.filter((atm) => !atm.branch || atm.branch.region === null));
 		} catch (error) {
 			console.error('Failed to fetch ATMs:', error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -467,6 +472,29 @@ export default function ATMLocator() {
 			setActiveMarkerId(null);
 		}
 	}, [activeMarkerId, atmMarkers]);
+
+	// Show skeleton on initial load
+	if (loading && atms.length === 0) {
+		return (
+			<div className="min-h-screen bg-[#f6fbf8] pb-12">
+				<ProductListingPageSkeleton
+					showHero={true}
+					showCarousel={false}
+					showProductGrid={true}
+					productColumns={3}
+					productRows={3}
+					variant="dark"
+				/>
+				<div className="bg-linear-to-l from-[#396131] to-[#4a7c3a] px-4 py-20">
+					<div className="mx-auto max-w-7xl">
+						<div className="mb-16 rounded-3xl bg-white/90 p-8 shadow-xl backdrop-blur">
+							<MapSkeleton height="h-[420px]" />
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="min-h-screen bg-[#f6fbf8] pb-12">

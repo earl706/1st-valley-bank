@@ -16,6 +16,7 @@ import LoanSubcategoriesSection from '../components/LoanSubcategoriesSection';
 import CarouselSection from '../components/CarouselSection';
 import SuccessStoriesSection from '../components/SuccessStoriesSection';
 import PageHeroSection from '../components/PageHeroSection';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 
 import img1 from '/src/assets/homepage/1.png';
 import img2 from '/src/assets/homepage/2.png';
@@ -70,8 +71,10 @@ export default function LoansSBL() {
 	};
 
 	useEffect(() => {
-		getSblTypes();
-		getSuccessStories();
+		const fetchData = async () => {
+			await Promise.all([getSblTypes(), getSuccessStories()]);
+		};
+		fetchData();
 	}, []);
 
 	const whoCanApply = [
@@ -166,6 +169,20 @@ export default function LoansSBL() {
 			buttonText: 'Apply Now'
 		}
 	];
+
+	// Show skeleton on initial load
+	if (loading && sblTypes.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={3}
+				productRows={2}
+				variant="dark"
+			/>
+		);
+	}
 
 	return (
 		<>

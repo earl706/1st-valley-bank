@@ -14,6 +14,7 @@ import pdf1 from '/src/assets/newsletter/document.pdf';
 import { DarkCard, LightCard } from '../components/Card';
 import { DarkPrimaryButton, LightPrimaryButton } from '../components/Buttons';
 import newsletterService from '../services/newsletterService';
+import { NewsletterPageSkeleton } from '../components/PageSkeleton';
 
 // PDF Viewer Modal Component
 function PDFModal({ pdfUrl, title, onClose, id }) {
@@ -359,12 +360,28 @@ export const NewsletterGrid = ({
 
 export default function Newsletter() {
 	const [newsletters, setNewsletters] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		newsletterService.getNewsletters().then((response) => {
-			setNewsletters(response.results);
-		});
-	}, [newsletterService]);
+		newsletterService
+			.getNewsletters()
+			.then((response) => {
+				setNewsletters(response.results);
+			})
+			.catch((error) => {
+				console.error('Failed to fetch newsletters:', error);
+				setNewsletters([]);
+			})
+			.finally(() => {
+				setLoading(false);
+			});
+	}, []);
+
+	// Show skeleton on initial load
+	if (loading && newsletters.length === 0) {
+		return <NewsletterPageSkeleton showHero={true} showGrid={true} gridColumns={3} gridRows={3} />;
+	}
+
 	return (
 		<>
 			<main className="flex flex-col">

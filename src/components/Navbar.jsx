@@ -12,6 +12,7 @@ import ctb from '/src/assets/image-removebg-preview (2).png';
 import pdic from '/src/assets/image-removebg-preview.png';
 import usaid from '/src/assets/Seal_of_the_United_States_Agency_for_International_Development.svg.png';
 
+import logoLight from '/src/assets/logo-light.svg';
 import lightLogo from '/src/assets/1VB LOGO/1VB-light-hd.png';
 import mobileLightlogo from '/src/assets/logo-light.svg';
 
@@ -182,6 +183,11 @@ export default function Navbar({ children }) {
 				}
 			]
 		},
+		{
+			navItem: 'ATM LOCATOR',
+			path: '/atm-locator',
+			subItems: []
+		},
 		// Inserted as single direct links, not dropdowns
 		{
 			navItem: '1VB ADVISORY',
@@ -196,11 +202,6 @@ export default function Navbar({ children }) {
 		{
 			navItem: 'CONSUMER PROTECTION',
 			path: '/consumer-protection',
-			subItems: []
-		},
-		{
-			navItem: 'ATM LOCATOR',
-			path: '/atm-locator',
 			subItems: []
 		}
 	];
@@ -284,8 +285,8 @@ export default function Navbar({ children }) {
 						<div className="flex items-center">
 							<NavLink to="/">
 								<img
-									src={lightLogo}
-									className="hidden transition-transform duration-200 hover:scale-105 md:hidden lg:block lg:h-[48px]"
+									src={mobileLightlogo}
+									className="hidden transition-transform duration-200 hover:scale-105 md:hidden lg:block lg:h-[84px]"
 									alt=""
 								/>
 								<img
@@ -311,8 +312,8 @@ export default function Navbar({ children }) {
 											to={navItem.path}
 											className={({ isActive }) =>
 												isActive
-													? 'flex h-full transform flex-col items-center text-[1.1rem] font-bold text-white transition-all duration-200 hover:scale-105 hover:text-[#d1ffdc] xl:text-[1.125rem]'
-													: 'flex h-full transform flex-col items-center text-[1.1rem] font-bold text-white transition-all duration-200 hover:scale-105 hover:text-[#d1ffdc] xl:text-[1.125rem]'
+													? 'flex h-full transform flex-col items-center text-[1.1rem] font-bold text-white transition-all duration-200 hover:scale-105 hover:text-yellow-300 xl:text-[1.125rem]'
+													: 'flex h-full transform flex-col items-center text-[1.1rem] font-bold text-white transition-all duration-200 hover:scale-105 hover:text-yellow-300 xl:text-[1.125rem]'
 											}
 										>
 											{navItem.subItems.length > 0 ? (
@@ -421,7 +422,7 @@ export default function Navbar({ children }) {
 								/>
 								<button
 									type="submit"
-									className="flex cursor-pointer items-center justify-center rounded-r-[5px] bg-[#396131] px-4 text-xs font-bold text-white transition-colors duration-200 hover:bg-[#27481e]"
+									className="flex cursor-pointer items-center justify-center rounded-r-[5px] bg-[#396131] px-4 text-xs font-bold text-white transition-colors duration-200 hover:bg-red-500"
 									aria-label="Search"
 								>
 									SEARCH
@@ -458,7 +459,7 @@ export default function Navbar({ children }) {
 								/>
 								<button
 									type="submit"
-									className="flex cursor-pointer items-center justify-center rounded-r-[5px] bg-[#396131] px-4 text-xs font-bold text-white transition-colors duration-200 hover:bg-[#27481e]"
+									className="flex cursor-pointer items-center justify-center rounded-r-[5px] bg-[#396131] px-4 text-xs font-bold text-white transition-colors duration-200 hover:bg-red-500"
 									aria-label="Search"
 								>
 									SEARCH
@@ -485,7 +486,7 @@ export default function Navbar({ children }) {
 						onMouseLeave={handleSecondaryNavItemLeave}
 					>
 						<ul className="flex gap-3 text-white xl:gap-[30px]">
-							{secondaryNavbarItems.slice(0, 3).map((navItem, index) => (
+							{secondaryNavbarItems.slice(0, 4).map((navItem, index) => (
 								<li
 									key={index}
 									onMouseEnter={() => {
@@ -497,7 +498,7 @@ export default function Navbar({ children }) {
 								>
 									<NavLink to={navItem.path} className="group">
 										{navItem.subItems.length > 0 ? (
-											<div className="flex items-center gap-[5px] transition-all duration-200 hover:text-[#b8f2bf]">
+											<div className="flex items-center gap-[5px] transition-all duration-200 hover:text-yellow-300">
 												<span className="text-[10px] xl:text-sm">{navItem.navItem}</span>
 												<FontAwesomeIcon
 													icon={faAngleUp}
@@ -505,7 +506,7 @@ export default function Navbar({ children }) {
 												/>
 											</div>
 										) : (
-											<span className="text-[10px] transition-all duration-200 hover:text-[#b8f2bf] xl:text-sm">
+											<span className="text-[10px] transition-all duration-200 hover:text-yellow-300 xl:text-sm">
 												{navItem.navItem}
 											</span>
 										)}
@@ -604,19 +605,19 @@ export default function Navbar({ children }) {
 							))}
 						</ul>
 						<ul className="flex gap-3 text-white xl:gap-[30px]">
-							{secondaryNavbarItems.slice(3, 7).map((navItem, index) => (
+							{secondaryNavbarItems.slice(4, 7).map((navItem, index) => (
 								<li
 									key={index}
 									onMouseEnter={() => {
 										if (window.innerWidth >= 1280) {
-											handleSecondaryNavItemHover(index + 3);
+											handleSecondaryNavItemHover(index + 4);
 											setActiveItemHover('');
 										}
 									}}
 								>
 									<NavLink to={navItem.path} className="group">
 										{navItem.subItems.length > 0 ? (
-											<div className="flex items-center gap-[5px] transition-all duration-200 hover:text-[#b8f2bf]">
+											<div className="flex items-center gap-[5px] transition-all duration-200 hover:text-yellow-300">
 												<span className="text-[10px] xl:text-sm">{navItem.navItem}</span>
 												<FontAwesomeIcon
 													icon={faAngleUp}
@@ -624,14 +625,14 @@ export default function Navbar({ children }) {
 												/>
 											</div>
 										) : (
-											<span className="text-[10px] transition-all duration-200 hover:text-[#b8f2bf] xl:text-sm">
+											<span className="text-[10px] transition-all duration-200 hover:text-yellow-300 xl:text-sm">
 												{navItem.navItem}
 											</span>
 										)}
 										<div
 											className={`${
 												navItem.path == location ||
-												(activeDropdown === index + 3 && window.innerWidth >= 1280)
+												(activeDropdown === index + 4 && window.innerWidth >= 1280)
 													? 'w-full bg-white'
 													: 'w-0 bg-transparent'
 											} h-[3px] rounded-full transition-all duration-300 ease-in-out`}

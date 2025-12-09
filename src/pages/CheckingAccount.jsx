@@ -8,6 +8,7 @@ import CarouselSection from '../components/CarouselSection';
 import { DarkHeader, LightHeader } from '../components/Header';
 import RequirementsSection from '../components/RequirementsSection';
 import { getCheckingAccounts, getProductTypeRequirements } from '../services/depositService';
+import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 
 export default function CheckingAccount() {
 	const [scrollY, setScrollY] = useState(0);
@@ -16,14 +17,25 @@ export default function CheckingAccount() {
 
 	const [checkingAccounts, setCheckingAccounts] = useState([]);
 	const [requirements, setRequirements] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		getCheckingAccounts().then((response) => {
-			setCheckingAccounts(response.results);
-		});
-		getProductTypeRequirements('checking').then((data) => {
-			setRequirements(data.requirements || []);
-		});
+		const fetchData = async () => {
+			try {
+				setLoading(true);
+				const [accountsResponse, requirementsData] = await Promise.all([
+					getCheckingAccounts(),
+					getProductTypeRequirements('checking')
+				]);
+				setCheckingAccounts(accountsResponse.results);
+				setRequirements(requirementsData.requirements || []);
+			} catch (error) {
+				console.error('Error fetching checking account data:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+		fetchData();
 	}, []);
 
 	useEffect(() => {
@@ -67,6 +79,20 @@ export default function CheckingAccount() {
 			block: 'start'
 		});
 	};
+
+	// Show skeleton on initial load
+	if (loading && checkingAccounts.length === 0) {
+		return (
+			<ProductListingPageSkeleton
+				showHero={true}
+				showCarousel={false}
+				showProductGrid={true}
+				productColumns={3}
+				productRows={2}
+				variant="dark"
+			/>
+		);
+	}
 
 	return (
 		<>
