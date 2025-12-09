@@ -282,7 +282,7 @@ export default function Navbar({ children }) {
 					{/* Primary Navigation Section */}
 					<div className="flex w-full items-center border-b-1 border-white bg-transparent px-10 py-4 xl:justify-between">
 						{/* Logo */}
-						<div className="flex w-1/3 items-center">
+						<div className="flex w-1/3 items-center justify-start">
 							<NavLink to="/">
 								<img
 									src={mobileLightlogo}
@@ -298,7 +298,7 @@ export default function Navbar({ children }) {
 						</div>
 
 						{/* Desktop/Tablet Navigation Menu */}
-						<div className="hidden gap-4 py-4 text-white xl:flex xl:w-1/3 xl:items-center xl:justify-center xl:gap-[30px]">
+						<div className="hidden items-center justify-center py-4 text-white xl:flex xl:w-1/3 xl:gap-[30px]">
 							<ul className="flex h-full items-center justify-center gap-3 md:gap-4 xl:gap-[30px]">
 								{navbarNavigationItems.map((navItem, index) => (
 									<li
@@ -312,8 +312,8 @@ export default function Navbar({ children }) {
 											to={navItem.path}
 											className={({ isActive }) =>
 												isActive
-													? 'flex h-full transform flex-col items-center text-[1.1rem] font-bold text-white transition-all duration-200 hover:scale-105 hover:text-yellow-300 xl:text-[1.125rem]'
-													: 'flex h-full transform flex-col items-center text-[1.1rem] font-bold text-white transition-all duration-200 hover:scale-105 hover:text-yellow-300 xl:text-[1.125rem]'
+													? 'flex h-full transform flex-col items-center text-[1.125rem] font-bold whitespace-nowrap text-white transition-all duration-200 hover:scale-105 hover:text-yellow-300'
+													: 'flex h-full transform flex-col items-center text-[1.125rem] font-bold whitespace-nowrap text-white transition-all duration-200 hover:scale-105 hover:text-yellow-300'
 											}
 										>
 											{navItem.subItems.length > 0 ? (
