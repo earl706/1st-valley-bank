@@ -3,18 +3,23 @@ import PageHeroSection from '../components/PageHeroSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import advisoryService from '../services/advisoryService';
 import { X } from 'lucide-react';
+import { CardGridSkeleton } from '../components/PageSkeleton';
 
 const OptimizedImageGallery = () => {
 	const [selectedImage, setSelectedImage] = useState(null);
 	const [images, setImages] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	const getGallery = async () => {
 		try {
+			setLoading(true);
 			const res = await advisoryService.getGallery();
 			// We expect res.data.results as [{id, title, image, thumbnail, alt_text, ...}, ...]
 			setImages(res.data.results);
 		} catch (error) {
 			console.error('Failed to fetch gallery:', error);
+		} finally {
+			setLoading(false);
 		}
 	};
 	useEffect(() => {
@@ -49,6 +54,23 @@ const OptimizedImageGallery = () => {
 			</div>
 		);
 	};
+
+	// Show skeleton on initial load
+	if (loading && images.length === 0) {
+		return (
+			<div className="min-h-screen">
+				<div className="mx-auto max-w-7xl px-6 py-12">
+					<CardGridSkeleton
+						columns={4}
+						rows={6}
+						variant="light"
+						showImage={true}
+						showButton={false}
+					/>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="min-h-screen">

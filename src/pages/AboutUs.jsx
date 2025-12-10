@@ -43,8 +43,12 @@ import { LightHeader, DarkHeader } from '../components/Header';
 import annualReportService from '../services/annualReportService';
 import aboutPageService from '../services/aboutPageService';
 import landingService from '../services/landingService';
-import { DetailPageSkeleton, CarouselSkeleton, CardGridSkeleton } from '../components/PageSkeleton';
-``;
+import {
+	DetailPageSkeleton,
+	CarouselSkeleton,
+	CardGridSkeleton,
+	SectionHeaderSkeleton
+} from '../components/PageSkeleton';
 // Utility icon mapping for lucide-react
 const lucideIconMap = {
 	calendar: Clock,
@@ -460,21 +464,30 @@ export default function AboutUs() {
 					learnMoreText="Learn More"
 				/>
 				<main className="flex flex-col">
-					<DetailPageSkeleton showHero={false} showContent={true} contentSections={5} />
+					{/* Multiple content sections skeleton */}
+					<DetailPageSkeleton showHero={false} showContent={true} contentSections={8} />
+					{/* Services carousel section skeleton */}
 					<section className="bg-[#396131]/5 py-12">
 						<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-							<CarouselSkeleton slides={3} showDots={true} />
+							<SectionHeaderSkeleton showBadge={true} showSubtitle={true} alignment="center" />
+							<div className="mt-8">
+								<CarouselSkeleton slides={3} showDots={true} showArrows={true} />
+							</div>
 						</div>
 					</section>
+					{/* Awards/Recognition cards skeleton */}
 					<section className="bg-white py-12">
 						<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-							<CardGridSkeleton
-								columns={3}
-								rows={3}
-								variant="light"
-								showImage={true}
-								showButton={true}
-							/>
+							<SectionHeaderSkeleton showBadge={true} showSubtitle={true} alignment="center" />
+							<div className="mt-8">
+								<CardGridSkeleton
+									columns={3}
+									rows={2}
+									variant="light"
+									showImage={false}
+									showButton={false}
+								/>
+							</div>
 						</div>
 					</section>
 				</main>

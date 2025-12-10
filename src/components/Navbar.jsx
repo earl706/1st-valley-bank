@@ -280,9 +280,9 @@ export default function Navbar({ children }) {
 				{/* UNIFIED RESPONSIVE NAVBAR */}
 				<div className="fixed z-49 w-full bg-[#396131]" onMouseLeave={() => setActiveItemHover('')}>
 					{/* Primary Navigation Section */}
-					<div className="flex w-full items-center border-b-1 border-white bg-transparent px-10 py-4 xl:justify-between">
+					<div className="flex w-full items-center justify-between border-b-1 border-white bg-transparent px-10 py-4">
 						{/* Logo */}
-						<div className="flex w-1/3 items-center justify-start">
+						<div className="flex items-center justify-start xl:w-1/3">
 							<NavLink to="/">
 								<img
 									src={mobileLightlogo}
@@ -394,7 +394,7 @@ export default function Navbar({ children }) {
 							</ul>
 						</div>
 						{/* --- Search Bar (Desktop/Tablet) --- */}
-						<div className="hidden w-1/3 items-center justify-end xl:flex">
+						<div className="hidden items-center justify-end xl:flex xl:w-1/3">
 							<form
 								onSubmit={(e) => {
 									e.preventDefault();

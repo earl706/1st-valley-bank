@@ -12,6 +12,7 @@ import {
 	Newspaper,
 	FileText
 } from 'lucide-react';
+// Skeleton components imported but using custom dark-themed skeletons for better visibility
 
 // Static site pages for routes that don't have dynamic content
 const SITE_PAGES = [
@@ -720,11 +721,50 @@ export default function SearchResults() {
 				)}
 
 				{loading && (
-					<div className="flex flex-col items-center justify-center py-10">
-						<Loader2 className="mb-3 h-12 w-12 animate-spin text-white/70" />
-						<p className="text-center text-base leading-relaxed font-normal text-white">
-							Searching...
-						</p>
+					<div className="space-y-8">
+						{/* Results count skeleton */}
+						<div className="mb-6 text-center">
+							<div className="mx-auto h-6 w-64 animate-pulse rounded bg-white/20"></div>
+						</div>
+						{/* Category sections skeleton */}
+						{Array.from({ length: 3 }).map((_, categoryIdx) => (
+							<div key={categoryIdx} className="space-y-4">
+								{/* Category header skeleton */}
+								<div className="mb-4 flex items-center gap-2">
+									<div className="h-6 w-6 animate-pulse rounded bg-white/20"></div>
+									<div className="h-7 w-48 animate-pulse rounded bg-white/20"></div>
+									<div className="h-6 w-8 animate-pulse rounded-full bg-white/20"></div>
+								</div>
+								{/* Results grid skeleton - custom for dark background */}
+								<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+									{Array.from({ length: 3 }).map((_, cardIdx) => (
+										<div
+											key={cardIdx}
+											className="flex h-full animate-pulse flex-col rounded-lg border border-white/10 bg-white/10 p-5"
+										>
+											{/* Title skeleton */}
+											<div className="mb-2 flex items-start justify-between">
+												<div className="h-6 flex-1 rounded bg-white/20"></div>
+												<div className="ml-2 h-4 w-4 rounded bg-white/20"></div>
+											</div>
+											{/* Subtitle skeleton */}
+											<div className="mb-2 h-4 w-3/4 rounded bg-white/15"></div>
+											{/* Description skeleton */}
+											<div className="mb-3 space-y-2">
+												<div className="h-3 w-full rounded bg-white/15"></div>
+												<div className="h-3 w-5/6 rounded bg-white/15"></div>
+											</div>
+											{/* Keywords skeleton */}
+											<div className="mt-auto flex flex-wrap gap-2">
+												<div className="h-6 w-16 rounded-full bg-white/15"></div>
+												<div className="h-6 w-20 rounded-full bg-white/15"></div>
+												<div className="h-6 w-14 rounded-full bg-white/15"></div>
+											</div>
+										</div>
+									))}
+								</div>
+							</div>
+						))}
 					</div>
 				)}
 
