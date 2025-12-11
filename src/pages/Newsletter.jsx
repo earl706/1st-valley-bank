@@ -1,4 +1,14 @@
-import { Calendar, ArrowRight, Eye, Clock, X } from 'lucide-react';
+import {
+	Calendar,
+	ArrowRight,
+	Eye,
+	Clock,
+	X,
+	Filter,
+	Search,
+	ChevronLeft,
+	ChevronRight
+} from 'lucide-react';
 import img1 from '/src/assets/newsletter/1.jpg';
 import img2 from '/src/assets/newsletter/2.jpg';
 import img3 from '/src/assets/newsletter/3.jpg';
@@ -86,8 +96,8 @@ const newsletters = Array.from({ length: 27 }, (_, i) => {
 	};
 });
 
-// Mock pagination constants
-const PAGE_SIZE = 9;
+// Mock pagination constants (used by NewsletterGrid component)
+const NEWSLETTER_GRID_PAGE_SIZE = 9;
 
 export const NewsletterGrid = ({
 	data = { count: newsletters.length, results: newsletters }, // expecting backend format; fallback for legacy
@@ -106,17 +116,23 @@ export const NewsletterGrid = ({
 	// fall back to demo data only if completely empty
 	const count =
 		typeof data?.count === 'number' ? data.count : newslettersArr.length || newsletters.length;
-	const totalPages = Math.ceil(count / PAGE_SIZE);
+	const totalPages = Math.ceil(count / NEWSLETTER_GRID_PAGE_SIZE);
 
 	// Pagination (server or client-side, both supported)
 	const getCurrentPageResults = () => {
 		if (showPagination) {
 			if (Array.isArray(data?.results)) {
 				// Assume full slice already in results, do client-side
-				return newslettersArr.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+				return newslettersArr.slice(
+					(currentPage - 1) * NEWSLETTER_GRID_PAGE_SIZE,
+					currentPage * NEWSLETTER_GRID_PAGE_SIZE
+				);
 			}
 			// fallback to direct array
-			return newslettersArr.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+			return newslettersArr.slice(
+				(currentPage - 1) * NEWSLETTER_GRID_PAGE_SIZE,
+				currentPage * NEWSLETTER_GRID_PAGE_SIZE
+			);
 		}
 		return newslettersArr;
 	};
@@ -358,27 +374,170 @@ export const NewsletterGrid = ({
 	);
 };
 
+const PAGE_SIZE = 9;
+
+const SORT_OPTIONS = [
+	{ value: '-published_date', label: 'Default' },
+	{ value: 'published_date', label: 'Oldest First' },
+	{ value: '-published_date', label: 'Newest First' },
+	{ value: 'views', label: 'Most Views' },
+	{ value: '-views', label: 'Least Views' },
+	{ value: 'title', label: 'Title: A-Z' },
+	{ value: '-title', label: 'Title: Z-A' }
+];
+
+const READ_TIME_OPTIONS = [
+	{ value: '', label: 'All Read Times' },
+	{ value: '1', label: '1 min' },
+	{ value: '2', label: '2 min' },
+	{ value: '3', label: '3 min' },
+	{ value: '4', label: '4 min' },
+	{ value: '5', label: '5 min' },
+	{ value: '10', label: '10+ min' }
+];
+
 export default function Newsletter() {
 	const [newsletters, setNewsletters] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [totalCount, setTotalCount] = useState(0);
+	const [showFilters, setShowFilters] = useState(false);
+
+	// Applied filter states (used in API calls)
+	const [categoryFilter, setCategoryFilter] = useState('');
+	const [minViews, setMinViews] = useState('');
+	const [maxViews, setMaxViews] = useState('');
+	const [readTimeFilter, setReadTimeFilter] = useState('');
+	const [publishedDateFrom, setPublishedDateFrom] = useState('');
+	const [publishedDateTo, setPublishedDateTo] = useState('');
+	const [sortBy, setSortBy] = useState('-published_date');
+	const [searchQuery, setSearchQuery] = useState('');
+
+	// Draft filter states (what user is typing/selecting)
+	const [draftCategoryFilter, setDraftCategoryFilter] = useState('');
+	const [draftMinViews, setDraftMinViews] = useState('');
+	const [draftMaxViews, setDraftMaxViews] = useState('');
+	const [draftReadTimeFilter, setDraftReadTimeFilter] = useState('');
+	const [draftPublishedDateFrom, setDraftPublishedDateFrom] = useState('');
+	const [draftPublishedDateTo, setDraftPublishedDateTo] = useState('');
+
+	const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+
+	const fetchNewsletters = async (page = 1) => {
+		setLoading(true);
+		setError(null);
+		try {
+			const params = {
+				page,
+				page_size: PAGE_SIZE,
+				status: 'published' // Always show only published newsletters
+			};
+
+			if (categoryFilter) params.filter_category = categoryFilter;
+			if (minViews) params.filter_views_gte = parseInt(minViews);
+			if (maxViews) params.filter_views_lte = parseInt(maxViews);
+			if (readTimeFilter) params.filter_read_time = readTimeFilter;
+			if (publishedDateFrom) params.filter_published_date_gte = publishedDateFrom;
+			if (publishedDateTo) params.filter_published_date_lte = publishedDateTo;
+			if (sortBy) params.ordering = sortBy;
+			if (searchQuery.trim()) params.search = searchQuery.trim();
+
+			const response = await newsletterService.getNewsletters(params);
+			if (response.results) {
+				setNewsletters(response.results || []);
+				setTotalCount(response.count || 0);
+			} else {
+				setError('Failed to load newsletters');
+				setNewsletters([]);
+			}
+		} catch (err) {
+			console.error('Failed to fetch newsletters:', err);
+			setError('Failed to load newsletters');
+			setNewsletters([]);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	// Sync draft filters with applied filters when they change
+	useEffect(() => {
+		setDraftCategoryFilter(categoryFilter);
+		setDraftMinViews(minViews);
+		setDraftMaxViews(maxViews);
+		setDraftReadTimeFilter(readTimeFilter);
+		setDraftPublishedDateFrom(publishedDateFrom);
+		setDraftPublishedDateTo(publishedDateTo);
+	}, [categoryFilter, minViews, maxViews, readTimeFilter, publishedDateFrom, publishedDateTo]);
 
 	useEffect(() => {
-		newsletterService
-			.getNewsletters()
-			.then((response) => {
-				setNewsletters(response.results);
-			})
-			.catch((error) => {
-				console.error('Failed to fetch newsletters:', error);
-				setNewsletters([]);
-			})
-			.finally(() => {
-				setLoading(false);
-			});
-	}, []);
+		fetchNewsletters(currentPage);
+	}, [
+		currentPage,
+		categoryFilter,
+		minViews,
+		maxViews,
+		readTimeFilter,
+		publishedDateFrom,
+		publishedDateTo,
+		sortBy,
+		searchQuery
+	]);
+
+	const handlePageChange = (page) => {
+		if (page >= 1 && page <= totalPages) {
+			setCurrentPage(page);
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		}
+	};
+
+	const handleApplyFilters = () => {
+		setCategoryFilter(draftCategoryFilter);
+		setMinViews(draftMinViews);
+		setMaxViews(draftMaxViews);
+		setReadTimeFilter(draftReadTimeFilter);
+		setPublishedDateFrom(draftPublishedDateFrom);
+		setPublishedDateTo(draftPublishedDateTo);
+		setCurrentPage(1);
+	};
+
+	const handleFilterReset = () => {
+		setCategoryFilter('');
+		setMinViews('');
+		setMaxViews('');
+		setReadTimeFilter('');
+		setPublishedDateFrom('');
+		setPublishedDateTo('');
+		setSortBy('-published_date');
+		setSearchQuery('');
+		setDraftCategoryFilter('');
+		setDraftMinViews('');
+		setDraftMaxViews('');
+		setDraftReadTimeFilter('');
+		setDraftPublishedDateFrom('');
+		setDraftPublishedDateTo('');
+		setCurrentPage(1);
+	};
+
+	const hasActiveFilters =
+		categoryFilter ||
+		minViews ||
+		maxViews ||
+		readTimeFilter ||
+		publishedDateFrom ||
+		publishedDateTo ||
+		sortBy !== '-published_date' ||
+		searchQuery.trim();
+	const hasDraftChanges =
+		draftCategoryFilter !== categoryFilter ||
+		draftMinViews !== minViews ||
+		draftMaxViews !== maxViews ||
+		draftReadTimeFilter !== readTimeFilter ||
+		draftPublishedDateFrom !== publishedDateFrom ||
+		draftPublishedDateTo !== publishedDateTo;
 
 	// Show skeleton on initial load
-	if (loading && newsletters.length === 0) {
+	if (loading && newsletters.length === 0 && currentPage === 1) {
 		return <NewsletterPageSkeleton showHero={true} showGrid={true} gridColumns={3} gridRows={3} />;
 	}
 
@@ -399,10 +558,291 @@ export default function Newsletter() {
 								various industries.
 							</p>
 						</div>
-						<NewsletterGrid
-							data={{ count: newsletters.length, results: newsletters }}
-							showPagination={true}
-						/>
+
+						{/* Search Bar */}
+						<div className="mb-4">
+							<div className="relative">
+								<Search
+									className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-white/50"
+									size={20}
+								/>
+								<input
+									type="text"
+									value={searchQuery}
+									onChange={(e) => {
+										setSearchQuery(e.target.value);
+										setCurrentPage(1);
+									}}
+									placeholder="Search by title, subtitle, description..."
+									className="w-full rounded-lg border border-white/30 bg-white/10 py-2.5 pr-4 pl-10 text-sm text-white backdrop-blur-sm placeholder:text-white/50 focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+								/>
+								{searchQuery && (
+									<button
+										onClick={() => {
+											setSearchQuery('');
+											setCurrentPage(1);
+										}}
+										className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-1 text-white/50 transition hover:bg-white/10 hover:text-white"
+										aria-label="Clear search"
+									>
+										<X size={16} />
+									</button>
+								)}
+							</div>
+						</div>
+
+						{/* Filters and Sort Section */}
+						<div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+							<div className="flex flex-wrap items-center gap-3">
+								<button
+									onClick={() => setShowFilters(!showFilters)}
+									className="flex items-center gap-2 rounded-lg border border-white/30 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
+								>
+									<Filter size={18} />
+									Filters
+									{hasActiveFilters && (
+										<span className="ml-1 rounded-full bg-white px-2 py-0.5 text-xs text-[#396131]">
+											{
+												[
+													categoryFilter ? 'Category' : null,
+													minViews || maxViews ? 'Views' : null,
+													readTimeFilter ? 'Read Time' : null,
+													publishedDateFrom || publishedDateTo ? 'Date' : null,
+													sortBy !== '-published_date' ? 'Sort' : null,
+													searchQuery.trim() ? 'Search' : null
+												].filter(Boolean).length
+											}
+										</span>
+									)}
+									{hasDraftChanges && (
+										<span className="ml-1 rounded-full bg-orange-500 px-2 py-0.5 text-xs text-white">
+											Pending
+										</span>
+									)}
+								</button>
+								{hasActiveFilters && (
+									<button
+										onClick={handleFilterReset}
+										className="flex items-center gap-1 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm font-medium text-red-700 transition hover:bg-red-100"
+									>
+										<X size={16} />
+										Clear Filters
+									</button>
+								)}
+							</div>
+							<div className="flex items-center gap-2">
+								<label className="text-sm font-medium text-white">Sort:</label>
+								<select
+									value={sortBy}
+									onChange={(e) => {
+										setSortBy(e.target.value);
+										setCurrentPage(1);
+									}}
+									className="rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+								>
+									{SORT_OPTIONS.map((option) => (
+										<option
+											key={option.value}
+											value={option.value}
+											className="bg-[#396131] text-white"
+										>
+											{option.label}
+										</option>
+									))}
+								</select>
+							</div>
+						</div>
+
+						{/* Filter Panel */}
+						{showFilters && (
+							<div className="mb-6 rounded-lg border border-white/20 bg-white/10 p-4 shadow-sm backdrop-blur-sm">
+								<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+									<div>
+										<label className="mb-2 block text-sm font-medium text-white">Category</label>
+										<input
+											type="text"
+											value={draftCategoryFilter}
+											onChange={(e) => setDraftCategoryFilter(e.target.value)}
+											placeholder="e.g., banking, community"
+											className="w-full rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm placeholder:text-white/50 focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+										/>
+									</div>
+									<div>
+										<label className="mb-2 block text-sm font-medium text-white">Min Views</label>
+										<input
+											type="number"
+											value={draftMinViews}
+											onChange={(e) => setDraftMinViews(e.target.value)}
+											placeholder="0"
+											min="0"
+											className="w-full rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm placeholder:text-white/50 focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+										/>
+									</div>
+									<div>
+										<label className="mb-2 block text-sm font-medium text-white">Max Views</label>
+										<input
+											type="number"
+											value={draftMaxViews}
+											onChange={(e) => setDraftMaxViews(e.target.value)}
+											placeholder="No limit"
+											min="0"
+											className="w-full rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm placeholder:text-white/50 focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+										/>
+									</div>
+									<div>
+										<label className="mb-2 block text-sm font-medium text-white">Read Time</label>
+										<select
+											value={draftReadTimeFilter}
+											onChange={(e) => setDraftReadTimeFilter(e.target.value)}
+											className="w-full rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+										>
+											{READ_TIME_OPTIONS.map((option) => (
+												<option
+													key={option.value}
+													value={option.value}
+													className="bg-[#396131] text-white"
+												>
+													{option.label}
+												</option>
+											))}
+										</select>
+									</div>
+									<div>
+										<label className="mb-2 block text-sm font-medium text-white">
+											Published From
+										</label>
+										<input
+											type="date"
+											value={draftPublishedDateFrom}
+											onChange={(e) => setDraftPublishedDateFrom(e.target.value)}
+											className="w-full rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+										/>
+									</div>
+									<div>
+										<label className="mb-2 block text-sm font-medium text-white">
+											Published To
+										</label>
+										<input
+											type="date"
+											value={draftPublishedDateTo}
+											onChange={(e) => setDraftPublishedDateTo(e.target.value)}
+											className="w-full rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+										/>
+									</div>
+								</div>
+								<div className="mt-4 flex items-center justify-end gap-3">
+									<button
+										onClick={() => {
+											setDraftCategoryFilter(categoryFilter);
+											setDraftMinViews(minViews);
+											setDraftMaxViews(maxViews);
+											setDraftReadTimeFilter(readTimeFilter);
+											setDraftPublishedDateFrom(publishedDateFrom);
+											setDraftPublishedDateTo(publishedDateTo);
+										}}
+										className="rounded-lg border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm transition hover:bg-white/20"
+									>
+										Reset
+									</button>
+									<button
+										onClick={handleApplyFilters}
+										disabled={!hasDraftChanges}
+										className="rounded-lg bg-white px-6 py-2 text-sm font-semibold text-[#396131] transition hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-50"
+									>
+										Apply Filters
+									</button>
+								</div>
+							</div>
+						)}
+
+						{/* Results Count */}
+						{!loading && (
+							<div className="mb-4 text-sm text-white/70">
+								Showing {newsletters.length > 0 ? (currentPage - 1) * PAGE_SIZE + 1 : 0} to{' '}
+								{Math.min(currentPage * PAGE_SIZE, totalCount)} of {totalCount} articles
+							</div>
+						)}
+
+						{/* Loading State */}
+						{loading && newsletters.length === 0 ? (
+							<NewsletterPageSkeleton
+								showHero={false}
+								showGrid={true}
+								gridColumns={3}
+								gridRows={3}
+							/>
+						) : error ? (
+							<div className="text-center text-red-200">{error}</div>
+						) : newsletters.length === 0 ? (
+							<div className="col-span-full py-12 text-center text-white/60">
+								No articles found. Try adjusting your filters.
+							</div>
+						) : (
+							<>
+								<NewsletterGrid
+									data={{ count: totalCount, results: newsletters }}
+									showPagination={false}
+									cardVariant="dark"
+								/>
+
+								{/* Pagination */}
+								{totalPages > 1 && (
+									<div className="mt-12 flex flex-col items-center gap-4">
+										<div className="flex items-center gap-2">
+											<button
+												className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/60 bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+												onClick={() => handlePageChange(currentPage - 1)}
+												disabled={currentPage === 1}
+											>
+												<ChevronLeft size={18} className="mr-1" />
+												<span className="text-sm font-bold">Previous</span>
+											</button>
+											{Array.from({ length: totalPages }, (_, idx) => {
+												const page = idx + 1;
+												// Show first page, last page, current page, and pages around current
+												if (
+													page === 1 ||
+													page === totalPages ||
+													(page >= currentPage - 1 && page <= currentPage + 1)
+												) {
+													return (
+														<button
+															key={page}
+															className={`group inline-flex transform cursor-pointer items-center rounded-xl px-4 py-2 text-sm font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+																currentPage === page
+																	? 'bg-white text-[#396131]'
+																	: 'border border-white/30 bg-white/10 text-white backdrop-blur-sm'
+															}`}
+															onClick={() => handlePageChange(page)}
+														>
+															<span className="text-sm font-bold">{page}</span>
+														</button>
+													);
+												} else if (page === currentPage - 2 || page === currentPage + 2) {
+													return (
+														<span key={page} className="px-2 text-white/50">
+															...
+														</span>
+													);
+												}
+												return null;
+											})}
+											<button
+												className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/60 bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+												onClick={() => handlePageChange(currentPage + 1)}
+												disabled={currentPage === totalPages}
+											>
+												<span className="text-sm font-bold">Next</span>
+												<ChevronRight size={18} className="ml-1" />
+											</button>
+										</div>
+										<div className="text-xs leading-relaxed font-normal text-white/80">
+											Page {currentPage} of {totalPages}
+										</div>
+									</div>
+								)}
+							</>
+						)}
 					</div>
 				</section>
 			</main>
