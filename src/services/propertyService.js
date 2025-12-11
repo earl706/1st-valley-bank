@@ -13,6 +13,8 @@ const propertyService = {
 	 * @param {string} params.status - Filter by status (available, reserved, sold)
 	 * @param {number} params.min_price - Minimum price
 	 * @param {number} params.max_price - Maximum price
+	 * @param {string} params.search - Search query (searches title, location, description, property_code, make, model, plate_number, tct_number)
+	 * @param {string} params.ordering - Sort ordering (e.g., 'price', '-price', 'created_at', '-created_at')
 	 * @param {number} params.page - Page number
 	 * @param {number} params.page_size - Items per page
 	 * @returns {Promise<Object>} Properties list

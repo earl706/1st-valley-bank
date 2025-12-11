@@ -79,7 +79,7 @@ export default function PropertiesForSale() {
 		setVehiclesLoading(true);
 		setVehiclesError(null);
 		propertyService
-			.getVehicles({ status: 'available', page: 1, page_size: 6 })
+			.getVehicles({ status: 'available', page: 1, page_size: 6, ordering: '-created_at' })
 			.then((response) => {
 				console.log('Vehicles:', response.data.results);
 				if (response.success) {
@@ -101,7 +101,7 @@ export default function PropertiesForSale() {
 		setRealEstateLoading(true);
 		setRealEstateError(null);
 		propertyService
-			.getRealEstate({ status: 'available', page: 1, page_size: 6 })
+			.getRealEstate({ status: 'available', page: 1, page_size: 6, ordering: '-created_at' })
 			.then((response) => {
 				console.log('Real Estate:', response.data.results);
 				if (response.success) {
