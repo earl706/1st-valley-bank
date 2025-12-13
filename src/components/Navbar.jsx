@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Home, Info, MapPin, Phone } from 'lucide-react';
 import Footer from './Footer';
 import ChatBox from './ChatBox';
 import { Search, TextSearch } from 'lucide-react';
+import loanService from '../services/loanService';
+import { getAllDepositProducts } from '../services/depositService';
 
 import logo from '/src/assets/logo-official.png';
 import gcash from '/src/assets/gcash-logo.png';
@@ -52,6 +54,11 @@ export default function Navbar({ children }) {
 
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+	// Dynamic data for loans and deposits
+	const [loansData, setLoansData] = useState({});
+	const [depositsData, setDepositsData] = useState({});
+	const [loadingNavData, setLoadingNavData] = useState(true);
+
 	const navigate = useNavigate();
 
 	// Track scroll position
@@ -63,6 +70,114 @@ export default function Navbar({ children }) {
 
 	const location = window.location.pathname;
 
+	// Mapping functions for loan types and deposit types to routes
+	const getLoanTypeRoute = (loanType) => {
+		const routeMap = {
+			salary: '/loans/salary',
+			sbl: '/loans/small-business-loan',
+			sme: '/loans/small-and-medium-enterprises',
+			gold_gems: '/loans/gold-and-gems',
+			sucre: '/loans/supervised-credit',
+			agriculture: '/loans/agriculture',
+			microfinance: '/loans/microfinance'
+		};
+		return routeMap[loanType] || '/loans';
+	};
+
+	const getLoanTypeDisplayName = (loanType) => {
+		const displayMap = {
+			salary: 'Salary Loans',
+			sbl: 'Small Business Loan (SBL)',
+			sme: 'Small and Medium Enterprise (SME)',
+			gold_gems: 'Gold & Gems (GG) and Jewelry Business Loan (JBL)',
+			sucre: 'Supervised Credit or Crop Production Loan',
+			agriculture: 'Agriculture Loan',
+			microfinance: 'Microfinance'
+		};
+		return displayMap[loanType] || loanType;
+	};
+
+	const getDepositTypeRoute = (productType) => {
+		const routeMap = {
+			savings: '/deposits/savings-account',
+			checking: '/deposits/checking-account',
+			time_deposit: '/deposits/time-deposit'
+		};
+		return routeMap[productType] || '/deposits';
+	};
+
+	const getDepositTypeDisplayName = (productType) => {
+		const displayMap = {
+			savings: 'Savings Accounts',
+			checking: 'Checking Accounts',
+			time_deposit: 'Time Deposit'
+		};
+		return displayMap[productType] || productType;
+	};
+
+	// Fetch loans and deposits data
+	useEffect(() => {
+		const fetchNavData = async () => {
+			try {
+				setLoadingNavData(true);
+
+				// Fetch all loans
+				const loanTypes = [
+					'salary',
+					'sbl',
+					'sme',
+					'gold_gems',
+					'sucre',
+					'agriculture',
+					'microfinance'
+				];
+				const loansByType = {};
+
+				for (const loanType of loanTypes) {
+					try {
+						const response = await loanService.getByType(loanType, { is_active: true });
+						if (response.results && response.results.length > 0) {
+							loansByType[loanType] = response.results;
+						}
+					} catch (error) {
+						console.error(`Error fetching loans for type ${loanType}:`, error);
+					}
+				}
+
+				// Fetch all deposits
+				const depositTypes = ['savings', 'checking', 'time_deposit'];
+				const depositsByType = {};
+
+				for (const depositType of depositTypes) {
+					try {
+						const response = await getAllDepositProducts({
+							is_active: true,
+							fetchAll: true
+						});
+						console.log(response.results);
+						if (response.results && response.results.length > 0) {
+							console.log(response.results);
+							depositsByType[depositType] = response.results.filter(
+								(product) => product.product_type === depositType
+							);
+						}
+					} catch (error) {
+						console.error(`Error fetching deposits for type ${depositType}:`, error);
+					}
+				}
+
+				setLoansData(loansByType);
+				setDepositsData(depositsByType);
+			} catch (error) {
+				console.error('Error fetching navbar data:', error);
+			} finally {
+				setLoadingNavData(false);
+			}
+		};
+
+		fetchNavData();
+	}, []);
+
 	const navbarNavigationItems = [
 		{ navItem: 'HOME', path: '/', icon: <Home size={18} />, subItems: [] },
 		{ navItem: 'ABOUT US', path: '/about-us', icon: <Info size={18} />, subItems: [] },
@@ -70,103 +185,128 @@ export default function Navbar({ children }) {
 		{ navItem: 'CONTACT US', path: '/contact-us', icon: <Phone size={18} />, subItems: [] }
 	];
 
-	const secondaryNavbarItems = [
-		{
+	// Build dynamic deposits navbar items
+	const depositsNavItem = useMemo(() => {
+		const depositTypes = ['savings', 'checking', 'time_deposit'];
+		const subItems = [];
+
+		depositTypes.forEach((productType) => {
+			const products = depositsData[productType] || [];
+			// Always include the category, even if no products yet (shows during loading)
+			// Create subsubItems from actual products
+			const subsubItems = products
+				.filter((product) => product.is_active)
+				.map((product) => ({
+					subItem: product.name,
+					path: getDepositTypeRoute(productType)
+				}));
+
+			subItems.push({
+				subItem: getDepositTypeDisplayName(productType),
+				path: getDepositTypeRoute(productType),
+				subsubItems: subsubItems.length > 0 ? subsubItems : []
+			});
+		});
+
+		return {
 			navItem: 'DEPOSITS',
 			path: '/deposits',
-			subItems: [
-				{
-					subItem: 'Savings Accounts',
-					path: '/deposits/savings-account',
-					subsubItems: [
-						{ subItem: 'SD PLUS', path: '/deposits/savings-account' },
-						{ subItem: 'SSD MICRO', path: '/deposits/savings-account' },
-						{ subItem: 'SSD REGULAR', path: '/deposits/savings-account' },
-						{ subItem: 'HANDOG SAVINGS', path: '/deposits/savings-account' },
-						{ subItem: 'BASIC SAVINGS', path: '/deposits/savings-account' }
-					]
-				},
-				{
-					subItem: 'Checking Accounts',
-					path: '/deposits/checking-account',
-					subsubItems: [{ subItem: '1ST CHECKING ACCOUNT', path: '/deposits/checking-account' }]
-				},
-				{
-					subItem: 'Time Deposit',
-					path: '/deposits/time-deposit',
-					subsubItems: [
-						{ subItem: '3 Months', path: '/deposits/time-deposit' },
-						{ subItem: '6 Months', path: '/deposits/time-deposit' },
-						{ subItem: '1 Year', path: '/deposits/time-deposit' },
-						{ subItem: '2 Years', path: '/deposits/time-deposit' }
-					]
-				}
-			]
-		},
-		{
+			subItems:
+				subItems.length > 0
+					? subItems
+					: [
+							{
+								subItem: 'Savings Accounts',
+								path: '/deposits/savings-account',
+								subsubItems: []
+							},
+							{
+								subItem: 'Checking Accounts',
+								path: '/deposits/checking-account',
+								subsubItems: []
+							},
+							{
+								subItem: 'Time Deposit',
+								path: '/deposits/time-deposit',
+								subsubItems: []
+							}
+						]
+		};
+	}, [depositsData, loadingNavData]);
+
+	// Build dynamic loans navbar items
+	const loansNavItem = useMemo(() => {
+		const loanTypes = ['salary', 'sbl', 'sme', 'gold_gems', 'sucre', 'agriculture', 'microfinance'];
+		const subItems = [];
+
+		loanTypes.forEach((loanType) => {
+			const loans = loansData[loanType] || [];
+			// Always include the category, even if no loans yet (shows during loading)
+			// Create subsubItems from actual loan products
+			const subsubItems = loans
+				.filter((loan) => loan.is_active)
+				.map((loan) => ({
+					subItem: loan.title,
+					path: getLoanTypeRoute(loanType)
+				}));
+
+			subItems.push({
+				subItem: getLoanTypeDisplayName(loanType),
+				path: getLoanTypeRoute(loanType),
+				subsubItems: subsubItems.length > 0 ? subsubItems : []
+			});
+		});
+
+		return {
 			navItem: 'LOANS',
 			path: '/loans',
-			subItems: [
-				{
-					subItem: 'Salary Loans',
-					path: '/loans/salary',
-					subsubItems: [
-						{ subItem: 'Government Employees', path: '/loans/salary' },
-						{ subItem: 'Private Employees', path: '/loans/salary' }
-					]
-				},
-				{
-					subItem: 'Small Business Loan (SBL)',
-					path: '/loans/small-business-loan',
-					subsubItems: [
-						{ subItem: 'Micro Business', path: '/loans/small-business-loan' },
-						{ subItem: 'Small Business', path: '/loans/small-business-loan' }
-					]
-				},
-				{
-					subItem: 'Small and Medium Enterprise (SME)',
-					path: '/loans/small-and-medium-enterprises',
-					subsubItems: [
-						{ subItem: 'SME Term Loan', path: '/loans/small-and-medium-enterprises' },
-						{ subItem: 'SME Credit Line', path: '/loans/small-and-medium-enterprises' }
-					]
-				},
-				{
-					subItem: 'Gold & Gems (GG) and Jewelry Business Loan (JBL)',
-					path: '/loans/gold-and-gems',
-					subsubItems: [
-						{ subItem: 'Gold & Gems Loan', path: '/loans/gold-and-gems' },
-						{ subItem: 'Jewelry Business Loan', path: '/loans/gold-and-gems' }
-					]
-				},
-				{
-					subItem: 'Supervised Credit or Crop Production Loan',
-					path: '/loans/supervised-credit',
-					subsubItems: [
-						{ subItem: 'Rice Production', path: '/loans/supervised-credit' },
-						{ subItem: 'Corn Production', path: '/loans/supervised-credit' },
-						{ subItem: 'High Value Crops', path: '/loans/supervised-credit' }
-					]
-				},
-				{
-					subItem: 'Agriculture Loan',
-					path: '/loans/agriculture',
-					subsubItems: [
-						{ subItem: 'Agri Machinery', path: '/loans/agriculture' },
-						{ subItem: 'Livestock', path: '/loans/agriculture' },
-						{ subItem: 'Fisheries', path: '/loans/agriculture' }
-					]
-				},
-				{
-					subItem: 'Microfinance',
-					path: '/loans/microfinance',
-					subsubItems: [
-						{ subItem: 'Group Loan', path: '/loans/microfinance' },
-						{ subItem: 'Individual Loan', path: '/loans/microfinance' }
-					]
-				}
-			]
-		},
+			subItems:
+				subItems.length > 0
+					? subItems
+					: [
+							{
+								subItem: 'Salary Loans',
+								path: '/loans/salary',
+								subsubItems: []
+							},
+							{
+								subItem: 'Small Business Loan (SBL)',
+								path: '/loans/small-business-loan',
+								subsubItems: []
+							},
+							{
+								subItem: 'Small and Medium Enterprise (SME)',
+								path: '/loans/small-and-medium-enterprises',
+								subsubItems: []
+							},
+							{
+								subItem: 'Gold & Gems (GG) and Jewelry Business Loan (JBL)',
+								path: '/loans/gold-and-gems',
+								subsubItems: []
+							},
+							{
+								subItem: 'Supervised Credit or Crop Production Loan',
+								path: '/loans/supervised-credit',
+								subsubItems: []
+							},
+							{
+								subItem: 'Agriculture Loan',
+								path: '/loans/agriculture',
+								subsubItems: []
+							},
+							{
+								subItem: 'Microfinance',
+								path: '/loans/microfinance',
+								subsubItems: []
+							}
+						]
+		};
+	}, [loansData, loadingNavData]);
+
+	// Build dynamic secondary navbar items
+	const secondaryNavbarItems = [
+		depositsNavItem,
+		loansNavItem,
 		{
 			navItem: 'PROPERTIES FOR SALE',
 			path: '/properties-for-sale',
@@ -568,14 +708,14 @@ export default function Navbar({ children }) {
 																				<NavLink
 																					key={subsubIndex}
 																					to={subsubItem.path}
-																					className="group flex items-center gap-[15px] rounded-lg border border-transparent p-[15px] transition-all duration-200 hover:border-white hover:bg-[#4a7c3a]/40"
+																					className="group flex items-center gap-[15px] rounded-lg border border-transparent p-[15px] transition-all duration-200 hover:border-yellow-300 hover:bg-[#4a7c3a]/40"
 																				>
-																					<div className="h-[12px] w-[12px] rounded-full bg-white transition-colors duration-200 group-hover:bg-[#396131]"></div>
+																					<div className="h-[12px] w-[12px] rounded-full bg-white transition-colors duration-200 group-hover:bg-yellow-300"></div>
 																					<div className="flex flex-col">
-																						<span className="font-semibold text-white transition-colors duration-200 group-hover:text-[#b8f2bf]">
+																						<span className="font-semibold text-white transition-colors duration-200 group-hover:text-yellow-300">
 																							{subsubItem.subItem}
 																						</span>
-																						<div className="h-[2px] w-0 bg-[#b8f2bf] transition-all duration-300 ease-in-out group-hover:w-full"></div>
+																						<div className="h-[2px] w-0 bg-yellow-300 transition-all duration-300 ease-in-out group-hover:w-full"></div>
 																					</div>
 																				</NavLink>
 																			)
@@ -691,7 +831,7 @@ export default function Navbar({ children }) {
 																				>
 																					<div className="h-[12px] w-[12px] rounded-full bg-white transition-colors duration-200 group-hover:bg-[#396131]"></div>
 																					<div className="flex flex-col">
-																						<span className="font-semibold text-white transition-colors duration-200 group-hover:text-[#b8f2bf]">
+																						<span className="font-semibold text-white transition-colors duration-200 group-hover:text-yellow-300">
 																							{subsubItem.subItem}
 																						</span>
 																						<div className="h-[2px] w-0 bg-[#b8f2bf] transition-all duration-300 ease-in-out group-hover:w-full"></div>
