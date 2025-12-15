@@ -398,7 +398,7 @@ export default function HomePage() {
 						{services.map((service, index) => (
 							<LightCard
 								key={index}
-								className="group flex flex-col border-white/10 bg-white/10 hover:-translate-y-2"
+								className="group flex flex-col hover:-translate-y-2"
 							>
 								{/* Service Image */}
 								<div className="relative mb-6">

@@ -179,7 +179,6 @@ export default function Navbar({ children }) {
 	}, []);
 
 	const navbarNavigationItems = [
-		{ navItem: 'HOME', path: '/', icon: <Home size={18} />, subItems: [] },
 		{ navItem: 'ABOUT US', path: '/about-us', icon: <Info size={18} />, subItems: [] },
 		{ navItem: 'BRANCHES', path: '/branches', icon: <MapPin size={18} />, subItems: [] },
 		{ navItem: 'CONTACT US', path: '/contact-us', icon: <Phone size={18} />, subItems: [] }
