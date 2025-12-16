@@ -43,25 +43,20 @@ import { ChevronDown, ChevronRight, Menu, X } from 'lucide-react';
 export default function Navbar({ children }) {
 	const [scrollY, setScrollY] = useState(0);
 	const [searchTerm, setSearchTerm] = useState('');
-	// Primary navbar states
-	const [activeItemHover, setActiveItemHover] = useState('');
-	const [activeSubItemHover, setActiveSubItemHover] = useState('');
-
-	// Secondary navbar states for multi-level dropdowns
+	const [activeItemHover, setActiveItemHover] = useState(null); // 'primary' main nav hover
+	const [activePrimarySubDropdown, setActivePrimarySubDropdown] = useState(null); // For sub-items on main nav
 	const [activeDropdown, setActiveDropdown] = useState(null);
 	const [activeSubDropdown, setActiveSubDropdown] = useState(null);
 	const [activeSubSubDropdown, setActiveSubSubDropdown] = useState(null);
 
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-	// Dynamic data for loans and deposits
 	const [loansData, setLoansData] = useState({});
 	const [depositsData, setDepositsData] = useState({});
 	const [loadingNavData, setLoadingNavData] = useState(true);
 
 	const navigate = useNavigate();
 
-	// Track scroll position
 	useEffect(() => {
 		const handleScroll = () => setScrollY(window.scrollY);
 		window.addEventListener('scroll', handleScroll);
@@ -70,7 +65,6 @@ export default function Navbar({ children }) {
 
 	const location = window.location.pathname;
 
-	// Mapping functions for loan types and deposit types to routes
 	const getLoanTypeRoute = (loanType) => {
 		const routeMap = {
 			salary: '/loans/salary',
@@ -115,13 +109,11 @@ export default function Navbar({ children }) {
 		return displayMap[productType] || productType;
 	};
 
-	// Fetch loans and deposits data
 	useEffect(() => {
 		const fetchNavData = async () => {
 			try {
 				setLoadingNavData(true);
 
-				// Fetch all loans
 				const loanTypes = [
 					'salary',
 					'sbl',
@@ -144,7 +136,6 @@ export default function Navbar({ children }) {
 					}
 				}
 
-				// Fetch all deposits
 				const depositTypes = ['savings', 'checking', 'time_deposit'];
 				const depositsByType = {};
 
@@ -179,20 +170,33 @@ export default function Navbar({ children }) {
 	}, []);
 
 	const navbarNavigationItems = [
-		{ navItem: 'ABOUT US', path: '/about-us', icon: <Info size={18} />, subItems: [] },
+		{
+			navItem: 'ABOUT US',
+			path: '/about-us',
+			icon: <Info size={18} />,
+			subItems: [
+				{ subItem: 'Overview', path: '/about-us/overview' },
+				{ subItem: 'History', path: '/about-us/history' },
+				{ subItem: 'Why Choose Us', path: '/about-us/why-choose-us' },
+				{ subItem: 'Services', path: '/about-us/services' },
+				{ subItem: 'Awards', path: '/about-us/awards' },
+				{ subItem: 'Vision & Mission', path: '/about-us/vision-mission' },
+				{ subItem: 'Leadership', path: '/about-us/leadership' },
+				{ subItem: 'Annual Reports', path: '/about-us/annual-reports' },
+				{ subItem: 'Sustainability', path: '/about-us/sustainability' },
+				{ subItem: 'Careers', path: '/about-us/careers' }
+			]
+		},
 		{ navItem: 'BRANCHES', path: '/branches', icon: <MapPin size={18} />, subItems: [] },
 		{ navItem: 'CONTACT US', path: '/contact-us', icon: <Phone size={18} />, subItems: [] }
 	];
 
-	// Build dynamic deposits navbar items
 	const depositsNavItem = useMemo(() => {
 		const depositTypes = ['savings', 'checking', 'time_deposit'];
 		const subItems = [];
 
 		depositTypes.forEach((productType) => {
 			const products = depositsData[productType] || [];
-			// Always include the category, even if no products yet (shows during loading)
-			// Create subsubItems from actual products
 			const subsubItems = products
 				.filter((product) => product.is_active)
 				.map((product) => ({
@@ -233,15 +237,12 @@ export default function Navbar({ children }) {
 		};
 	}, [depositsData, loadingNavData]);
 
-	// Build dynamic loans navbar items
 	const loansNavItem = useMemo(() => {
 		const loanTypes = ['salary', 'sbl', 'sme', 'gold_gems', 'sucre', 'agriculture', 'microfinance'];
 		const subItems = [];
 
 		loanTypes.forEach((loanType) => {
 			const loans = loansData[loanType] || [];
-			// Always include the category, even if no loans yet (shows during loading)
-			// Create subsubItems from actual loan products
 			const subsubItems = loans
 				.filter((loan) => loan.is_active)
 				.map((loan) => ({
@@ -302,7 +303,6 @@ export default function Navbar({ children }) {
 		};
 	}, [loansData, loadingNavData]);
 
-	// Build dynamic secondary navbar items
 	const secondaryNavbarItems = [
 		depositsNavItem,
 		loansNavItem,
@@ -327,7 +327,6 @@ export default function Navbar({ children }) {
 			path: '/atm-locator',
 			subItems: []
 		},
-		// Inserted as single direct links, not dropdowns
 		{
 			navItem: '1VB ADVISORY',
 			path: '/1vb-advisory',
@@ -372,37 +371,44 @@ export default function Navbar({ children }) {
 		{ link: '', icon: faYoutube }
 	];
 
-	// Enhanced hover handlers for secondary navbar
+	// Hover for PRIMARY NAVBAR MULTILEVEL
+	const handlePrimaryNavItemHover = (index) => {
+		setActiveItemHover(index);
+		setActivePrimarySubDropdown(null);
+	};
+	const handlePrimaryNavLeave = () => {
+		setActiveItemHover(null);
+		setActivePrimarySubDropdown(null);
+	};
+	const handlePrimarySubItemHover = (subIndex) => {
+		setActivePrimarySubDropdown(subIndex);
+	};
+
+	// Secondary navbar hover logic is unchanged
 	const handleSecondaryNavItemHover = (index) => {
 		setActiveDropdown(index);
 		setActiveSubDropdown(null);
 		setActiveSubSubDropdown(null);
 	};
-
 	const handleSecondaryNavItemLeave = () => {
 		setActiveDropdown(null);
 		setActiveSubDropdown(null);
 		setActiveSubSubDropdown(null);
 	};
-
 	const handleSubItemHover = (subIndex) => {
 		setActiveSubDropdown(subIndex);
 		setActiveSubSubDropdown(null);
 	};
-
 	const handleSubSubItemHover = (subsubIndex) => {
 		setActiveSubSubDropdown(subsubIndex);
 	};
-
 	const handleDropdownToggle = (index) => {
 		setActiveDropdown(activeDropdown === index ? null : index);
 		setActiveSubDropdown(null);
 	};
-
 	const handleSubDropdownToggle = (index) => {
 		setActiveSubDropdown(activeSubDropdown === index ? null : index);
 	};
-
 	const closeMobileMenu = () => {
 		setIsMobileMenuOpen(false);
 		setActiveDropdown(null);
@@ -417,7 +423,7 @@ export default function Navbar({ children }) {
 		<>
 			<div className="font-poppins flex h-full w-full flex-col scroll-smooth">
 				{/* UNIFIED RESPONSIVE NAVBAR */}
-				<div className="fixed z-49 w-full bg-[#396131]" onMouseLeave={() => setActiveItemHover('')}>
+				<div className="fixed z-49 w-full bg-[#396131]" onMouseLeave={handlePrimaryNavLeave}>
 					{/* Primary Navigation Section */}
 					<div className="flex w-full items-center justify-between border-b-1 border-white bg-transparent px-10 py-4">
 						{/* Logo */}
@@ -442,9 +448,7 @@ export default function Navbar({ children }) {
 								{navbarNavigationItems.map((navItem, index) => (
 									<li
 										key={index}
-										onMouseEnter={() =>
-											window.innerWidth >= 1280 && setActiveItemHover(navItem.path)
-										}
+										onMouseEnter={() => window.innerWidth >= 1280 && handlePrimaryNavItemHover(index)}
 										className="hidden xl:block"
 									>
 										<NavLink
@@ -461,7 +465,7 @@ export default function Navbar({ children }) {
 													<FontAwesomeIcon
 														icon={faAngleUp}
 														className={`${
-															activeItemHover == navItem.path
+															activeItemHover === index
 																? 'rotate-180 text-white transition-all duration-300'
 																: 'text-white transition-all duration-300'
 														}`}
@@ -473,46 +477,61 @@ export default function Navbar({ children }) {
 										</NavLink>
 										<div
 											className={`${
-												navItem.path == location || activeItemHover == navItem.path
+												navItem.path === location || activeItemHover === index
 													? 'w-full bg-white'
 													: 'w-0 bg-transparent'
 											} h-1 rounded-full transition-all duration-300 ease-in-out`}
 										></div>
 
-										{/* Primary Dropdown - Desktop Only */}
-										{activeItemHover == navItem.path &&
+										{/* Multi-Level Dropdown - Desktop Only - Like Secondary Nav */}
+										{activeItemHover === index &&
 											navItem.subItems.length > 0 &&
 											window.innerWidth >= 1280 && (
-												<div className="absolute left-0 z-100 mt-[82px] flex w-full max-w-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] text-[0.9rem] text-white opacity-100 shadow-xl transition-all duration-300 ease-in-out">
-													<div className="h-full min-h-[200px] min-w-[250px] bg-[#31542B]/80 pt-[20px] pr-[30px] pl-[20px]">
-														<span className="font-bold text-white capitalize">
-															{navItem.navItem}
-														</span>
-													</div>
-													<div className="leading-auto flex flex-col gap-[20px] py-[10px] pl-[50px]">
-														{navItem.subItems.map((subItem, index) => (
-															<NavLink
-																onMouseEnter={() => setActiveSubItemHover(subItem.path)}
-																onMouseLeave={() => setActiveSubItemHover('')}
-																to={subItem.path}
-																key={index}
-																className="flex w-full items-center gap-[10px] font-bold text-white transition-all duration-200 hover:translate-x-2 hover:text-[#d1ffdc]"
-															>
-																<div className="h-[25px] w-[25px] rounded-[5px] bg-[#31542B] transition-all duration-200 hover:bg-[#396131]"></div>
-																<div className="flex flex-col">
-																	<span className="transition-colors duration-200 hover:text-[#d1ffdc]">
-																		{subItem.subItem}
-																	</span>
-																	<div
-																		className={`${
-																			navItem.path == location || activeSubItemHover == subItem.path
-																				? 'w-full bg-white'
-																				: 'w-0 bg-transparent'
-																		} h-[3px] rounded-full transition-all duration-300 ease-in-out`}
-																	></div>
+												<div className="absolute left-0 z-40 mt-[97px] w-full max-w-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] text-[0.9rem] text-white opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
+													<div className="flex">
+														{/* Left Sidebar for SubItems */}
+														<div className="flex min-h-[200px] min-w-[280px] flex-col bg-[#31542B]/80">
+															{navItem.subItems.map((subItem, subIndex) => (
+																<NavLink
+																	to={subItem.path}
+																	key={subIndex}
+																	className="relative"
+																	onMouseEnter={() => handlePrimarySubItemHover(subIndex)}
+																>
+																	<button
+																		onClick={() => {}}
+																		className="w-full cursor-pointer border-l-4 border-transparent px-[20px] py-[15px] text-left leading-[1.4rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-white hover:bg-[#396131]"
+																	>
+																		<div className="flex items-center justify-between">
+																			<span className="text-sm xl:text-base">{subItem.subItem}</span>
+																			{/* Main nav doesn't have subsubItems */}
+																		</div>
+																	</button>
+																</NavLink>
+															))}
+														</div>
+
+														{/* Right Content Area (like secondary nav) */}
+														<div className="flex-1 p-[30px]">
+															{activePrimarySubDropdown !== null && navItem.subItems[activePrimarySubDropdown] && (
+																<div className="transition-all duration-300 ease-in-out">
+																	<h3 className="mb-[20px] border-b-2 border-white pb-2 text-lg font-bold text-white">
+																		{navItem.subItems[activePrimarySubDropdown].subItem}
+																	</h3>
+																	<div className="text-gray-300 italic">
+																		Navigate to {navItem.subItems[activePrimarySubDropdown].subItem} for more information.
+																	</div>
 																</div>
-															</NavLink>
-														))}
+															)}
+
+															{activePrimarySubDropdown === null && (
+																<div className="mt-[50px] text-center text-gray-200">
+																	<p className="text-lg">
+																		Hover over a category to see available options
+																	</p>
+																</div>
+															)}
+														</div>
 													</div>
 												</div>
 											)}
@@ -543,7 +562,7 @@ export default function Navbar({ children }) {
 										setActiveDropdown(null);
 										setActiveSubDropdown(null);
 										setActiveSubSubDropdown(null);
-										setActiveItemHover('');
+										setActiveItemHover(null);
 									}
 								}}
 								className="flex w-full max-w-[300px] overflow-hidden rounded-[5px] shadow-md"
@@ -580,7 +599,7 @@ export default function Navbar({ children }) {
 										setActiveDropdown(null);
 										setActiveSubDropdown(null);
 										setActiveSubSubDropdown(null);
-										setActiveItemHover('');
+										setActiveItemHover(null);
 									}
 								}}
 								className="flex w-full overflow-hidden rounded-[5px] shadow-md"
@@ -631,7 +650,7 @@ export default function Navbar({ children }) {
 									onMouseEnter={() => {
 										if (window.innerWidth >= 1280) {
 											handleSecondaryNavItemHover(index);
-											setActiveItemHover('');
+											setActiveItemHover(null);
 										}
 									}}
 								>
@@ -680,7 +699,7 @@ export default function Navbar({ children }) {
 																>
 																	<div className="flex items-center justify-between">
 																		<span className="text-sm xl:text-base">{subItem.subItem}</span>
-																		{subItem.subsubItems.length > 0 && (
+																		{subItem.subsubItems && subItem.subsubItems.length > 0 && (
 																			<FontAwesomeIcon
 																				icon={faAngleRight}
 																				className="text-sm text-white"
@@ -700,7 +719,7 @@ export default function Navbar({ children }) {
 																	{navItem.subItems[activeSubDropdown].subItem}
 																</h3>
 
-																{navItem.subItems[activeSubDropdown].subsubItems.length > 0 ? (
+																{navItem.subItems[activeSubDropdown].subsubItems && navItem.subItems[activeSubDropdown].subsubItems.length > 0 ? (
 																	<div className="grid grid-cols-1 gap-[20px] md:grid-cols-2">
 																		{navItem.subItems[activeSubDropdown].subsubItems.map(
 																			(subsubItem, subsubIndex) => (
@@ -750,7 +769,7 @@ export default function Navbar({ children }) {
 									onMouseEnter={() => {
 										if (window.innerWidth >= 1280) {
 											handleSecondaryNavItemHover(index + 4);
-											setActiveItemHover('');
+											setActiveItemHover(null);
 										}
 									}}
 								>
@@ -893,7 +912,7 @@ export default function Navbar({ children }) {
 												setActiveDropdown(null);
 												setActiveSubDropdown(null);
 												setActiveSubSubDropdown(null);
-												setActiveItemHover('');
+												setActiveItemHover(null);
 											}
 										}}
 										className="flex w-full overflow-hidden rounded-[5px] shadow-md"

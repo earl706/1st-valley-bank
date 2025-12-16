@@ -248,7 +248,7 @@ const Footer = () => {
 										<img
 											src={footer?.logo_image || logolight}
 											alt="1st Valley Bank Official Logo"
-											className="group-hover:bg-opacity-20 mb-4 flex h-auto w-full items-center justify-center rounded-2xl p-2 transition-all duration-300 group-hover:scale-105"
+											className="group-hover:bg-opacity-20 mb-4 flex h-auto w-full items-center justify-center rounded-2xl p-2 transition-all duration-300"
 										/>
 									</div>
 

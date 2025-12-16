@@ -40,6 +40,18 @@ import ATMLocator from './pages/ATMLocator';
 import SearchResults from './pages/SearchResults';
 import FAQPage from './pages/FAQPage';
 
+// Newly imported pages for additional routes
+import Sustainability from './pages/about-us/Sustainability';
+import Careers from './pages/about-us/Careers';
+import Overview from './pages/about-us/Overview';
+import History from './pages/about-us/History';
+import WhyChooseUs from './pages/about-us/WhyChooseUs';
+import Services from './pages/about-us/Services';
+import Awards from './pages/about-us/Awards';
+import VisionMission from './pages/about-us/VisionMission';
+import Leadership from './pages/about-us/Leadership';
+import AnnualReports from './pages/about-us/AnnualReports';
+
 function App() {
 	const [showSplash, setShowSplash] = useState(false);
 	const [isFirstVisit, setIsFirstVisit] = useState(false);
@@ -164,7 +176,18 @@ function App() {
 		{ component: <ATMLocator />, route: '/atm-locator' },
 		{ component: <SearchResults />, route: '/search' },
 		{ component: <FAQPage />, route: '/faqs' },
-		{ component: <Footer />, route: '/footer' }
+		{ component: <Footer />, route: '/footer' },
+		// About Us section routes
+		{ component: <Overview />, route: '/about-us/overview' },
+		{ component: <History />, route: '/about-us/history' },
+		{ component: <WhyChooseUs />, route: '/about-us/why-choose-us' },
+		{ component: <Services />, route: '/about-us/services' },
+		{ component: <Awards />, route: '/about-us/awards' },
+		{ component: <VisionMission />, route: '/about-us/vision-mission' },
+		{ component: <Leadership />, route: '/about-us/leadership' },
+		{ component: <AnnualReports />, route: '/about-us/annual-reports' },
+		{ component: <Sustainability />, route: '/about-us/sustainability' },
+		{ component: <Careers />, route: '/about-us/careers' }
 	];
 
 	return (

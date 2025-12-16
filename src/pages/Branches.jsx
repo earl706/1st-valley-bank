@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect, useCallback } from 'react';
-import { MapPinned, Building2, Landmark, X, CreditCard, ArrowRight } from 'lucide-react';
+import { MapPinned, Building2, Landmark, X, CreditCard, ArrowRight, Clock } from 'lucide-react';
 import PageHeroSection from '../components/PageHeroSection';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
@@ -10,10 +10,76 @@ import { ProductListingPageSkeleton, MapSkeleton } from '../components/PageSkele
 
 const PSGC_API_BASE = 'https://psgc.gitlab.io/api';
 
-function BranchCard({ icon: Icon, name, address, onContact, atm }) {
+// Format operating hours into a summary string (e.g., "Mon-Fri: 9:00-17:00, Sat: 9:00-12:00")
+const formatOperatingHoursSummary = (operatingHours) => {
+	if (!operatingHours || typeof operatingHours !== 'object') return '';
+
+	const dayOrder = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+	const dayAbbr = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+	// Filter out days with no hours or closed (represented as "-" or empty)
+	const daysWithHours = dayOrder
+		.map((day, index) => ({
+			day,
+			abbr: dayAbbr[index],
+			index,
+			hours: operatingHours[day]
+		}))
+		.filter((item) => item.hours && item.hours !== '-' && item.hours.trim() !== '');
+
+	if (daysWithHours.length === 0) return '';
+
+	// Group consecutive days with the same hours
+	const groups = [];
+	let currentGroup = {
+		startIndex: daysWithHours[0].index,
+		endIndex: daysWithHours[0].index,
+		hours: daysWithHours[0].hours,
+		startAbbr: daysWithHours[0].abbr,
+		endAbbr: daysWithHours[0].abbr
+	};
+
+	for (let i = 1; i < daysWithHours.length; i++) {
+		const current = daysWithHours[i];
+		const prev = daysWithHours[i - 1];
+
+		// If same hours and consecutive days, extend current group
+		if (current.hours === currentGroup.hours && current.index === prev.index + 1) {
+			currentGroup.endIndex = current.index;
+			currentGroup.endAbbr = current.abbr;
+		} else {
+			// Save current group and start new one
+			groups.push(currentGroup);
+			currentGroup = {
+				startIndex: current.index,
+				endIndex: current.index,
+				hours: current.hours,
+				startAbbr: current.abbr,
+				endAbbr: current.abbr
+			};
+		}
+	}
+	groups.push(currentGroup);
+
+	// Format groups into string
+	const formattedGroups = groups.map((group) => {
+		if (group.startIndex === group.endIndex) {
+			return `${group.startAbbr}: ${group.hours}`;
+		} else {
+			return `${group.startAbbr}-${group.endAbbr}: ${group.hours}`;
+		}
+	});
+
+	return formattedGroups.join(', ');
+};
+
+function BranchCard({ icon: Icon, name, address, onContact, atm, atms = [], operatingHours }) {
+	// Determine if branch has ATM (use legacy atm prop or check atms array)
+	const hasATM = atm || atms.length > 0;
+
 	return (
 		<DarkCard className="relative flex flex-col items-start gap-4">
-			{atm && (
+			{hasATM && (
 				<p className="absolute top-3 right-3 z-10 flex items-center gap-1 rounded bg-green-100 px-2 py-0.5 text-xs leading-relaxed font-normal text-green-700">
 					<CreditCard className="inline h-4 w-4" /> ATM
 				</p>
@@ -22,11 +88,42 @@ function BranchCard({ icon: Icon, name, address, onContact, atm }) {
 				<span className="rounded-lg border border-white/10 bg-white/10 p-2">
 					<Icon className="h-6 w-6 text-white transition group-hover:scale-110" />
 				</span>
-				<div>
+				<div className="flex-1">
 					<h4 className="flex items-center gap-2 text-xl leading-tight font-bold text-white">
 						{name}
 					</h4>
 					<p className="text-base leading-relaxed font-normal text-white/80">{address}</p>
+					{/* ATM Information Section */}
+					{atms.length > 0 && (
+						<div className="mt-3 space-y-2">
+							{atms.map((atmItem, idx) => (
+								<div
+									key={atmItem.id || idx}
+									className="flex items-start gap-2 rounded-lg border border-white/20 bg-white/10 p-2.5 backdrop-blur-sm"
+								>
+									<div className="flex-1">
+										<p className="text-sm leading-tight font-semibold text-white">
+											{atmItem.name}
+										</p>
+										{atmItem.is_24_hours && (
+											<p className="mt-1.5 flex items-center gap-1 rounded bg-green-100/20 px-1.5 py-0.5 text-xs leading-tight font-normal text-green-300">
+												<CreditCard className="h-3 w-3" /> 24 hours
+											</p>
+										)}
+									</div>
+								</div>
+							))}
+						</div>
+					)}
+					{/* Operating Hours Section */}
+					{formatOperatingHoursSummary(operatingHours) && (
+						<div className="mt-3 flex items-start gap-2">
+							<Clock className="mt-0.5 h-4 w-4 shrink-0 text-white/70" />
+							<p className="text-sm leading-relaxed font-normal text-white/80">
+								{formatOperatingHoursSummary(operatingHours)}
+							</p>
+						</div>
+					)}
 				</div>
 			</div>
 			<DarkPrimaryButton
@@ -65,6 +162,8 @@ function AllBranchesModal({ title, branches, icon: Icon, onContact, onClose }) {
 							name={branch.name}
 							address={branch.address}
 							atm={branch.has_atm}
+							atms={branch.atms || []}
+							operatingHours={branch.operating_hours}
 							onContact={() => onContact(branch.name)}
 						/>
 					))}
@@ -545,6 +644,7 @@ function ClosestBranchSection({ allBranches }) {
 
 export default function Branches() {
 	const [branches, setBranches] = useState([]);
+	const [atms, setATMs] = useState([]);
 	const [visibleModal, setVisibleModal] = useState(null); // 'mindanao', 'visayas', 'regional', or null
 	const [mindanaoBranches, setMindanaoBranches] = useState([]);
 	const [visayasBranches, setVisayasBranches] = useState([]);
@@ -553,21 +653,46 @@ export default function Branches() {
 	const [allBranches, setAllBranches] = useState([]);
 	const [loading, setLoading] = useState(true);
 
+	// Helper function to enrich branches with their associated ATMs
+	const enrichBranchesWithATMs = (branches, atms) => {
+		return branches.map((branch) => ({
+			...branch,
+			atms: atms.filter((atm) => atm.branch?.id === branch.id)
+		}));
+	};
+
 	const fetchBranches = async () => {
 		try {
 			setLoading(true);
-			const result = await locationService.getBranches({ page: 1, page_size: 200 });
-			if (!result.success) {
-				console.error('Failed to fetch branches:', result.message || result.error);
+			// Fetch branches and ATMs in parallel
+			const [branchesResult, atmsResult] = await Promise.all([
+				locationService.getBranches({ page: 1, page_size: 200 }),
+				locationService.getATMs({ page_size: 200 })
+			]);
+
+			if (!branchesResult.success) {
+				console.error('Failed to fetch branches:', branchesResult.message || branchesResult.error);
 				return;
 			}
-			const branchList = Array.isArray(result.data) ? result.data : [];
-			setBranches(branchList);
-			setAllBranches(branchList);
-			setMindanaoBranches(branchList.filter((branch) => branch.region === 'mindanao'));
-			setVisayasBranches(branchList.filter((branch) => branch.region === 'visayas'));
-			setLuzonBranches(branchList.filter((branch) => branch.region === 'luzon'));
-			setRegionalCenters(branchList.filter((branch) => branch.region === 'ncr'));
+
+			const branchList = Array.isArray(branchesResult.data) ? branchesResult.data : [];
+			const atmList = Array.isArray(atmsResult.data?.results)
+				? atmsResult.data.results
+				: Array.isArray(atmsResult.data)
+					? atmsResult.data
+					: [];
+
+			setATMs(atmList);
+
+			// Enrich branches with their ATMs
+			const enrichedBranches = enrichBranchesWithATMs(branchList, atmList);
+
+			setBranches(enrichedBranches);
+			setAllBranches(enrichedBranches);
+			setMindanaoBranches(enrichedBranches.filter((branch) => branch.region === 'mindanao'));
+			setVisayasBranches(enrichedBranches.filter((branch) => branch.region === 'visayas'));
+			setLuzonBranches(enrichedBranches.filter((branch) => branch.region === 'luzon'));
+			setRegionalCenters(enrichedBranches.filter((branch) => branch.region === 'ncr'));
 		} catch (error) {
 			console.error('Failed to fetch branches:', error);
 		} finally {
@@ -617,6 +742,8 @@ export default function Branches() {
 					name={branch.name}
 					address={branch.address}
 					atm={branch.has_atm}
+					atms={branch.atms || []}
+					operatingHours={branch.operating_hours}
 					onContact={() => handleContact(branch.name)}
 				/>
 			));
