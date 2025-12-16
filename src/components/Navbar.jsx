@@ -323,11 +323,6 @@ export default function Navbar({ children }) {
 			]
 		},
 		{
-			navItem: 'ATM LOCATOR',
-			path: '/atm-locator',
-			subItems: []
-		},
-		{
 			navItem: '1VB ADVISORY',
 			path: '/1vb-advisory',
 			subItems: []
@@ -644,7 +639,7 @@ export default function Navbar({ children }) {
 						onMouseLeave={handleSecondaryNavItemLeave}
 					>
 						<ul className="flex gap-3 text-white xl:gap-[30px]">
-							{secondaryNavbarItems.slice(0, 4).map((navItem, index) => (
+							{secondaryNavbarItems.slice(0, 3).map((navItem, index) => (
 								<li
 									key={index}
 									onMouseEnter={() => {
@@ -763,7 +758,7 @@ export default function Navbar({ children }) {
 							))}
 						</ul>
 						<ul className="flex gap-3 text-white xl:gap-[30px]">
-							{secondaryNavbarItems.slice(4, 7).map((navItem, index) => (
+							{secondaryNavbarItems.slice(3, 6).map((navItem, index) => (
 								<li
 									key={index}
 									onMouseEnter={() => {
