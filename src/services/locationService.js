@@ -118,14 +118,16 @@ const locationService = {
 	 * @param {string} payload.municipality
 	 * @param {string} payload.barangay
 	 * @param {string} [payload.address] - Optional full address string override
+	 * @param {string} [payload.operating_hours] - Optional operating hours filter (monday-friday or monday-saturday)
 	 */
-	async findNearestBranchByAddress({ province, municipality, barangay, address }) {
+	async findNearestBranchByAddress({ province, municipality, barangay, address, operating_hours }) {
 		try {
 			const response = await api.post('/locations/branches/nearest/', {
 				province,
 				municipality,
 				barangay,
-				address
+				address,
+				operating_hours
 			});
 			return { success: true, data: response.data };
 		} catch (error) {

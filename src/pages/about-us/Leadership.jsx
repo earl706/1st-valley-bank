@@ -154,10 +154,10 @@ const Leadership = () => {
 			>
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<DarkHeader
-						badgeText="Corporate Profile"
-						title="Meet Our Leadership"
-						subtitle="Discover our experienced management team dedicated to driving our success."
-					/>
+					badgeText="Corporate Profile"
+					title="Meet Our Leadership"
+					subtitle="Discover our experienced management team dedicated to driving our success."
+				/>
 				{/* Senior Management */}
 				<div className="flex flex-col gap-8 mt-10">
 					<span className="text-center text-xl leading-tight font-bold tracking-wider text-white/80 uppercase">

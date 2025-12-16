@@ -130,16 +130,16 @@ export default function Awards() {
         backgroundColor="from-[#E9F2EA] via-white to-green-50"
         titleColor="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
       />
-      <div className="min-h-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-10">
-        <div className="mx-auto max-w-5xl px-2 sm:px-4">
-          <DarkHeader
-            badgeText="Awards"
-            title={aboutPage?.awards_section_title || 'Awards & Recognition'}
-            subtitle={
-              aboutPage?.awards_section_subtitle ||
-              'Recognized for excellence in service and financial leadership.'
-            }
-          />
+    <div className="min-h-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-10">
+      <div className="mx-auto max-w-5xl px-2 sm:px-4">
+        <DarkHeader
+          badgeText="Awards"
+          title={aboutPage?.awards_section_title || 'Awards & Recognition'}
+          subtitle={
+            aboutPage?.awards_section_subtitle ||
+            'Recognized for excellence in service and financial leadership.'
+          }
+        />
 
         {/* Loader or error */}
         {aboutPageLoading ? (
@@ -225,8 +225,8 @@ export default function Awards() {
 
         {/* PDF Modal (future if needed for downloadable annual reports, left as placeholder) */}
         <PDFModal open={pdfModalOpen} onClose={() => setPdfModalOpen(false)} pdfUrl={pdfUrl} />
-        </div>
       </div>
+    </div>
     </>
   );
 }

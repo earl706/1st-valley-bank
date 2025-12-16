@@ -118,7 +118,7 @@ function WhyChooseUs() {
                 className="h-64 w-64 object-cover transition-transform duration-300 hover:scale-105"
               />
             </div>
-          </div>
+        </div>
           <div className="flex-1">
             {loading ? (
               <div className="py-12 text-center text-white/80">Loading...</div>

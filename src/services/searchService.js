@@ -391,6 +391,135 @@ const searchService = {
 			console.error('Global search error:', error);
 			return { success: false, error: error.message || 'Search failed' };
 		}
+	},
+
+	/**
+	 * Get search suggestions for autocomplete
+	 * @param {string} query - Search query
+	 * @param {number} limit - Maximum number of suggestions per category
+	 * @returns {Promise<Array>} Array of suggestion objects
+	 */
+	async getSuggestions(query, limit = 5) {
+		if (!query || !query.trim() || query.trim().length < 2) {
+			return [];
+		}
+
+		const normalizedQuery = normalizeQuery(query);
+		const suggestions = [];
+
+		try {
+			// Search deposits (limited)
+			try {
+				const depositsResponse = await depositService.getDepositProducts({
+					search: query,
+					pageSize: limit,
+					isActive: true
+				});
+				if (depositsResponse?.results) {
+					depositsResponse.results.slice(0, limit).forEach((deposit) => {
+						suggestions.push({
+							id: `deposit-${deposit.id}`,
+							title: deposit.name,
+							subtitle: deposit.subtitle || 'Deposit Product',
+							type: 'deposit',
+							path: getDepositRoute(deposit.product_type),
+							icon: 'Banknote'
+						});
+					});
+				}
+			} catch (err) {
+				// Continue
+			}
+
+			// Search loans (limited)
+			try {
+				const loanTypes = ['salary', 'sbl', 'sme', 'agriculture', 'microfinance'];
+				for (const loanType of loanTypes) {
+					if (suggestions.length >= limit * 2) break;
+					try {
+						const loansResponse = await loanService.getByType(loanType, {
+							search: query,
+							is_active: true
+						});
+						if (loansResponse?.results) {
+							loansResponse.results.slice(0, 2).forEach((loan) => {
+								if (suggestions.length < limit * 2) {
+									suggestions.push({
+										id: `loan-${loan.id}`,
+										title: loan.title,
+										subtitle: getLoanRoute(loanType).replace('/loans/', '').replace(/-/g, ' '),
+										type: 'loan',
+										path: getLoanRoute(loanType),
+										icon: 'CreditCard'
+									});
+								}
+							});
+						}
+					} catch (err) {
+						// Continue
+					}
+				}
+			} catch (err) {
+				// Continue
+			}
+
+			// Search branches (limited)
+			try {
+				const branchesResponse = await locationService.getBranches({
+					page: 1,
+					page_size: limit
+				});
+				if (branchesResponse?.success && branchesResponse.data) {
+					const branches = Array.isArray(branchesResponse.data)
+						? branchesResponse.data
+						: [];
+					branches
+						.filter((branch) => matchesQuery(branch.name, query) || matchesQuery(branch.address, query))
+						.slice(0, limit)
+						.forEach((branch) => {
+							suggestions.push({
+								id: `branch-${branch.id}`,
+								title: branch.name,
+								subtitle: branch.address || 'Branch Location',
+								type: 'branch',
+								path: '/branches',
+								icon: 'Building2'
+							});
+						});
+				}
+			} catch (err) {
+				// Continue
+			}
+
+			// Add common page suggestions
+			const commonPages = [
+				{ title: 'About Us', path: '/about-us', keywords: ['about', 'company', 'history'] },
+				{ title: 'Contact Us', path: '/contact-us', keywords: ['contact', 'support', 'help'] },
+				{ title: 'Branches', path: '/branches', keywords: ['branch', 'location', 'atm'] },
+				{ title: 'Deposits', path: '/deposits', keywords: ['deposit', 'savings', 'account'] },
+				{ title: 'Loans', path: '/loans', keywords: ['loan', 'credit', 'finance'] }
+			];
+
+			commonPages.forEach((page) => {
+				if (matchesQuery(page.title, query) || page.keywords.some((kw) => matchesQuery(kw, query))) {
+					if (suggestions.length < limit * 3) {
+						suggestions.push({
+							id: `page-${page.path}`,
+							title: page.title,
+							subtitle: 'Page',
+							type: 'page',
+							path: page.path,
+							icon: 'FileText'
+						});
+					}
+				}
+			});
+		} catch (err) {
+			console.error('Error getting suggestions:', err);
+		}
+
+		// Return limited suggestions, prioritizing exact matches
+		return suggestions.slice(0, limit * 2);
 	}
 };
 

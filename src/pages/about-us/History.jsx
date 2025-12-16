@@ -64,16 +64,16 @@ const History = () => {
 				backgroundColor="from-[#E9F2EA] via-white to-green-50"
 				titleColor="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
 			/>
-			<section id="history" data-scroll className="bg-white py-12 min-h-[50vh]">
-				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-					<LightHeader
-						badgeText="Brief History"
-						title={aboutPage?.history_title || 'Our Roots'}
-						subtitle={
-							aboutPage?.history_subtitle ||
-							"Explore the origins and milestones that shaped 1st Valley Bank's growth from its humble beginnings to present-day achievements."
-						}
-					/>
+		<section id="history" data-scroll className="bg-white py-12 min-h-[50vh]">
+			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+				<LightHeader
+					badgeText="Brief History"
+					title={aboutPage?.history_title || 'Our Roots'}
+					subtitle={
+						aboutPage?.history_subtitle ||
+						"Explore the origins and milestones that shaped 1st Valley Bank's growth from its humble beginnings to present-day achievements."
+					}
+				/>
 				<div className="flex flex-col-reverse items-center gap-8 lg:flex-row">
 					<div className="flex-1">
 						{aboutPage?.history_content ? (

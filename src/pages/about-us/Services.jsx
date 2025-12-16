@@ -57,17 +57,17 @@ export default function Services() {
 				backgroundColor="from-[#EFF8F1] via-white to-green-50"
 				titleColor="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
 			/>
-			<main className="relative min-h-screen bg-[#EFF8F1] pb-8">
-				<section id="services" className="relative overflow-hidden py-16 lg:py-24">
-					<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-						<LightHeader
-							badgeText="Services"
-							title={aboutPage?.services_section_title || 'Comprehensive Banking Solutions'}
-							subtitle={
-								aboutPage?.services_section_subtitle ||
-								'Comprehensive financial solutions designed to meet all your banking needs.'
-							}
-						/>
+		<main className="relative min-h-screen bg-[#EFF8F1] pb-8">
+			<section id="services" className="relative overflow-hidden py-16 lg:py-24">
+				<div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+					<LightHeader
+						badgeText="Services"
+						title={aboutPage?.services_section_title || 'Comprehensive Banking Solutions'}
+						subtitle={
+							aboutPage?.services_section_subtitle ||
+							'Comprehensive financial solutions designed to meet all your banking needs.'
+						}
+					/>
 					{/* Services Grid */}
 					<div className="mt-8 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
 						{loading ? (

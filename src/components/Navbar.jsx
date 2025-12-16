@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Home, Info, MapPin, Phone } from 'lucide-react';
+import { Home, Info, MapPin, Phone, Banknote, CreditCard, Building2, FileText } from 'lucide-react';
 import Footer from './Footer';
 import ChatBox from './ChatBox';
 import { Search, TextSearch } from 'lucide-react';
 import loanService from '../services/loanService';
 import { getAllDepositProducts } from '../services/depositService';
+import searchSuggestionsService from '../services/searchSuggestionsService';
 
 import logo from '/src/assets/logo-official.png';
 import gcash from '/src/assets/gcash-logo.png';
@@ -54,6 +55,13 @@ export default function Navbar({ children }) {
 	const [loansData, setLoansData] = useState({});
 	const [depositsData, setDepositsData] = useState({});
 	const [loadingNavData, setLoadingNavData] = useState(true);
+	
+	// Search suggestions state (minimal, lightweight)
+	const [searchSuggestions, setSearchSuggestions] = useState([]);
+	const [showSuggestions, setShowSuggestions] = useState(false);
+	const searchAbortControllerRef = useRef(null);
+	const searchInputRef = useRef(null);
+	const suggestionsRef = useRef(null);
 
 	const navigate = useNavigate();
 
@@ -145,7 +153,7 @@ export default function Navbar({ children }) {
 							is_active: true,
 							fetchAll: true
 						});
-						console.log(response.results);
+
 						if (response.results && response.results.length > 0) {
 							console.log(response.results);
 							depositsByType[depositType] = response.results.filter(
@@ -187,7 +195,7 @@ export default function Navbar({ children }) {
 				{ subItem: 'Careers', path: '/about-us/careers' }
 			]
 		},
-		{ navItem: 'BRANCHES', path: '/branches', icon: <MapPin size={18} />, subItems: [] },
+		{ navItem: 'ATMs & BRANCHES', path: '/branches', icon: <MapPin size={18} />, subItems: [] },
 		{ navItem: 'CONTACT US', path: '/contact-us', icon: <Phone size={18} />, subItems: [] }
 	];
 
@@ -414,6 +422,112 @@ export default function Navbar({ children }) {
 		window.scrollTo({ top: 0, behavior: 'instant' });
 	}, [location]);
 
+	// Performance: Debounced search suggestions with request cancellation
+	useEffect(() => {
+		// Performance: Cancel previous request if query changes
+		if (searchAbortControllerRef.current) {
+			searchAbortControllerRef.current.abort();
+		}
+
+		// Performance: Require minimum 2 characters to reduce API calls
+		if (!searchTerm || searchTerm.trim().length < 2) {
+			setSearchSuggestions([]);
+			setShowSuggestions(false);
+			return;
+		}
+
+		// Performance: Debounce 250ms to avoid request on every keystroke
+		const debounceTimer = setTimeout(async () => {
+			// Performance: Create new AbortController for this request
+			const abortController = new AbortController();
+			searchAbortControllerRef.current = abortController;
+
+			try {
+				const suggestions = await searchSuggestionsService.getSuggestions(
+					searchTerm,
+					abortController.signal
+				);
+				
+				// Performance: Only update if request wasn't cancelled
+				if (!abortController.signal.aborted) {
+					setSearchSuggestions(suggestions);
+					setShowSuggestions(suggestions.length > 0);
+				}
+			} catch (error) {
+				// Performance: Ignore aborted requests (expected behavior)
+				if (error.name !== 'AbortError' && error.code !== 'ERR_CANCELED') {
+					console.error('Error fetching suggestions:', error);
+					setSearchSuggestions([]);
+					setShowSuggestions(false);
+				}
+			}
+		}, 250); // Performance: 250ms debounce balances responsiveness vs API load
+
+		return () => {
+			clearTimeout(debounceTimer);
+			// Performance: Cancel request on cleanup
+			if (searchAbortControllerRef.current) {
+				searchAbortControllerRef.current.abort();
+			}
+		};
+	}, [searchTerm]);
+
+	// Performance: Close suggestions when clicking outside
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (
+				suggestionsRef.current &&
+				!suggestionsRef.current.contains(event.target) &&
+				searchInputRef.current &&
+				!searchInputRef.current.contains(event.target)
+			) {
+				setShowSuggestions(false);
+			}
+		};
+
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => document.removeEventListener('mousedown', handleClickOutside);
+	}, []);
+
+	// Handle suggestion selection - redirects to the specific page
+	const handleSuggestionClick = (suggestion) => {
+		if (!suggestion || !suggestion.path) {
+			console.warn('Invalid suggestion:', suggestion);
+			return;
+		}
+
+		// Close suggestions dropdown
+		setShowSuggestions(false);
+		
+		// Update search term to show what was selected
+		setSearchTerm(suggestion.title);
+		
+		// Close mobile menu and reset all dropdowns
+		setIsMobileMenuOpen(false);
+		setActiveDropdown(null);
+		setActiveSubDropdown(null);
+		setActiveSubSubDropdown(null);
+		setActiveItemHover(null);
+		
+		// Navigate to the suggestion's path
+		// This redirects the user to the specific page (deposit, loan, branch, etc.)
+		navigate(suggestion.path);
+		
+		// Scroll to top after navigation for better UX
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	};
+
+	// Map suggestion type to icon component
+	const getSuggestionIcon = (type) => {
+		const iconMap = {
+			deposit: Banknote,
+			loan: CreditCard,
+			branch: Building2,
+			page: FileText
+		};
+		return iconMap[type] || FileText;
+	};
+
 	return (
 		<>
 			<div className="font-poppins flex h-full w-full flex-col scroll-smooth">
@@ -547,11 +661,13 @@ export default function Navbar({ children }) {
 							</ul>
 						</div>
 						{/* --- Search Bar (Desktop/Tablet) --- */}
-						<div className="hidden items-center justify-end xl:flex xl:w-1/3">
+						<div className="relative hidden items-center justify-end xl:flex xl:w-1/3">
 							<form
 								onSubmit={(e) => {
 									e.preventDefault();
 									if (searchTerm.trim()) {
+										// Existing behavior: Navigate to search results page
+										setShowSuggestions(false);
 										navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
 										setIsMobileMenuOpen(false);
 										setActiveDropdown(null);
@@ -560,35 +676,82 @@ export default function Navbar({ children }) {
 										setActiveItemHover(null);
 									}
 								}}
-								className="flex w-full max-w-[300px] overflow-hidden rounded-[5px] shadow-md"
+								className="relative flex w-full max-w-[300px] overflow-visible rounded-[5px] shadow-md"
 							>
-								<div className="absolute py-2 pl-4">
+								<div className="absolute z-10 py-2 pl-4">
 									<Search className="h-5 w-5 text-[#396131]" />
 								</div>
 								<input
+									ref={searchInputRef}
 									type="text"
 									value={searchTerm}
-									onChange={(e) => setSearchTerm(e.target.value)}
-									className="h-full w-full border-0 bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-0"
+									onChange={(e) => {
+										setSearchTerm(e.target.value);
+										// Show suggestions when typing (if available)
+										if (e.target.value.trim().length >= 2) {
+											setShowSuggestions(true);
+										}
+									}}
+									onFocus={() => {
+										// Show suggestions on focus if we have results
+										if (searchSuggestions.length > 0) {
+											setShowSuggestions(true);
+										}
+									}}
+									className="relative z-10 h-full w-full border-0 bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-2 focus:ring-[#396131]/20"
 									aria-label="Search query"
 									placeholder="Search..."
+									autoComplete="off"
 								/>
 								<button
 									type="submit"
-									className="flex cursor-pointer items-center justify-center rounded-r-[5px] bg-[#396131] px-4 text-xs font-bold text-white transition-colors duration-200 hover:bg-red-500"
+									className="relative z-10 flex cursor-pointer items-center justify-center rounded-r-[5px] bg-[#396131] px-4 text-xs font-bold text-white transition-colors duration-200 hover:bg-red-500"
 									aria-label="Search"
 								>
 									SEARCH
 								</button>
+								
+								{/* Suggestions Dropdown - Only shown when suggestions available */}
+								{showSuggestions && searchSuggestions.length > 0 && (
+									<div
+										ref={suggestionsRef}
+										className="absolute top-full z-50 mt-1 w-full max-w-[300px] rounded-lg border border-gray-200 bg-white shadow-xl"
+									>
+										<div className="max-h-[400px] overflow-y-auto">
+											{searchSuggestions.map((suggestion) => {
+												const IconComponent = getSuggestionIcon(suggestion.type);
+												return (
+													<button
+														key={suggestion.id}
+														type="button"
+														onClick={() => handleSuggestionClick(suggestion)}
+														className="flex w-full items-start gap-3 border-b border-gray-100 px-4 py-3 text-left transition-colors duration-150 hover:bg-[#f6fbf8] last:border-b-0"
+													>
+														<IconComponent className="mt-0.5 h-5 w-5 shrink-0 text-[#396131]" />
+														<div className="flex-1 min-w-0">
+															<div className="font-semibold text-sm text-[#396131]">
+																{suggestion.title}
+															</div>
+															<div className="text-xs text-gray-500">
+																{suggestion.subtitle}
+															</div>
+														</div>
+													</button>
+												);
+											})}
+										</div>
+									</div>
+								)}
 							</form>
 						</div>
 
 						{/* --- Search Bar (Tablet) --- */}
-						<div className="mx-2 hidden w-1/3 max-w-xs items-center md:flex xl:hidden">
+						<div className="relative mx-2 hidden w-1/3 max-w-xs items-center md:flex xl:hidden">
 							<form
 								onSubmit={(e) => {
 									e.preventDefault();
 									if (searchTerm.trim()) {
+										setShowSuggestions(false);
 										navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
 										setIsMobileMenuOpen(false);
 										setActiveDropdown(null);
@@ -597,26 +760,70 @@ export default function Navbar({ children }) {
 										setActiveItemHover(null);
 									}
 								}}
-								className="flex w-full overflow-hidden rounded-[5px] shadow-md"
+								className="relative flex w-full overflow-visible rounded-[5px] shadow-md"
 							>
-								<div className="absolute py-2 pl-4">
+								<div className="absolute z-10 py-2 pl-4">
 									<Search className="h-5 w-5 text-[#396131]" />
 								</div>
 								<input
+									ref={searchInputRef}
 									type="text"
 									value={searchTerm}
-									onChange={(e) => setSearchTerm(e.target.value)}
-									className="h-full w-full border-0 bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-0"
+									onChange={(e) => {
+										setSearchTerm(e.target.value);
+										if (e.target.value.trim().length >= 2) {
+											setShowSuggestions(true);
+										}
+									}}
+									onFocus={() => {
+										if (searchSuggestions.length > 0) {
+											setShowSuggestions(true);
+										}
+									}}
+									className="relative z-10 h-full w-full border-0 bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-2 focus:ring-[#396131]/20"
 									aria-label="Search query"
 									placeholder="Search..."
+									autoComplete="off"
 								/>
 								<button
 									type="submit"
-									className="flex cursor-pointer items-center justify-center rounded-r-[5px] bg-[#396131] px-4 text-xs font-bold text-white transition-colors duration-200 hover:bg-red-500"
+									className="relative z-10 flex cursor-pointer items-center justify-center rounded-r-[5px] bg-[#396131] px-4 text-xs font-bold text-white transition-colors duration-200 hover:bg-red-500"
 									aria-label="Search"
 								>
 									SEARCH
 								</button>
+								
+								{/* Suggestions Dropdown */}
+								{showSuggestions && searchSuggestions.length > 0 && (
+									<div
+										ref={suggestionsRef}
+										className="absolute top-full z-50 mt-1 w-full max-w-xs rounded-lg border border-gray-200 bg-white shadow-xl"
+									>
+										<div className="max-h-[400px] overflow-y-auto">
+											{searchSuggestions.map((suggestion) => {
+												const IconComponent = getSuggestionIcon(suggestion.type);
+												return (
+													<button
+														key={suggestion.id}
+														type="button"
+														onClick={() => handleSuggestionClick(suggestion)}
+														className="flex w-full items-start gap-3 border-b border-gray-100 px-4 py-3 text-left transition-colors duration-150 hover:bg-[#f6fbf8] last:border-b-0"
+													>
+														<IconComponent className="mt-0.5 h-5 w-5 shrink-0 text-[#396131]" />
+														<div className="flex-1 min-w-0">
+															<div className="font-semibold text-sm text-[#396131]">
+																{suggestion.title}
+															</div>
+															<div className="text-xs text-gray-500">
+																{suggestion.subtitle}
+															</div>
+														</div>
+													</button>
+												);
+											})}
+										</div>
+									</div>
+								)}
 							</form>
 						</div>
 
@@ -897,11 +1104,12 @@ export default function Navbar({ children }) {
 								</div>
 
 								{/* --- Mobile Search Bar --- */}
-								<div className="p-4">
+								<div className="relative p-4">
 									<form
 										onSubmit={(e) => {
 											e.preventDefault();
 											if (searchTerm.trim()) {
+												setShowSuggestions(false);
 												navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
 												setIsMobileMenuOpen(false);
 												setActiveDropdown(null);
@@ -910,26 +1118,70 @@ export default function Navbar({ children }) {
 												setActiveItemHover(null);
 											}
 										}}
-										className="flex w-full overflow-hidden rounded-[5px] shadow-md"
+										className="relative flex w-full overflow-visible rounded-[5px] shadow-md"
 									>
-										<div className="absolute py-2 pl-4">
+										<div className="absolute z-10 py-2 pl-4">
 											<Search className="h-5 w-5 text-[#396131]" />
 										</div>
 										<input
+											ref={searchInputRef}
 											type="text"
 											value={searchTerm}
-											onChange={(e) => setSearchTerm(e.target.value)}
-											className="h-full w-full border-0 bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-0"
+											onChange={(e) => {
+												setSearchTerm(e.target.value);
+												if (e.target.value.trim().length >= 2) {
+													setShowSuggestions(true);
+												}
+											}}
+											onFocus={() => {
+												if (searchSuggestions.length > 0) {
+													setShowSuggestions(true);
+												}
+											}}
+											className="relative z-10 h-full w-full border-0 bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-2 focus:ring-[#396131]/20"
 											aria-label="Search query"
 											placeholder="Search..."
+											autoComplete="off"
 										/>
 										<button
 											type="submit"
-											className="flex cursor-pointer items-center justify-center rounded-r-[5px] bg-[#396131] px-4 text-xs font-bold text-white transition-colors duration-200 hover:bg-[#27481e]"
+											className="relative z-10 flex cursor-pointer items-center justify-center rounded-r-[5px] bg-[#396131] px-4 text-xs font-bold text-white transition-colors duration-200 hover:bg-[#27481e]"
 											aria-label="Search"
 										>
 											SEARCH
 										</button>
+										
+										{/* Suggestions Dropdown */}
+										{showSuggestions && searchSuggestions.length > 0 && (
+											<div
+												ref={suggestionsRef}
+												className="absolute top-full z-50 mt-1 w-full rounded-lg border border-gray-200 bg-white shadow-xl"
+											>
+												<div className="max-h-[300px] overflow-y-auto">
+													{searchSuggestions.map((suggestion) => {
+														const IconComponent = getSuggestionIcon(suggestion.type);
+														return (
+															<button
+																key={suggestion.id}
+																type="button"
+																onClick={() => handleSuggestionClick(suggestion)}
+																className="flex w-full items-start gap-3 border-b border-gray-100 px-4 py-3 text-left transition-colors duration-150 hover:bg-[#f6fbf8] last:border-b-0"
+															>
+																<IconComponent className="mt-0.5 h-5 w-5 shrink-0 text-[#396131]" />
+																<div className="flex-1 min-w-0">
+																	<div className="font-semibold text-sm text-[#396131]">
+																		{suggestion.title}
+																	</div>
+																	<div className="text-xs text-gray-500">
+																		{suggestion.subtitle}
+																	</div>
+																</div>
+															</button>
+														);
+													})}
+												</div>
+											</div>
+										)}
 									</form>
 								</div>
 
