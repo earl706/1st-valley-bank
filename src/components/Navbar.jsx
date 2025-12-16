@@ -490,11 +490,22 @@ export default function Navbar({ children }) {
 	}, []);
 
 	// Handle suggestion selection - redirects to the specific page
-	const handleSuggestionClick = (suggestion) => {
+	const handleSuggestionClick = (suggestion, event) => {
+		// #region agent log
+		fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:493',message:'handleSuggestionClick called',data:{suggestion,screenWidth:window.innerWidth,hasPath:!!suggestion?.path,eventType:event?.type},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+		// #endregion
+		
 		if (!suggestion || !suggestion.path) {
+			// #region agent log
+			fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:496',message:'Invalid suggestion - early return',data:{suggestion},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+			// #endregion
 			console.warn('Invalid suggestion:', suggestion);
 			return;
 		}
+
+		// #region agent log
+		fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:502',message:'Before navigate call',data:{path:suggestion.path,title:suggestion.title},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+		// #endregion
 
 		// Close suggestions dropdown
 		setShowSuggestions(false);
@@ -511,7 +522,14 @@ export default function Navbar({ children }) {
 		
 		// Navigate to the suggestion's path
 		// This redirects the user to the specific page (deposit, loan, branch, etc.)
+		// #region agent log
+		fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:520',message:'Calling navigate',data:{path:suggestion.path,navigateExists:typeof navigate === 'function'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+		// #endregion
 		navigate(suggestion.path);
+		
+		// #region agent log
+		fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:523',message:'After navigate call',data:{path:suggestion.path},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+		// #endregion
 		
 		// Scroll to top after navigation for better UX
 		window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -664,6 +682,9 @@ export default function Navbar({ children }) {
 						<div className="relative hidden items-center justify-end xl:flex xl:w-1/3">
 							<form
 								onSubmit={(e) => {
+									// #region agent log
+									fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:650',message:'Desktop form onSubmit triggered',data:{searchTerm,showSuggestions,screenWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+									// #endregion
 									e.preventDefault();
 									if (searchTerm.trim()) {
 										// Existing behavior: Navigate to search results page
@@ -724,14 +745,21 @@ export default function Navbar({ children }) {
 													<button
 														key={suggestion.id}
 														type="button"
-														onClick={() => handleSuggestionClick(suggestion)}
+														onClick={(e) => {
+															// #region agent log
+															fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:748',message:'Desktop suggestion button clicked',data:{suggestionId:suggestion.id,path:suggestion.path,screenWidth:window.innerWidth,eventType:e.type,defaultPrevented:e.defaultPrevented},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+															// #endregion
+															e.preventDefault();
+															e.stopPropagation();
+															handleSuggestionClick(suggestion, e);
+														}}
 														className="flex w-full items-start gap-3 border-b border-gray-100 px-4 py-3 text-left transition-colors duration-150 hover:bg-[#f6fbf8] last:border-b-0"
 													>
 														<IconComponent className="mt-0.5 h-5 w-5 shrink-0 text-[#396131]" />
 														<div className="flex-1 min-w-0">
 															<div className="font-semibold text-sm text-[#396131]">
 																{suggestion.title}
-															</div>
+															</div> 	
 															<div className="text-xs text-gray-500">
 																{suggestion.subtitle}
 															</div>
@@ -749,6 +777,9 @@ export default function Navbar({ children }) {
 						<div className="relative mx-2 hidden w-1/3 max-w-xs items-center md:flex xl:hidden">
 							<form
 								onSubmit={(e) => {
+									// #region agent log
+									fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:735',message:'Tablet form onSubmit triggered',data:{searchTerm,showSuggestions,screenWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+									// #endregion
 									e.preventDefault();
 									if (searchTerm.trim()) {
 										setShowSuggestions(false);
@@ -806,7 +837,14 @@ export default function Navbar({ children }) {
 													<button
 														key={suggestion.id}
 														type="button"
-														onClick={() => handleSuggestionClick(suggestion)}
+														onClick={(e) => {
+															// #region agent log
+															fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:833',message:'Desktop suggestion button clicked (second instance)',data:{suggestionId:suggestion.id,path:suggestion.path,screenWidth:window.innerWidth,eventType:e.type,defaultPrevented:e.defaultPrevented},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+															// #endregion
+															e.preventDefault();
+															e.stopPropagation();
+															handleSuggestionClick(suggestion, e);
+														}}
 														className="flex w-full items-start gap-3 border-b border-gray-100 px-4 py-3 text-left transition-colors duration-150 hover:bg-[#f6fbf8] last:border-b-0"
 													>
 														<IconComponent className="mt-0.5 h-5 w-5 shrink-0 text-[#396131]" />
@@ -1107,6 +1145,9 @@ export default function Navbar({ children }) {
 								<div className="relative p-4">
 									<form
 										onSubmit={(e) => {
+											// #region agent log
+											fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:1093',message:'Mobile form onSubmit triggered',data:{searchTerm,showSuggestions,screenWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+											// #endregion
 											e.preventDefault();
 											if (searchTerm.trim()) {
 												setShowSuggestions(false);
@@ -1161,12 +1202,19 @@ export default function Navbar({ children }) {
 													{searchSuggestions.map((suggestion) => {
 														const IconComponent = getSuggestionIcon(suggestion.type);
 														return (
-															<button
-																key={suggestion.id}
-																type="button"
-																onClick={() => handleSuggestionClick(suggestion)}
-																className="flex w-full items-start gap-3 border-b border-gray-100 px-4 py-3 text-left transition-colors duration-150 hover:bg-[#f6fbf8] last:border-b-0"
-															>
+													<button
+														key={suggestion.id}
+														type="button"
+														onClick={(e) => {
+															// #region agent log
+															fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:727',message:'Desktop suggestion button clicked',data:{suggestionId:suggestion.id,path:suggestion.path,screenWidth:window.innerWidth,eventType:e.type,defaultPrevented:e.defaultPrevented},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+															// #endregion
+															e.preventDefault();
+															e.stopPropagation();
+															handleSuggestionClick(suggestion, e);
+														}}
+														className="flex w-full items-start gap-3 border-b border-gray-100 px-4 py-3 text-left transition-colors duration-150 hover:bg-[#f6fbf8] last:border-b-0"
+													>
 																<IconComponent className="mt-0.5 h-5 w-5 shrink-0 text-[#396131]" />
 																<div className="flex-1 min-w-0">
 																	<div className="font-semibold text-sm text-[#396131]">
