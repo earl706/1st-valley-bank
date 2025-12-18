@@ -1092,18 +1092,9 @@ export default function AboutUs() {
 							{president && (
 								<div className="flex flex-col items-center gap-3">
 									<div className="relative flex flex-col items-center justify-center gap-2">
-										<div className="relative">
-											<img
-												src={president.image || logo}
-												alt={president.name}
-												className="h-20 w-20 rounded-full bg-white object-cover shadow-lg transition-transform duration-300 hover:scale-105"
-											/>
-										</div>
 										<div className="flex flex-col items-center">
+
 											<span className="text-center text-xl font-bold tracking-tight text-white">
-												{president.name}
-											</span>
-											<span className="text-xs font-medium tracking-wide text-white/80 uppercase group-hover:text-white">
 												{president.position}
 											</span>
 										</div>
@@ -1120,16 +1111,8 @@ export default function AboutUs() {
 												className="group flex flex-col items-center justify-center gap-2 rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-white/20 hover:shadow-lg"
 												key={officer.id || index}
 											>
-												<img
-													src={officer.image || logo}
-													alt={officer.name}
-													className="h-12 w-12 rounded-full bg-white object-cover shadow transition-transform duration-300 group-hover:scale-105"
-												/>
 												<div className="flex flex-col items-center">
 													<span className="text-base leading-tight font-semibold text-white">
-														{officer.name}
-													</span>
-													<span className="text-xs font-medium tracking-wide text-white/70 uppercase group-hover:text-white">
 														{officer.position}
 													</span>
 												</div>
@@ -1156,16 +1139,8 @@ export default function AboutUs() {
 											className="group flex flex-col items-center justify-center gap-2 rounded-xl bg-white/10 p-2 shadow-md transition-all duration-300 hover:bg-white/20 hover:shadow-lg"
 											key={officer.id || index}
 										>
-											<img
-												src={officer.image || logo}
-												alt={officer.name}
-												className="h-12 w-12 rounded-full bg-white object-cover shadow transition-transform duration-300 group-hover:scale-105"
-											/>
 											<div className="flex flex-col items-center">
 												<span className="text-base leading-tight font-semibold text-white group-hover:text-white">
-													{officer.name}
-												</span>
-												<span className="text-xs font-medium tracking-wide text-white/70 uppercase group-hover:text-white">
 													{officer.position}
 												</span>
 											</div>
