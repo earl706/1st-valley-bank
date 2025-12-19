@@ -103,7 +103,7 @@ function FAQSection({ faqs }) {
 					</button>
 					<div
 						id={`faq-body-${idx}`}
-						className={`overflow-auto rounded-b-md border-l-4 border-[#396131] bg-white px-5 text-gray-700 transition-all duration-300 ${openIdx === idx ? 'max-h-40 py-3 opacity-100' : 'max-h-0 py-0 opacity-0'} `}
+						className={`overflow-auto rounded-b-md border-l-4 border-[#396131] bg-[#396131] px-5 text-white transition-all duration-300 ${openIdx === idx ? 'max-h-40 py-3 opacity-100' : 'max-h-0 py-0 opacity-0'} `}
 						aria-hidden={openIdx !== idx}
 					>
 						{renderAnswer(faq.answer)}
