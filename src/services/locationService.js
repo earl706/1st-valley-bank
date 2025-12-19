@@ -118,16 +118,16 @@ const locationService = {
 	 * @param {string} payload.municipality
 	 * @param {string} payload.barangay
 	 * @param {string} [payload.address] - Optional full address string override
-	 * @param {string} [payload.operating_hours] - Optional operating hours filter (monday-friday or monday-saturday)
+	 * @param {boolean} [payload.has_atm] - Optional filter to show only branches with ATM
 	 */
-	async findNearestBranchByAddress({ province, municipality, barangay, address, operating_hours }) {
+	async findNearestBranchByAddress({ province, municipality, barangay, address, has_atm }) {
 		try {
 			const response = await api.post('/locations/branches/nearest/', {
 				province,
 				municipality,
 				barangay,
 				address,
-				operating_hours
+				has_atm
 			});
 			return { success: true, data: response.data };
 		} catch (error) {

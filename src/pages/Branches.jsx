@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect, useCallback } from 'react';
-import { MapPinned, Building2, Landmark, X, CreditCard, ArrowRight, Clock } from 'lucide-react';
+import { MapPinned, Building2, Landmark, X, CreditCard, ArrowRight, Clock, Calendar } from 'lucide-react';
 import PageHeroSection from '../components/PageHeroSection';
 import { DarkCard } from '../components/Card';
 import { DarkPrimaryButton } from '../components/Buttons';
@@ -71,6 +71,18 @@ const formatOperatingHoursSummary = (operatingHours) => {
 	});
 
 	return formattedGroups.join(', ');
+};
+
+// Helper function to check if a branch is open Monday-Saturday
+const isOpenMonSat = (operatingHours) => {
+	if (!operatingHours || typeof operatingHours !== 'object') return false;
+	
+	const daysToCheck = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+	
+	return !daysToCheck.some(
+		(day) => 
+			operatingHours[day] === "" 
+	);
 };
 
 function BranchCard({ icon: Icon, name, address, onContact, atm, atms = [], operatingHours }) {
@@ -613,9 +625,6 @@ function ClosestATMSection({ allATMs }) {
 					</div>
 				</div>
 				<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-					<p className="text-xs text-gray-500">
-						Data source: Philippine Statistics Authority (PSGC)
-					</p>
 					<div className="flex gap-2">
 						<button
 							type="submit"
@@ -682,7 +691,7 @@ function ClosestBranchSection({ allBranches }) {
 	const [selectedProvince, setSelectedProvince] = useState('');
 	const [selectedCity, setSelectedCity] = useState('');
 	const [selectedBarangay, setSelectedBarangay] = useState('');
-	const [selectedOperatingHours, setSelectedOperatingHours] = useState('');
+	const [hasAtm, setHasAtm] = useState(false);
 	const [addressFieldError, setAddressFieldError] = useState('');
 
 	const selectedProvinceOption = useMemo(
@@ -720,7 +729,7 @@ function ClosestBranchSection({ allBranches }) {
 		selectedProvince ||
 			selectedCity ||
 			selectedBarangay ||
-			selectedOperatingHours ||
+			hasAtm ||
 			userLocation ||
 			nearestBranch ||
 			locatorMessage
@@ -752,8 +761,8 @@ function ClosestBranchSection({ allBranches }) {
 		setLocatorMessage('');
 	};
 
-	const handleOperatingHoursChange = (event) => {
-		setSelectedOperatingHours(event.target.value);
+	const handleHasAtmChange = (event) => {
+		setHasAtm(event.target.checked);
 		setAddressFieldError('');
 		setLocatorMessage('');
 	};
@@ -900,7 +909,7 @@ function ClosestBranchSection({ allBranches }) {
 				province: selectedProvinceOption?.name || '',
 				municipality: selectedCityOption?.name || '',
 				barangay: selectedBarangayOption?.name || '',
-				operating_hours: selectedOperatingHours || undefined
+				has_atm: hasAtm || undefined
 			};
 
 			const result = await locationService.findNearestBranchByAddress(payload);
@@ -974,7 +983,7 @@ function ClosestBranchSection({ allBranches }) {
 		setSelectedProvince('');
 		setSelectedCity('');
 		setSelectedBarangay('');
-		setSelectedOperatingHours('');
+		setHasAtm(false);
 		setCityOptions([]);
 		setBarangayOptions([]);
 		setLocatorMessage('');
@@ -1029,8 +1038,9 @@ function ClosestBranchSection({ allBranches }) {
 					Enter your address to locate the nearest 1st Valley Bank branch.
 				</p>
 			</div>
+			
 			<form onSubmit={handleLocatorSubmit} className="space-y-4">
-				<div className="grid gap-3 md:grid-cols-4">
+				<div className="grid gap-3 md:grid-cols-3">
 					<div className="flex flex-col">
 						<label className="mb-1 text-sm font-medium text-gray-700" htmlFor="province-select">
 							Province
@@ -1093,27 +1103,23 @@ function ClosestBranchSection({ allBranches }) {
 						</select>
 						{barangayLoading && <p className="mt-1 text-xs text-gray-500">Loading barangays…</p>}
 					</div>
-					<div className="flex flex-col">
-						<label className="mb-1 text-sm font-medium text-gray-700" htmlFor="operating-hours-select">
-							Operating Hours
+					<div className="flex flex-col justify-end ">
+						<label className="flex items-center gap-2 cursor-pointer" htmlFor="has-atm-checkbox">
+							<input
+								id="has-atm-checkbox"
+								type="checkbox"
+								checked={hasAtm}
+								onChange={handleHasAtmChange}
+								disabled={locatorLoading}
+								className="h-4 w-4 rounded border-gray-300 text-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
+							/>
+							<span className="text-sm font-medium text-gray-700">
+								Show only branches with ATM
+							</span>
 						</label>
-						<select
-							id="operating-hours-select"
-							value={selectedOperatingHours}
-							onChange={handleOperatingHoursChange}
-							disabled={locatorLoading}
-							className="w-full rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm text-gray-700 shadow focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none disabled:bg-gray-100"
-						>
-							<option value="">Select Operating Hours</option>
-							<option value="monday-friday">Monday-Friday 8:00 AM to 5:00 PM</option>
-							<option value="monday-saturday">Monday-Saturday 8:00 AM to 5:00 PM</option>
-						</select>
 					</div>
 				</div>
 				<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-					{/* <p className="text-xs text-gray-500">
-						Data source: Philippine Statistics Authority (PSGC)
-					</p> */}
 					<div className="flex gap-2">
 						<button
 							type="submit"
@@ -1197,11 +1203,12 @@ function ClosestBranchSection({ allBranches }) {
 export default function Branches() {
 	const [branches, setBranches] = useState([]);
 	const [atms, setATMs] = useState([]);
-	const [visibleModal, setVisibleModal] = useState(null); // 'mindanao', 'visayas', 'regional', or null
+	const [visibleModal, setVisibleModal] = useState(null); // 'monSat', 'mindanao', 'visayas', 'luzon', 'ncr', or null
 	const [mindanaoBranches, setMindanaoBranches] = useState([]);
 	const [visayasBranches, setVisayasBranches] = useState([]);
 	const [luzonBranches, setLuzonBranches] = useState([]);
 	const [regionalCenters, setRegionalCenters] = useState([]);
+	const [monSatBranches, setMonSatBranches] = useState([]);
 	const [allBranches, setAllBranches] = useState([]);
 	const [loading, setLoading] = useState(true);
 
@@ -1245,6 +1252,8 @@ export default function Branches() {
 			setVisayasBranches(enrichedBranches.filter((branch) => branch.region === 'visayas'));
 			setLuzonBranches(enrichedBranches.filter((branch) => branch.region === 'luzon'));
 			setRegionalCenters(enrichedBranches.filter((branch) => branch.region === 'ncr'));
+			setMonSatBranches(enrichedBranches.filter((branch) => isOpenMonSat(branch.operating_hours)));
+			console.log(enrichedBranches.filter((branch) => isOpenMonSat(branch.operating_hours)))
 		} catch (error) {
 			console.error('Failed to fetch branches:', error);
 		} finally {
@@ -1262,6 +1271,11 @@ export default function Branches() {
 	};
 
 	const modalProps = {
+		monSat: {
+			title: 'Branches Open Monday-Saturday',
+			branches: monSatBranches,
+			icon: Calendar
+		},
 		mindanao: {
 			title: 'Mindanao Branches',
 			branches: mindanaoBranches,
@@ -1336,8 +1350,35 @@ export default function Branches() {
 					className="mb-16"
 				/>
 				<section className="mx-auto max-w-7xl space-y-20">
+					{/* Monday-Saturday Branches Section */}
+					<section>
+						<div className="mb-5 flex items-center justify-between">
+							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
+								<Calendar className="h-6 w-6 text-white" />
+								Branches Open Monday-Saturday
+							</h2>
+							{monSatBranches.length > 3 && (
+								<DarkPrimaryButton onClick={() => setVisibleModal('monSat')}>
+									<span className="flex items-center">
+										See All
+										<ArrowRight className="ml-3 h-5 w-5" />
+									</span>
+								</DarkPrimaryButton>
+							)}
+						</div>
+						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+							{monSatBranches.length === 0 ? (
+								<div className="col-span-3 py-8 text-center text-white/80">
+									No branches open Monday-Saturday found.
+								</div>
+							) : (
+								renderPreviewBranches(monSatBranches, Calendar)
+							)}
+						</div>
+					</section>
+					
 					{/* Mindanao Section */}
-					{/* <section>
+					<section>
 						<div className="mb-5 flex items-center justify-between">
 							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
 								<MapPinned className="h-6 w-6 text-white" />
@@ -1361,9 +1402,9 @@ export default function Branches() {
 								renderPreviewBranches(mindanaoBranches, Building2)
 							)}
 						</div>
-					</section> */}
+					</section>
 					{/* Visayas Section */}
-					{/* <section>
+					<section>
 						<div className="mb-5 flex items-center justify-between">
 							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
 								<MapPinned className="h-6 w-6 text-white" />
@@ -1387,7 +1428,7 @@ export default function Branches() {
 								renderPreviewBranches(visayasBranches, Building2)
 							)}
 						</div>
-					</section> */}
+					</section>
 
 					{/* Regional Section */}
 					{/* <section>
