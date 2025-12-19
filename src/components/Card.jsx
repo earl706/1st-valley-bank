@@ -3,7 +3,7 @@ import React from 'react';
 // Light background card container
 export function LightCard({ className = '', children, useNativeSpacing = false, ...props }) {
 	const baseClasses =
-		'group relative transform rounded-2xl border-2 border-white/30 bg-white/15 backdrop-blur-sm shadow-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl';
+		'group relative transform rounded-2xl border-5 border-[#396131]/80 bg-white text-[#396131] shadow-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl';
 	const defaultSpacing = 'p-8 lg:p-10';
 	const classes = useNativeSpacing
 		? `${baseClasses} ${className}` // use only the provided className for spacing

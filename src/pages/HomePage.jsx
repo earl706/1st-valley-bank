@@ -411,14 +411,14 @@ export default function HomePage() {
 									</div>
 								</div>
 
-								<h3 className="mb-4 text-2xl leading-tight font-bold text-white">
+								<h3 className="mb-4 text-2xl leading-tight font-bold ">
 									{service.title}
 								</h3>
-								<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-white/80">
+								<p className="mb-6 flex-1 text-base leading-relaxed font-normal">
 									{service.description}
 								</p>
 
-								<DarkPrimaryButton
+								<LightPrimaryButton
 									to={(() => {
 										switch (index) {
 											case 0:
@@ -436,7 +436,7 @@ export default function HomePage() {
 									}
 								>
 									Learn More
-								</DarkPrimaryButton>
+								</LightPrimaryButton>
 							</LightCard>
 						))}
 					</div>
@@ -497,7 +497,7 @@ export default function HomePage() {
 						{testimonials.map((testimonial, index) => (
 							<LightCard
 								key={index}
-								className="border-white/10 bg-white/10 p-8 shadow-lg backdrop-blur hover:shadow-xl"
+								className=" p-8 shadow-lg backdrop-blur hover:shadow-xl"
 							>
 								<div className="mb-6 flex items-center">
 									<div className="flex-shrink-0">
@@ -510,10 +510,10 @@ export default function HomePage() {
 										</div>
 									</div>
 									<div className="ml-4">
-										<h4 className="text-xl leading-tight font-bold text-white">
+										<h4 className="text-xl leading-tight font-bold ">
 											{testimonial.name}
 										</h4>
-										<p className="text-sm leading-snug font-normal text-white/70">
+										<p className="text-sm leading-snug font-normal ">
 											{testimonial.role}
 										</p>
 									</div>
@@ -522,7 +522,7 @@ export default function HomePage() {
 									</div>
 								</div>
 
-								<blockquote className="text-sm leading-relaxed font-normal text-white italic">
+								<blockquote className="text-sm leading-relaxed font-normal  italic">
 									"{testimonial.content}"
 								</blockquote>
 							</LightCard>
