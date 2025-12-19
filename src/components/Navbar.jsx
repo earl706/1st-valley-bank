@@ -155,6 +155,7 @@ export default function Navbar({ children }) {
 						});
 
 						if (response.results && response.results.length > 0) {
+							console.log(response.results);
 							depositsByType[depositType] = response.results.filter(
 								(product) => product.product_type === depositType
 							);
@@ -490,11 +491,21 @@ export default function Navbar({ children }) {
 
 	// Handle suggestion selection - redirects to the specific page
 	const handleSuggestionClick = (suggestion, event) => {
+		// #region agent log
+		fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:493',message:'handleSuggestionClick called',data:{suggestion,screenWidth:window.innerWidth,hasPath:!!suggestion?.path,eventType:event?.type},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+		// #endregion
 		
 		if (!suggestion || !suggestion.path) {
+			// #region agent log
+			fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:496',message:'Invalid suggestion - early return',data:{suggestion},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+			// #endregion
 			console.warn('Invalid suggestion:', suggestion);
 			return;
 		}
+
+		// #region agent log
+		fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:502',message:'Before navigate call',data:{path:suggestion.path,title:suggestion.title},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+		// #endregion
 
 		// Close suggestions dropdown
 		setShowSuggestions(false);
@@ -511,7 +522,14 @@ export default function Navbar({ children }) {
 		
 		// Navigate to the suggestion's path
 		// This redirects the user to the specific page (deposit, loan, branch, etc.)
+		// #region agent log
+		fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:520',message:'Calling navigate',data:{path:suggestion.path,navigateExists:typeof navigate === 'function'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+		// #endregion
 		navigate(suggestion.path);
+		
+		// #region agent log
+		fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:523',message:'After navigate call',data:{path:suggestion.path},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+		// #endregion
 		
 		// Scroll to top after navigation for better UX
 		window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -599,7 +617,7 @@ export default function Navbar({ children }) {
 												<div className="absolute left-0 z-40 mt-[97px] w-full max-w-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] text-[0.9rem] text-white opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
 													<div className="flex">
 														{/* Left Sidebar for SubItems */}
-														<div className="flex min-h-[200px] min-w-[280px] flex-col bg-[#31542B]/80">
+														<div className="grid grid-cols-3 min-h-[200px] min-w-[280px] flex-col bg-[#31542B]/80">
 															{navItem.subItems.map((subItem, subIndex) => (
 																<NavLink
 																	to={subItem.path}
@@ -664,7 +682,9 @@ export default function Navbar({ children }) {
 						<div className="relative hidden items-center justify-end xl:flex xl:w-1/3">
 							<form
 								onSubmit={(e) => {
-
+									// #region agent log
+									fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:650',message:'Desktop form onSubmit triggered',data:{searchTerm,showSuggestions,screenWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+									// #endregion
 									e.preventDefault();
 									if (searchTerm.trim()) {
 										// Existing behavior: Navigate to search results page
@@ -726,7 +746,9 @@ export default function Navbar({ children }) {
 														key={suggestion.id}
 														type="button"
 														onClick={(e) => {
-
+															// #region agent log
+															fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:748',message:'Desktop suggestion button clicked',data:{suggestionId:suggestion.id,path:suggestion.path,screenWidth:window.innerWidth,eventType:e.type,defaultPrevented:e.defaultPrevented},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+															// #endregion
 															e.preventDefault();
 															e.stopPropagation();
 															handleSuggestionClick(suggestion, e);
@@ -755,7 +777,9 @@ export default function Navbar({ children }) {
 						<div className="relative mx-2 hidden w-1/3 max-w-xs items-center md:flex xl:hidden">
 							<form
 								onSubmit={(e) => {
-
+									// #region agent log
+									fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:735',message:'Tablet form onSubmit triggered',data:{searchTerm,showSuggestions,screenWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+									// #endregion
 									e.preventDefault();
 									if (searchTerm.trim()) {
 										setShowSuggestions(false);
@@ -814,7 +838,9 @@ export default function Navbar({ children }) {
 														key={suggestion.id}
 														type="button"
 														onClick={(e) => {
-
+															// #region agent log
+															fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:833',message:'Desktop suggestion button clicked (second instance)',data:{suggestionId:suggestion.id,path:suggestion.path,screenWidth:window.innerWidth,eventType:e.type,defaultPrevented:e.defaultPrevented},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+															// #endregion
 															e.preventDefault();
 															e.stopPropagation();
 															handleSuggestionClick(suggestion, e);
@@ -899,7 +925,7 @@ export default function Navbar({ children }) {
 											<div className="absolute left-0 z-40 mt-[16px] w-full max-w-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] text-[0.9rem] text-white opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
 												<div className="flex">
 													{/* Left Sidebar for SubItems */}
-													<div className="flex min-h-[300px] min-w-[280px] flex-col bg-[#31542B]/80">
+													<div className="flex min-h-[150px] min-w-[280px] flex-col bg-[#31542B]/80">
 														{navItem.subItems.map((subItem, subIndex) => (
 															<NavLink
 																to={subItem.path}
@@ -934,7 +960,7 @@ export default function Navbar({ children }) {
 																</h3>
 
 																{navItem.subItems[activeSubDropdown].subsubItems && navItem.subItems[activeSubDropdown].subsubItems.length > 0 ? (
-																	<div className="grid grid-cols-1 gap-[20px] md:grid-cols-2">
+																	<div className="grid grid-cols-1 gap-[20px] md:grid-cols-3">
 																		{navItem.subItems[activeSubDropdown].subsubItems.map(
 																			(subsubItem, subsubIndex) => (
 																				<NavLink
@@ -1053,7 +1079,7 @@ export default function Navbar({ children }) {
 																</h3>
 
 																{navItem.subItems[activeSubDropdown].subsubItems.length > 0 ? (
-																	<div className="grid grid-cols-1 gap-[20px] md:grid-cols-2">
+																	<div className="grid grid-cols-1 gap-[20px] md:grid-cols-3">
 																		{navItem.subItems[activeSubDropdown].subsubItems.map(
 																			(subsubItem, subsubIndex) => (
 																				<NavLink
@@ -1119,7 +1145,9 @@ export default function Navbar({ children }) {
 								<div className="relative p-4">
 									<form
 										onSubmit={(e) => {
-
+											// #region agent log
+											fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:1093',message:'Mobile form onSubmit triggered',data:{searchTerm,showSuggestions,screenWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+											// #endregion
 											e.preventDefault();
 											if (searchTerm.trim()) {
 												setShowSuggestions(false);
@@ -1178,7 +1206,9 @@ export default function Navbar({ children }) {
 														key={suggestion.id}
 														type="button"
 														onClick={(e) => {
-
+															// #region agent log
+															fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:727',message:'Desktop suggestion button clicked',data:{suggestionId:suggestion.id,path:suggestion.path,screenWidth:window.innerWidth,eventType:e.type,defaultPrevented:e.defaultPrevented},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+															// #endregion
 															e.preventDefault();
 															e.stopPropagation();
 															handleSuggestionClick(suggestion, e);

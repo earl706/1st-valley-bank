@@ -76,13 +76,26 @@ const formatOperatingHoursSummary = (operatingHours) => {
 // Helper function to check if a branch is open Monday-Saturday
 const isOpenMonSat = (operatingHours) => {
 	if (!operatingHours || typeof operatingHours !== 'object') return false;
-	
+
 	const daysToCheck = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-	
 	return !daysToCheck.some(
-		(day) => 
-			operatingHours[day] === "" 
+		(day) =>
+			operatingHours[day] === ""
 	);
+};
+
+// Helper function to check if a branch is open Monday-Friday ONLY (closed on Saturday)
+const isOpenMonFriOnly = (operatingHours) => {
+	if (!operatingHours || typeof operatingHours !== 'object') return false;
+
+	const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+	const hasAllWeekdays =
+		days.every((day) => operatingHours[day] && operatingHours[day].trim() !== "" && operatingHours[day] !== "-");
+	const saturday = operatingHours['saturday'];
+	const sunday = operatingHours['sunday'];
+	const isSatClosed = (!saturday || saturday.trim() === '' || saturday === "-");
+	// some banks include "-" for closed
+	return hasAllWeekdays && isSatClosed;
 };
 
 function BranchCard({ icon: Icon, name, address, onContact, atm, atms = [], operatingHours }) {
@@ -138,14 +151,6 @@ function BranchCard({ icon: Icon, name, address, onContact, atm, atms = [], oper
 					)}
 				</div>
 			</div>
-			<DarkPrimaryButton
-				to="/contact-us"
-				className="mt-auto"
-				aria-label={`Contact ${name}`}
-				secondaryIcon={<ArrowRight className="ml-3 h-5 w-5" />}
-			>
-				Contact Us
-			</DarkPrimaryButton>
 		</DarkCard>
 	);
 }
@@ -157,9 +162,9 @@ function AllBranchesModal({ title, branches, icon: Icon, onContact, onClose }) {
 			<button
 				onClick={onClose}
 				aria-label="Close"
-				className="absolute top-6 right-6 inline-flex transform cursor-pointer items-center justify-center rounded-full bg-white/10 p-2 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-110"
+				className="absolute top-8 right-8 inline-flex transform cursor-pointer items-center justify-center rounded-full bg-white p-2 text-base font-semibold text-red-600 shadow-lg transition-all duration-300 hover:scale-110"
 			>
-				<X className="h-5 w-5 text-white" />
+				<X className="h-6 w-6 " />
 			</button>
 			<div className="relative max-h-[80vh] w-full max-w-7xl overflow-y-auto rounded-xl bg-linear-to-l from-[#396131] to-[#4a7c3a] p-8 shadow-2xl">
 				<h2 className="mb-6 flex items-center gap-2 text-3xl leading-tight font-bold text-white md:text-5xl">
@@ -1203,12 +1208,13 @@ function ClosestBranchSection({ allBranches }) {
 export default function Branches() {
 	const [branches, setBranches] = useState([]);
 	const [atms, setATMs] = useState([]);
-	const [visibleModal, setVisibleModal] = useState(null); // 'monSat', 'mindanao', 'visayas', 'luzon', 'ncr', or null
+	const [visibleModal, setVisibleModal] = useState(null); // 'monSat', 'monFri', 'mindanao', 'visayas', 'luzon', 'ncr', or null
 	const [mindanaoBranches, setMindanaoBranches] = useState([]);
 	const [visayasBranches, setVisayasBranches] = useState([]);
 	const [luzonBranches, setLuzonBranches] = useState([]);
 	const [regionalCenters, setRegionalCenters] = useState([]);
 	const [monSatBranches, setMonSatBranches] = useState([]);
+	const [monFriBranches, setMonFriBranches] = useState([]); // New State
 	const [allBranches, setAllBranches] = useState([]);
 	const [loading, setLoading] = useState(true);
 
@@ -1253,7 +1259,9 @@ export default function Branches() {
 			setLuzonBranches(enrichedBranches.filter((branch) => branch.region === 'luzon'));
 			setRegionalCenters(enrichedBranches.filter((branch) => branch.region === 'ncr'));
 			setMonSatBranches(enrichedBranches.filter((branch) => isOpenMonSat(branch.operating_hours)));
-			console.log(enrichedBranches.filter((branch) => isOpenMonSat(branch.operating_hours)))
+			setMonFriBranches(enrichedBranches.filter((branch) =>
+				isOpenMonFriOnly(branch.operating_hours)
+			));
 		} catch (error) {
 			console.error('Failed to fetch branches:', error);
 		} finally {
@@ -1274,6 +1282,11 @@ export default function Branches() {
 		monSat: {
 			title: 'Branches Open Monday-Saturday',
 			branches: monSatBranches,
+			icon: Calendar
+		},
+		monFri: {
+			title: 'Branches Open Monday-Friday',
+			branches: monFriBranches,
 			icon: Calendar
 		},
 		mindanao: {
@@ -1357,7 +1370,7 @@ export default function Branches() {
 								<Calendar className="h-6 w-6 text-white" />
 								Branches Open Monday-Saturday
 							</h2>
-							{monSatBranches.length > 3 && (
+							{monSatBranches.length > 0 && (
 								<DarkPrimaryButton onClick={() => setVisibleModal('monSat')}>
 									<span className="flex items-center">
 										See All
@@ -1366,19 +1379,27 @@ export default function Branches() {
 								</DarkPrimaryButton>
 							)}
 						</div>
-						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-							{monSatBranches.length === 0 ? (
-								<div className="col-span-3 py-8 text-center text-white/80">
-									No branches open Monday-Saturday found.
-								</div>
-							) : (
-								renderPreviewBranches(monSatBranches, Calendar)
+					</section>
+					{/* Monday-Friday Only Branches Section */}
+					<section>
+						<div className="mb-5 flex items-center justify-between">
+							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
+								<Calendar className="h-6 w-6 text-white" />
+								Branches Open Monday-Friday
+							</h2>
+							{monFriBranches.length > 0 && (
+								<DarkPrimaryButton onClick={() => setVisibleModal('monFri')}>
+									<span className="flex items-center">
+										See All
+										<ArrowRight className="ml-3 h-5 w-5" />
+									</span>
+								</DarkPrimaryButton>
 							)}
 						</div>
 					</section>
-					
+
 					{/* Mindanao Section */}
-					<section>
+					{/* <section>
 						<div className="mb-5 flex items-center justify-between">
 							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
 								<MapPinned className="h-6 w-6 text-white" />
@@ -1402,9 +1423,9 @@ export default function Branches() {
 								renderPreviewBranches(mindanaoBranches, Building2)
 							)}
 						</div>
-					</section>
+					</section> */}
 					{/* Visayas Section */}
-					<section>
+					{/* <section>
 						<div className="mb-5 flex items-center justify-between">
 							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
 								<MapPinned className="h-6 w-6 text-white" />
@@ -1428,7 +1449,7 @@ export default function Branches() {
 								renderPreviewBranches(visayasBranches, Building2)
 							)}
 						</div>
-					</section>
+					</section> */}
 
 					{/* Regional Section */}
 					{/* <section>
