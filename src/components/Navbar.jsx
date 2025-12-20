@@ -1235,137 +1235,162 @@ export default function Navbar({ children }) {
 
 								{/* Menu Content */}
 								<div className="p-4">
-									{/* Primary Navigation */}
-									<div className="mb-6">
-										{navbarNavigationItems.map((navItem, index) => (
-											<div key={index} className="mb-2">
-												<div className="flex items-center justify-between">
-													<NavLink
-														to={navItem.path}
-														className="flex-1 touch-manipulation rounded-lg px-3 py-3 text-sm font-semibold text-[#396131] transition-colors duration-200 hover:bg-[#f2fbf0] hover:text-[#204216]"
-														onClick={closeMobileMenu}
-													>
-														{navItem.navItem}
-													</NavLink>
-													{navItem.subItems.length > 0 && (
-														<button
-															onClick={() => handleDropdownToggle(`primary-${index}`)}
-															className="touch-manipulation rounded-lg p-2 text-[#396131] hover:bg-[#e4f9ea]"
+									{/* --- Emphasized & Categorized Primary Navigation --- */}
+									<div className="mb-8">
+										<h2 className="mb-2 text-xs font-bold uppercase tracking-widest text-[#396131] opacity-75">
+											Main Menu
+										</h2>
+										<div className="grid gap-3">
+											{navbarNavigationItems.map((navItem, index) => (
+												<div
+													key={index}
+													className={`rounded-xl border border-[#e1eedc] bg-gradient-to-r from-[#f3fbe9] to-[#f1f8f8] shadow-sm ${
+														activeDropdown === `primary-${index}` ? 'ring-2 ring-[#396131]/10' : ''
+													}`}
+												>
+													<div className="flex items-center justify-between px-2">
+														<NavLink
+															to={navItem.path}
+															className={`flex-1 touch-manipulation rounded-lg px-4 py-3 text-base font-bold tracking-wide text-[#204216] transition-all duration-200 ${
+																activeDropdown === `primary-${index}`
+																	? 'bg-[#e6efe1] text-[#396131]'
+																	: 'hover:bg-[#e2f5e2] hover:text-[#396131]'
+															}`}
+															onClick={closeMobileMenu}
 														>
-															<ChevronDown
-																className={`h-4 w-4 transition-transform duration-200 ${
-																	activeDropdown === `primary-${index}`
-																		? 'rotate-180 text-[#396131]'
-																		: 'text-[#396131]'
+															{navItem.navItem}
+														</NavLink>
+														{navItem.subItems.length > 0 && (
+															<button
+																onClick={() => handleDropdownToggle(`primary-${index}`)}
+																className={`touch-manipulation rounded-full p-[9px] text-[#396131] transition-colors duration-150 ${
+																	activeDropdown === `primary-${index}` ? 'bg-[#e8fbe5]' : 'hover:bg-[#e2f5e2]'
 																}`}
-															/>
-														</button>
+															>
+																<ChevronDown
+																	className={`h-5 w-5 transition-transform duration-200 ${
+																		activeDropdown === `primary-${index}` ? 'rotate-180 text-[#396131]' : 'text-[#396131]'
+																	}`}
+																/>
+															</button>
+														)}
+													</div>
+													{/* Primary Subitems */}
+													{activeDropdown === `primary-${index}` && navItem.subItems.length > 0 && (
+														<div className="mt-1 border-t border-[#e9f3e7] px-2 py-2 bg-white rounded-b-xl shadow-inner">
+															{navItem.subItems.map((subItem, subIndex) => (
+																<NavLink
+																	key={subIndex}
+																	to={subItem.path}
+																	className="block touch-manipulation rounded-lg px-4 py-2 text-[15px] font-medium text-[#37612c] transition-all duration-200 hover:bg-[#e2f5e2] hover:text-[#204216]"
+																	onClick={closeMobileMenu}
+																>
+																	{subItem.subItem}
+																</NavLink>
+															))}
+														</div>
 													)}
 												</div>
-
-												{/* Primary Subitems */}
-												{activeDropdown === `primary-${index}` && navItem.subItems.length > 0 && (
-													<div className="mt-2 ml-4 space-y-1">
-														{navItem.subItems.map((subItem, subIndex) => (
-															<NavLink
-																key={subIndex}
-																to={subItem.path}
-																className="block touch-manipulation rounded-lg px-3 py-2 text-sm text-[#2b4a1d] transition-colors duration-200 hover:bg-[#e4f9ea] hover:text-[#396131]"
-																onClick={closeMobileMenu}
-															>
-																{subItem.subItem}
-															</NavLink>
-														))}
-													</div>
-												)}
-											</div>
-										))}
+											))}
+										</div>
 									</div>
 
-									{/* Secondary Navigation */}
-									<div className="mb-6">
-										<h3 className="mb-3 text-sm font-bold tracking-wide text-[#31542b] uppercase">
+									{/* --- Emphasized & Categorized Secondary Navigation --- */}
+									<div className="mb-8">
+										<h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-[#4a7c3a] opacity-80">
 											Categories
-										</h3>
-										{secondaryNavbarItems.map((navItem, index) => (
-											<div key={index} className="mb-2">
-												<div className="flex items-center justify-between">
-													<NavLink
-														to={navItem.path}
-														className="flex-1 touch-manipulation rounded-lg px-3 py-3 text-sm font-semibold text-[#396131] transition-colors duration-200 hover:bg-[#e1f5e7] hover:text-[#204216]"
-														onClick={closeMobileMenu}
-													>
-														{navItem.navItem}
-													</NavLink>
-													{navItem.subItems.length > 0 && (
-														<button
-															onClick={() => handleDropdownToggle(`secondary-${index}`)}
-															className="touch-manipulation rounded-lg p-2 text-[#396131] hover:bg-[#e4f9ea]"
+										</h2>
+										<div className="grid gap-y-3">
+											{secondaryNavbarItems.map((navItem, index) => (
+												<div
+													key={index}
+													className={`rounded-xl border border-[#e7f2eb] bg-gradient-to-r from-[#f1fafd] to-[#eefff4] shadow-sm ${
+														activeDropdown === `secondary-${index}` ? 'ring-2 ring-[#4a7c3a]/10' : ''
+													}`}
+												>
+													<div className="flex items-center justify-between px-2">
+														<NavLink
+															to={navItem.path}
+															className={`flex-1 touch-manipulation rounded-lg px-4 py-3 text-base font-bold tracking-wide text-[#28541f] transition-all duration-200 ${
+																activeDropdown === `secondary-${index}`
+																	? 'bg-[#eaf4eb] text-[#28541f]'
+																	: 'hover:bg-[#e2f5e2] hover:text-[#396131]'
+															}`}
+															onClick={closeMobileMenu}
 														>
-															<ChevronDown
-																className={`h-4 w-4 transition-transform duration-200 ${
-																	activeDropdown === `secondary-${index}`
-																		? 'rotate-180 text-[#396131]'
-																		: 'text-[#396131]'
+															{navItem.navItem}
+														</NavLink>
+														{navItem.subItems.length > 0 && (
+															<button
+																onClick={() => handleDropdownToggle(`secondary-${index}`)}
+																className={`touch-manipulation rounded-full p-[9px] text-[#396131] transition-colors duration-150 ${
+																	activeDropdown === `secondary-${index}` ? 'bg-[#e8fbe5]' : 'hover:bg-[#e2f5e2]'
 																}`}
-															/>
-														</button>
+															>
+																<ChevronDown
+																	className={`h-5 w-5 transition-transform duration-200 ${
+																		activeDropdown === `secondary-${index}`
+																			? 'rotate-180 text-[#396131]'
+																			: 'text-[#396131]'
+																	}`}
+																/>
+															</button>
+														)}
+													</div>
+													{/* Secondary Subitems */}
+													{activeDropdown === `secondary-${index}` && navItem.subItems.length > 0 && (
+														<div className="mt-1 border-t border-[#e9f3e7] px-2 py-2 bg-white rounded-b-xl shadow-inner">
+															{navItem.subItems.map((subItem, subIndex) => (
+																<div key={subIndex}>
+																	<div className="flex items-center justify-between">
+																		<NavLink
+																			to={subItem.path}
+																			className="flex-1 touch-manipulation rounded-lg px-4 py-2 text-[15px] font-medium text-[#356327] transition-all duration-200 hover:bg-[#eaf8ef] hover:text-[#28541f]"
+																			onClick={closeMobileMenu}
+																		>
+																			{subItem.subItem}
+																		</NavLink>
+																		{subItem.subsubItems.length > 0 && (
+																			<button
+																				onClick={() =>
+																					handleSubDropdownToggle(`${index}-${subIndex}`)
+																				}
+																				className="touch-manipulation rounded-full p-1 text-[#adcebb] transition-colors duration-100 hover:text-[#396131] hover:bg-[#e8fbe5]"
+																			>
+																				<ChevronRight
+																					className={`h-4 w-4 transition-transform duration-200 ${
+																						activeSubDropdown === `${index}-${subIndex}`
+																							? 'rotate-90 text-[#396131]'
+																							: 'text-[#adcebb]'
+																					}`}
+																				/>
+																			</button>
+																		)}
+																	</div>
+																	{/* Sub-subitems */}
+																	{activeSubDropdown === `${index}-${subIndex}` &&
+																		subItem.subsubItems.length > 0 && (
+																			<div className="mt-1 ml-4 space-y-1 bg-[#f8faf8] rounded-lg py-1 px-1 shadow-inner">
+																				{subItem.subsubItems.map((subsubItem, subsubIndex) => (
+																					<NavLink
+																						key={subsubIndex}
+																						to={subsubItem.path}
+																						className="block touch-manipulation rounded-md px-3 py-2 text-sm text-[#396131] font-medium transition-colors duration-200 hover:bg-[#eaf8ef] hover:text-[#27481e]"
+																						onClick={closeMobileMenu}
+																					>
+																						<span className="mr-1 text-lg leading-none text-[#4a7c3a]">•</span>
+																						{subsubItem.subItem}
+																					</NavLink>
+																				))}
+																			</div>
+																		)}
+																</div>
+															))}
+														</div>
 													)}
 												</div>
-
-												{/* Secondary Subitems */}
-												{activeDropdown === `secondary-${index}` && navItem.subItems.length > 0 && (
-													<div className="mt-2 ml-4 space-y-1">
-														{navItem.subItems.map((subItem, subIndex) => (
-															<div key={subIndex}>
-																<div className="flex items-center justify-between">
-																	<NavLink
-																		to={subItem.path}
-																		className="flex-1 touch-manipulation rounded-lg px-3 py-2 text-sm text-[#28541f] transition-colors duration-200 hover:bg-[#e1f5e7] hover:text-[#396131]"
-																		onClick={closeMobileMenu}
-																	>
-																		{subItem.subItem}
-																	</NavLink>
-																	{subItem.subsubItems.length > 0 && (
-																		<button
-																			onClick={() =>
-																				handleSubDropdownToggle(`${index}-${subIndex}`)
-																			}
-																			className="touch-manipulation p-1 text-[#adcebb] hover:text-[#396131]"
-																		>
-																			<ChevronRight
-																				className={`h-3 w-3 transition-transform duration-200 ${
-																					activeSubDropdown === `${index}-${subIndex}`
-																						? 'rotate-90 text-[#396131]'
-																						: 'text-[#adcebb]'
-																				}`}
-																			/>
-																		</button>
-																	)}
-																</div>
-
-																{/* Sub-subitems */}
-																{activeSubDropdown === `${index}-${subIndex}` &&
-																	subItem.subsubItems.length > 0 && (
-																		<div className="mt-1 ml-4 space-y-1">
-																			{subItem.subsubItems.map((subsubItem, subsubIndex) => (
-																				<NavLink
-																					key={subsubIndex}
-																					to={subsubItem.path}
-																					className="block touch-manipulation rounded-lg px-3 py-2 text-sm text-[#396131] transition-colors duration-200 hover:bg-[#eaf8ef] hover:text-[#28541f]"
-																					onClick={closeMobileMenu}
-																				>
-																					• {subsubItem.subItem}
-																				</NavLink>
-																			))}
-																		</div>
-																	)}
-															</div>
-														))}
-													</div>
-												)}
-											</div>
-										))}
+											))}
+										</div>
 									</div>
 
 									{/* Contact Button */}

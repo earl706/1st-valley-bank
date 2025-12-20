@@ -28,6 +28,7 @@ import img from '/src/assets/homepage/heroSectionImage.png';
 import PageHeroSection from '../components/PageHeroSection';
 import HeroSection from '../components/HeroSection';
 import { LightCard } from '../components/Card';
+import { LightHeader } from '../components/Header';
 import { LightSecondaryButton, LightPrimaryButton } from '../components/Buttons';
 import consumerProtectionPrivacyPolicyPageService from '../services/consumerProtectionPrivacyPolicyPageService';
 import { DetailPageSkeleton } from '../components/PageSkeleton';
@@ -559,6 +560,104 @@ export default function ConsumerProtectionPrivacyPolicy() {
 		<>
 			<main className="relative">
 				<PageHeroSection pageSlug="consumer-protection" />
+				{/* Client Interface Section: Feedback & Complaint */}
+				<section className="bg-white py-12" id="client-interface">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+						<LightHeader
+							title="We Value Your Input"
+							subtitle="Send us your feedback or file a complaint using the form below. Your voice helps us improve and serve you better."
+							badgeText="Feedbacks & Complaints"
+							className="mb-8 text-center"
+						/>
+						<div className="mx-auto max-w-4xl">
+							<div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
+								<iframe
+									src="https://forms.office.com/r/z9BafzzmPE?origin=lprLink&embed=true"
+									width="100%"
+									height="900"
+									frameBorder="0"
+									marginHeight={0}
+									marginWidth={0}
+									className="block w-full"
+									title="Customer Feedback and Complaint Form"
+									allowFullScreen
+									style={{ minHeight: '800px' }}
+								>
+									Loading…
+								</iframe>
+							</div>
+						</div>
+					</div>
+				</section>
+				{/* <section className="bg-white py-12" id="client-interface">
+					<div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+						<h2 className="mb-4 text-2xl font-bold text-[#396131]">We Value Your Input</h2>
+						<p className="mb-6 text-base text-gray-700">
+							Send us your feedback or file a complaint using the forms below. Your voice helps us
+							improve and serve you better.
+						</p>
+						<div className="mb-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+							<button
+								className={`group inline-flex min-w-[170px] transform cursor-pointer items-center justify-center rounded-xl px-8 py-4 text-center text-base font-semibold shadow-lg transition-all duration-300 hover:shadow-xl ${showFeedbackForm ? 'bg-[#284421] text-white' : 'border border-[#396131] bg-white text-[#284421]'} `}
+								onClick={() => {
+									setShowComplaintForm(false);
+									setShowFeedbackForm(true);
+									setFormStatus('');
+								}}
+							>
+								Send Feedback
+							</button>
+							<button
+								className={`group inline-flex min-w-[170px] transform cursor-pointer items-center justify-center rounded-xl px-8 py-4 text-center text-base font-semibold shadow-lg transition-all duration-300 hover:shadow-xl ${showComplaintForm ? 'bg-[#284421] text-white' : 'border border-[#396131] bg-white text-[#284421]'} `}
+								onClick={() => {
+									setShowComplaintForm(true);
+									setShowFeedbackForm(false);
+									setFormStatus('');
+								}}
+							>
+								File a Complaint
+							</button>
+						</div>
+						{formStatus === 'success' && (
+							<div className="mb-8 rounded-lg border border-green-200 bg-green-50 px-6 py-4 text-center text-green-800">
+								Thank you! Your submission has been sent. We appreciate your input and will act on
+								your message as soon as possible.
+							</div>
+						)}
+						{formStatus === 'error' && (
+							<div className="mb-8 rounded-lg border border-red-200 bg-red-50 px-6 py-4 text-center text-red-800">
+								There was an error sending your form. Please try again or contact us directly at{' '}
+								<a className="underline" href="mailto:consumercare@1vb.com.ph">
+									consumercare@1vb.com.ph
+								</a>
+							</div>
+						)} */}
+
+						{/* Feedback Form */}
+						{/* {showFeedbackForm && formStatus === '' && (
+							<FeedbackForm
+								onClose={() => setShowFeedbackForm(false)}
+								onSuccess={() => {
+									setFormStatus('success');
+									setShowFeedbackForm(false);
+								}}
+								onError={() => setFormStatus('error')}
+							/>
+						)} */}
+
+						{/* Complaint Form */}
+						{/* {showComplaintForm && formStatus === '' && (
+							<ComplaintForm
+								onClose={() => setShowComplaintForm(false)}
+								onSuccess={() => {
+									setFormStatus('success');
+									setShowComplaintForm(false);
+								}}
+								onError={() => setFormStatus('error')}
+							/>
+						)}
+					</div>
+				</section> */}
 				<section
 					id="application-privacy"
 					data-section
@@ -1078,77 +1177,6 @@ export default function ConsumerProtectionPrivacyPolicy() {
 								</div>
 							</div>
 						</div>
-					</div>
-				</section>
-
-				{/* Client Interface Section: Feedback & Complaint */}
-				<section className="bg-white py-12" id="client-interface">
-					<div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-						<h2 className="mb-4 text-2xl font-bold text-[#396131]">We Value Your Input</h2>
-						<p className="mb-6 text-base text-gray-700">
-							Send us your feedback or file a complaint using the forms below. Your voice helps us
-							improve and serve you better.
-						</p>
-						<div className="mb-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-							<button
-								className={`group inline-flex min-w-[170px] transform cursor-pointer items-center justify-center rounded-xl px-8 py-4 text-center text-base font-semibold shadow-lg transition-all duration-300 hover:shadow-xl ${showFeedbackForm ? 'bg-[#284421] text-white' : 'border border-[#396131] bg-white text-[#284421]'} `}
-								onClick={() => {
-									setShowComplaintForm(false);
-									setShowFeedbackForm(true);
-									setFormStatus('');
-								}}
-							>
-								Send Feedback
-							</button>
-							<button
-								className={`group inline-flex min-w-[170px] transform cursor-pointer items-center justify-center rounded-xl px-8 py-4 text-center text-base font-semibold shadow-lg transition-all duration-300 hover:shadow-xl ${showComplaintForm ? 'bg-[#284421] text-white' : 'border border-[#396131] bg-white text-[#284421]'} `}
-								onClick={() => {
-									setShowComplaintForm(true);
-									setShowFeedbackForm(false);
-									setFormStatus('');
-								}}
-							>
-								File a Complaint
-							</button>
-						</div>
-						{formStatus === 'success' && (
-							<div className="mb-8 rounded-lg border border-green-200 bg-green-50 px-6 py-4 text-center text-green-800">
-								Thank you! Your submission has been sent. We appreciate your input and will act on
-								your message as soon as possible.
-							</div>
-						)}
-						{formStatus === 'error' && (
-							<div className="mb-8 rounded-lg border border-red-200 bg-red-50 px-6 py-4 text-center text-red-800">
-								There was an error sending your form. Please try again or contact us directly at{' '}
-								<a className="underline" href="mailto:consumercare@1vb.com.ph">
-									consumercare@1vb.com.ph
-								</a>
-							</div>
-						)}
-
-						{/* Feedback Form */}
-						{showFeedbackForm && formStatus === '' && (
-							<FeedbackForm
-								onClose={() => setShowFeedbackForm(false)}
-								onSuccess={() => {
-									setFormStatus('success');
-									setShowFeedbackForm(false);
-								}}
-								onError={() => setFormStatus('error')}
-							/>
-						)}
-
-						{/* Complaint Form */}
-						{showComplaintForm && formStatus === '' && (
-							<ComplaintForm
-								onClose={() => setShowComplaintForm(false)}
-								onSuccess={() => {
-									setFormStatus('success');
-									setShowComplaintForm(false);
-								}}
-								onError={() => setFormStatus('error')}
-							/>
-						)}
 					</div>
 				</section>
 			</main>
