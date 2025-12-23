@@ -249,12 +249,6 @@ export default function ChatBox() {
 	const [inputText, setInputText] = useState('');
 	const [isTyping, setIsTyping] = useState(false);
 	const [documents, setDocuments] = useState([]);
-	// HARDCODED document ID below (replace with actual doc id as desired)
-	const HARDCODED_DOCUMENT_ID =
-		import.meta.env.VITE_PRODUCTION === 'True'
-			? 'f48ac2e6-7ab6-40eb-bb37-b0df13428b87'
-			: '761b8be7-fe90-4309-b10b-7efcbfae21b8';
-	const [selectedDocumentId, setSelectedDocumentId] = useState(HARDCODED_DOCUMENT_ID);
 	const [loadingDocuments, setLoadingDocuments] = useState(false);
 	const [sessionId, setSessionId] = useState(null);
 
@@ -274,8 +268,6 @@ export default function ChatBox() {
 			// Get or create session ID
 			const sid = chatbotService.getRAGSessionId();
 			setSessionId(sid);
-			// Use HARDCODED document selection
-			setSelectedDocumentId(HARDCODED_DOCUMENT_ID);
 		}
 	}, [isOpen]);
 
@@ -324,7 +316,8 @@ export default function ChatBox() {
 
 		try {
 			// Call RAG API
-			const response = await chatbotService.askRAG(question, HARDCODED_DOCUMENT_ID, sessionId);
+			// document_id intentionally omitted so backend can use admin-selected default document
+			const response = await chatbotService.askRAG(question, null, sessionId);
 
 			if (response.success) {
 				// Filter and validate sources to ensure they have required properties
@@ -376,30 +369,7 @@ export default function ChatBox() {
 		}
 	};
 
-	const handleDocumentSelect = (docId) => {
-		setSelectedDocumentId(docId || null);
-		chatbotService.saveSelectedDocumentId(docId);
-
-		// Add a system message about document selection
-		const timestamp = new Date().toLocaleTimeString([], {
-			hour: '2-digit',
-			minute: '2-digit'
-		});
-
-		const selectedDoc = documents.find((d) => d.id === docId);
-		const messageText =
-			docId && selectedDoc
-				? `Now querying: "${selectedDoc.title}"`
-				: 'Now querying all available documents';
-
-		const systemMessage = {
-			id: Date.now(),
-			text: messageText,
-			sender: 'ai',
-			timestamp
-		};
-		setMessages((prev) => [...prev, systemMessage]);
-	};
+	// Document selection is currently admin-controlled (backend default) for the public site.
 
 	const handleKeyPress = (e) => {
 		if (e.key === 'Enter' && !e.shiftKey) {
@@ -434,8 +404,8 @@ export default function ChatBox() {
 							{/*
 							<DocumentSelector
 								documents={documents}
-								selectedDocId={selectedDocumentId}
-								onSelect={handleDocumentSelect}
+								selectedDocId={null}
+								onSelect={() => {}}
 								loading={loadingDocuments}
 							/>
 							*/}
