@@ -794,24 +794,24 @@ export default function AboutUs() {
 							{/* Content */}
 							<div className="flex-1 text-center md:text-left">
 								{/* Featured Awards */}
-								<div className="flex flex-col gap-4">
+								<div className="flex flex-col gap-5">
 									{aboutPage?.featured_awards?.length
 										? aboutPage.featured_awards.map((award, idx) => {
 												const IconComponent = getIconComponent(award.icon || 'award');
 												return (
-													<div key={idx} className="flex items-start gap-3 p-4">
-														<div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/80">
+													<div key={idx} className="flex items-start gap-4 p-5">
+														<div className="flex h-11 w-11 items-center justify-center rounded-md bg-white/80">
 															{award.icon === 'award' && award.title?.includes('A+') ? (
-																<span className="text-xl font-bold text-[#396131]">A+</span>
+																<span className="text-2xl font-bold text-[#396131]">A+</span>
 															) : (
-																<IconComponent className="h-6 w-6 text-[#396131]" />
+																<IconComponent className="h-7 w-7 text-[#396131]" />
 															)}
 														</div>
 														<div>
-															<span className="mb-1 block text-2xl leading-tight font-bold text-white">
+															<span className="mb-1 block text-3xl leading-tight font-bold text-white">
 																{award.title?.toUpperCase() || ''}
 															</span>
-															<p className="text-base leading-relaxed font-normal text-white">
+															<p className="text-lg leading-relaxed font-normal text-white">
 																{award.description || ''}
 															</p>
 														</div>
@@ -819,28 +819,28 @@ export default function AboutUs() {
 												);
 											})
 										: [
-												<div key="fallback-1" className="flex items-start gap-3 p-4">
-													<div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/80">
-														<span className="text-xl font-bold text-[#396131]">A+</span>
+												<div key="fallback-1" className="flex items-start gap-4 p-5">
+													<div className="flex h-11 w-11 items-center justify-center rounded-md bg-white/80">
+														<span className="text-2xl font-bold text-[#396131]">A+</span>
 													</div>
 													<div>
-														<span className="mb-1 block text-2xl leading-tight font-bold text-white">
+														<span className="mb-1 block text-3xl leading-tight font-bold text-white">
 															RATED A+
 														</span>
-														<p className="text-base leading-relaxed font-normal text-white">
+														<p className="text-lg leading-relaxed font-normal text-white">
 															By PhilRatings, a BSP-recognized credit rating agency.
 														</p>
 													</div>
 												</div>,
-												<div key="fallback-2" className="flex items-start gap-3 p-4">
-													<div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/80">
-														<Trophy className="h-6 w-6 text-[#396131]" />
+												<div key="fallback-2" className="flex items-start gap-4 p-5">
+													<div className="flex h-11 w-11 items-center justify-center rounded-md bg-white/80">
+														<Trophy className="h-7 w-7 text-[#396131]" />
 													</div>
 													<div>
-														<span className="mb-1 block text-2xl leading-tight font-bold text-white">
+														<span className="mb-1 block text-3xl leading-tight font-bold text-white">
 															EAGLE AWARD FOR MICROFINANCE
 														</span>
-														<p className="text-base leading-relaxed font-normal text-white">
+														<p className="text-lg leading-relaxed font-normal text-white">
 															From USAID via MABS, for expanding rural microfinance services.
 														</p>
 													</div>
@@ -850,33 +850,33 @@ export default function AboutUs() {
 							</div>
 							{/* Trophy Icon */}
 							<div className="mb-4 flex flex-1 justify-center md:mb-0 md:justify-end">
-								<div className="flex h-24 w-24 items-center justify-center rounded-full bg-white/80 shadow-lg md:h-32 md:w-32">
-									<Trophy className="h-14 w-14 text-5xl text-[#396131] md:h-24 md:w-24 md:text-7xl" />
+								<div className="flex h-28 w-28 items-center justify-center rounded-full bg-white/80 shadow-lg md:h-36 md:w-36">
+									<Trophy className="h-16 w-16 text-6xl text-[#396131] md:h-28 md:w-28 md:text-8xl" />
 								</div>
 							</div>
 						</div>
 						{/* Additional Awards Grid */}
-						<div className="mt-8 p-4">
-							<div className="mb-4 text-center">
-								<h3 className="mb-1 text-xl leading-tight font-bold text-white">
+						<div className="mt-10 p-5">
+							<div className="mb-6 text-center">
+								<h3 className="mb-1 text-2xl leading-tight font-bold text-white">
 									More Achievements
 								</h3>
-								<div className="mx-auto h-0.5 w-10 rounded-full bg-white/60"></div>
+								<div className="mx-auto h-0.5 w-12 rounded-full bg-white/60"></div>
 							</div>
-							<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
+							<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
 								{awards.map((award, index) => (
 									<div
 										key={index}
-										className="group flex items-start gap-3 p-3 transition-all duration-200"
+										className="group flex items-start gap-4 p-4 transition-all duration-200"
 									>
-										<div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-white/80 transition-transform duration-200 group-hover:scale-105">
-											<Trophy className="h-4 w-4 text-[#396131]" />
+										<div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-white/80 transition-transform duration-200 group-hover:scale-105">
+											<Trophy className="h-6 w-6 text-[#396131]" />
 										</div>
 										<div className="flex-1">
-											<span className="block text-base leading-tight font-semibold text-white">
+											<span className="block text-lg leading-tight font-semibold text-white">
 												{award.header}
 											</span>
-											<p className="text-sm leading-relaxed font-normal text-white">
+											<p className="text-base leading-relaxed font-normal text-white">
 												{award.description}
 											</p>
 										</div>

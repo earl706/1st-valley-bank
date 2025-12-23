@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import ProductModal from './ProductModal';
-import { DarkPrimaryButton, DarkSecondaryButton } from './Buttons';
+import { DarkPrimaryButton, DarkSecondaryButton, LightPrimaryButton, LightSecondaryButton } from './Buttons';
 import { DarkCard } from './Card';
 import { DarkHeader } from './Header';
 export default function LoanSubcategoriesSection({
@@ -19,7 +19,7 @@ export default function LoanSubcategoriesSection({
 	ctaSecondaryText = 'View All Loans',
 	ctaSecondaryLink = '/loans',
 	backgroundColor = 'from-slate-50 to-white',
-	brandColor = 'white',
+	brandColor = '#396131',
 	className = '',
 	showModal = true // New prop to enable/disable modal functionality
 }) {
@@ -103,7 +103,7 @@ export default function LoanSubcategoriesSection({
 							<DarkCard
 								key={index}
 								useNativeSpacing={true}
-								className="group flex h-full flex-col overflow-hidden p-0"
+								className="group flex h-full flex-col overflow-hidden p-0 bg-white"
 							>
 								<div className="flex flex-1 flex-col items-center gap-6 p-8 sm:flex-row sm:items-start lg:gap-8 lg:p-10">
 									{/* Image Container */}
@@ -127,7 +127,7 @@ export default function LoanSubcategoriesSection({
 										>
 											{type.title}
 										</h3>
-										<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-white/90">
+										<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-[#396131]/80">
 											{type.description}
 										</p>
 
@@ -140,7 +140,7 @@ export default function LoanSubcategoriesSection({
 															className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
 															style={{ backgroundColor: brandColor }}
 														></div>
-														<span className="text-xs font-normal text-white/70">{feature}</span>
+														<span className="text-xs font-normal text-[#396131]/60">{feature}</span>
 													</div>
 												))}
 											</div>
@@ -149,7 +149,7 @@ export default function LoanSubcategoriesSection({
 										{/* CTA Buttons */}
 										<div className="mt-auto flex gap-3 sm:flex-row lg:flex-col">
 											{showModal ? (
-												<DarkPrimaryButton
+												<LightPrimaryButton
 													type="button"
 													onClick={(e) => handleViewDetails(e, type)}
 													className="w-full justify-center"
@@ -158,9 +158,9 @@ export default function LoanSubcategoriesSection({
 													}
 												>
 													<span className="mx-auto text-center">View Details</span>
-												</DarkPrimaryButton>
+												</LightPrimaryButton>
 											) : (
-												<DarkPrimaryButton
+												<LightSecondaryButton
 													to={type.route}
 													className="w-full justify-center"
 													secondaryIcon={
@@ -168,11 +168,11 @@ export default function LoanSubcategoriesSection({
 													}
 												>
 													<span className="mx-auto text-center">Learn More</span>
-												</DarkPrimaryButton>
+												</LightSecondaryButton>
 											)}
 
 											{showModal && (
-												<DarkSecondaryButton
+												<LightSecondaryButton
 													type="button"
 													onClick={() => handleApplyNow(type)}
 													className="w-full justify-center"
@@ -181,7 +181,7 @@ export default function LoanSubcategoriesSection({
 													}
 												>
 													<span className="mx-auto text-center">Apply Now</span>
-												</DarkSecondaryButton>
+												</LightSecondaryButton>
 											)}
 										</div>
 									</div>

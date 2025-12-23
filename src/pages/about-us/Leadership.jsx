@@ -1,49 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, memo, useCallback } from 'react';
+import { Tree, TreeNode } from 'react-organizational-chart';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import landingService from '../../services/landingService';
 import { DarkHeader } from '../../components/Header';
 import HeroSection from '../../components/HeroSection';
 import logo from '/src/assets/logo.png';
 import img1 from '/src/assets/carousel/1.png';
-import OrgChart from 'react-orgchart';
-import 'react-orgchart/index.css';
 
-// Officer card with dynamic styling based on hierarchy level
-const OfficerCard = ({ officer, variant = 'default' }) => {
+// Optimized officer card component with responsive design
+const OfficerCard = memo(({ officer, collapsed, onCollapse, childrenCount = 0 }) => {
+	// Responsive variants based on screen size and hierarchy level
 	const variants = {
 		president: {
-			cardClass: 'bg-gradient-to-br from-white/25 to-white/15 border-2 border-white/40 p-6 min-w-[200px] max-w-[280px] shadow-xl',
-			textClass: 'text-lg font-bold'
+			cardClass: 'bg-gradient-to-br from-white/30 via-white/20 to-white/15 border-2 border-white/50 p-3 sm:p-4 md:p-5 min-w-[140px] sm:min-w-[180px] md:min-w-[200px] max-w-[160px] sm:max-w-[240px] md:max-w-[280px] shadow-2xl',
+			positionClass: 'text-xs sm:text-sm md:text-base font-semibold',
 		},
 		evp: {
-			cardClass: 'bg-white/15 border border-white/30 p-5 min-w-[180px] max-w-[240px] shadow-lg',
-			textClass: 'text-base font-semibold'
-		},
-		vp: {
-			cardClass: 'bg-white/12 border border-white/25 p-4 min-w-[160px] max-w-[220px] shadow-md',
-			textClass: 'text-sm font-semibold'
+			cardClass: 'bg-gradient-to-br from-white/20 via-white/15 to-white/10 border-2 border-white/40 p-2.5 sm:p-3 md:p-4 min-w-[120px] sm:min-w-[160px] md:min-w-[180px] max-w-[140px] sm:max-w-[200px] md:max-w-[240px] shadow-xl',
+			positionClass: 'text-xs sm:text-sm font-semibold',
 		},
 		default: {
-			cardClass: 'bg-white/10 border border-white/20 p-4 min-w-[140px] max-w-[200px] shadow-md',
-			textClass: 'text-xs font-medium'
+			cardClass: 'bg-gradient-to-br from-white/12 via-white/10 to-white/8 border border-white/25 p-2 sm:p-2.5 md:p-3 min-w-[100px] sm:min-w-[140px] md:min-w-[160px] max-w-[120px] sm:max-w-[160px] md:max-w-[200px] shadow-md',
+			positionClass: 'text-[10px] sm:text-xs font-medium',
 		}
 	};
 
+	const variant = officer.variant || 'default';
 	const style = variants[variant] || variants.default;
 
 	return (
-		<div
-			className={`
-				group flex flex-col items-center justify-center gap-2 rounded-xl 
-				transition-all duration-300 hover:shadow-xl hover:scale-105
-				${style.cardClass}
-			`}
-		>
-			<span className={`leading-tight text-white text-center break-words ${style.textClass}`}>
-				{officer.position}
-			</span>
+		<div className="flex flex-col items-center">
+			<div
+				className={`${style.cardClass} group relative flex flex-col items-center justify-center gap-1 rounded-lg sm:rounded-xl transition-all duration-300 hover:shadow-2xl hover:scale-105 hover:border-white/60 backdrop-blur-sm overflow-hidden cursor-pointer`}
+			>
+				{/* Content */}
+				<div className="relative z-10 w-full flex flex-col items-center px-1 sm:px-2">
+					<span className={`${style.positionClass} leading-tight text-white/90 text-center break-words`}>
+						{officer.position}
+					</span>
+				</div>
+			</div>
 		</div>
 	);
-};
+});
+
+OfficerCard.displayName = 'OfficerCard';
 
 // Skeleton loader
 const LoadingSkeleton = () => (
@@ -59,115 +60,212 @@ const LoadingSkeleton = () => (
 	</div>
 );
 
-// Helper to determine officer hierarchy level based on position title
-function getOfficerLevel(position) {
-	if (!position) return { level: 99, variant: 'default', label: 'Other' };
-	const pos = position.toLowerCase();
+// Optimized helper to determine officer hierarchy level (memoized pattern)
+const getOfficerLevel = (() => {
+	const cache = new Map();
 	
-	// Level 0: President/CEO
-	if (/\b(president)\b/i.test(pos) && !/vice/i.test(pos)) {
-		return { level: 0, variant: 'president', label: 'President' };
-	}
-	
-	// Level 1: C-Suite Officers (Chief positions)
-	if (/\b(chief|ceo|cfo|cto|coo|cio|cmo|cpo|cso|clo)\b/i.test(pos)) {
-		return { level: 1, variant: 'evp', label: 'C-Suite Officer' };
-	}
-	
-	// Level 2: Senior Officers (VPs, Directors, Heads, etc.)
-	return { level: 2, variant: 'default', label: 'Senior Officer' };
-}
+	return (position) => {
+		if (!position) return { level: 99, variant: 'default', label: 'Other' };
+		
+		// Check cache first
+		if (cache.has(position)) {
+			return cache.get(position);
+		}
+		
+		const pos = position.toLowerCase();
+		let result;
 
-// Organize officers into hierarchical structure
-function organizeSeniorManagement(officers) {
+		// Level 0: President/CEO
+		if (/\b(president)\b/i.test(pos) && !/vice/i.test(pos)) {
+			result = { level: 0, variant: 'president', label: 'President' };
+		}
+		// Level 1: C-Suite Officers (Chief positions)
+		else if (/\b(chief|ceo|cfo|cto|coo|cio|cmo|cpo|cso|clo)\b/i.test(pos)) {
+			result = { level: 1, variant: 'evp', label: 'C-Suite Officer' };
+		}
+		// Level 2: Senior Officers (VPs, Directors, Heads, etc.)
+		else {
+			result = { level: 2, variant: 'default', label: 'Senior Officer' };
+		}
+		
+		cache.set(position, result);
+		return result;
+	};
+})();
+
+// Optimized function to organize officers into hierarchical structure
+const organizeSeniorManagement = (officers) => {
 	if (!officers || officers.length === 0) return {};
 
+	// Pre-process officers with level information (single pass)
+	const officersWithLevel = officers.map(officer => ({
+		...officer,
+		...getOfficerLevel(officer.position)
+	}));
+
 	// Sort officers by level, then display_order, then name
-	const sorted = [...officers].sort((a, b) => {
-		const levelA = getOfficerLevel(a.position).level;
-		const levelB = getOfficerLevel(b.position).level;
-		if (levelA !== levelB) return levelA - levelB;
-		
+	const sorted = [...officersWithLevel].sort((a, b) => {
+		if (a.level !== b.level) return a.level - b.level;
 		const orderA = a.display_order ?? 0;
 		const orderB = b.display_order ?? 0;
 		if (orderA !== orderB) return orderA - orderB;
-		
 		return (a.name || '').localeCompare(b.name || '');
 	});
 
-	// Group by hierarchy level
+	// Group by hierarchy level in single pass
 	const hierarchy = {};
-	sorted.forEach(officer => {
-		const { level, variant } = getOfficerLevel(officer.position);
-		if (!hierarchy[level]) {
-			hierarchy[level] = [];
+	sorted.forEach((officer) => {
+		if (!hierarchy[officer.level]) {
+			hierarchy[officer.level] = [];
 		}
-		hierarchy[level].push({ ...officer, variant });
+		hierarchy[officer.level].push(officer);
 	});
 
 	return hierarchy;
-}
+};
 
-// Convert hierarchy to react-orgchart data structure
-function convertToOrgChartData(hierarchy) {
-	if (!hierarchy || Object.keys(hierarchy).length === 0) return null;
+// Optimized tree structure converter with memoization support
+const convertToTreeData = (hierarchy) => {
+	if (!hierarchy || !hierarchy[0] || hierarchy[0].length === 0) return null;
 
-	// President (Level 0)
-	const president = hierarchy[0] && hierarchy[0][0];
-	if (!president) return null;
+	const president = hierarchy[0][0];
+	const cSuites = hierarchy[1] || [];
+	const seniors = hierarchy[2] || [];
 
+	// Build tree structure efficiently
 	const root = {
-		name: president.position,
+		id: president.id,
+		name: president.name,
+		position: president.position,
 		variant: president.variant,
-		officer: president,
 		children: []
 	};
 
-	// C-Suite Officers (Level 1)
-	const cSuiteOfficers = hierarchy[1] || [];
-	
-	if (cSuiteOfficers.length > 0) {
-		// Senior Officers (Level 2)
-		const seniorOfficers = hierarchy[2] || [];
-		const officersPerCSuite = Math.ceil(seniorOfficers.length / cSuiteOfficers.length);
-
-		cSuiteOfficers.forEach((officer, index) => {
-			const cSuiteNode = {
-				name: officer.position,
-				variant: officer.variant,
-				officer: officer,
-				children: []
-			};
-
-			// Distribute senior officers under C-Suite
+	if (cSuites.length > 0) {
+		// Distribute seniors evenly among C-Suites
+		const officersPerCSuite = Math.ceil(seniors.length / cSuites.length);
+		
+		root.children = cSuites.map((cSuite, index) => {
 			const start = index * officersPerCSuite;
-			const end = Math.min(start + officersPerCSuite, seniorOfficers.length);
-			const assignedOfficers = seniorOfficers.slice(start, end);
+			const end = Math.min(start + officersPerCSuite, seniors.length);
+			const assignedSeniors = seniors.slice(start, end);
 
-			assignedOfficers.forEach(seniorOfficer => {
-				cSuiteNode.children.push({
-					name: seniorOfficer.position,
-					variant: seniorOfficer.variant,
-					officer: seniorOfficer
-				});
-			});
-
-			root.children.push(cSuiteNode);
+			return {
+				id: cSuite.id,
+				name: cSuite.name,
+				position: cSuite.position,
+				variant: cSuite.variant,
+				children: assignedSeniors.map(senior => ({
+					id: senior.id,
+					name: senior.name,
+					position: senior.position,
+					variant: senior.variant,
+					children: []
+				}))
+			};
 		});
-	} else {
-		// If no C-Suite, put Senior Officers directly under President
-		const seniorOfficers = hierarchy[2] || [];
-		seniorOfficers.forEach(officer => {
-			root.children.push({
-				name: officer.position,
-				variant: officer.variant,
-				officer: officer
-			});
-		});
+	} else if (seniors.length > 0) {
+		// If no C-Suite, put seniors directly under President
+		root.children = seniors.map(senior => ({
+			id: senior.id,
+			name: senior.name,
+			position: senior.position,
+			variant: senior.variant,
+			children: []
+		}));
 	}
 
 	return root;
-}
+};
+
+// Memoized recursive node component for organizational chart
+const OrgNode = memo(({ node, isRoot = false }) => {
+	const [collapsed, setCollapsed] = useState(false);
+	const hasChildren = node.children && node.children.length > 0 && !collapsed;
+
+	const handleCollapse = useCallback(() => {
+		setCollapsed(prev => !prev);
+	}, []);
+
+	const label = useMemo(() => (
+		<OfficerCard
+			officer={node}
+			collapsed={collapsed}
+			onCollapse={handleCollapse}
+			childrenCount={node.children ? node.children.length : 0}
+		/>
+	), [node, collapsed, handleCollapse]);
+
+	const children = useMemo(() => {
+		if (!hasChildren || !node.children) return null;
+		return node.children.map((child) => (
+			<OrgNode key={child.id || child.position} node={child} isRoot={false} />
+		));
+	}, [hasChildren, node.children]);
+
+	if (isRoot) {
+		return (
+			<Tree
+				label={label}
+				lineWidth="1px"
+				lineColor="rgba(255, 255, 255, 0.4)"
+				lineBorderRadius="8px"
+			>
+				{children}
+			</Tree>
+		);
+	}
+
+	return (
+		<TreeNode label={label}>
+			{children}
+		</TreeNode>
+	);
+});
+
+OrgNode.displayName = 'OrgNode';
+
+// Optimized organizational chart component wrapper with responsive styles
+const OrgChartCustom = memo(({ hierarchy }) => {
+	const treeData = useMemo(() => convertToTreeData(hierarchy), [hierarchy]);
+
+	if (!treeData) return null;
+
+	return (
+		<>
+			<style>{`
+				.org-chart {
+					display: inline-block;
+					width: 100%;
+					max-width: 100%;
+				}
+				.org-chart ul {
+					background: transparent;
+					padding-top: 15px;
+				}
+				.org-chart li::before,
+				.org-chart li::after {
+					border-color: rgba(255, 255, 255, 0.4) !important;
+				}
+				.org-chart ul ul::before {
+					border-color: rgba(255, 255, 255, 0.4) !important;
+				}
+
+			`}</style>
+			<div className="w-full py-4 sm:py-6 md:py-8">
+				<div className="overflow-x-auto overflow-y-visible -mx-4 px-4 sm:mx-auto sm:px-0">
+					<div className="inline-block min-w-full">
+						<div className="flex justify-center org-chart">
+							<OrgNode node={treeData} isRoot={true} />
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	);
+});
+
+OrgChartCustom.displayName = 'OrgChartCustom';
 
 const Leadership = () => {
 	const [seniorManagement, setSeniorManagement] = useState([]);
@@ -219,6 +317,10 @@ const Leadership = () => {
 			mountedRef.current = false;
 		};
 	}, []);
+	const hierarchy = useMemo(
+		() => organizeSeniorManagement(seniorManagement),
+		[seniorManagement]
+	);
 
 	if (loading) return <LoadingSkeleton />;
 	if (error)
@@ -229,40 +331,8 @@ const Leadership = () => {
 			</div>
 		);
 
-	// Organize senior management into hierarchical levels
-	const hierarchy = organizeSeniorManagement(seniorManagement);
-	const hierarchyLevels = Object.keys(hierarchy).sort((a, b) => Number(a) - Number(b));
-	const orgChartData = convertToOrgChartData(hierarchy);
-
-	// Custom node component for OrgChart
-	const NodeComponent = ({ node }) => {
-		return <OfficerCard officer={node.officer} variant={node.variant} />;
-	};
-
 	return (
 		<>
-			<style>{`
-				.orgchart-container .orgchart {
-					background: transparent;
-				}
-				.orgchart-container .orgchart .node {
-					background: transparent;
-					border: none;
-					padding: 0;
-				}
-				.orgchart-container .orgchart .node:before,
-				.orgchart-container .orgchart .node:after,
-				.orgchart-container .orgchart .lines .downLine,
-				.orgchart-container .orgchart .lines .leftLine,
-				.orgchart-container .orgchart .lines .rightLine,
-				.orgchart-container .orgchart .lines .topLine {
-					background-color: rgba(255, 255, 255, 0.3);
-					border-color: rgba(255, 255, 255, 0.3);
-				}
-				.orgchart-container .orgchart .lines {
-					border-color: rgba(255, 255, 255, 0.3);
-				}
-			`}</style>
 			<HeroSection
 				title="Meet Our Leadership"
 				subtitle="Corporate Leadership"
@@ -285,44 +355,57 @@ const Leadership = () => {
 						subtitle="Discover our experienced management team dedicated to driving our success."
 					/>
 
-				{/* Senior Management Org Chart Section */}
-				<div className="flex flex-col gap-8 mt-10">
-					<span className="text-center text-xl leading-tight font-bold tracking-wider text-white/80 uppercase">
-						Senior Management
-					</span>
-					{orgChartData ? (
-						<div className="w-full mt-6 pb-8 overflow-x-auto">
-							<div className="mx-auto flex justify-center min-w-max orgchart-container">
-								<OrgChart 
-									tree={orgChartData}
-									NodeComponent={NodeComponent}
-								/>
-							</div>
+					{/* Senior Management Org Chart Section - Responsive */}
+					<div className="flex flex-col gap-6 sm:gap-8 mt-8 sm:mt-10 w-full">
+						<div className="text-center">
+							<span className="text-xl sm:text-2xl md:text-3xl leading-tight font-bold tracking-wide text-white uppercase mb-2 block px-4">
+								Senior Management
+							</span>
+							<div className=" h-1 bg-white/40 mx-auto rounded-full"></div>
 						</div>
-					) : (
-						<p className="text-center text-white/70 py-8">
-							No senior management information available.
-						</p>
-					)}
-				</div>
-
-
+						{hierarchy && hierarchy[0] && hierarchy[0].length > 0 ? (
+							<div className="w-full mt-6 sm:mt-8 pb-8 sm:pb-12">
+								{/* Responsive org chart with optimized rendering */}
+								<OrgChartCustom hierarchy={hierarchy} />
+							</div>
+						) : (
+							<div className="text-center py-8 sm:py-12">
+								<p className="text-white/70 text-base sm:text-lg px-4">
+									No senior management information available.
+								</p>
+							</div>
+						)}
+					</div>
 
 					{/* Product & Area Management Section */}
-					<div className="flex flex-col gap-8 mt-14">
-						<span className="text-center text-xl leading-tight font-bold tracking-wider text-white/80 uppercase">
-							Product &amp; Area Management
-						</span>
+					<div className="flex flex-col gap-8 mt-16">
+						<div className="text-center">
+							<span className="text-2xl md:text-3xl leading-tight font-bold tracking-wide text-white uppercase mb-2 block">
+								Product &amp; Area Management
+							</span>
+							<div className="w-24 h-1 bg-white/40 mx-auto rounded-full"></div>
+						</div>
 						{productManagement.length > 0 ? (
-							<div className="mt-6 grid grid-cols-2 gap-x-2 gap-y-5 text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-x-4 lg:gap-y-6">
+							<div className="mt-8 grid grid-cols-2 gap-3 text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-4">
 								{productManagement.map((officer, i) => (
-									<OfficerCard officer={officer} key={officer.id || i} />
+									<div
+										key={officer.id || i}
+										className="bg-white/12 border border-white/25 p-4 min-w-[160px] max-w-[220px] shadow-md group relative flex flex-col items-center justify-center gap-2 rounded-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105 hover:border-white/60 backdrop-blur-sm overflow-hidden mx-auto"
+									>
+										<div className="relative z-10 w-full flex flex-col items-center">
+											<span className="leading-tight text-white/90 text-center break-words text-xs">
+												{officer.position}
+											</span>
+										</div>
+									</div>
 								))}
 							</div>
 						) : (
-							<p className="text-center text-white/70 py-8">
-								No product or area management information available.
-							</p>
+							<div className="text-center py-12">
+								<p className="text-white/70 text-lg">
+									No product or area management information available.
+								</p>
+							</div>
 						)}
 					</div>
 				</div>

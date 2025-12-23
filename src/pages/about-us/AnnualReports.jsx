@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FileText, X, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import aboutPageService from '../../services/aboutPageService';
 import annualReportService from '../../services/annualReportService';
-import { LightHeader } from '../../components/Header';
+import { DarkHeader, LightHeader } from '../../components/Header';
 import { LightCard } from '../../components/Card';
 import { LightPrimaryButton } from '../../components/Buttons';
 import HeroSection from '../../components/HeroSection';
@@ -242,27 +242,31 @@ export default function AnnualReports() {
 			<main className="flex flex-col pb-8">
 				<section
 					id="annual-reports"
-					className="relative flex flex-col items-center justify-center gap-12 px-4 py-12 text-[#396131] lg:px-12 lg:py-20"
+					className="relative flex flex-col items-center justify-center gap-12 px-4 py-12 bg-[#396131] text-white lg:px-12 lg:py-20"
 				>
-					<LightHeader
+					<DarkHeader
 						badgeText="Reports"
 						title="Annual Reports"
 						subtitle="Review annual reports and corporate highlights of our continued growth and stability."
+						className="text-white"
+						badgeClassName="bg-white/20 text-white"
+						titleClassName="text-white"
+						subtitleClassName="text-white/90"
 					/>
 					<div className="grid w-full max-w-7xl grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
 						{annualReports.map((report, index) => (
 							<LightCard
 								useNativeSpacing={true}
-								className="group relative flex flex-col overflow-hidden rounded-2xl p-0 shadow-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+								className="group relative flex flex-col overflow-hidden rounded-2xl bg-white/90 p-0 shadow-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 								key={index}
 							>
 								<div className="relative">
 									<img
 										src={report.image}
 										alt={report.title}
-										className="h-60 w-full rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
+										className="h-60 w-full rounded-t-lg object-cover transition-transform duration-300 group-hover:scale-105"
 									/>
-									<span className="absolute bottom-4 left-1/2 w-[90%] -translate-x-1/2 rounded-lg bg-white/90 px-4 py-2 text-center text-xl font-bold text-[#396131] shadow-md backdrop-blur-sm md:text-2xl">
+									<span className="absolute bottom-4 left-1/2 w-[90%] -translate-x-1/2 rounded-lg bg-[#396131] px-4 py-2 text-center text-xl font-bold text-white shadow-md backdrop-blur-sm md:text-2xl">
 										{report.title}
 									</span>
 								</div>
@@ -275,7 +279,7 @@ export default function AnnualReports() {
 											{report.corporate_highlights?.map((highlight, idx) => (
 												<li key={idx} className="flex items-center gap-3">
 													<span className="inline-block h-4 w-4 flex-shrink-0 rounded bg-gradient-to-br from-[#396131] to-[#4a7a3f]"></span>
-													<span className="text-base leading-relaxed font-normal text-gray-700">
+													<span className="text-base leading-relaxed font-normal text-[#396131]">
 														{highlight}
 													</span>
 												</li>
@@ -285,7 +289,7 @@ export default function AnnualReports() {
 									<div className="mt-auto flex justify-center">
 										<LightPrimaryButton
 											to=""
-											className="w-full py-4 text-xl"
+											className="w-full py-4 text-xl bg-[#396131] text-white hover:bg-[#2c4c23]"
 											secondaryIcon={<ArrowRight className="ml-3 h-5 w-5" />}
 											onClick={(e) => {
 												e.preventDefault();

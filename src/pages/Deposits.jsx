@@ -206,19 +206,19 @@ export default function Deposits() {
 															<IconComponent className="h-8 w-8 text-white" />
 														</div>
 														<div>
-															<div className="text-sm leading-tight font-semibold tracking-wider text-white uppercase">
+															<div className="text-sm leading-tight font-semibold tracking-wider text-[#396131] uppercase">
 																{product.category}
 															</div>
-															<h3 className="text-3xl leading-tight font-bold text-white md:text-3xl">
+															<h3 className="text-3xl leading-tight font-bold text-[#396131] md:text-3xl">
 																{product.title}
 															</h3>
 														</div>
 													</div>
-													<p className="mb-8 text-base leading-relaxed font-normal text-white">
+													<p className="mb-8 text-base leading-relaxed font-normal text-[#396131]">
 														{product.description}
 													</p>
 													<div className="mb-8">
-														<h4 className="mb-4 text-2xl leading-tight font-bold tracking-wider text-white uppercase">
+														<h4 className="mb-4 text-2xl leading-tight font-bold tracking-wider text-[#396131] uppercase">
 															{product.featureLabel}
 														</h4>
 														<div
@@ -226,15 +226,15 @@ export default function Deposits() {
 														>
 															{product.features.map((feature, featureIndex) => (
 																<div key={featureIndex} className="flex items-center gap-3">
-																	<div className="h-2 w-2 rounded-full bg-white"></div>
-																	<span className="text-base leading-relaxed font-normal text-white">
+																	<div className="h-2 w-2 rounded-full bg-[#396131]"></div>
+																	<span className="text-base leading-relaxed font-normal text-[#396131]">
 																		{feature}
 																	</span>
 																</div>
 															))}
 														</div>
 														{product.additionalInfo && (
-															<div className="mt-3 text-base leading-relaxed font-bold text-white">
+															<div className="mt-3 text-base leading-relaxed font-bold text-[#396131]">
 																{product.additionalInfo}
 															</div>
 														)}
@@ -243,7 +243,7 @@ export default function Deposits() {
 														to={product.route}
 														className="w-fit"
 														secondaryIcon={
-															<ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover/btn:translate-x-1" />
+															<ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover/btn:translate-x-1 text-[#396131]" />
 														}
 													>
 														{product.buttonText}

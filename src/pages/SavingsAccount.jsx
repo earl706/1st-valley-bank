@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { DarkCard } from '../components/Card';
-import { DarkPrimaryButton } from '../components/Buttons';
+import { DarkPrimaryButton, LightPrimaryButton } from '../components/Buttons';
 import { ArrowLeft, Users, Building, User, DollarSign, ArrowRight } from 'lucide-react';
 import PageHeroSection from '../components/PageHeroSection';
 import CarouselSection from '../components/CarouselSection';
@@ -81,47 +81,47 @@ export default function SavingsAccount() {
 										/>
 									</div>
 									<div className="flex w-full flex-1 flex-col p-8">
-										<h3 className="mt-2 mb-4 text-center text-2xl leading-tight font-bold text-white">
+										<h3 className="mt-2 mb-4 text-center text-2xl leading-tight font-bold text-[#396131]">
 											{account.name}
 										</h3>
-										<p className="mb-6 text-center text-base leading-relaxed font-normal text-white/80">
+										<p className="mb-6 text-center text-base leading-relaxed font-normal text-[#396131]/80">
 											{account.description}
 										</p>
 										<div className="mb-6 space-y-3">
 											<div className="flex justify-between">
-												<span className="text-sm leading-relaxed font-normal text-white/70">
+												<span className="text-sm leading-relaxed font-normal text-[#396131]/70">
 													Initial Deposit:
 												</span>
-												<span className="text-sm leading-relaxed font-bold text-white">
+												<span className="text-sm leading-relaxed font-bold text-[#396131]">
 													{account.required_initial_deposit}
 												</span>
 											</div>
 											<div className="flex justify-between">
-												<span className="text-sm leading-relaxed font-normal text-white/70">
+												<span className="text-sm leading-relaxed font-normal text-[#396131]/70">
 													Minimum Balance:
 												</span>
-												<span className="text-sm leading-relaxed font-bold text-white">
+												<span className="text-sm leading-relaxed font-bold text-[#396131]">
 													{account.required_monthly_adb}
 												</span>
 											</div>
 											<div className="flex justify-between">
-												<span className="text-sm leading-relaxed font-normal text-white/70">
+												<span className="text-sm leading-relaxed font-normal text-[#396131]/70">
 													Interest Rate:
 												</span>
-												<span className="text-sm leading-relaxed font-bold text-white">
+												<span className="text-sm leading-relaxed font-bold text-[#396131]">
 													{account.interest_rate_below}% - {account.interest_rate_above}%
 												</span>
 											</div>
 										</div>
-										<DarkPrimaryButton
+										<LightPrimaryButton
 											to={account.route || `/contact-us`}
 											className="mt-auto flex w-full"
 											secondaryIcon={
-												<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+												<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 text-white" />
 											}
 										>
 											Open Account
-										</DarkPrimaryButton>
+										</LightPrimaryButton>
 									</div>
 								</DarkCard>
 							))}

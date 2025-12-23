@@ -327,11 +327,11 @@ const Careers = () => {
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 						{Array.isArray(page.why_work_items) && page.why_work_items.length > 0
 							? page.why_work_items.map((item, idx) => (
-									<div key={idx} className="flex flex-col items-center text-center p-6 rounded-xl  shadow-lg border border-[#e0e9dc]/60">
+									<div key={idx} className="flex flex-col items-center text-center p-6 rounded-xl shadow-lg border border-[#e0e9dc]/60 bg-[#396131]">
 										{renderIcon(item.icon, item.title)}
-										<h4 className="mt-2 mb-1 text-lg font-semibold text-[#396131]">{item.title}</h4>
+										<h4 className="mt-2 mb-1 text-lg font-semibold text-white">{item.title}</h4>
 										{item.description && (
-											<p className="text-gray-700 text-sm">{item.description}</p>
+											<p className="text-[#e0e9dc] text-sm">{item.description}</p>
 										)}
 									</div>
 								))
@@ -357,7 +357,7 @@ const Careers = () => {
 						<div className="space-y-8">
 							{page.job_categories.map((category, catIdx) => (
 								<div key={catIdx}>
-									<h3 className="mb-4 text-2xl font-bold text-white">
+									<h3 className="mb-4 text-2xl font-bold text-[#396131]">
 										{category.category || "Job Openings"}
 									</h3>
 									<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
@@ -365,21 +365,21 @@ const Careers = () => {
 											category.jobs.map((job, jobIdx) => (
 												<DarkCard
 													key={jobIdx}
-													className="flex flex-col h-full rounded-xl border border-white/20 shadow-lg text-white"
+													className="flex flex-col h-full rounded-xl border border-[#396131]/20 shadow-lg text-[#29321a] bg-white"
 												>
-													<h5 className="mb-1 text-xl font-bold ">{job.title}</h5>
+													<h5 className="mb-1 text-xl font-bold text-[#396131]">{job.title}</h5>
 													{job.location && (
-														<div className="mb-2 text-sm  font-medium">
+														<div className="mb-2 text-sm font-medium text-[#47521d]">
 															📍 {job.location}
 														</div>
 													)}
 													{job.type && (
-														<div className="mb-2 text-xs  font-medium">
+														<div className="mb-2 text-xs font-medium text-[#396131]">
 															{job.type}
 														</div>
 													)}
 													{job.description && (
-														<p className="mb-3  text-sm flex-1">{job.description}</p>
+														<p className="mb-3 text-sm flex-1 text-gray-700">{job.description}</p>
 													)}
 													{job.link && (
 														<a
@@ -394,7 +394,7 @@ const Careers = () => {
 												</DarkCard>
 											))
 										) : (
-											<div className="col-span-full text-white/80 py-4 text-center">
+											<div className="col-span-full text-gray-600 py-4 text-center">
 												No positions available in this category.
 											</div>
 										)}

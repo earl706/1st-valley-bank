@@ -60,29 +60,29 @@ const ChatToggleButton = ({ onClick }) => (
 );
 
 const ChatHeader = ({ onMinimize, onClose }) => (
-	<div className="flex flex-shrink-0 items-center justify-between rounded-t-2xl bg-[#396131] px-4 py-3 text-white">
+	<div className="flex flex-shrink-0 items-center justify-between rounded-t-2xl bg-yellow-300 px-4 py-3 text-[#29321a]">
 		<div className="flex items-center space-x-3">
 			<div className="relative">
 				<div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
-					<Sparkles className="h-4 w-4 text-white" />
+					<Sparkles className="h-4 w-4 text-[#396131]" />
 				</div>
 				<div className="absolute -right-1 -bottom-1 h-3 w-3 rounded-full border-2 border-white bg-green-400"></div>
 			</div>
 			<div>
-				<h3 className="text-sm font-semibold">ValleyBot</h3>
-				<p className="text-xs opacity-90">Online</p>
+				<h3 className="text-sm font-semibold text-[#396131]">ValleyBot</h3>
+				<p className="text-xs opacity-90 text-[#47521d]">Online</p>
 			</div>
 		</div>
 		<div className="flex items-center space-x-1">
 			<button
 				onClick={onMinimize}
-				className="hover:bg-opacity-20 cursor-pointer rounded-full p-1.5 transition-colors hover:bg-white hover:text-[#396131]"
+				className="hover:bg-opacity-20 cursor-pointer rounded-full p-1.5 transition-colors hover:bg-white hover:text-[#396131] text-[#29321a]"
 			>
 				<Minimize2 className="h-4 w-4" />
 			</button>
 			<button
 				onClick={onClose}
-				className="hover:bg-opacity-20 cursor-pointer rounded-full p-1.5 transition-colors hover:bg-white hover:text-[#396131]"
+				className="hover:bg-opacity-20 cursor-pointer rounded-full p-1.5 transition-colors hover:bg-white hover:text-[#396131] text-[#29321a]"
 			>
 				<X className="h-4 w-4" />
 			</button>

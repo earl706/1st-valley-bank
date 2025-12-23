@@ -84,7 +84,7 @@ export default function CarouselSection({
 		<section id={id} data-scroll className={`relative overflow-hidden`}>
 			{/* Carousel Implementation */}
 			<div
-				className="max-w-8xl relative mx-auto px-4 py-4 sm:px-6 lg:px-8 lg:py-4"
+				className="max-w-9xl relative mx-auto px-4 py-4 sm:px-6 lg:px-8 lg:py-4"
 				onMouseEnter={() => setIsPaused(true)}
 				onMouseLeave={() => setIsPaused(false)}
 				onTouchStart={handleTouchStart}
@@ -106,46 +106,48 @@ export default function CarouselSection({
 							>
 								{imageOnly ? (
 									// Only render the image, no content, no grid, no title, etc.
-									<div className={`flex items-center justify-center ${minHeight}`}>
+									<div className={`flex items-center justify-center ${minHeight} min-h-[480px] sm:min-h-[540px] md:min-h-[620px]`}>
 										<img
 											src={slide.image}
 											alt={slide.imageAlt || slide.title || ''}
-											className={`mx-auto h-auto w-full max-w-lg transform drop-shadow-lg transition-all duration-700 hover:scale-110 hover:drop-shadow-2xl ${
+											className={`mx-auto h-auto w-full max-w-5xl md:max-w-6xl xl:max-w-7xl transform drop-shadow-lg transition-all duration-700 hover:scale-110 hover:drop-shadow-2xl ${
 												index === current ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
 											}`}
 											style={{
 												imageOrientation: 'from-image',
-												objectFit: 'contain'
+												objectFit: 'contain',
+												maxHeight: '520px'
 											}}
 										/>
 									</div>
 								) : (
 									<div
-										className={`mx-8 grid ${minHeight} items-center gap-12 lg:mx-16 lg:grid-cols-2`}
+										className={`mx-2 md:mx-8 grid ${minHeight} min-h-[540px] md:min-h-[640px] items-center gap-16 lg:gap-20 lg:mx-20 lg:grid-cols-2`}
 									>
 										{/* Image/Visual */}
-										<div className="relative order-0 flex h-full items-center justify-center lg:order-1">
+										<div className="relative order-0 flex h-full items-center justify-center lg:order-1 px-2 md:px-6">
 											<div className="relative z-10">
 												<img
 													src={slide.image}
 													alt={slide.imageAlt || slide.title || ''}
-													className={`mx-auto h-auto w-full max-w-lg transform drop-shadow-lg transition-all duration-700 hover:scale-110 hover:drop-shadow-2xl ${
+													className={`mx-auto h-auto w-full max-w-4xl md:max-w-5xl xl:max-w-6xl transform drop-shadow-lg transition-all duration-700 hover:scale-110 hover:drop-shadow-2xl ${
 														index === current ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
 													}`}
 													style={{
 														imageOrientation: 'from-image',
-														objectFit: 'contain'
+														objectFit: 'contain',
+														maxHeight: '440px'
 													}}
 												/>
 											</div>
 										</div>
 
 										{/* Content */}
-										<div className="order-1 flex h-full flex-col justify-center space-y-8 lg:order-0">
-											<div className="space-y-4">
-												<h1 className="text-3xl leading-tight font-bold text-gray-900 sm:text-4xl lg:text-5xl">
+										<div className="order-1 flex h-full flex-col justify-center space-y-12 lg:order-0 px-1 md:px-8">
+											<div className="space-y-6">
+												<h1 className="text-4xl leading-tight font-extrabold text-gray-900 sm:text-4xl lg:text-5xl xl:text-6xl">
 													<span
-														className={`block transform bg-gradient-to-r ${brandGradient} bg-clip-text text-3xl leading-tight font-black text-transparent transition-all delay-100 duration-700 sm:text-4xl lg:text-5xl ${
+														className={`block transform bg-gradient-to-r ${brandGradient} bg-clip-text text-4xl leading-tight font-black text-transparent transition-all delay-100 duration-700 sm:text-5xl lg:text-6xl xl:text-7xl ${
 															index === current
 																? 'translate-y-0 opacity-100'
 																: 'translate-y-4 opacity-0'
@@ -155,7 +157,7 @@ export default function CarouselSection({
 													</span>
 													{slide.subtitle && (
 														<span
-															className={`block transform bg-gradient-to-r ${brandGradient} bg-clip-text text-lg leading-tight font-bold text-transparent transition-all delay-200 duration-700 sm:text-xl lg:text-2xl ${
+															className={`block transform bg-gradient-to-r ${brandGradient} bg-clip-text text-2xl leading-tight font-bold text-transparent transition-all delay-200 duration-700 sm:text-2xl lg:text-3xl xl:text-4xl ${
 																index === current
 																	? 'translate-y-0 opacity-100'
 																	: 'translate-y-4 opacity-0'
@@ -168,7 +170,7 @@ export default function CarouselSection({
 
 												{slide.description && (
 													<p
-														className={`max-w-2xl transform text-base leading-relaxed text-gray-600 transition-all delay-300 duration-700 ${
+														className={`max-w-3xl transform text-base leading-relaxed text-gray-700 transition-all delay-300 duration-700 ${
 															index === current
 																? 'translate-y-0 opacity-100'
 																: 'translate-y-4 opacity-0'
@@ -187,14 +189,14 @@ export default function CarouselSection({
 																: 'translate-y-4 opacity-0'
 														}`}
 													>
-														<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+														<div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
 															{slide.features.map((feature, featureIndex) => (
-																<div key={featureIndex} className="flex items-center gap-2">
+																<div key={featureIndex} className="flex items-center gap-3">
 																	<div
-																		className="h-2 w-2 rounded-full"
+																		className="h-3 w-3 rounded-full"
 																		style={{ backgroundColor: brandColor }}
 																	></div>
-																	<span className="text-sm text-gray-700">{feature}</span>
+																	<span className="text-lg text-gray-700">{feature}</span>
 																</div>
 															))}
 														</div>
@@ -216,25 +218,25 @@ export default function CarouselSection({
 															{slide.onButtonClick ? (
 																<button
 																	type="button"
-																	className="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+																	className="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r px-10 py-5 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 																	style={{
 																		background: `linear-gradient(to right, ${brandColor}, ${brandColor}dd)`
 																	}}
 																	onClick={slide.onButtonClick}
 																>
 																	{slide.buttonText || learnMoreText}
-																	<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+																	<ArrowRight className="ml-3 h-6 w-6 transition-transform group-hover:translate-x-1" />
 																</button>
 															) : (
 																<NavLink
 																	to={slide.route || slide.button_route}
-																	className="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+																	className="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r px-10 py-5 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 																	style={{
 																		background: `linear-gradient(to right, ${brandColor}, ${brandColor}dd)`
 																	}}
 																>
 																	{slide.buttonText || learnMoreText}
-																	<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+																	<ArrowRight className="ml-3 h-6 w-6 transition-transform group-hover:translate-x-1" />
 																</NavLink>
 															)}
 														</div>

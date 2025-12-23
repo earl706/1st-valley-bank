@@ -189,7 +189,7 @@ export default function PropertiesForSale() {
 					showLearnMoreButton={true}
 					learnMoreText="Explore Listings"
 				/>
-				<section id="vehicles" className="max-mx-7xl mx-auto flex flex-col text-[#396131]">
+				<section id="vehicles" className="max-mx-7xl mx-auto px-4 flex flex-col text-[#396131]">
 					<div className="mt-16 text-center">
 						<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
 							Vehicles
@@ -310,7 +310,7 @@ export default function PropertiesForSale() {
 					</NavLink>
 					<div className="h-8 lg:h-12" />
 				</section>
-				<section id="properties" className="mx-auto flex max-w-7xl flex-col text-[#396131]">
+				<section id="properties" className="mx-auto px-4 flex max-w-7xl flex-col text-[#396131]">
 					<div className="mt-16 text-center">
 						<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
 							Real Estate & Properties

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import aboutPageService from '../../services/aboutPageService';
 import { DarkHeader } from '../../components/Header';
-import { Trophy, FileText, X } from 'lucide-react';
+import { Trophy } from 'lucide-react';
 import HeroSection from '../../components/HeroSection';
 import img1 from '/src/assets/carousel/1.png';
 
@@ -13,73 +13,16 @@ const lucideIconMap = {
 };
 const getIconComponent = (iconName) => lucideIconMap[iconName] || Trophy;
 
-const PDFModal = ({ open, onClose, pdfUrl }) => {
-  if (!open) return null;
-  return (
-    <div className="bg-opacity-60 fixed inset-0 z-[9999] flex items-center justify-center bg-black/70">
-      <div className="relative w-full max-w-7xl overflow-hidden rounded-lg bg-white shadow-xl">
-        <button
-          className="absolute top-3 right-3 text-2xl text-gray-800 hover:text-red-500"
-          onClick={onClose}
-          aria-label="Close"
-        >
-          <X className="h-6 w-6" />
-        </button>
-        <div className="p-6 pt-12">
-          <h2 className="mb-2 flex items-center gap-2 text-2xl font-bold text-[#396131]">
-            <FileText className="h-6 w-6 text-rose-700" />
-            Report PDF Preview
-          </h2>
-          {pdfUrl ? (
-            <iframe
-              title="Annual Report PDF"
-              src={pdfUrl}
-              className="h-[60vh] w-full rounded border-0"
-            ></iframe>
-          ) : (
-            <div className="text-gray-700">PDF not available.</div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
+/* Awards data provision:
+   - Only aboutPage.awards_section_title, aboutPage.awards_section_subtitle, aboutPage.featured_awards, aboutPage.awards are used.
+   - Provide fallback structure for those fields only, and simplify hook logic.
+*/
 
-export default function Awards() {
-  const [aboutPage, setAboutPage] = useState(null);
-  const [aboutPageLoading, setAboutPageLoading] = useState(true);
-  const [aboutPageError, setAboutPageError] = useState(null);
-
-  // For annual report modal (PDF)
-  const [pdfModalOpen, setPdfModalOpen] = useState(false);
-  const [pdfUrl, setPdfUrl] = useState('');
-
-  useEffect(() => {
-    let mounted = true;
-    setAboutPageLoading(true);
-    aboutPageService
-      .getAboutPage()
-      .then((data) => {
-        if (mounted) {
-          setAboutPage(data);
-          setAboutPageLoading(false);
-        }
-      })
-      .catch((err) => {
-        if (mounted) {
-          setAboutPageError(
-            err?.message || 'Failed to load about page data. Please try again later.'
-          );
-          setAboutPageLoading(false);
-        }
-      });
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  // Fallback awards data
-  const fallbackFeaturedAwards = [
+// Fallback data for awards section
+const FALLBACK = {
+  awards_section_title: 'Awards & Recognition',
+  awards_section_subtitle: 'Recognized for excellence in service and financial leadership.',
+  featured_awards: [
     {
       title: 'Rated A+',
       description: 'By PhilRatings, a BSP-recognized credit rating agency.',
@@ -90,12 +33,11 @@ export default function Awards() {
       description: 'From USAID via MABS, for expanding rural microfinance services.',
       icon: 'trophy',
     },
-  ];
-  const fallbackAwards = [
+  ],
+  awards: [
     {
       header: 'Most Outstanding Rural Bank',
-      description:
-        'Recognized by the Rural Bankers Association of the Philippines for exceptional service.',
+      description: 'Recognized by the Rural Bankers Association of the Philippines for exceptional service.',
     },
     {
       header: 'Top Rural Bank in Microfinance',
@@ -109,124 +51,165 @@ export default function Awards() {
       header: 'Digital Banking Innovator',
       description: 'Recognized for leadership in digital rural banking solutions.',
     },
-  ];
+  ],
+};
 
-  // Fallback annual reports (for illustration only)
-  const fallbackAnnualReports = [];
+export default function Awards() {
+  const [awardsData, setAwardsData] = useState(FALLBACK);
+  const [loading, setLoading] = useState(true);
 
-  // Render
+  useEffect(() => {
+    let mounted = true;
+    setLoading(true);
+    aboutPageService
+      .getAboutPage()
+      .then((data) => {
+        if (mounted) {
+          setAwardsData({
+            awards_section_title: data?.awards_section_title || FALLBACK.awards_section_title,
+            awards_section_subtitle: data?.awards_section_subtitle || FALLBACK.awards_section_subtitle,
+            featured_awards: Array.isArray(data?.featured_awards) && data.featured_awards.length > 0
+              ? data.featured_awards
+              : FALLBACK.featured_awards,
+            awards: Array.isArray(data?.awards) && data.awards.length > 0
+              ? data.awards
+              : FALLBACK.awards,
+          });
+          setLoading(false);
+        }
+      })
+      .catch(() => {
+        if (mounted) {
+          setAwardsData(FALLBACK);
+          setLoading(false);
+        }
+      });
+    return () => { mounted = false; };
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <>
       <HeroSection
-        title={aboutPage?.awards_section_title || 'Awards & Recognition'}
+        title={awardsData.awards_section_title}
         subtitle="Recognized Excellence in Banking"
-        description={
-          aboutPage?.awards_section_subtitle ||
-          'Recognized for excellence in service and financial leadership.'
-        }
+        description={awardsData.awards_section_subtitle}
         image={img1}
         imageAlt="1st Valley Bank Awards"
         showCta={false}
         backgroundColor="from-[#E9F2EA] via-white to-green-50"
         titleColor="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
       />
-    <div className="min-h-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-10">
-      <div className="mx-auto max-w-5xl px-2 sm:px-4">
-        <DarkHeader
-          badgeText="Awards"
-          title={aboutPage?.awards_section_title || 'Awards & Recognition'}
-          subtitle={
-            aboutPage?.awards_section_subtitle ||
-            'Recognized for excellence in service and financial leadership.'
-          }
-        />
-
-        {/* Loader or error */}
-        {aboutPageLoading ? (
-          <div className="my-16 flex flex-col items-center text-white/80">
-            <Trophy className="mb-3 h-12 w-12 animate-spin" />
-            <p>Loading awards...</p>
-          </div>
-        ) : aboutPageError ? (
-          <div className="my-12 rounded-lg bg-red-100 p-4 text-center text-red-700">
-            {aboutPageError}
-          </div>
-        ) : (
-          <div>
-            {/* Featured Awards Section */}
-            <div className="flex flex-col gap-4">
-              {(aboutPage?.featured_awards?.length
-                ? aboutPage.featured_awards
-                : fallbackFeaturedAwards
-              ).map((award, idx) => {
-                const IconComponent = getIconComponent(award.icon || 'award');
-                return (
-                  <div key={idx} className="flex items-start gap-3 p-4">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/80">
-                      {award.icon === 'award' && award.title?.includes('A+') ? (
-                        <span className="text-xl font-bold text-[#396131]">A+</span>
-                      ) : (
-                        <IconComponent className="h-6 w-6 text-[#396131]" />
-                      )}
-                    </div>
-                    <div>
-                      <span className="mb-1 block text-2xl leading-tight font-bold text-white">
-                        {award.title?.toUpperCase() || ''}
-                      </span>
-                      <p className="text-base leading-relaxed font-normal text-white">
-                        {award.description || ''}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Trophy Icon */}
-            <div className="mb-8 mt-8 flex flex-1 justify-center md:mb-0 md:justify-end">
-              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-white/80 shadow-lg md:h-32 md:w-32">
-                <Trophy className="h-14 w-14 text-5xl text-[#396131] md:h-24 md:w-24 md:text-7xl" />
-              </div>
-            </div>
-
-            {/* Additional Awards */}
-            <div className="mt-8 p-4">
-              <div className="mb-4 text-center">
-                <h3 className="mb-1 text-xl leading-tight font-bold text-white">
-                  More Achievements
-                </h3>
-                <div className="mx-auto h-0.5 w-10 rounded-full bg-white/60"></div>
-              </div>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
-                {(aboutPage?.awards?.length ? aboutPage.awards : fallbackAwards).map(
-                  (award, index) => (
-                    <div
-                      key={index}
-                      className="group flex items-start gap-3 p-3 transition-all duration-200"
-                    >
-                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-white/80 transition-transform duration-200 group-hover:scale-105">
-                        <Trophy className="h-4 w-4 text-[#396131]" />
+      <section
+        id="awards"
+        data-scroll
+        className="relative bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-8 lg:py-12"
+      >
+        <div className="mx-auto max-w-5xl px-2 sm:px-4">
+          <DarkHeader
+            badgeText="Awards"
+            title={awardsData.awards_section_title}
+            subtitle={awardsData.awards_section_subtitle}
+          />
+          {/* Header & Trophy */}
+          <div className="flex flex-col-reverse items-center gap-6 md:flex-row md:gap-8">
+            {/* Content */}
+            <div className="flex-1 text-center md:text-left">
+              {/* Featured Awards */}
+              <div className="flex flex-col gap-5">
+                {Array.isArray(awardsData.featured_awards) && awardsData.featured_awards.length > 0 ? (
+                  awardsData.featured_awards.map((award, idx) => {
+                    const IconComponent = getIconComponent(award.icon || 'award');
+                    return (
+                      <div key={idx} className="flex items-start gap-4 p-5">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-md bg-white/80">
+                          {award.icon === 'award' && award.title?.includes('A+') ? (
+                            <span className="text-2xl font-bold text-[#396131]">A+</span>
+                          ) : (
+                            <IconComponent className="h-7 w-7 text-[#396131]" />
+                          )}
+                        </div>
+                        <div>
+                          <span className="mb-1 block text-3xl leading-tight font-bold text-white">
+                            {award.title?.toUpperCase() || ''}
+                          </span>
+                          <p className="text-lg leading-relaxed font-normal text-white">
+                            {award.description || ''}
+                          </p>
+                        </div>
                       </div>
-                      <div className="flex-1">
-                        <span className="block text-base leading-tight font-semibold text-white">
-                          {award.header}
+                    );
+                  })
+                ) : (
+                  <>
+                    <div className="flex items-start gap-4 p-5">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-md bg-white/80">
+                        <span className="text-2xl font-bold text-[#396131]">A+</span>
+                      </div>
+                      <div>
+                        <span className="mb-1 block text-3xl leading-tight font-bold text-white">
+                          RATED A+
                         </span>
-                        <p className="text-sm leading-relaxed font-normal text-white">
-                          {award.description}
+                        <p className="text-lg leading-relaxed font-normal text-white">
+                          By PhilRatings, a BSP-recognized credit rating agency.
                         </p>
                       </div>
                     </div>
-                  )
+                    <div className="flex items-start gap-4 p-5">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-md bg-white/80">
+                        <Trophy className="h-7 w-7 text-[#396131]" />
+                      </div>
+                      <div>
+                        <span className="mb-1 block text-3xl leading-tight font-bold text-white">
+                          EAGLE AWARD FOR MICROFINANCE
+                        </span>
+                        <p className="text-lg leading-relaxed font-normal text-white">
+                          From USAID via MABS, for expanding rural microfinance services.
+                        </p>
+                      </div>
+                    </div>
+                  </>
                 )}
               </div>
             </div>
+            {/* Trophy Icon */}
+            <div className="mb-4 flex flex-1 justify-center md:mb-0 md:justify-end">
+              <div className="flex h-28 w-28 items-center justify-center rounded-full bg-white/80 shadow-lg md:h-36 md:w-36">
+                <Trophy className="h-16 w-16 text-6xl text-[#396131] md:h-28 md:w-28 md:text-8xl" />
+              </div>
+            </div>
           </div>
-        )}
-
-        {/* PDF Modal (future if needed for downloadable annual reports, left as placeholder) */}
-        <PDFModal open={pdfModalOpen} onClose={() => setPdfModalOpen(false)} pdfUrl={pdfUrl} />
-      </div>
-    </div>
+          {/* Additional Awards Grid */}
+          <div className="mt-10 p-5">
+            <div className="mb-6 text-center">
+              <h3 className="mb-1 text-2xl leading-tight font-bold text-white">
+                More Achievements
+              </h3>
+              <div className="mx-auto h-0.5 w-12 rounded-full bg-white/60"></div>
+            </div>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
+              {(Array.isArray(awardsData.awards) ? awardsData.awards : []).map((award, index) => (
+                <div
+                  key={index}
+                  className="group flex items-start gap-4 p-4 transition-all duration-200"
+                >
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-white/80 transition-transform duration-200 group-hover:scale-105">
+                    <Trophy className="h-6 w-6 text-[#396131]" />
+                  </div>
+                  <div className="flex-1">
+                    <span className="block text-lg leading-tight font-semibold text-white">
+                      {award.header}
+                    </span>
+                    <p className="text-base leading-relaxed font-normal text-white">
+                      {award.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

@@ -155,7 +155,6 @@ export default function Navbar({ children }) {
 						});
 
 						if (response.results && response.results.length > 0) {
-							console.log(response.results);
 							depositsByType[depositType] = response.results.filter(
 								(product) => product.product_type === depositType
 							);
@@ -614,51 +613,23 @@ export default function Navbar({ children }) {
 										{activeItemHover === index &&
 											navItem.subItems.length > 0 &&
 											window.innerWidth >= 1280 && (
-												<div className="absolute left-0 z-40 mt-[97px] w-full max-w-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] text-[0.9rem] text-white opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
-													<div className="flex">
-														{/* Left Sidebar for SubItems */}
-														<div className="grid grid-cols-3 min-h-[200px] min-w-[280px] flex-col bg-[#31542B]/80">
-															{navItem.subItems.map((subItem, subIndex) => (
-																<NavLink
-																	to={subItem.path}
-																	key={subIndex}
-																	className="relative"
-																	onMouseEnter={() => handlePrimarySubItemHover(subIndex)}
+												<div className="absolute z-40 mt-2 w-auto min-w-[250px] bg-gradient-to-b from-[#396131] to-[#4a7c3a] text-[0.9rem] text-white opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
+													<div className="flex flex-col">
+														{navItem.subItems.map((subItem, subIndex) => (
+															<NavLink
+																to={subItem.path}
+																key={subIndex}
+																className="relative"
+																onMouseEnter={() => handlePrimarySubItemHover(subIndex)}
+															>
+																<button
+																	onClick={() => {}}
+																	className="w-full cursor-pointer border-l-4 border-transparent px-5 py-3 text-left leading-[1.4rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-white hover:bg-[#396131]/90"
 																>
-																	<button
-																		onClick={() => {}}
-																		className="w-full cursor-pointer border-l-4 border-transparent px-[20px] py-[15px] text-left leading-[1.4rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-white hover:bg-[#396131]"
-																	>
-																		<div className="flex items-center justify-between">
-																			<span className="text-sm xl:text-base">{subItem.subItem}</span>
-																			{/* Main nav doesn't have subsubItems */}
-																		</div>
-																	</button>
-																</NavLink>
-															))}
-														</div>
-
-														{/* Right Content Area (like secondary nav) */}
-														<div className="flex-1 p-[30px]">
-															{activePrimarySubDropdown !== null && navItem.subItems[activePrimarySubDropdown] && (
-																<div className="transition-all duration-300 ease-in-out">
-																	<h3 className="mb-[20px] border-b-2 border-white pb-2 text-lg font-bold text-white">
-																		{navItem.subItems[activePrimarySubDropdown].subItem}
-																	</h3>
-																	<div className="text-gray-300 italic">
-																		Navigate to {navItem.subItems[activePrimarySubDropdown].subItem} for more information.
-																	</div>
-																</div>
-															)}
-
-															{activePrimarySubDropdown === null && (
-																<div className="mt-[50px] text-center text-gray-200">
-																	<p className="text-lg">
-																		Hover over a category to see available options
-																	</p>
-																</div>
-															)}
-														</div>
+																	<span className="text-sm xl:text-base">{subItem.subItem}</span>
+																</button>
+															</NavLink>
+														))}
 													</div>
 												</div>
 											)}

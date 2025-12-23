@@ -218,7 +218,7 @@ export const NewsletterGrid = ({
 
 								{/* Category Badge */}
 								<div className="absolute top-4 left-4">
-									<div className="rounded-full border border-[#396131]/20 bg-[#f6fff3]/90 px-3 py-1 shadow-lg backdrop-blur-sm">
+									<div className={`rounded-full border border-[#396131]/20 bg-[#f6fff3]/90 px-3 py-1 shadow-lg backdrop-blur-sm`}>
 										<span className="text-xs font-bold tracking-wide text-[#396131] uppercase">
 											{title}
 										</span>
@@ -235,7 +235,10 @@ export const NewsletterGrid = ({
 									>
 										<div
 											className={
-												'flex items-center gap-1 ' + (isDark ? 'text-white' : 'text-white')
+												'flex items-center gap-1 ' +
+												(isDark
+													? 'text-white'
+													: 'text-white')
 											}
 										>
 											<Calendar size={12} />
@@ -260,7 +263,7 @@ export const NewsletterGrid = ({
 									<h2
 										className={
 											'mb-3 text-2xl leading-tight font-bold transition-colors duration-200 md:text-2xl ' +
-											(isDark ? 'text-white group-hover:text-[#e5ffe2]' : 'text-[#396131]')
+											(isDark ? 'text-white group-hover:text-[#e5ffe2]' : 'text-[#18421d]')
 										}
 									>
 										{title}
@@ -280,28 +283,28 @@ export const NewsletterGrid = ({
 									<div
 										className={
 											'mt-auto mb-6 flex items-center gap-4 text-sm leading-relaxed ' +
-											(isDark ? 'text-white/60' : 'text-[#396131]/70')
+											(isDark ? 'text-white/60' : 'text-[#396131]/90')
 										}
 									>
 										<div className="flex items-center gap-1">
-											<Eye size={16} />
-											<span className="font-normal">
+											<Eye size={16} className={isDark ? 'text-white/70' : 'text-[#396131]/60'} />
+											<span className={"font-normal " + (isDark ? '' : 'text-[#396131]')}>
 												{typeof views === 'number' ? views : views || ''}
 											</span>
 										</div>
 										<div className="flex items-center gap-1">
-											<Clock size={16} />
-											<span className="font-normal">{read_time || ''}</span>
+											<Clock size={16} className={isDark ? 'text-white/70' : 'text-[#396131]/60'} />
+											<span className={"font-normal " + (isDark ? '' : 'text-[#396131]')}>{read_time || ''}</span>
 										</div>
 									</div>
 								</div>
 
 								<PrimaryButton className="w-full" onClick={() => openPDF(pdf_file, title, id)}>
 									<span className="flex w-full items-center justify-center gap-2">
-										<span className="text-base font-semibold text-white">Read Full Article</span>
+										<span className={"text-base font-semibold " + (isDark ? "text-[#396131]" : "text-white")}>Read Full Article</span>
 										<ArrowRight
 											size={18}
-											className="text-white transition-transform duration-300 group-hover:translate-x-1"
+											className={(isDark ?  "text-[#396131]" : "text-white") + " transition-transform duration-300 group-hover:translate-x-1"}
 										/>
 									</span>
 								</PrimaryButton>
@@ -782,7 +785,7 @@ export default function Newsletter() {
 								<NewsletterGrid
 									data={{ count: totalCount, results: newsletters }}
 									showPagination={false}
-									cardVariant="dark"
+									cardVariant="light"
 								/>
 
 								{/* Pagination */}

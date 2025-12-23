@@ -33,7 +33,7 @@ export default function VehicleCard({ vehicle }) {
 		<>
 			<LightCard
 				useNativeSpacing={true}
-				className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:border-gray-300 hover:shadow-md"
+				className="group relative overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:border-gray-300 hover:shadow-md"
 			>
 				{/* Image Container */}
 				<div className="relative h-56 overflow-hidden rounded-t-2xl bg-gray-100">

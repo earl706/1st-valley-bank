@@ -47,7 +47,7 @@ export default function PropertyCard({ property }) {
 		<>
 			<LightCard
 				useNativeSpacing={true}
-				className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:border-gray-300 hover:shadow-md"
+				className="group relative overflow-hidden rounded-xl  bg-white shadow-sm transition-all duration-300 hover:border-gray-300 hover:shadow-md"
 			>
 				{/* Image Container */}
 				<div className="relative h-56 overflow-hidden bg-gray-100">

@@ -17,7 +17,7 @@ import carouselImg2 from '/src/assets/carousel/2.png';
 import carouselImg3 from '/src/assets/carousel/3.png';
 import carouselImg4 from '/src/assets/carousel/4.png';
 import { DarkCard } from '../components/Card';
-import { DarkPrimaryButton } from '../components/Buttons';
+import { DarkPrimaryButton, LightPrimaryButton } from '../components/Buttons';
 import { DarkHeader, LightHeader } from '../components/Header';
 import RequirementsSection from '../components/RequirementsSection';
 import { getTimeDeposits, getProductTypeRequirements } from '../services/depositService';
@@ -130,7 +130,7 @@ export default function TimeDeposit() {
 						/>
 						<div className="grid gap-2 lg:grid-cols-4">
 							{timeDeposits.map((deposit, index) => (
-								<DarkCard key={index} useNativeSpacing={true} className="flex flex-col p-4">
+								<DarkCard key={index} useNativeSpacing={true} className="flex flex-col p-4 bg-white">
 									<div className="mb-2 flex items-center justify-center">
 										<img
 											src={deposit.image}
@@ -141,45 +141,45 @@ export default function TimeDeposit() {
 									<div className="flex flex-1 flex-col">
 										<div className="mb-4 flex items-center justify-between">
 											<div>
-												<h3 className="text-xl leading-snug font-bold text-white">
+												<h3 className="text-xl leading-snug font-bold text-[#396131]">
 													{deposit.name}
 												</h3>
-												<p className="text-xs leading-snug font-normal text-white/80">
+												<p className="text-xs leading-snug font-normal text-[#396131]/80">
 													Term Period
 												</p>
 											</div>
 											<div className="text-right">
-												<div className="text-xl leading-snug font-bold text-[#aee3b7]">
+												<div className="text-xl leading-snug font-bold text-[#4a7c3a]">
 													{deposit.interest_rate_below}% - {deposit.interest_rate_above}%
 												</div>
-												<div className="text-xs leading-snug font-normal text-white/80">
+												<div className="text-xs leading-snug font-normal text-[#396131]/80">
 													Interest Rate
 												</div>
 											</div>
 										</div>
 
-										<p className="mb-4 text-sm leading-relaxed font-normal text-white/80">
+										<p className="mb-4 text-sm leading-relaxed font-normal text-[#396131]/80">
 											{deposit.description}
 										</p>
 
-										<div className="mb-4 rounded-lg bg-white/10 p-3">
-											<div className="text-xs leading-snug font-normal text-white/80">
+										<div className="mb-4 rounded-lg bg-[#f4f8f3] p-3">
+											<div className="text-xs leading-snug font-normal text-[#396131]/80">
 												Minimum Initial Amount
 											</div>
-											<div className="text-lg leading-snug font-bold text-white">
+											<div className="text-lg leading-snug font-bold text-[#396131]">
 												₱{deposit.required_initial_deposit}
 											</div>
 										</div>
 
-										<DarkPrimaryButton
+										<LightPrimaryButton
 											to={deposit.route || `/contact-us`}
 											className="mt-auto w-full"
 											secondaryIcon={
-												<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+												<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 text-white" />
 											}
 										>
 											Open Account
-										</DarkPrimaryButton>
+										</LightPrimaryButton>
 									</div>
 								</DarkCard>
 							))}

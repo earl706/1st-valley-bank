@@ -14,7 +14,7 @@ import {
 import CarouselSection from '../components/CarouselSection';
 import PageHeroSection from '../components/PageHeroSection';
 import { DarkCard } from '../components/Card';
-import { DarkPrimaryButton } from '../components/Buttons';
+import { DarkPrimaryButton, LightPrimaryButton } from '../components/Buttons';
 import { DarkHeader } from '../components/Header';
 import { ProductListingPageSkeleton } from '../components/PageSkeleton';
 import img from '/src/assets/homepage/heroSectionImage.png';
@@ -187,7 +187,7 @@ export default function Loans() {
 									<DarkCard
 										key={index}
 										useNativeSpacing={true}
-										className="group flex h-full flex-col overflow-hidden p-0"
+										className="group flex h-full flex-col overflow-hidden p-0 bg-white"
 									>
 										<div className="flex flex-1 flex-col items-center gap-6 p-8 sm:items-start lg:gap-8 lg:p-10">
 											{/* Image Container */}
@@ -203,22 +203,22 @@ export default function Loans() {
 
 											{/* Content */}
 											<div className="flex h-full w-full flex-1 flex-col text-center sm:text-left">
-												<h3 className="mb-3 text-2xl leading-tight font-bold text-white transition-colors duration-300 group-hover:text-[#aee3b7]">
+												<h3 className="mb-3 text-2xl leading-tight font-bold text-[#396131] transition-colors duration-300 group-hover:text-[#4a7c3a]">
 													{loan.title}
 												</h3>
-												<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-white/80">
+												<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-[#396131]/80">
 													{loan.description}
 												</p>
 												<div className="mt-auto">
-													<DarkPrimaryButton
-														to={loan.route}
+													<LightPrimaryButton
+														to={loan.route}	
 														className="w-full"
 														secondaryIcon={
 															<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
 														}
 													>
 														Learn More
-													</DarkPrimaryButton>
+													</LightPrimaryButton>
 												</div>
 											</div>
 										</div>
