@@ -9,6 +9,7 @@ import { DarkHeader } from '../components/Header';
 import { useJsApiLoader } from '@react-google-maps/api';
 import { contactService } from '../services/index';
 import { FormPageSkeleton } from '../components/PageSkeleton';
+import { trackEvent } from '../analytics/ga4';
 
 const PSGC_API_BASE = 'https://psgc.gitlab.io/api';
 
@@ -362,14 +363,17 @@ const ContactUsForm = () => {
 			const response = await contactService.submitContact(payload);
 			console.log('Form submitted:', response);
 			if (response.success) {
+				trackEvent('contact_submit', { success: true, subject: String(formData.subject || 'general') });
 				setSubmitSuccess(true);
 				setSubmitError(null);
 			} else {
+				trackEvent('contact_submit', { success: false, subject: String(formData.subject || 'general') });
 				setSubmitError(response.error);
 				setSubmitSuccess(false);
 			}
 		} catch (error) {
 			console.error('Error submitting form:', error);
+			trackEvent('contact_submit', { success: false, subject: String(formData.subject || 'general') });
 			setSubmitError(error);
 			setSubmitSuccess(false);
 		} finally {

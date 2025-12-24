@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import SplashScreen from './components/SplashScreen';
 import ChatBox from './components/ChatBox';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import './App.css';
 import AboutUs from './pages/AboutUs';
@@ -51,6 +51,17 @@ import Awards from './pages/about-us/Awards';
 import VisionMission from './pages/about-us/VisionMission';
 import Leadership from './pages/about-us/Leadership';
 import AnnualReports from './pages/about-us/AnnualReports';
+import { trackPageView } from './analytics/ga4';
+
+function AnalyticsListener() {
+	const location = useLocation();
+
+	useEffect(() => {
+		trackPageView(`${location.pathname}${location.search}`);
+	}, [location.pathname, location.search]);
+
+	return null;
+}
 
 function App() {
 	const [showSplash, setShowSplash] = useState(false);
@@ -194,6 +205,7 @@ function App() {
 		<>
 			{showSplash && <SplashScreen onComplete={handleSplashComplete} />}
 			<Router>
+				<AnalyticsListener />
 				<Routes>
 					{routes.map((route, index) => (
 						<Route key={index} path={route.route} element={<Navbar>{route.component}</Navbar>} />

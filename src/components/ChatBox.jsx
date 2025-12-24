@@ -13,6 +13,7 @@ import {
 	CheckCircle
 } from 'lucide-react';
 import chatbotService from '../services/chatbotService';
+import { trackEvent } from '../analytics/ga4';
 
 // ---- Helper Components ----
 
@@ -315,11 +316,20 @@ export default function ChatBox() {
 		setIsTyping(true);
 
 		try {
+			trackEvent('chatbot_question', {
+				question_length: String(question?.length || 0),
+				success: false
+			});
+
 			// Call RAG API
 			// document_id intentionally omitted so backend can use admin-selected default document
 			const response = await chatbotService.askRAG(question, null, sessionId);
 
 			if (response.success) {
+				trackEvent('chatbot_question', {
+					question_length: String(question?.length || 0),
+					success: true
+				});
 				// Filter and validate sources to ensure they have required properties
 				const validSources = (response.data.sources || []).filter(
 					(source) => source && source.content && typeof source.content === 'string'
@@ -338,6 +348,10 @@ export default function ChatBox() {
 				};
 				setMessages((prev) => [...prev, aiMessage]);
 			} else {
+				trackEvent('chatbot_question', {
+					question_length: String(question?.length || 0),
+					success: false
+				});
 				// Error response
 				const errorMessage = {
 					id: Date.now() + 1,
@@ -353,6 +367,10 @@ export default function ChatBox() {
 			}
 		} catch (error) {
 			console.error('Error sending message:', error);
+			trackEvent('chatbot_question', {
+				question_length: String(question?.length || 0),
+				success: false
+			});
 			const errorMessage = {
 				id: Date.now() + 1,
 				text: 'Sorry, I encountered an unexpected error. Please try again.',

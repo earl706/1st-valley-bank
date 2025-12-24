@@ -1380,7 +1380,7 @@ export default function Navbar({ children }) {
 					)}
 				</div>
 
-				<div className="mt-[64px] md:mt-[64px] xl:mt-37">{children}</div>
+				<div className="mt-18 md:mt-18 lg:mt-29 xl:mt-37">{children}</div>
 				<ChatBox />
 
 				{/* Footer remains the same */}

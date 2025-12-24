@@ -34,6 +34,7 @@ import { NewsletterGrid } from './Newsletter';
 import pdf1 from '/src/assets/newsletter/document.pdf';
 import newsletterService from '../services/newsletterService';
 import landingService from '../services/landingService';
+import { trackEvent } from '../analytics/ga4';
 import {
 	HeroSectionSkeleton,
 	CardGridSkeleton,
@@ -164,6 +165,7 @@ export default function HomePage() {
 			const response = await newsletterService.subscribe(email);
 			console.log(response);
 			if (response.success) {
+				trackEvent('newsletter_subscribe', { success: true });
 				if (response.data.message) {
 					setSuccess(response.data.message);
 				} else {
@@ -172,11 +174,13 @@ export default function HomePage() {
 				setError('');
 				setEmail('');
 			} else {
+				trackEvent('newsletter_subscribe', { success: false });
 				setError(response.error);
 				setSuccess('');
 				setEmail('');
 			}
 		} catch (error) {
+			trackEvent('newsletter_subscribe', { success: false });
 			setError(error.message);
 			setSuccess('');
 			setEmail('');
