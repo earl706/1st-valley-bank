@@ -130,7 +130,7 @@ export default function TimeDeposit() {
 						/>
 						<div className="grid gap-2 lg:grid-cols-4">
 							{timeDeposits.map((deposit, index) => (
-								<DarkCard key={index} useNativeSpacing={true} className="flex flex-col p-4 bg-white">
+								<DarkCard key={index} useNativeSpacing={true} className="flex flex-col p-4">
 									<div className="mb-2 flex items-center justify-center">
 										<img
 											src={deposit.image}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MapPin, Hash, Eye, Ruler } from 'lucide-react';
 import Modal from './Modal';
-import { LightCard } from './Card';
+import { DarkCard, LightCard } from './Card';
 import { LightPrimaryButton } from './Buttons';
 
 export default function PropertyCard({ property }) {
@@ -45,7 +45,7 @@ export default function PropertyCard({ property }) {
 
 	return (
 		<>
-			<LightCard
+			<DarkCard
 				useNativeSpacing={true}
 				className="group relative overflow-hidden rounded-xl  bg-white shadow-sm transition-all duration-300 hover:border-gray-300 hover:shadow-md"
 			>
@@ -121,7 +121,7 @@ export default function PropertyCard({ property }) {
 						</span>
 					</LightPrimaryButton>
 				</div>
-			</LightCard>
+			</DarkCard>
 
 			{/* Modal */}
 			<Modal

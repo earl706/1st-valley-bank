@@ -135,13 +135,17 @@ export default function PropertiesForSaleVehicles() {
 		<>
 			<main className="flex flex-col">
 				<PageHeroSection pageSlug="properties-for-sale-vehicles" />
-				<section id="vehicles" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+				<section
+					id="vehicles"
+					className="max-mx-7xl px-8 flex flex-col pb-8"
+					style={{ backgroundColor: '#396131' }}
+				>
 					<div className="my-16 text-center">
-						<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
+						<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
 							Vehicles
 						</h2>
-						<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#396131]/80"></div>
-						<p className="mx-auto mt-6 max-w-2xl text-lg text-[#396131]/80">
+						<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/70 to-white/40"></div>
+						<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
 							Discover a selection of quality pre-owned vehicles at affordable prices, available
 							exclusively from 1st Valley Bank.
 						</p>
@@ -162,7 +166,7 @@ export default function PropertiesForSaleVehicles() {
 									setCurrentPage(1);
 								}}
 								placeholder="Search by title, location, description, make, model..."
-								className="w-full rounded-lg border border-[#396131]/30 bg-white py-2.5 pr-4 pl-10 text-sm text-[#396131] placeholder:text-[#396131]/50 focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none"
+								className="w-full rounded-lg border border-white/30 bg-white py-2.5 pr-4 pl-10 text-sm text-[#396131] placeholder:text-[#396131]/50 focus:border-white focus:ring-2 focus:ring-white/20 focus:outline-none"
 							/>
 							{searchQuery && (
 								<button
@@ -170,7 +174,7 @@ export default function PropertiesForSaleVehicles() {
 										setSearchQuery('');
 										setCurrentPage(1);
 									}}
-									className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-1 text-[#396131]/50 transition hover:bg-[#396131]/10 hover:text-[#396131]"
+									className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-1 text-white/60 transition hover:bg-white/20 hover:text-white"
 									aria-label="Clear search"
 								>
 									<X size={16} />
@@ -184,7 +188,7 @@ export default function PropertiesForSaleVehicles() {
 						<div className="flex flex-wrap items-center gap-3">
 							<button
 								onClick={() => setShowFilters(!showFilters)}
-								className="flex items-center gap-2 rounded-lg border border-[#396131]/30 bg-white px-4 py-2 text-sm font-semibold text-[#396131] transition hover:bg-[#396131]/5"
+								className="flex items-center gap-2 rounded-lg border border-white/30 bg-white px-4 py-2 text-sm font-semibold text-[#396131] transition hover:bg-white/90"
 							>
 								<Filter size={18} />
 								Filters
@@ -217,14 +221,14 @@ export default function PropertiesForSaleVehicles() {
 							)}
 						</div>
 						<div className="flex items-center gap-2">
-							<label className="text-sm font-medium text-[#396131]">Sort:</label>
+							<label className="text-sm font-medium text-white">Sort:</label>
 							<select
 								value={sortBy}
 								onChange={(e) => {
 									setSortBy(e.target.value);
 									setCurrentPage(1);
 								}}
-								className="rounded-lg border border-[#396131]/30 bg-white px-3 py-2 text-sm text-[#396131] focus:border-[#396131] focus:ring-2 focus:ring-[#396131]/20 focus:outline-none"
+								className="rounded-lg border border-white/30 bg-white px-3 py-2 text-sm text-[#396131] focus:border-white focus:ring-2 focus:ring-white/20 focus:outline-none"
 							>
 								{SORT_OPTIONS.map((option) => (
 									<option key={option.value} value={option.value}>
@@ -237,7 +241,7 @@ export default function PropertiesForSaleVehicles() {
 
 					{/* Filter Panel */}
 					{showFilters && (
-						<div className="mb-6 rounded-lg border border-[#396131]/20 bg-white p-4 shadow-sm">
+						<div className="mb-6 rounded-lg border border-white/20 bg-white p-4 shadow-sm">
 							<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
 								<div>
 									<label className="mb-2 block text-sm font-medium text-[#396131]">Status</label>
@@ -304,7 +308,7 @@ export default function PropertiesForSaleVehicles() {
 
 					{/* Results Count */}
 					{!loading && (
-						<div className="mb-4 text-sm text-[#396131]/70">
+						<div className="mb-4 text-sm text-white/80">
 							Showing {vehicles.length > 0 ? (currentPage - 1) * PAGE_SIZE + 1 : 0} to{' '}
 							{Math.min(currentPage * PAGE_SIZE, totalCount)} of {totalCount} vehicles
 						</div>
@@ -322,7 +326,7 @@ export default function PropertiesForSaleVehicles() {
 					) : error ? (
 						<div className="text-center text-red-600">{error}</div>
 					) : vehicles.length === 0 ? (
-						<div className="col-span-full py-12 text-center text-[#396131] opacity-60">
+						<div className="col-span-full py-12 text-center text-white opacity-70">
 							No vehicles found. Try adjusting your filters.
 						</div>
 					) : (
@@ -338,7 +342,7 @@ export default function PropertiesForSaleVehicles() {
 								<div className="mt-12 flex flex-col items-center gap-4">
 									<div className="flex items-center gap-2">
 										<button
-											className="group inline-flex transform cursor-pointer items-center rounded-xl border border-[#396131]/60 bg-white px-4 py-2 text-sm font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+											className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/60 bg-white px-4 py-2 text-sm font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
 											onClick={() => handlePageChange(currentPage - 1)}
 											disabled={currentPage === 1}
 										>
@@ -358,8 +362,8 @@ export default function PropertiesForSaleVehicles() {
 														key={page}
 														className={`group inline-flex transform cursor-pointer items-center rounded-xl px-4 py-2 text-sm font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
 															currentPage === page
-																? 'bg-[#396131] text-white'
-																: 'border border-[#396131]/30 bg-white text-[#396131]'
+																? 'bg-white text-[#396131]'
+																: 'border border-white/30 bg-transparent text-white'
 														}`}
 														onClick={() => handlePageChange(page)}
 													>
@@ -368,7 +372,7 @@ export default function PropertiesForSaleVehicles() {
 												);
 											} else if (page === currentPage - 2 || page === currentPage + 2) {
 												return (
-													<span key={page} className="px-2 text-[#396131]/50">
+													<span key={page} className="px-2 text-white/50">
 														...
 													</span>
 												);
@@ -376,7 +380,7 @@ export default function PropertiesForSaleVehicles() {
 											return null;
 										})}
 										<button
-											className="group inline-flex transform cursor-pointer items-center rounded-xl border border-[#396131]/60 bg-white px-4 py-2 text-sm font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+											className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/60 bg-white px-4 py-2 text-sm font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
 											onClick={() => handlePageChange(currentPage + 1)}
 											disabled={currentPage === totalPages}
 										>
@@ -384,7 +388,7 @@ export default function PropertiesForSaleVehicles() {
 											<ChevronRight size={18} className="ml-1" />
 										</button>
 									</div>
-									<div className="text-xs leading-relaxed font-normal text-[#396131]/80">
+									<div className="text-xs leading-relaxed font-normal text-white/80">
 										Page {currentPage} of {totalPages}
 									</div>
 								</div>

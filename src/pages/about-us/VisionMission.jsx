@@ -117,88 +117,8 @@ export default function VisionMission() {
 				titleColor="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
 			/>
 			<main className="flex flex-col">
-				{/* Vision Section */}
-				<section
-					id="vision"
-					data-scroll
-					className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-12"
-				>
-					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-						<DarkHeader
-							badgeText="Our Vision"
-							title={aboutPage?.vision_title || 'Vision'}
-							subtitle={
-								aboutPage?.vision_subtitle ||
-								'A guiding light toward our aspirations as an institution.'
-							}
-						/>
-						<div className="flex flex-col items-center gap-8 lg:flex-row">
-							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-2/5">
-								<div className="flex h-auto w-full items-center justify-center">
-									<img
-										src={aboutPage?.vision_image || carouselImg5}
-										alt="Vision Graphic"
-										className="h-auto w-full object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
-									/>
-								</div>
-							</div>
-							<div className="flex-1">
-								{aboutPage?.vision_text ? (
-									<p className="text-base leading-relaxed font-normal text-white/90">
-										{aboutPage.vision_text}
-									</p>
-								) : (
-									<p className="text-base leading-relaxed font-normal text-white/90">
-										We envision to be the preferred banking institution in delivering innovative and customer-centered services.
-									</p>
-								)}
-							</div>
-						</div>
-					</div>
-				</section>
-
-				{/* Mission Section */}
-				<section
-					id="mission"
-					data-scroll
-					className="bg-white py-12"
-				>
-					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-						<LightHeader
-							badgeText="Our Mission"
-							title={aboutPage?.mission_title || 'Mission'}
-							subtitle={
-								aboutPage?.mission_subtitle ||
-								'Our purpose and the values that drive everything we do.'
-							}
-						/>
-						<div className="flex flex-col-reverse items-center gap-8 lg:flex-row">
-							<div className="flex-1">
-								{aboutPage?.mission_text ? (
-									<p className="text-base leading-relaxed font-normal text-gray-700">
-										{aboutPage.mission_text}
-									</p>
-								) : (
-									<p className="text-base leading-relaxed font-normal text-gray-700">
-										Committed to delivering exceptional banking services while fostering growth for our customers, employees, stakeholders, and communities.
-									</p>
-								)}
-							</div>
-							<div className="flex w-full flex-shrink-0 items-center justify-center lg:w-2/5">
-								<div className="flex h-auto w-full items-center justify-center">
-									<img
-										src={aboutPage?.mission_image || carouselImg6}
-										alt="Mission Graphic"
-										className="h-auto w-full object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
-									/>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-
 				{/* Vision & Mission Full Section with Mission Points & Core Values */}
-				<section id="core-values" className="relative bg-white/80 py-8 lg:py-12">
+				<section id="core-values" className="relative bg-[#E9F2EA] py-8 lg:py-12">
 					<div className="mx-auto max-w-5xl px-2 sm:px-4">
 						<LightHeader
 							badgeText="Vision & Mission"

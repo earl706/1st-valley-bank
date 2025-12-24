@@ -103,35 +103,35 @@ function BranchCard({ icon: Icon, name, address, onContact, atm, atms = [], oper
 	const hasATM = atm || atms.length > 0;
 
 	return (
-		<DarkCard className="relative flex flex-col items-start gap-4">
+		<DarkCard className="relative flex flex-col items-start gap-4 bg-[#E9F2EA]">
 			{hasATM && (
-				<p className="absolute top-3 right-3 z-10 flex items-center gap-1 rounded bg-green-100 px-2 py-0.5 text-xs leading-relaxed font-normal text-green-700">
-					<CreditCard className="inline h-4 w-4" /> ATM
+				<p className="absolute top-3 right-3 z-10 flex items-center gap-1 rounded bg-red-700 px-2 py-0.5 text-xs leading-relaxed font-semibold text-white shadow-md">
+					<CreditCard className="inline h-4 w-4 text-white" /> ATM
 				</p>
 			)}
 			<div className="flex w-full items-start gap-4">
-				<span className="rounded-lg border border-white/10 bg-white/10 p-2">
-					<Icon className="h-6 w-6 text-white transition group-hover:scale-110" />
+				<span className="rounded-lg p-2">
+					<Icon className="h-6 w-6 text-[#396131] transition group-hover:scale-110" />
 				</span>
 				<div className="flex-1">
-					<h4 className="flex items-center gap-2 text-xl leading-tight font-bold text-white">
+					<h4 className="flex items-center gap-2 text-xl leading-tight font-bold text-[#396131]">
 						{name}
 					</h4>
-					<p className="text-base leading-relaxed font-normal text-white/80">{address}</p>
+					<p className="text-base leading-relaxed font-normal text-[#28492d]">{address}</p>
 					{/* ATM Information Section */}
 					{atms.length > 0 && (
 						<div className="mt-3 space-y-2">
 							{atms.map((atmItem, idx) => (
 								<div
 									key={atmItem.id || idx}
-									className="flex items-start gap-2 rounded-lg border border-white/20 bg-white/10 p-2.5 backdrop-blur-sm"
+									className="flex items-start gap-2 rounded-lg border border-green-100 bg-white/80 p-2.5 backdrop-blur-sm"
 								>
 									<div className="flex-1">
-										<p className="text-sm leading-tight font-semibold text-white">
+										<p className="text-sm leading-tight font-semibold text-[#396131]">
 											{atmItem.name}
 										</p>
 										{atmItem.is_24_hours && (
-											<p className="mt-1.5 flex items-center gap-1 rounded bg-green-100/20 px-1.5 py-0.5 text-xs leading-tight font-normal text-green-300">
+											<p className="mt-1.5 flex items-center gap-1 rounded bg-green-100/80 px-1.5 py-0.5 text-xs leading-tight font-normal text-green-700">
 												<CreditCard className="h-3 w-3" /> 24 hours
 											</p>
 										)}
@@ -143,8 +143,8 @@ function BranchCard({ icon: Icon, name, address, onContact, atm, atms = [], oper
 					{/* Operating Hours Section */}
 					{formatOperatingHoursSummary(operatingHours) && (
 						<div className="mt-3 flex items-start gap-2">
-							<Clock className="mt-0.5 h-4 w-4 shrink-0 text-white/70" />
-							<p className="text-sm leading-relaxed font-normal text-white/80">
+							<Clock className="mt-0.5 h-4 w-4 shrink-0 text-[#396131]/70" />
+							<p className="text-sm leading-relaxed font-normal text-[#28492d]">
 								{formatOperatingHoursSummary(operatingHours)}
 							</p>
 						</div>
@@ -1397,86 +1397,6 @@ export default function Branches() {
 							)}
 						</div>
 					</section>
-
-					{/* Mindanao Section */}
-					{/* <section>
-						<div className="mb-5 flex items-center justify-between">
-							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
-								<MapPinned className="h-6 w-6 text-white" />
-								Mindanao Branches
-							</h2>
-							{mindanaoBranches.length > 3 && (
-								<DarkPrimaryButton onClick={() => setVisibleModal('mindanao')}>
-									<span className="flex items-center">
-										See All
-										<ArrowRight className="ml-3 h-5 w-5" />
-									</span>
-								</DarkPrimaryButton>
-							)}
-						</div>
-						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-							{mindanaoBranches.length === 0 ? (
-								<div className="col-span-3 py-8 text-center text-white/80">
-									No branches in Mindanao.
-								</div>
-							) : (
-								renderPreviewBranches(mindanaoBranches, Building2)
-							)}
-						</div>
-					</section> */}
-					{/* Visayas Section */}
-					{/* <section>
-						<div className="mb-5 flex items-center justify-between">
-							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
-								<MapPinned className="h-6 w-6 text-white" />
-								Visayas Branches
-							</h2>
-							{visayasBranches.length > 3 && (
-								<DarkPrimaryButton onClick={() => setVisibleModal('visayas')} type="button">
-									<span className="flex items-center">
-										See All
-										<ArrowRight className="ml-3 h-5 w-5" />
-									</span>
-								</DarkPrimaryButton>
-							)}
-						</div>
-						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-							{visayasBranches.length === 0 ? (
-								<div className="col-span-3 py-8 text-center text-white/80">
-									No branches in Visayas.
-								</div>
-							) : (
-								renderPreviewBranches(visayasBranches, Building2)
-							)}
-						</div>
-					</section> */}
-
-					{/* Regional Section */}
-					{/* <section>
-						<div className="mb-5 flex items-center justify-between">
-							<h2 className="flex items-center gap-2 text-2xl font-bold text-white">
-								<Landmark className="h-6 w-6 text-white" />
-								Head Offices
-							</h2>
-							{regionalCenters.length > 3 && (
-								<DarkPrimaryButton onClick={() => setVisibleModal('ncr')} type="button">
-									<span className="flex items-center">
-										See All
-										<ArrowRight className="ml-3 h-5 w-5" />
-									</span>
-								</DarkPrimaryButton>
-							)}
-						</div>
-						<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-							{regionalCenters.length === 0 ? (
-								<div className="col-span-3 py-8 text-center text-white/80">
-									No regional or national centers found.
-								</div>
-							) : (
-								renderPreviewBranches(regionalCenters, Landmark)
-							)}
-						</div>
-					</section> */}
 
 					<ClosestBranchSection allBranches={allBranches} />
 					

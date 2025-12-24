@@ -1158,7 +1158,7 @@ export default function AboutUs() {
 				<section
 					id="annual-reports"
 					data-scroll
-					className="relative flex flex-col items-center justify-center gap-12 px-4 py-12 text-[#396131] lg:px-12 lg:py-20"
+					className="relative flex flex-col items-center justify-center gap-12 px-4 py-12 text-[#396131] lg:px-12 lg:py-20 bg-[#E9F2EA]"
 				>
 					<LightHeader
 						badgeText="Reports"

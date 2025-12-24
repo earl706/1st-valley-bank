@@ -624,7 +624,7 @@ export default function Navbar({ children }) {
 															>
 																<button
 																	onClick={() => {}}
-																	className="w-full cursor-pointer border-l-4 border-transparent px-5 py-3 text-left leading-[1.4rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-white hover:bg-[#396131]/90"
+																	className="w-full cursor-pointer border-l-4 border-transparent px-[20px] py-[15px] text-left leading-[1.4rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-yellow-300 hover:text-[#396131] hover:bg-[#E9F2EA]"
 																>
 																	<span className="text-sm xl:text-base">{subItem.subItem}</span>
 																</button>
@@ -906,14 +906,14 @@ export default function Navbar({ children }) {
 															>
 																<button
 																	onClick={() => {}}
-																	className="w-full cursor-pointer border-l-4 border-transparent px-[20px] py-[15px] text-left leading-[1.4rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-white hover:bg-[#396131]"
+																	className="w-full cursor-pointer border-l-4 border-transparent px-[20px] py-[15px] text-left leading-[1.4rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-yellow-300 hover:text-[#396131] hover:bg-[#E9F2EA]"
 																>
 																	<div className="flex items-center justify-between">
 																		<span className="text-sm xl:text-base">{subItem.subItem}</span>
 																		{subItem.subsubItems && subItem.subsubItems.length > 0 && (
 																			<FontAwesomeIcon
 																				icon={faAngleRight}
-																				className="text-sm text-white"
+																				className="text-sm text-[#396131]"
 																			/>
 																		)}
 																	</div>

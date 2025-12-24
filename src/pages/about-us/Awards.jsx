@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import aboutPageService from '../../services/aboutPageService';
-import { DarkHeader } from '../../components/Header';
+import { LightHeader } from '../../components/Header';
 import { Trophy } from 'lucide-react';
 import HeroSection from '../../components/HeroSection';
 import img1 from '/src/assets/carousel/1.png';
@@ -103,10 +103,10 @@ export default function Awards() {
       <section
         id="awards"
         data-scroll
-        className="relative bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-8 lg:py-12"
+        className="relative bg-[#E9F2EA] py-8 lg:py-12"
       >
         <div className="mx-auto max-w-5xl px-2 sm:px-4">
-          <DarkHeader
+          <LightHeader
             badgeText="Awards"
             title={awardsData.awards_section_title}
             subtitle={awardsData.awards_section_subtitle}
@@ -122,7 +122,7 @@ export default function Awards() {
                     const IconComponent = getIconComponent(award.icon || 'award');
                     return (
                       <div key={idx} className="flex items-start gap-4 p-5">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-md bg-white/80">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-md bg-[#396131]/10">
                           {award.icon === 'award' && award.title?.includes('A+') ? (
                             <span className="text-2xl font-bold text-[#396131]">A+</span>
                           ) : (
@@ -130,10 +130,10 @@ export default function Awards() {
                           )}
                         </div>
                         <div>
-                          <span className="mb-1 block text-3xl leading-tight font-bold text-white">
+                          <span className="mb-1 block text-3xl leading-tight font-bold text-[#396131]">
                             {award.title?.toUpperCase() || ''}
                           </span>
-                          <p className="text-lg leading-relaxed font-normal text-white">
+                          <p className="text-lg leading-relaxed font-normal text-[#2d4821]">
                             {award.description || ''}
                           </p>
                         </div>
@@ -143,27 +143,27 @@ export default function Awards() {
                 ) : (
                   <>
                     <div className="flex items-start gap-4 p-5">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-md bg-white/80">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-md bg-[#396131]/10">
                         <span className="text-2xl font-bold text-[#396131]">A+</span>
                       </div>
                       <div>
-                        <span className="mb-1 block text-3xl leading-tight font-bold text-white">
+                        <span className="mb-1 block text-3xl leading-tight font-bold text-[#396131]">
                           RATED A+
                         </span>
-                        <p className="text-lg leading-relaxed font-normal text-white">
+                        <p className="text-lg leading-relaxed font-normal text-[#2d4821]">
                           By PhilRatings, a BSP-recognized credit rating agency.
                         </p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4 p-5">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-md bg-white/80">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-md bg-[#396131]/10">
                         <Trophy className="h-7 w-7 text-[#396131]" />
                       </div>
                       <div>
-                        <span className="mb-1 block text-3xl leading-tight font-bold text-white">
+                        <span className="mb-1 block text-3xl leading-tight font-bold text-[#396131]">
                           EAGLE AWARD FOR MICROFINANCE
                         </span>
-                        <p className="text-lg leading-relaxed font-normal text-white">
+                        <p className="text-lg leading-relaxed font-normal text-[#2d4821]">
                           From USAID via MABS, for expanding rural microfinance services.
                         </p>
                       </div>
@@ -174,7 +174,7 @@ export default function Awards() {
             </div>
             {/* Trophy Icon */}
             <div className="mb-4 flex flex-1 justify-center md:mb-0 md:justify-end">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full bg-white/80 shadow-lg md:h-36 md:w-36">
+              <div className="flex h-28 w-28 items-center justify-center rounded-full bg-[#396131]/10 shadow-lg md:h-36 md:w-36">
                 <Trophy className="h-16 w-16 text-6xl text-[#396131] md:h-28 md:w-28 md:text-8xl" />
               </div>
             </div>
@@ -182,10 +182,10 @@ export default function Awards() {
           {/* Additional Awards Grid */}
           <div className="mt-10 p-5">
             <div className="mb-6 text-center">
-              <h3 className="mb-1 text-2xl leading-tight font-bold text-white">
+              <h3 className="mb-1 text-2xl leading-tight font-bold text-[#396131]">
                 More Achievements
               </h3>
-              <div className="mx-auto h-0.5 w-12 rounded-full bg-white/60"></div>
+              <div className="mx-auto h-0.5 w-12 rounded-full bg-[#396131]/30"></div>
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
               {(Array.isArray(awardsData.awards) ? awardsData.awards : []).map((award, index) => (
@@ -193,14 +193,14 @@ export default function Awards() {
                   key={index}
                   className="group flex items-start gap-4 p-4 transition-all duration-200"
                 >
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-white/80 transition-transform duration-200 group-hover:scale-105">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-[#396131]/10 transition-transform duration-200 group-hover:scale-105">
                     <Trophy className="h-6 w-6 text-[#396131]" />
                   </div>
                   <div className="flex-1">
-                    <span className="block text-lg leading-tight font-semibold text-white">
+                    <span className="block text-lg leading-tight font-semibold text-[#396131]">
                       {award.header}
                     </span>
-                    <p className="text-base leading-relaxed font-normal text-white">
+                    <p className="text-base leading-relaxed font-normal text-[#2d4821]">
                       {award.description}
                     </p>
                   </div>

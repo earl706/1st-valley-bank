@@ -187,7 +187,8 @@ export default function Loans() {
 									<DarkCard
 										key={index}
 										useNativeSpacing={true}
-										className="group flex h-full flex-col overflow-hidden p-0 bg-white"
+										className="group flex h-full flex-col overflow-hidden p-0"
+										style={{ backgroundColor: '#E9F2EA' }}
 									>
 										<div className="flex flex-1 flex-col items-center gap-6 p-8 sm:items-start lg:gap-8 lg:p-10">
 											{/* Image Container */}
@@ -206,12 +207,12 @@ export default function Loans() {
 												<h3 className="mb-3 text-2xl leading-tight font-bold text-[#396131] transition-colors duration-300 group-hover:text-[#4a7c3a]">
 													{loan.title}
 												</h3>
-												<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-[#396131]/80">
+												<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-[#396131]/90">
 													{loan.description}
 												</p>
 												<div className="mt-auto">
 													<LightPrimaryButton
-														to={loan.route}	
+														to={loan.route}
 														className="w-full"
 														secondaryIcon={
 															<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />

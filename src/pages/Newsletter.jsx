@@ -549,14 +549,14 @@ export default function Newsletter() {
 			<main className="flex flex-col">
 				<PageHeroSection pageSlug="newsletter" />
 
-				<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] px-6 py-24">
+				<section className="bg-[#E9F2EA] px-6 py-24">
 					<div className="mx-auto max-w-7xl">
 						<div className="mb-16 text-center">
-							<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+							<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
 								Newsletter
 							</h2>
-							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white to-white/80"></div>
-							<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
+							<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#4a7c3a]/80"></div>
+							<p className="mx-auto mt-6 max-w-2xl text-lg text-[#396131]/80">
 								Stay updated with our curated collection of insights, trends, and innovations across
 								various industries.
 							</p>
@@ -566,7 +566,7 @@ export default function Newsletter() {
 						<div className="mb-4">
 							<div className="relative">
 								<Search
-									className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-white/50"
+									className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-[#396131]/60"
 									size={20}
 								/>
 								<input
@@ -577,7 +577,7 @@ export default function Newsletter() {
 										setCurrentPage(1);
 									}}
 									placeholder="Search by title, subtitle, description..."
-									className="w-full rounded-lg border border-white/30 bg-white/10 py-2.5 pr-4 pl-10 text-sm text-white backdrop-blur-sm placeholder:text-white/50 focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+									className="w-full rounded-lg border border-[#396131]/20 bg-white py-2.5 pr-4 pl-10 text-sm text-[#396131] placeholder:text-[#396131]/40 focus:border-[#396131]/30 focus:ring-2 focus:ring-[#396131]/10 focus:outline-none transition"
 								/>
 								{searchQuery && (
 									<button
@@ -585,7 +585,7 @@ export default function Newsletter() {
 											setSearchQuery('');
 											setCurrentPage(1);
 										}}
-										className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-1 text-white/50 transition hover:bg-white/10 hover:text-white"
+										className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-1 text-[#396131]/60 transition hover:bg-[#396131]/10 hover:text-[#396131]"
 										aria-label="Clear search"
 									>
 										<X size={16} />
@@ -599,12 +599,12 @@ export default function Newsletter() {
 							<div className="flex flex-wrap items-center gap-3">
 								<button
 									onClick={() => setShowFilters(!showFilters)}
-									className="flex items-center gap-2 rounded-lg border border-white/30 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
+									className="flex items-center gap-2 rounded-lg border border-[#396131]/20 bg-white px-4 py-2 text-sm font-semibold text-[#396131] transition hover:bg-[#396131]/10"
 								>
-									<Filter size={18} />
+									<Filter size={18} className="text-[#396131]" />
 									Filters
 									{hasActiveFilters && (
-										<span className="ml-1 rounded-full bg-white px-2 py-0.5 text-xs text-[#396131]">
+										<span className="ml-1 rounded-full bg-[#396131] px-2 py-0.5 text-xs text-white">
 											{
 												[
 													categoryFilter ? 'Category' : null,
@@ -626,7 +626,7 @@ export default function Newsletter() {
 								{hasActiveFilters && (
 									<button
 										onClick={handleFilterReset}
-										className="flex items-center gap-1 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm font-medium text-red-700 transition hover:bg-red-100"
+										className="flex items-center gap-1 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-700 transition hover:bg-red-100"
 									>
 										<X size={16} />
 										Clear Filters
@@ -634,20 +634,20 @@ export default function Newsletter() {
 								)}
 							</div>
 							<div className="flex items-center gap-2">
-								<label className="text-sm font-medium text-white">Sort:</label>
+								<label className="text-sm font-medium text-[#396131]">Sort:</label>
 								<select
 									value={sortBy}
 									onChange={(e) => {
 										setSortBy(e.target.value);
 										setCurrentPage(1);
 									}}
-									className="rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+									className="rounded-lg border border-[#396131]/20 bg-white px-3 py-2 text-sm text-[#396131] focus:border-[#396131]/30 focus:ring-2 focus:ring-[#396131]/10 focus:outline-none transition"
 								>
 									{SORT_OPTIONS.map((option) => (
 										<option
 											key={option.value}
 											value={option.value}
-											className="bg-[#396131] text-white"
+											className="bg-[#E9F2EA] text-[#396131]"
 										>
 											{option.label}
 										</option>
@@ -658,52 +658,52 @@ export default function Newsletter() {
 
 						{/* Filter Panel */}
 						{showFilters && (
-							<div className="mb-6 rounded-lg border border-white/20 bg-white/10 p-4 shadow-sm backdrop-blur-sm">
+							<div className="mb-6 rounded-lg border border-[#396131]/10 bg-white p-4 shadow-sm">
 								<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 									<div>
-										<label className="mb-2 block text-sm font-medium text-white">Category</label>
+										<label className="mb-2 block text-sm font-medium text-[#396131]">Category</label>
 										<input
 											type="text"
 											value={draftCategoryFilter}
 											onChange={(e) => setDraftCategoryFilter(e.target.value)}
 											placeholder="e.g., banking, community"
-											className="w-full rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm placeholder:text-white/50 focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+											className="w-full rounded-lg border border-[#396131]/20 bg-[#F6FAF7] px-3 py-2 text-sm text-[#396131] placeholder:text-[#396131]/40 focus:border-[#396131]/30 focus:ring-2 focus:ring-[#396131]/10 focus:outline-none"
 										/>
 									</div>
 									<div>
-										<label className="mb-2 block text-sm font-medium text-white">Min Views</label>
+										<label className="mb-2 block text-sm font-medium text-[#396131]">Min Views</label>
 										<input
 											type="number"
 											value={draftMinViews}
 											onChange={(e) => setDraftMinViews(e.target.value)}
 											placeholder="0"
 											min="0"
-											className="w-full rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm placeholder:text-white/50 focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+											className="w-full rounded-lg border border-[#396131]/20 bg-[#F6FAF7] px-3 py-2 text-sm text-[#396131] placeholder:text-[#396131]/40 focus:border-[#396131]/30 focus:ring-2 focus:ring-[#396131]/10 focus:outline-none"
 										/>
 									</div>
 									<div>
-										<label className="mb-2 block text-sm font-medium text-white">Max Views</label>
+										<label className="mb-2 block text-sm font-medium text-[#396131]">Max Views</label>
 										<input
 											type="number"
 											value={draftMaxViews}
 											onChange={(e) => setDraftMaxViews(e.target.value)}
 											placeholder="No limit"
 											min="0"
-											className="w-full rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm placeholder:text-white/50 focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+											className="w-full rounded-lg border border-[#396131]/20 bg-[#F6FAF7] px-3 py-2 text-sm text-[#396131] placeholder:text-[#396131]/40 focus:border-[#396131]/30 focus:ring-2 focus:ring-[#396131]/10 focus:outline-none"
 										/>
 									</div>
 									<div>
-										<label className="mb-2 block text-sm font-medium text-white">Read Time</label>
+										<label className="mb-2 block text-sm font-medium text-[#396131]">Read Time</label>
 										<select
 											value={draftReadTimeFilter}
 											onChange={(e) => setDraftReadTimeFilter(e.target.value)}
-											className="w-full rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+											className="w-full rounded-lg border border-[#396131]/20 bg-[#F6FAF7] px-3 py-2 text-sm text-[#396131] focus:border-[#396131]/30 focus:ring-2 focus:ring-[#396131]/10 focus:outline-none"
 										>
 											{READ_TIME_OPTIONS.map((option) => (
 												<option
 													key={option.value}
 													value={option.value}
-													className="bg-[#396131] text-white"
+													className="bg-[#E9F2EA] text-[#396131]"
 												>
 													{option.label}
 												</option>
@@ -711,25 +711,25 @@ export default function Newsletter() {
 										</select>
 									</div>
 									<div>
-										<label className="mb-2 block text-sm font-medium text-white">
+										<label className="mb-2 block text-sm font-medium text-[#396131]">
 											Published From
 										</label>
 										<input
 											type="date"
 											value={draftPublishedDateFrom}
 											onChange={(e) => setDraftPublishedDateFrom(e.target.value)}
-											className="w-full rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+											className="w-full rounded-lg border border-[#396131]/20 bg-[#F6FAF7] px-3 py-2 text-sm text-[#396131] focus:border-[#396131]/30 focus:ring-2 focus:ring-[#396131]/10 focus:outline-none"
 										/>
 									</div>
 									<div>
-										<label className="mb-2 block text-sm font-medium text-white">
+										<label className="mb-2 block text-sm font-medium text-[#396131]">
 											Published To
 										</label>
 										<input
 											type="date"
 											value={draftPublishedDateTo}
 											onChange={(e) => setDraftPublishedDateTo(e.target.value)}
-											className="w-full rounded-lg border border-white/30 bg-white/10 px-3 py-2 text-sm text-white backdrop-blur-sm focus:border-white/50 focus:ring-2 focus:ring-white/20 focus:outline-none"
+											className="w-full rounded-lg border border-[#396131]/20 bg-[#F6FAF7] px-3 py-2 text-sm text-[#396131] focus:border-[#396131]/30 focus:ring-2 focus:ring-[#396131]/10 focus:outline-none"
 										/>
 									</div>
 								</div>
@@ -743,14 +743,14 @@ export default function Newsletter() {
 											setDraftPublishedDateFrom(publishedDateFrom);
 											setDraftPublishedDateTo(publishedDateTo);
 										}}
-										className="rounded-lg border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm transition hover:bg-white/20"
+										className="rounded-lg border border-[#396131]/20 bg-[#F6FAF7] px-4 py-2 text-sm font-medium text-[#396131] transition hover:bg-[#396131]/10"
 									>
 										Reset
 									</button>
 									<button
 										onClick={handleApplyFilters}
 										disabled={!hasDraftChanges}
-										className="rounded-lg bg-white px-6 py-2 text-sm font-semibold text-[#396131] transition hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-50"
+										className="rounded-lg bg-[#396131] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#396131]/90 disabled:cursor-not-allowed disabled:opacity-50"
 									>
 										Apply Filters
 									</button>
@@ -760,7 +760,7 @@ export default function Newsletter() {
 
 						{/* Results Count */}
 						{!loading && (
-							<div className="mb-4 text-sm text-white/70">
+							<div className="mb-4 text-sm text-[#396131]/70">
 								Showing {newsletters.length > 0 ? (currentPage - 1) * PAGE_SIZE + 1 : 0} to{' '}
 								{Math.min(currentPage * PAGE_SIZE, totalCount)} of {totalCount} articles
 							</div>
@@ -775,9 +775,9 @@ export default function Newsletter() {
 								gridRows={3}
 							/>
 						) : error ? (
-							<div className="text-center text-red-200">{error}</div>
+							<div className="text-center text-red-600">{error}</div>
 						) : newsletters.length === 0 ? (
-							<div className="col-span-full py-12 text-center text-white/60">
+							<div className="col-span-full py-12 text-center text-[#396131]/60">
 								No articles found. Try adjusting your filters.
 							</div>
 						) : (
@@ -793,11 +793,11 @@ export default function Newsletter() {
 									<div className="mt-12 flex flex-col items-center gap-4">
 										<div className="flex items-center gap-2">
 											<button
-												className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/60 bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+												className="group inline-flex transform cursor-pointer items-center rounded-xl border border-[#396131]/50 bg-[#F6FAF7] px-4 py-2 text-sm font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
 												onClick={() => handlePageChange(currentPage - 1)}
 												disabled={currentPage === 1}
 											>
-												<ChevronLeft size={18} className="mr-1" />
+												<ChevronLeft size={18} className="mr-1 text-[#396131]" />
 												<span className="text-sm font-bold">Previous</span>
 											</button>
 											{Array.from({ length: totalPages }, (_, idx) => {
@@ -813,8 +813,8 @@ export default function Newsletter() {
 															key={page}
 															className={`group inline-flex transform cursor-pointer items-center rounded-xl px-4 py-2 text-sm font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
 																currentPage === page
-																	? 'bg-white text-[#396131]'
-																	: 'border border-white/30 bg-white/10 text-white backdrop-blur-sm'
+																	? 'bg-[#396131] text-white'
+																	: 'border border-[#396131]/20 bg-[#F6FAF7] text-[#396131]'
 															}`}
 															onClick={() => handlePageChange(page)}
 														>
@@ -823,7 +823,7 @@ export default function Newsletter() {
 													);
 												} else if (page === currentPage - 2 || page === currentPage + 2) {
 													return (
-														<span key={page} className="px-2 text-white/50">
+														<span key={page} className="px-2 text-[#396131]/40">
 															...
 														</span>
 													);
@@ -831,15 +831,15 @@ export default function Newsletter() {
 												return null;
 											})}
 											<button
-												className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/60 bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+												className="group inline-flex transform cursor-pointer items-center rounded-xl border border-[#396131]/50 bg-[#F6FAF7] px-4 py-2 text-sm font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
 												onClick={() => handlePageChange(currentPage + 1)}
 												disabled={currentPage === totalPages}
 											>
 												<span className="text-sm font-bold">Next</span>
-												<ChevronRight size={18} className="ml-1" />
+												<ChevronRight size={18} className="ml-1 text-[#396131]" />
 											</button>
 										</div>
-										<div className="text-xs leading-relaxed font-normal text-white/80">
+										<div className="text-xs leading-relaxed font-normal text-[#396131]/80">
 											Page {currentPage} of {totalPages}
 										</div>
 									</div>

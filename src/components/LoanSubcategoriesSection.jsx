@@ -103,7 +103,7 @@ export default function LoanSubcategoriesSection({
 							<DarkCard
 								key={index}
 								useNativeSpacing={true}
-								className="group flex h-full flex-col overflow-hidden p-0 bg-white"
+								className="group flex h-full flex-col overflow-hidden p-0"
 							>
 								<div className="flex flex-1 flex-col items-center gap-6 p-8 sm:flex-row sm:items-start lg:gap-8 lg:p-10">
 									{/* Image Container */}

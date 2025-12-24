@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MapPin, Calendar, Hash, Eye } from 'lucide-react';
 import Modal from './Modal';
-import { LightCard } from './Card';
+import { DarkCard, LightCard } from './Card';
 
 // Utility: safely parse numbers for price formatting
 function displayPrice(priceString) {
@@ -31,9 +31,9 @@ export default function VehicleCard({ vehicle }) {
 
 	return (
 		<>
-			<LightCard
+			<DarkCard
 				useNativeSpacing={true}
-				className="group relative overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:border-gray-300 hover:shadow-md"
+				className="group relative overflow-hidden rounded-2xl shadow-sm transition-all duration-300 hover:border-gray-300 hover:shadow-md"
 			>
 				{/* Image Container */}
 				<div className="relative h-56 overflow-hidden rounded-t-2xl bg-gray-100">
@@ -111,7 +111,7 @@ export default function VehicleCard({ vehicle }) {
 						</span>
 					</button>
 				</div>
-			</LightCard>
+			</DarkCard>
 
 			{/* Modal */}
 			<Modal

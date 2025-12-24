@@ -189,13 +189,17 @@ export default function PropertiesForSale() {
 					showLearnMoreButton={true}
 					learnMoreText="Explore Listings"
 				/>
-				<section id="vehicles" className="max-mx-7xl mx-auto px-4 flex flex-col text-[#396131]">
+				<section
+					id="vehicles"
+					className="max-mx-7xl px-8 flex flex-col"
+					style={{ backgroundColor: '#396131' }}
+				>
 					<div className="mt-16 text-center">
-						<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
+						<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
 							Vehicles
 						</h2>
-						<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#396131]/80"></div>
-						<p className="mx-auto mt-6 max-w-2xl text-lg text-[#396131]/80">
+						<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/70 to-white/40"></div>
+						<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
 							Discover a selection of quality pre-owned vehicles at affordable prices, available
 							exclusively from 1st Valley Bank.
 						</p>
@@ -210,12 +214,12 @@ export default function PropertiesForSale() {
 							showButton={false}
 						/>
 					) : vehiclesError ? (
-						<div className="text-center text-red-600">{vehiclesError}</div>
+						<div className="text-center text-red-400">{vehiclesError}</div>
 					) : (
 						<>
 							{/* Results Count */}
 							{!vehiclesLoading && (
-								<div className="mb-4 text-sm text-[#396131]/70">
+								<div className="mb-4 text-sm text-white/70">
 									Showing {vehicles.length > 0 ? (vehiclesCurrentPage - 1) * PAGE_SIZE + 1 : 0} to{' '}
 									{Math.min(vehiclesCurrentPage * PAGE_SIZE, vehiclesTotalCount)} of{' '}
 									{vehiclesTotalCount} vehicles
@@ -223,7 +227,7 @@ export default function PropertiesForSale() {
 							)}
 							<div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
 								{vehicles.length === 0 ? (
-									<div className="col-span-full text-center text-[#396131] opacity-60">
+									<div className="col-span-full text-center text-white opacity-60">
 										No vehicles available.
 									</div>
 								) : (
@@ -238,7 +242,7 @@ export default function PropertiesForSale() {
 								<div className="mt-12 flex flex-col items-center gap-4">
 									<div className="flex items-center gap-2">
 										<button
-											className="group inline-flex transform cursor-pointer items-center rounded-xl border border-[#396131]/60 bg-white px-4 py-2 text-sm font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+											className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/60 bg-[#396131] px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
 											onClick={() => handleVehiclesPageChange(vehiclesCurrentPage - 1)}
 											disabled={vehiclesCurrentPage === 1}
 										>
@@ -258,8 +262,8 @@ export default function PropertiesForSale() {
 														key={page}
 														className={`group inline-flex transform cursor-pointer items-center rounded-xl px-4 py-2 text-sm font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
 															vehiclesCurrentPage === page
-																? 'bg-[#396131] text-white'
-																: 'border border-[#396131]/30 bg-white text-[#396131]'
+																? 'bg-white text-[#396131]'
+																: 'border border-white/30 bg-[#396131] text-white'
 														}`}
 														onClick={() => handleVehiclesPageChange(page)}
 													>
@@ -271,7 +275,7 @@ export default function PropertiesForSale() {
 												page === vehiclesCurrentPage + 2
 											) {
 												return (
-													<span key={page} className="px-2 text-[#396131]/50">
+													<span key={page} className="px-2 text-white/50">
 														...
 													</span>
 												);
@@ -279,7 +283,7 @@ export default function PropertiesForSale() {
 											return null;
 										})}
 										<button
-											className="group inline-flex transform cursor-pointer items-center rounded-xl border border-[#396131]/60 bg-white px-4 py-2 text-sm font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+											className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/60 bg-[#396131] px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
 											onClick={() => handleVehiclesPageChange(vehiclesCurrentPage + 1)}
 											disabled={vehiclesCurrentPage === vehiclesTotalPages}
 										>
@@ -287,7 +291,7 @@ export default function PropertiesForSale() {
 											<ChevronRight size={18} className="ml-1" />
 										</button>
 									</div>
-									<div className="text-xs leading-relaxed font-normal text-[#396131]/80">
+									<div className="text-xs leading-relaxed font-normal text-white/80">
 										Page {vehiclesCurrentPage} of {vehiclesTotalPages}
 									</div>
 								</div>
@@ -297,26 +301,30 @@ export default function PropertiesForSale() {
 					<div className="h-8 lg:h-12" />
 					<NavLink
 						to="/properties-for-sale/vehicles"
-						className="group inline-flex transform items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+						className="group inline-flex transform items-center justify-center rounded-xl bg-white px-8 py-4 text-base font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 						style={{ letterSpacing: '0.01em' }}
 					>
 						<span className="flex w-full items-center justify-center gap-2 text-center">
 							<Eye
 								size={20}
-								className="opacity-80 transition-transform duration-300 group-hover:scale-110"
+								className="text-[#396131] opacity-80 transition-transform duration-300 group-hover:scale-110"
 							/>
 							<span className="text-center tracking-tight">View All Vehicles</span>
 						</span>
 					</NavLink>
 					<div className="h-8 lg:h-12" />
 				</section>
-				<section id="properties" className="mx-auto px-4 flex max-w-7xl flex-col text-[#396131]">
+				<section
+					id="properties"
+					className="px-8 flex max-mx-7xl flex-col pb-8"
+					style={{ backgroundColor: "#396131" }}
+				>
 					<div className="mt-16 text-center">
-						<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">
+						<h2 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl">
 							Real Estate & Properties
 						</h2>
-						<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-[#396131] to-[#396131]/80"></div>
-						<p className="mx-auto mt-6 max-w-2xl text-lg text-[#396131]/80">
+						<div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-white/90 to-white/60"></div>
+						<p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
 							Explore our assortment of prime real estate, residential, commercial, and foreclosed
 							properties for sale, opportunities offered only by 1st Valley Bank.
 						</p>
@@ -331,12 +339,12 @@ export default function PropertiesForSale() {
 							showButton={false}
 						/>
 					) : realEstateError ? (
-						<div className="text-center text-red-600">{realEstateError}</div>
+						<div className="text-center text-red-300">{realEstateError}</div>
 					) : (
 						<>
 							{/* Results Count */}
 							{!realEstateLoading && (
-								<div className="mb-4 text-sm text-[#396131]/70">
+								<div className="mb-4 text-sm text-white/80">
 									Showing {realEstate.length > 0 ? (realEstateCurrentPage - 1) * PAGE_SIZE + 1 : 0}{' '}
 									to {Math.min(realEstateCurrentPage * PAGE_SIZE, realEstateTotalCount)} of{' '}
 									{realEstateTotalCount} properties
@@ -344,7 +352,7 @@ export default function PropertiesForSale() {
 							)}
 							<div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
 								{realEstate.length === 0 ? (
-									<div className="col-span-full text-center text-[#396131] opacity-60">
+									<div className="col-span-full text-center text-white opacity-60">
 										No real estate available.
 									</div>
 								) : (
@@ -359,7 +367,7 @@ export default function PropertiesForSale() {
 								<div className="mt-12 flex flex-col items-center gap-4">
 									<div className="flex items-center gap-2">
 										<button
-											className="group inline-flex transform cursor-pointer items-center rounded-xl border border-[#396131]/60 bg-white px-4 py-2 text-sm font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+											className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/60 bg-white px-4 py-2 text-sm font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
 											onClick={() => handleRealEstatePageChange(realEstateCurrentPage - 1)}
 											disabled={realEstateCurrentPage === 1}
 										>
@@ -379,8 +387,8 @@ export default function PropertiesForSale() {
 														key={page}
 														className={`group inline-flex transform cursor-pointer items-center rounded-xl px-4 py-2 text-sm font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
 															realEstateCurrentPage === page
-																? 'bg-[#396131] text-white'
-																: 'border border-[#396131]/30 bg-white text-[#396131]'
+																? 'bg-white text-[#396131]'
+																: 'border border-white/30 bg-[#396131] text-white'
 														}`}
 														onClick={() => handleRealEstatePageChange(page)}
 													>
@@ -392,7 +400,7 @@ export default function PropertiesForSale() {
 												page === realEstateCurrentPage + 2
 											) {
 												return (
-													<span key={page} className="px-2 text-[#396131]/50">
+													<span key={page} className="px-2 text-white/60">
 														...
 													</span>
 												);
@@ -400,7 +408,7 @@ export default function PropertiesForSale() {
 											return null;
 										})}
 										<button
-											className="group inline-flex transform cursor-pointer items-center rounded-xl border border-[#396131]/60 bg-white px-4 py-2 text-sm font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
+											className="group inline-flex transform cursor-pointer items-center rounded-xl border border-white/60 bg-white px-4 py-2 text-sm font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
 											onClick={() => handleRealEstatePageChange(realEstateCurrentPage + 1)}
 											disabled={realEstateCurrentPage === realEstateTotalPages}
 										>
@@ -408,7 +416,7 @@ export default function PropertiesForSale() {
 											<ChevronRight size={18} className="ml-1" />
 										</button>
 									</div>
-									<div className="text-xs leading-relaxed font-normal text-[#396131]/80">
+									<div className="text-xs leading-relaxed font-normal text-white/80">
 										Page {realEstateCurrentPage} of {realEstateTotalPages}
 									</div>
 								</div>
@@ -418,11 +426,11 @@ export default function PropertiesForSale() {
 					<div className="h-8 lg:h-12" />
 					<NavLink
 						to="/properties-for-sale/real-estate-and-other-properties-acquired-for-sale"
-						className="group inline-flex transform items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+						className="group inline-flex transform items-center justify-center rounded-xl bg-white px-8 py-4 text-base font-semibold text-[#396131] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 						style={{ letterSpacing: '0.01em' }}
 					>
 						<span className="flex w-full items-center justify-center gap-2 text-center">
-							<Eye size={18} className="transition-transform duration-300 group-hover:scale-110" />
+							<Eye size={18} className="text-[#396131] transition-transform duration-300 group-hover:scale-110" />
 							<span className="text-center">View All Properties</span>
 						</span>
 					</NavLink>

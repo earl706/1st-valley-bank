@@ -195,7 +195,9 @@ export default function Deposits() {
 									const isLeftLayout = product.layout === 'left';
 
 									return (
-										<DarkCard key={product.id}>
+										<DarkCard
+											key={product.id}
+										>
 											<div className="grid min-h-[400px] grid-cols-1 lg:grid-cols-2">
 												{/* Content Side */}
 												<div
@@ -209,12 +211,12 @@ export default function Deposits() {
 															<div className="text-sm leading-tight font-semibold tracking-wider text-[#396131] uppercase">
 																{product.category}
 															</div>
-															<h3 className="text-3xl leading-tight font-bold text-[#396131] md:text-3xl">
+															<h3 className="text-3xl leading-tight font-bold text-[#1a3920] md:text-3xl">
 																{product.title}
 															</h3>
 														</div>
 													</div>
-													<p className="mb-8 text-base leading-relaxed font-normal text-[#396131]">
+													<p className="mb-8 text-base leading-relaxed font-normal text-[#2d5c29]">
 														{product.description}
 													</p>
 													<div className="mb-8">
@@ -227,14 +229,14 @@ export default function Deposits() {
 															{product.features.map((feature, featureIndex) => (
 																<div key={featureIndex} className="flex items-center gap-3">
 																	<div className="h-2 w-2 rounded-full bg-[#396131]"></div>
-																	<span className="text-base leading-relaxed font-normal text-[#396131]">
+																	<span className="text-base leading-relaxed font-normal text-[#285622]">
 																		{feature}
 																	</span>
 																</div>
 															))}
 														</div>
 														{product.additionalInfo && (
-															<div className="mt-3 text-base leading-relaxed font-bold text-[#396131]">
+															<div className="mt-3 text-base leading-relaxed font-bold text-[#244c1d]">
 																{product.additionalInfo}
 															</div>
 														)}
