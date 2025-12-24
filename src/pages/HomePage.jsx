@@ -388,6 +388,13 @@ export default function HomePage() {
 			/>
 			{/* Services Section */}
 			<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20 text-white">
+			<button
+				onClick={() => {
+					throw new Error('This is your first error!');
+				}}
+				>
+				Break the world
+				</button>
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 					<DarkHeader
 						badgeText="Services"

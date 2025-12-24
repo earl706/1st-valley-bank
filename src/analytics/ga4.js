@@ -1,7 +1,7 @@
 let initialized = false;
 
 function getMeasurementId() {
-  return import.meta?.env?.VITE_GA4_MEASUREMENT_ID || '';
+  return import.meta.env.VITE_GA4_MEASUREMENT_ID || '';
 }
 
 function ensureGtagLoaded(measurementId) {
