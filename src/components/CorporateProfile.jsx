@@ -21,7 +21,12 @@ const corporateProfile = {
 const logo =
   "data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100' height='100' fill='%23f3f4f6'/%3E%3Ctext x='50' y='50' text-anchor='middle' dy='.3em' font-family='Arial' font-size='12' fill='%23374151'%3ELOGO%3C/text%3E%3C/svg%3E";
 
-const OfficerCard = ({ officer, isPresident = false }) => (
+const OfficerCard = ({ officer, isPresident = false }) => {
+  // Support both old (name/image) and new (team_member_name/team_member_photo) data structures
+  const displayName = officer.team_member_name || officer.name;
+  const displayPhoto = officer.team_member_photo || officer.image || logo;
+
+  return (
   <div
     className={`group relative ${
       isPresident ? "col-span-full flex justify-center mb-8" : ""
@@ -33,8 +38,8 @@ const OfficerCard = ({ officer, isPresident = false }) => (
         <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 p-1">
           <div className="w-full h-full rounded-full bg-white/90 flex items-center justify-center">
             <img
-              src={logo}
-              alt={officer.name}
+                src={displayPhoto}
+                alt={displayName}
               className="w-20 h-20 rounded-full object-cover"
             />
           </div>
@@ -53,7 +58,7 @@ const OfficerCard = ({ officer, isPresident = false }) => (
             isPresident ? "text-xl" : "text-base"
           } group-hover:text-emerald-200 transition-colors`}
         >
-          {officer.name}
+            {displayName}
         </h3>
         <p
           className={`text-emerald-200/80 ${
@@ -69,6 +74,7 @@ const OfficerCard = ({ officer, isPresident = false }) => (
     </div>
   </div>
 );
+};
 
 const SectionHeader = ({ icon: Icon, title, subtitle }) => (
   <div className="text-center space-y-4 mb-12">

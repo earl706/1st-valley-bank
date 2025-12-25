@@ -90,6 +90,11 @@ const landingService = {
 	},
 	async getProductAreaManagementOfficer(id) {
 		return await api.get(`${BASE_URL}/product-area-management-officers/${id}/`);
+	},
+
+	// Org Chart - Pre-built tree structure for senior management
+	async getOfficerOrgChart() {
+		return await api.get(`${BASE_URL}/officers/org-chart/`);
 	}
 };
 

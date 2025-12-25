@@ -490,26 +490,16 @@ export default function Navbar({ children }) {
 
 	// Handle suggestion selection - redirects to the specific page
 	const handleSuggestionClick = (suggestion, event) => {
-		// #region agent log
-		fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:493',message:'handleSuggestionClick called',data:{suggestion,screenWidth:window.innerWidth,hasPath:!!suggestion?.path,eventType:event?.type},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-		// #endregion
-		
 		if (!suggestion || !suggestion.path) {
-			// #region agent log
-			fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:496',message:'Invalid suggestion - early return',data:{suggestion},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-			// #endregion
 			console.warn('Invalid suggestion:', suggestion);
 			return;
 		}
 
-		// #region agent log
-		fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:502',message:'Before navigate call',data:{path:suggestion.path,title:suggestion.title},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-		// #endregion
+		// Navigate FIRST (before state updates) to ensure navigation happens immediately
+		navigate(suggestion.path);
 
-		// Close suggestions dropdown
+		// Close suggestions dropdown and update UI state
 		setShowSuggestions(false);
-		
-		// Update search term to show what was selected
 		setSearchTerm(suggestion.title);
 		
 		// Close mobile menu and reset all dropdowns
@@ -518,17 +508,6 @@ export default function Navbar({ children }) {
 		setActiveSubDropdown(null);
 		setActiveSubSubDropdown(null);
 		setActiveItemHover(null);
-		
-		// Navigate to the suggestion's path
-		// This redirects the user to the specific page (deposit, loan, branch, etc.)
-		// #region agent log
-		fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:520',message:'Calling navigate',data:{path:suggestion.path,navigateExists:typeof navigate === 'function'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-		// #endregion
-		navigate(suggestion.path);
-		
-		// #region agent log
-		fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:523',message:'After navigate call',data:{path:suggestion.path},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-		// #endregion
 		
 		// Scroll to top after navigation for better UX
 		window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -653,10 +632,11 @@ export default function Navbar({ children }) {
 						<div className="relative hidden items-center justify-end xl:flex xl:w-1/3">
 							<form
 								onSubmit={(e) => {
-									// #region agent log
-									fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:650',message:'Desktop form onSubmit triggered',data:{searchTerm,showSuggestions,screenWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-									// #endregion
 									e.preventDefault();
+									// Don't navigate if the submit came from clicking a suggestion button
+									if (e.target?.closest('[data-suggestion-button]')) {
+										return;
+									}
 									if (searchTerm.trim()) {
 										// Existing behavior: Navigate to search results page
 										setShowSuggestions(false);
@@ -670,7 +650,7 @@ export default function Navbar({ children }) {
 								}}
 								className="relative flex w-full max-w-[300px] overflow-visible rounded-[5px] shadow-md"
 							>
-								<div className="absolute z-10 py-2 pl-4">
+								<div className="absolute z-50 py-2 pl-4">
 									<Search className="h-5 w-5 text-[#396131]" />
 								</div>
 								<input
@@ -690,7 +670,7 @@ export default function Navbar({ children }) {
 											setShowSuggestions(true);
 										}
 									}}
-									className="relative z-10 h-full w-full border-0 bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-2 focus:ring-[#396131]/20"
+									className="relative z-10 h-full w-full border-0 bg-white rounded-l-[5px] py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-2 focus:ring-[#396131]/20"
 									aria-label="Search query"
 									placeholder="Search..."
 									autoComplete="off"
@@ -703,44 +683,47 @@ export default function Navbar({ children }) {
 									SEARCH
 								</button>
 								
-								{/* Suggestions Dropdown - Only shown when suggestions available */}
+								{/* Suggestions Dropdown */}
 								{showSuggestions && searchSuggestions.length > 0 && (
 									<div
 										ref={suggestionsRef}
 										className="absolute top-full z-50 mt-1 w-full max-w-[300px] rounded-lg border border-gray-200 bg-white shadow-xl"
 									>
-										<div className="max-h-[400px] overflow-y-auto">
-											{searchSuggestions.map((suggestion) => {
-												const IconComponent = getSuggestionIcon(suggestion.type);
-												return (
-													<button
-														key={suggestion.id}
-														type="button"
-														onClick={(e) => {
-															// #region agent log
-															fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:748',message:'Desktop suggestion button clicked',data:{suggestionId:suggestion.id,path:suggestion.path,screenWidth:window.innerWidth,eventType:e.type,defaultPrevented:e.defaultPrevented},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-															// #endregion
-															e.preventDefault();
-															e.stopPropagation();
-															handleSuggestionClick(suggestion, e);
-														}}
-														className="flex w-full items-start gap-3 border-b border-gray-100 px-4 py-3 text-left transition-colors duration-150 hover:bg-[#f6fbf8] last:border-b-0"
-													>
-														<IconComponent className="mt-0.5 h-5 w-5 shrink-0 text-[#396131]" />
-														<div className="flex-1 min-w-0">
-															<div className="font-semibold text-sm text-[#396131]">
-																{suggestion.title}
-															</div> 	
-															<div className="text-xs text-gray-500">
-																{suggestion.subtitle}
-															</div>
+									<div className="max-h-[400px] overflow-y-auto">
+										{searchSuggestions.map((suggestion) => {
+											const IconComponent = getSuggestionIcon(suggestion.type);
+											return (
+												<button
+													key={suggestion.id}
+													type="button"
+													data-suggestion-button="true"
+													onMouseDown={(e) => {
+														// Prevent form submission at mousedown level (before click event)
+														e.preventDefault();
+														e.stopPropagation();
+													}}
+													onClick={(e) => {
+														e.preventDefault();
+														e.stopPropagation();
+														handleSuggestionClick(suggestion, e);
+													}}
+													className="flex w-full items-start gap-3 border-b border-gray-100 px-4 py-3 text-left transition-colors duration-150 hover:bg-[#f6fbf8] last:border-b-0"
+												>
+													<IconComponent className="mt-0.5 h-5 w-5 shrink-0 text-[#396131]" />
+													<div className="flex-1 min-w-0">
+														<div className="font-semibold text-sm text-[#396131]">
+															{suggestion.title}
+														</div> 	
+														<div className="text-xs text-gray-500">
+															{suggestion.subtitle}
 														</div>
-													</button>
-												);
-											})}
-										</div>
+													</div>
+												</button>
+											);
+										})}
 									</div>
-								)}
+								</div>
+							)}
 							</form>
 						</div>
 
@@ -748,8 +731,6 @@ export default function Navbar({ children }) {
 						<div className="relative mx-2 hidden w-1/3 max-w-xs items-center md:flex xl:hidden">
 							<form
 								onSubmit={(e) => {
-									// #region agent log
-									fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:735',message:'Tablet form onSubmit triggered',data:{searchTerm,showSuggestions,screenWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
 									// #endregion
 									e.preventDefault();
 									if (searchTerm.trim()) {
@@ -764,7 +745,7 @@ export default function Navbar({ children }) {
 								}}
 								className="relative flex w-full overflow-visible rounded-[5px] shadow-md"
 							>
-								<div className="absolute z-10 py-2 pl-4">
+								<div className="absolute z-50 py-2 pl-4">
 									<Search className="h-5 w-5 text-[#396131]" />
 								</div>
 								<input
@@ -782,7 +763,7 @@ export default function Navbar({ children }) {
 											setShowSuggestions(true);
 										}
 									}}
-									className="relative z-10 h-full w-full border-0 bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-2 focus:ring-[#396131]/20"
+									className="relative z-10 h-full w-full border-0 rounded-l-[5px] bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-2 focus:ring-[#396131]/20"
 									aria-label="Search query"
 									placeholder="Search..."
 									autoComplete="off"
@@ -809,8 +790,6 @@ export default function Navbar({ children }) {
 														key={suggestion.id}
 														type="button"
 														onClick={(e) => {
-															// #region agent log
-															fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:833',message:'Desktop suggestion button clicked (second instance)',data:{suggestionId:suggestion.id,path:suggestion.path,screenWidth:window.innerWidth,eventType:e.type,defaultPrevented:e.defaultPrevented},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
 															// #endregion
 															e.preventDefault();
 															e.stopPropagation();
@@ -1116,8 +1095,6 @@ export default function Navbar({ children }) {
 								<div className="relative p-4">
 									<form
 										onSubmit={(e) => {
-											// #region agent log
-											fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:1093',message:'Mobile form onSubmit triggered',data:{searchTerm,showSuggestions,screenWidth:window.innerWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
 											// #endregion
 											e.preventDefault();
 											if (searchTerm.trim()) {
@@ -1132,7 +1109,7 @@ export default function Navbar({ children }) {
 										}}
 										className="relative flex w-full overflow-visible rounded-[5px] shadow-md"
 									>
-										<div className="absolute z-10 py-2 pl-4">
+										<div className="absolute z-50 py-2 pl-4">
 											<Search className="h-5 w-5 text-[#396131]" />
 										</div>
 										<input
@@ -1150,7 +1127,7 @@ export default function Navbar({ children }) {
 													setShowSuggestions(true);
 												}
 											}}
-											className="relative z-10 h-full w-full border-0 bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-2 focus:ring-[#396131]/20"
+											className="relative z-10 h-full w-full border-0 rounded-l-[5px] bg-white py-2 pl-13 text-base font-medium text-[#396131] placeholder-gray-300 outline-none placeholder:text-xs focus:ring-2 focus:ring-[#396131]/20"
 											aria-label="Search query"
 											placeholder="Search..."
 											autoComplete="off"
@@ -1177,8 +1154,6 @@ export default function Navbar({ children }) {
 														key={suggestion.id}
 														type="button"
 														onClick={(e) => {
-															// #region agent log
-															fetch('http://127.0.0.1:7242/ingest/3ffc35b7-451a-41ee-a1e7-047034df28ab',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Navbar.jsx:727',message:'Desktop suggestion button clicked',data:{suggestionId:suggestion.id,path:suggestion.path,screenWidth:window.innerWidth,eventType:e.type,defaultPrevented:e.defaultPrevented},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
 															// #endregion
 															e.preventDefault();
 															e.stopPropagation();

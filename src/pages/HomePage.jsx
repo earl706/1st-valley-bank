@@ -28,7 +28,7 @@ import {
 	LightSecondaryButton,
 	DarkSecondaryButton
 } from '../components/Buttons';
-import { LightCard } from '../components/Card';
+import { LightCard, DarkCard } from '../components/Card';
 import { LightHeader, DarkHeader } from '../components/Header';
 import { NewsletterGrid } from './Newsletter';
 import pdf1 from '/src/assets/newsletter/document.pdf';
@@ -400,9 +400,9 @@ export default function HomePage() {
 
 					<div className="grid gap-4 md:grid-cols-3">
 						{services.map((service, index) => (
-							<LightCard
+							<DarkCard
 								key={index}
-								className="group flex flex-col hover:-translate-y-2"
+								className="group bg-[#E9F2EA] flex flex-col hover:-translate-y-2 text-[#396131]"
 							>
 								{/* Service Image */}
 								<div className="relative mb-6">
@@ -415,10 +415,10 @@ export default function HomePage() {
 									</div>
 								</div>
 
-								<h3 className="mb-4 text-2xl leading-tight font-bold ">
+								<h3 className="mb-4 text-2xl leading-tight font-bold text-[#24581c]">
 									{service.title}
 								</h3>
-								<p className="mb-6 flex-1 text-base leading-relaxed font-normal">
+								<p className="mb-6 flex-1 text-base leading-relaxed font-normal text-[#476e3f]">
 									{service.description}
 								</p>
 
@@ -436,12 +436,13 @@ export default function HomePage() {
 										}
 									})()}
 									secondaryIcon={
-										<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+										<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 text-[#24581c]" />
 									}
+									className="text-[#fff] bg-[#396131] hover:bg-[#27481e]"
 								>
 									Learn More
 								</LightPrimaryButton>
-							</LightCard>
+							</DarkCard>
 						))}
 					</div>
 				</div>
@@ -499,7 +500,7 @@ export default function HomePage() {
 
 					<div className="grid gap-4 md:grid-cols-3">
 						{testimonials.map((testimonial, index) => (
-							<LightCard
+							<DarkCard
 								key={index}
 								className=" p-8 shadow-lg backdrop-blur hover:shadow-xl"
 							>
@@ -529,7 +530,7 @@ export default function HomePage() {
 								<blockquote className="text-sm leading-relaxed font-normal  italic">
 									"{testimonial.content}"
 								</blockquote>
-							</LightCard>
+							</DarkCard>
 						))}
 					</div>
 				</div>

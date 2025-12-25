@@ -1,41 +1,85 @@
-import React, { useEffect, useState, useMemo, memo, useCallback } from 'react';
+import React, { useEffect, useState, useMemo, memo, useRef, useLayoutEffect } from 'react';
 import { Tree, TreeNode } from 'react-organizational-chart';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import landingService from '../../services/landingService';
 import { DarkHeader } from '../../components/Header';
 import HeroSection from '../../components/HeroSection';
-import logo from '/src/assets/logo.png';
 import img1 from '/src/assets/carousel/1.png';
 
-// Optimized officer card component with responsive design
-const OfficerCard = memo(({ officer, collapsed, onCollapse, childrenCount = 0 }) => {
-	// Responsive variants based on screen size and hierarchy level
+// Custom hook for responsive breakpoint detection
+const useMediaQuery = (query) => {
+	const getMatch = () =>
+		typeof window !== 'undefined' && window.matchMedia
+			? window.matchMedia(query).matches
+			: false;
+
+	const [matches, setMatches] = useState(getMatch);
+
+	useEffect(() => {
+		if (typeof window === 'undefined' || !window.matchMedia) return;
+		const mql = window.matchMedia(query);
+		const onChange = (e) => setMatches(e.matches);
+
+		setMatches(mql.matches);
+
+		if (mql.addEventListener) mql.addEventListener('change', onChange);
+		else mql.addListener(onChange);
+
+		return () => {
+			if (mql.removeEventListener) mql.removeEventListener('change', onChange);
+			else mql.removeListener(onChange);
+		};
+	}, [query]);
+
+	return matches;
+};
+
+// Uniform card dimensions for org chart
+const CARD_WIDTH = 'w-[140px] sm:w-[160px] md:w-[180px]';
+const CARD_HEIGHT = 'h-[70px] sm:h-[80px] md:h-[90px]';
+
+// Helper to get visual variant from hierarchy_level (from API)
+const getVariantFromLevel = (hierarchyLevel) => {
+	switch (hierarchyLevel) {
+		case 0: return 'president';  // President/CEO
+		case 1: return 'evp';        // C-Suite Officer
+		default: return 'default';   // Senior/Junior Officer
+	}
+};
+
+// Optimized officer card component with uniform dimensions
+const OfficerCard = memo(({ officer }) => {
+	// Visual variants for hierarchy distinction (same size, different styling)
 	const variants = {
 		president: {
-			cardClass: 'bg-gradient-to-br from-white/30 via-white/20 to-white/15 border-2 border-white/50 p-3 sm:p-4 md:p-5 min-w-[140px] sm:min-w-[180px] md:min-w-[200px] max-w-[160px] sm:max-w-[240px] md:max-w-[280px] shadow-2xl',
-			positionClass: 'text-xs sm:text-sm md:text-base font-semibold',
+			borderClass: 'border-2 border-white/60',
+			bgClass: 'bg-gradient-to-br from-white/30 via-white/20 to-white/15',
+			shadowClass: 'shadow-2xl',
 		},
 		evp: {
-			cardClass: 'bg-gradient-to-br from-white/20 via-white/15 to-white/10 border-2 border-white/40 p-2.5 sm:p-3 md:p-4 min-w-[120px] sm:min-w-[160px] md:min-w-[180px] max-w-[140px] sm:max-w-[200px] md:max-w-[240px] shadow-xl',
-			positionClass: 'text-xs sm:text-sm font-semibold',
+			borderClass: 'border-2 border-white/40',
+			bgClass: 'bg-gradient-to-br from-white/20 via-white/15 to-white/10',
+			shadowClass: 'shadow-xl',
 		},
 		default: {
-			cardClass: 'bg-gradient-to-br from-white/12 via-white/10 to-white/8 border border-white/25 p-2 sm:p-2.5 md:p-3 min-w-[100px] sm:min-w-[140px] md:min-w-[160px] max-w-[120px] sm:max-w-[160px] md:max-w-[200px] shadow-md',
-			positionClass: 'text-[10px] sm:text-xs font-medium',
+			borderClass: 'border border-white/25',
+			bgClass: 'bg-gradient-to-br from-white/12 via-white/10 to-white/8',
+			shadowClass: 'shadow-md',
 		}
 	};
 
-	const variant = officer.variant || 'default';
+	// Use hierarchy_level from API to determine variant
+	const variant = getVariantFromLevel(officer.hierarchy_level);
 	const style = variants[variant] || variants.default;
 
 	return (
 		<div className="flex flex-col items-center">
 			<div
-				className={`${style.cardClass} group relative flex flex-col items-center justify-center gap-1 rounded-lg sm:rounded-xl transition-all duration-300 hover:shadow-2xl hover:scale-105 hover:border-white/60 backdrop-blur-sm overflow-hidden cursor-pointer`}
+				className={`${CARD_WIDTH} ${CARD_HEIGHT} ${style.bgClass} ${style.borderClass} ${style.shadowClass} group relative flex flex-col items-center justify-center p-2 sm:p-3 rounded-lg sm:rounded-xl transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:border-white/60 backdrop-blur-sm overflow-hidden`}
 			>
 				{/* Content */}
-				<div className="relative z-10 w-full flex flex-col items-center px-1 sm:px-2">
-					<span className={`${style.positionClass} leading-tight text-white/90 text-center break-words`}>
+				<div className="relative z-10 w-full flex flex-col items-center justify-center h-full">
+					<span className="text-[10px] sm:text-xs md:text-sm font-medium leading-tight text-white/90 text-center line-clamp-3">
 						{officer.position}
 					</span>
 				</div>
@@ -60,141 +104,13 @@ const LoadingSkeleton = () => (
 	</div>
 );
 
-// Optimized helper to determine officer hierarchy level (memoized pattern)
-const getOfficerLevel = (() => {
-	const cache = new Map();
-	
-	return (position) => {
-		if (!position) return { level: 99, variant: 'default', label: 'Other' };
-		
-		// Check cache first
-		if (cache.has(position)) {
-			return cache.get(position);
-		}
-		
-		const pos = position.toLowerCase();
-		let result;
-
-		// Level 0: President/CEO
-		if (/\b(president)\b/i.test(pos) && !/vice/i.test(pos)) {
-			result = { level: 0, variant: 'president', label: 'President' };
-		}
-		// Level 1: C-Suite Officers (Chief positions)
-		else if (/\b(chief|ceo|cfo|cto|coo|cio|cmo|cpo|cso|clo)\b/i.test(pos)) {
-			result = { level: 1, variant: 'evp', label: 'C-Suite Officer' };
-		}
-		// Level 2: Senior Officers (VPs, Directors, Heads, etc.)
-		else {
-			result = { level: 2, variant: 'default', label: 'Senior Officer' };
-		}
-		
-		cache.set(position, result);
-		return result;
-	};
-})();
-
-// Optimized function to organize officers into hierarchical structure
-const organizeSeniorManagement = (officers) => {
-	if (!officers || officers.length === 0) return {};
-
-	// Pre-process officers with level information (single pass)
-	const officersWithLevel = officers.map(officer => ({
-		...officer,
-		...getOfficerLevel(officer.position)
-	}));
-
-	// Sort officers by level, then display_order, then name
-	const sorted = [...officersWithLevel].sort((a, b) => {
-		if (a.level !== b.level) return a.level - b.level;
-		const orderA = a.display_order ?? 0;
-		const orderB = b.display_order ?? 0;
-		if (orderA !== orderB) return orderA - orderB;
-		return (a.name || '').localeCompare(b.name || '');
-	});
-
-	// Group by hierarchy level in single pass
-	const hierarchy = {};
-	sorted.forEach((officer) => {
-		if (!hierarchy[officer.level]) {
-			hierarchy[officer.level] = [];
-		}
-		hierarchy[officer.level].push(officer);
-	});
-
-	return hierarchy;
-};
-
-// Optimized tree structure converter with memoization support
-const convertToTreeData = (hierarchy) => {
-	if (!hierarchy || !hierarchy[0] || hierarchy[0].length === 0) return null;
-
-	const president = hierarchy[0][0];
-	const cSuites = hierarchy[1] || [];
-	const seniors = hierarchy[2] || [];
-
-	// Build tree structure efficiently
-	const root = {
-		id: president.id,
-		name: president.name,
-		position: president.position,
-		variant: president.variant,
-		children: []
-	};
-
-	if (cSuites.length > 0) {
-		// Distribute seniors evenly among C-Suites
-		const officersPerCSuite = Math.ceil(seniors.length / cSuites.length);
-		
-		root.children = cSuites.map((cSuite, index) => {
-			const start = index * officersPerCSuite;
-			const end = Math.min(start + officersPerCSuite, seniors.length);
-			const assignedSeniors = seniors.slice(start, end);
-
-			return {
-				id: cSuite.id,
-				name: cSuite.name,
-				position: cSuite.position,
-				variant: cSuite.variant,
-				children: assignedSeniors.map(senior => ({
-					id: senior.id,
-					name: senior.name,
-					position: senior.position,
-					variant: senior.variant,
-					children: []
-				}))
-			};
-		});
-	} else if (seniors.length > 0) {
-		// If no C-Suite, put seniors directly under President
-		root.children = seniors.map(senior => ({
-			id: senior.id,
-			name: senior.name,
-			position: senior.position,
-			variant: senior.variant,
-			children: []
-		}));
-	}
-
-	return root;
-};
-
 // Memoized recursive node component for organizational chart
 const OrgNode = memo(({ node, isRoot = false }) => {
-	const [collapsed, setCollapsed] = useState(false);
-	const hasChildren = node.children && node.children.length > 0 && !collapsed;
-
-	const handleCollapse = useCallback(() => {
-		setCollapsed(prev => !prev);
-	}, []);
+	const hasChildren = node.children && node.children.length > 0;
 
 	const label = useMemo(() => (
-		<OfficerCard
-			officer={node}
-			collapsed={collapsed}
-			onCollapse={handleCollapse}
-			childrenCount={node.children ? node.children.length : 0}
-		/>
-	), [node, collapsed, handleCollapse]);
+		<OfficerCard officer={node} />
+	), [node]);
 
 	const children = useMemo(() => {
 		if (!hasChildren || !node.children) return null;
@@ -225,71 +141,255 @@ const OrgNode = memo(({ node, isRoot = false }) => {
 
 OrgNode.displayName = 'OrgNode';
 
-// Optimized organizational chart component wrapper with responsive styles
-const OrgChartCustom = memo(({ hierarchy }) => {
-	const treeData = useMemo(() => convertToTreeData(hierarchy), [hierarchy]);
+// Uniform card dimensions for mobile
+const MOBILE_CARD_WIDTH = 'w-full';
+const MOBILE_CARD_HEIGHT = 'min-h-[60px]';
 
-	if (!treeData) return null;
+// Mobile accordion card with uniform dimensions
+const MobileOfficerCard = memo(({ officer }) => {
+	const variants = {
+		president: {
+			borderClass: 'border-2 border-white/60',
+			bgClass: 'bg-gradient-to-br from-white/30 via-white/20 to-white/15',
+			shadowClass: 'shadow-2xl',
+		},
+		evp: {
+			borderClass: 'border-2 border-white/40',
+			bgClass: 'bg-gradient-to-br from-white/20 via-white/15 to-white/10',
+			shadowClass: 'shadow-xl',
+		},
+		default: {
+			borderClass: 'border border-white/25',
+			bgClass: 'bg-gradient-to-br from-white/12 via-white/10 to-white/8',
+			shadowClass: 'shadow-md',
+		}
+	};
+
+	// Use hierarchy_level from API to determine variant
+	const variant = getVariantFromLevel(officer.hierarchy_level);
+	const style = variants[variant] || variants.default;
+
+	return (
+		<div
+			className={`${MOBILE_CARD_WIDTH} ${MOBILE_CARD_HEIGHT} ${style.bgClass} ${style.borderClass} ${style.shadowClass} p-3 rounded-xl transition-all duration-300 hover:shadow-2xl hover:border-white/60 backdrop-blur-sm text-center flex items-center justify-center`}
+		>
+			<span className="text-xs font-medium leading-tight text-white/90 line-clamp-3">
+				{officer.position}
+			</span>
+		</div>
+	);
+});
+
+MobileOfficerCard.displayName = 'MobileOfficerCard';
+
+// Mobile layout: Accordion-by-manager with grid of direct reports
+const OrgChartMobile = memo(({ root }) => {
+	const kids = root?.children || [];
+
+	return (
+		<div className="space-y-4 w-full">
+			{/* Root node (President) */}
+			<div className="flex justify-center px-4">
+				<div className="w-full max-w-[280px]">
+					<MobileOfficerCard officer={root} />
+				</div>
+			</div>
+
+			{/* Connecting line from president */}
+			{kids.length > 0 && (
+				<div className="flex justify-center">
+					<div className="w-px h-6 bg-white/40"></div>
+				</div>
+			)}
+
+			{/* C-Suite managers as accordions */}
+			{kids.length > 0 && (
+				<div className="space-y-3 px-2">
+					{kids.map((mgr) => {
+						const reports = mgr.children || [];
+						return (
+							<details
+								key={mgr.id || mgr.position}
+								className="rounded-2xl border border-white/20 bg-white/5 backdrop-blur-sm group"
+							>
+								<summary className="cursor-pointer list-none p-3 select-none">
+									<div className="flex items-center justify-between gap-3">
+										<div className="flex-1">
+											<MobileOfficerCard officer={mgr} />
+										</div>
+										<div className="flex flex-col items-center gap-1 pr-2">
+											<ChevronDown 
+												size={18} 
+												className="text-white/60 transition-transform group-open:rotate-180" 
+											/>
+											{reports.length > 0 && (
+												<span className="text-[10px] text-white/50">
+													{reports.length} report{reports.length > 1 ? 's' : ''}
+												</span>
+											)}
+										</div>
+									</div>
+								</summary>
+
+								{reports.length > 0 && (
+									<div className="px-3 pb-3 pt-1">
+										{/* Connecting line */}
+										<div className="flex justify-center mb-2">
+											<div className="w-px h-4 bg-white/30"></div>
+										</div>
+										{/* Grid of direct reports */}
+										<div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+											{reports.map((rep) => (
+												<MobileOfficerCard 
+													key={rep.id || rep.position} 
+													officer={rep} 
+												/>
+											))}
+										</div>
+									</div>
+								)}
+							</details>
+						);
+					})}
+				</div>
+			)}
+		</div>
+	);
+});
+
+OrgChartMobile.displayName = 'OrgChartMobile';
+
+// Desktop layout: Auto-fit tree with scale transform
+const OrgChartDesktop = memo(({ root }) => {
+	const containerRef = useRef(null);
+	const treeRef = useRef(null);
+	const [scale, setScale] = useState(1);
+	const [treeHeight, setTreeHeight] = useState('auto');
+
+	// Auto-fit: measure tree dimensions and scale to fit container
+	useLayoutEffect(() => {
+		const container = containerRef.current;
+		const tree = treeRef.current;
+		if (!container || !tree) return;
+
+		const updateScale = () => {
+			// Reset scale to measure true dimensions
+			tree.style.transform = 'scale(1)';
+			
+			const containerWidth = container.offsetWidth;
+			const treeWidth = tree.scrollWidth;
+			const treeNaturalHeight = tree.scrollHeight;
+
+			let newScale = 1;
+			if (treeWidth > containerWidth) {
+				// Scale down to fit, with a minimum scale of 0.4
+				newScale = Math.max(0.4, containerWidth / treeWidth);
+			}
+
+			setScale(newScale);
+			// Adjust container height to match scaled tree height
+			setTreeHeight(treeNaturalHeight * newScale);
+			
+			// Re-apply scale
+			tree.style.transform = `scale(${newScale})`;
+		};
+
+		// Initial calculation (with small delay to ensure tree is rendered)
+		const timeoutId = setTimeout(updateScale, 50);
+
+		// Recalculate on resize
+		const resizeObserver = new ResizeObserver(() => {
+			requestAnimationFrame(updateScale);
+		});
+		resizeObserver.observe(container);
+
+		return () => {
+			clearTimeout(timeoutId);
+			resizeObserver.disconnect();
+		};
+	}, [root]);
 
 	return (
 		<>
 			<style>{`
-				.org-chart {
-					display: inline-block;
-					width: 100%;
-					max-width: 100%;
-				}
-				.org-chart ul {
-					background: transparent;
-					padding-top: 15px;
-				}
-				.org-chart li::before,
-				.org-chart li::after {
-					border-color: rgba(255, 255, 255, 0.4) !important;
-				}
-				.org-chart ul ul::before {
-					border-color: rgba(255, 255, 255, 0.4) !important;
-				}
-
+				.org-chart-desktop { width: max-content; }
+				.org-chart-desktop ul { background: transparent; padding-top: 16px; }
+				.org-chart-desktop li::before, .org-chart-desktop li::after { border-color: rgba(255,255,255,0.4) !important; }
+				.org-chart-desktop ul ul::before { border-color: rgba(255,255,255,0.4) !important; }
 			`}</style>
-			<div className="w-full py-4 sm:py-6 md:py-8">
-				<div className="overflow-x-auto overflow-y-visible -mx-4 px-4 sm:mx-auto sm:px-0">
-					<div className="inline-block min-w-full">
-						<div className="flex justify-center org-chart">
-							<OrgNode node={treeData} isRoot={true} />
-						</div>
-					</div>
+
+			<div 
+				ref={containerRef} 
+				className="w-full overflow-visible relative"
+				style={{ height: treeHeight }}
+			>
+				<div
+					ref={treeRef}
+					className="org-chart-desktop absolute left-1/2 top-0 transition-transform duration-300 ease-out"
+					style={{
+						transform: `scale(${scale})`,
+						transformOrigin: 'top center',
+						marginLeft: '-50%',
+						width: '100%',
+						display: 'flex',
+						justifyContent: 'center',
+					}}
+				>
+					<OrgNode node={root} isRoot={true} />
 				</div>
 			</div>
+
 		</>
+	);
+});
+
+OrgChartDesktop.displayName = 'OrgChartDesktop';
+
+// Main responsive org chart wrapper - accepts pre-built tree from API
+const OrgChartCustom = memo(({ treeData }) => {
+	const isDesktop = useMediaQuery('(min-width: 1024px)');
+
+	if (!treeData) return null;
+
+	return (
+		<div className="w-full py-4 sm:py-6 md:py-8">
+			{isDesktop ? (
+				<OrgChartDesktop root={treeData} />
+			) : (
+				<OrgChartMobile root={treeData} />
+			)}
+		</div>
 	);
 });
 
 OrgChartCustom.displayName = 'OrgChartCustom';
 
 const Leadership = () => {
-	const [seniorManagement, setSeniorManagement] = useState([]);
+	const [orgChartData, setOrgChartData] = useState(null);
 	const [productManagement, setProductManagement] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
 		const mountedRef = { current: true };
-		const fetchProductAreaManagementOfficers = async () => {
+		
+		const fetchData = async () => {
 			setLoading(true);
 			setError(null);
+			
 			try {
-				const data = await landingService.getProductAreaManagementOfficers();
+				// Fetch both org chart (pre-built tree) and product management (flat list) in parallel
+				const [orgChartResponse, officersResponse] = await Promise.all([
+					landingService.getOfficerOrgChart(),
+					landingService.getProductAreaManagementOfficers({ management_level: 'product_area' })
+				]);
+
 				if (mountedRef.current) {
-					const seniorOfficers = data.data
-						.filter((officer) => officer.management_level === 'senior')
-						.sort((a, b) => {
-							const orderA = a.display_order ?? 0;
-							const orderB = b.display_order ?? 0;
-							if (orderA !== orderB) return orderA - orderB;
-							return (a.name || '').localeCompare(b.name || '');
-						});
-					const productOfficers = data.data
+					// Org chart comes pre-built from the API
+					setOrgChartData(orgChartResponse.data.org_chart);
+					
+					// Product officers - filter and sort (in case API doesn't filter by management_level)
+					const productOfficers = (officersResponse.data || [])
 						.filter((officer) => officer.management_level === 'product_area')
 						.sort((a, b) => {
 							const orderA = a.display_order ?? 0;
@@ -297,30 +397,26 @@ const Leadership = () => {
 							if (orderA !== orderB) return orderA - orderB;
 							return (a.name || '').localeCompare(b.name || '');
 						});
-
-					setSeniorManagement(seniorOfficers);
+					
 					setProductManagement(productOfficers);
 					setLoading(false);
 				}
 			} catch (err) {
-				console.error('Error fetching officers:', err);
+				console.error('Error fetching leadership data:', err);
 				if (mountedRef.current) {
 					setError('Failed to load leadership information. Please try again later.');
-					setSeniorManagement([]);
+					setOrgChartData(null);
 					setProductManagement([]);
 					setLoading(false);
 				}
 			}
 		};
-		fetchProductAreaManagementOfficers();
+		
+		fetchData();
 		return () => {
 			mountedRef.current = false;
 		};
 	}, []);
-	const hierarchy = useMemo(
-		() => organizeSeniorManagement(seniorManagement),
-		[seniorManagement]
-	);
 
 	if (loading) return <LoadingSkeleton />;
 	if (error)
@@ -361,12 +457,12 @@ const Leadership = () => {
 							<span className="text-xl sm:text-2xl md:text-3xl leading-tight font-bold tracking-wide text-white uppercase mb-2 block px-4">
 								Senior Management
 							</span>
-							<div className=" h-1 bg-white/40 mx-auto rounded-full"></div>
+							<div className=" h-1 bg-white/40 mx-auto w-24 rounded-full"></div>
 						</div>
-						{hierarchy && hierarchy[0] && hierarchy[0].length > 0 ? (
-							<div className="w-full mt-6 sm:mt-8 pb-8 sm:pb-12">
-								{/* Responsive org chart with optimized rendering */}
-								<OrgChartCustom hierarchy={hierarchy} />
+						{orgChartData ? (
+							<div className="w-auto mt-6 sm:mt-8 pb-8 sm:pb-12">
+								{/* Responsive org chart - pre-built tree from API */}
+								<OrgChartCustom treeData={orgChartData} />
 							</div>
 						) : (
 							<div className="text-center py-8 sm:py-12">
@@ -390,9 +486,10 @@ const Leadership = () => {
 								{productManagement.map((officer, i) => (
 									<div
 										key={officer.id || i}
-										className="bg-white/12 border border-white/25 p-4 min-w-[160px] max-w-[220px] shadow-md group relative flex flex-col items-center justify-center gap-2 rounded-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105 hover:border-white/60 backdrop-blur-sm overflow-hidden mx-auto"
+										className="bg-white/12 border border-white/25 p-4 shadow-md group relative flex flex-col items-center justify-center gap-2 rounded-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105 hover:border-white/60 backdrop-blur-sm overflow-hidden mx-auto
+											w-[160px] h-[80px] sm:w-[180px] sm:h-[90px] md:w-[200px] md:h-[100px]" // uniform width and height at each breakpoint
 									>
-										<div className="relative z-10 w-full flex flex-col items-center">
+										<div className="relative z-10 w-full flex flex-col items-center justify-center h-full">
 											<span className="leading-tight text-white/90 text-center break-words text-xs">
 												{officer.position}
 											</span>

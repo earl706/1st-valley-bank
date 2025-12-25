@@ -257,24 +257,24 @@ export default function AboutUs() {
 				const seniorOfficers = data.data
 					.filter((officer) => officer.management_level === 'senior')
 					.sort((a, b) => {
-						// Sort by display_order first, then by name
+						// Sort by display_order first, then by team_member_name
 						const orderA = a.display_order ?? 0;
 						const orderB = b.display_order ?? 0;
 						if (orderA !== orderB) {
 							return orderA - orderB;
 						}
-						return (a.name || '').localeCompare(b.name || '');
+						return (a.team_member_name || '').localeCompare(b.team_member_name || '');
 					});
 				const productOfficers = data.data
 					.filter((officer) => officer.management_level === 'product_area')
 					.sort((a, b) => {
-						// Sort by display_order first, then by name
+						// Sort by display_order first, then by team_member_name
 						const orderA = a.display_order ?? 0;
 						const orderB = b.display_order ?? 0;
 						if (orderA !== orderB) {
 							return orderA - orderB;
 						}
-						return (a.name || '').localeCompare(b.name || '');
+						return (a.team_member_name || '').localeCompare(b.team_member_name || '');
 					});
 
 				setPresident(seniorOfficers[0] || null);
