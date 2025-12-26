@@ -44,20 +44,20 @@ export default function HeroSection({
 					</div>
 
 					{/* Content */}
-					<div className="order-1 flex h-full flex-col justify-center space-y-8 lg:order-0">
-						<div className="space-y-4">
+					<div className="order-1 flex h-full flex-col justify-center space-y-12 lg:order-0">
+						<div className="space-y-6">
 							{/* Title */}
-							<h1 className="text-2xl leading-tight font-bold text-gray-900 sm:text-3xl lg:text-4xl">
+							<h1 className="text-3xl leading-tight font-extrabold text-gray-900 sm:text-4xl lg:text-6xl xl:text-7xl">
 								{title && (
 									<span
-										className={`block bg-gradient-to-r ${titleColor} bg-clip-text text-3xl leading-tight font-black text-transparent sm:text-4xl lg:text-5xl`}
+										className={`block bg-gradient-to-r ${titleColor} bg-clip-text text-4xl leading-tight font-black text-transparent sm:text-5xl lg:text-6xl xl:text-7xl`}
 									>
 										{title}
 									</span>
 								)}
 								{subtitle && (
 									<span
-										className={`block bg-gradient-to-r ${titleColor} bg-clip-text text-lg leading-tight font-bold text-transparent sm:text-xl lg:text-2xl`}
+										className={`block bg-gradient-to-r ${titleColor} bg-clip-text text-2xl leading-tight font-bold text-transparent sm:text-2xl lg:text-3xl xl:text-4xl`}
 									>
 										{subtitle}
 									</span>
@@ -66,17 +66,19 @@ export default function HeroSection({
 
 							{/* Description */}
 							{description && (
-								<p className="max-w-2xl text-base leading-relaxed text-gray-600">{description}</p>
+								<p className="max-w-3xl text-lg leading-relaxed text-gray-700 lg:text-xl">
+									{description}
+								</p>
 							)}
 
 							{/* Features List */}
 							{features.length > 0 && (
 								<div className="pt-4">
-									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+									<div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
 										{features.map((feature, index) => (
-											<div key={index} className="flex items-center gap-2">
-												<div className="h-2 w-2 rounded-full bg-[#396131]"></div>
-												<span className="text-xs text-gray-700">{feature}</span>
+											<div key={index} className="flex items-center gap-3">
+												<div className="h-3 w-3 rounded-full bg-[#396131]"></div>
+												<span className="text-lg text-gray-700">{feature}</span>
 											</div>
 										))}
 									</div>
@@ -85,13 +87,13 @@ export default function HeroSection({
 
 							{/* CTA Button */}
 							{showCta && ctaLink && (
-								<div className="pt-6">
+								<div className="pt-8">
 									<NavLink
 										to={ctaLink}
-										className="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-6 py-3 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+										className="group inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#396131] to-[#4a7c3a] px-10 py-5 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
 									>
 										{ctaText}
-										<ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+										<ArrowRight className="ml-3 h-6 w-6 transition-transform group-hover:translate-x-1" />
 									</NavLink>
 								</div>
 							)}

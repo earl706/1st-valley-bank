@@ -128,7 +128,7 @@ export default function CarouselSection({
 									</div>
 								) : (
 									<div
-										className={`mx-2 md:mx-8 grid ${minHeight} min-h-[540px] md:min-h-[640px] items-center gap-16 lg:gap-20 lg:mx-20 lg:grid-cols-2`}
+										className={`mx-1 md:mx-4 grid ${minHeight} min-h-[540px] md:min-h-[640px] items-center gap-1 lg:gap-2 lg:mx-16 lg:grid-cols-2`}
 									>
 										{/* Image/Visual */}
 										<div className="relative order-0 flex h-full items-center justify-center lg:order-1 px-2 md:px-6">
@@ -151,13 +151,19 @@ export default function CarouselSection({
 										{/* Content */}
 										<div className="order-1 flex h-full flex-col justify-center space-y-12 lg:order-0 px-1 md:px-8">
 											<div className="space-y-6">
-												<h1 className="text-4xl leading-tight font-extrabold text-gray-900 sm:text-4xl lg:text-5xl xl:text-6xl">
+												<h1 className="text-3xl leading-tight font-extrabold text-gray-900 sm:text-3xl lg:text-4xl xl:text-5xl">
 													<span
 														className={`block transform bg-gradient-to-r ${brandGradient} bg-clip-text text-4xl leading-tight font-black text-transparent transition-all delay-100 duration-700 sm:text-5xl lg:text-6xl xl:text-7xl ${
 															index === current
 																? 'translate-y-0 opacity-100'
 																: 'translate-y-4 opacity-0'
 														}`}
+														style={{
+															overflowWrap: 'break-word',
+															wordBreak: 'keep-all',
+															whiteSpace: 'normal',
+															display: 'block',
+														}}
 													>
 														{slide.title || slide.name}
 													</span>

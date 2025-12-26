@@ -592,7 +592,7 @@ export default function Navbar({ children }) {
 										{activeItemHover === index &&
 											navItem.subItems.length > 0 &&
 											window.innerWidth >= 1280 && (
-												<div className="absolute z-40 mt-2 w-auto min-w-[250px] bg-gradient-to-b from-[#396131] to-[#4a7c3a] text-[0.9rem] text-white opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
+												<div className="absolute z-40 mt-2 w-auto min-w-[250px] bg-gradient-to-b from-[#396131] to-[#4a7c3a] text-base xl:text-lg text-white opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
 													<div className="flex flex-col">
 														{navItem.subItems.map((subItem, subIndex) => (
 															<NavLink
@@ -603,9 +603,9 @@ export default function Navbar({ children }) {
 															>
 																<button
 																	onClick={() => {}}
-																	className="w-full cursor-pointer border-l-4 border-transparent px-[20px] py-[15px] text-left leading-[1.4rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-yellow-300 hover:text-[#396131] hover:bg-[#E9F2EA]"
+																	className="w-full cursor-pointer border-l-4 border-transparent px-[24px] py-[18px] text-left leading-[2rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-yellow-300 hover:text-[#396131] hover:bg-[#E9F2EA]"
 																>
-																	<span className="text-sm xl:text-base">{subItem.subItem}</span>
+																	<span className="text-base xl:text-lg">{subItem.subItem}</span>
 																</button>
 															</NavLink>
 														))}
