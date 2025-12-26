@@ -830,10 +830,10 @@ export default function Navbar({ children }) {
 
 					{/* Secondary Navigation Section - Desktop Only */}
 					<div
-						className="hidden w-full justify-between gap-3 bg-transparent px-10 py-3 text-[12px] font-bold drop-shadow-lg xl:flex xl:gap-[20px] xl:py-[15px] xl:text-[14px]"
+						className="hidden w-full justify-between gap-3 bg-transparent px-10 py-3 text-[16px] font-bold drop-shadow-lg xl:flex xl:gap-[24px] xl:py-[18px] xl:text-[18px]"
 						onMouseLeave={handleSecondaryNavItemLeave}
 					>
-						<ul className="flex gap-3 text-white xl:gap-[30px]">
+						<ul className="flex gap-3 text-white xl:gap-[38px]">
 							{secondaryNavbarItems.slice(0, 3).map((navItem, index) => (
 								<li
 									key={index}
@@ -846,15 +846,15 @@ export default function Navbar({ children }) {
 								>
 									<NavLink to={navItem.path} className="group">
 										{navItem.subItems.length > 0 ? (
-											<div className="flex items-center gap-[5px] transition-all duration-200 hover:text-yellow-300">
-												<span className="text-[10px] xl:text-sm">{navItem.navItem}</span>
+											<div className="flex items-center gap-[6px] transition-all duration-200 hover:text-yellow-300">
+												<span className="text-[14px] xl:text-lg">{navItem.navItem}</span>
 												<FontAwesomeIcon
 													icon={faAngleUp}
 													className={`transition-all duration-300 ${activeDropdown === index ? 'rotate-180 text-white' : 'text-white'}`}
 												/>
 											</div>
 										) : (
-											<span className="text-[10px] transition-all duration-200 hover:text-yellow-300 xl:text-sm">
+											<span className="text-[14px] transition-all duration-200 hover:text-yellow-300 xl:text-lg">
 												{navItem.navItem}
 											</span>
 										)}
@@ -864,7 +864,7 @@ export default function Navbar({ children }) {
 												(activeDropdown === index && window.innerWidth >= 1280)
 													? 'w-full bg-white'
 													: 'w-0 bg-transparent'
-											} h-[3px] rounded-full transition-all duration-300 ease-in-out`}
+											} h-[4px] rounded-full transition-all duration-300 ease-in-out`}
 										></div>
 									</NavLink>
 
@@ -872,10 +872,10 @@ export default function Navbar({ children }) {
 									{activeDropdown === index &&
 										navItem.subItems.length > 0 &&
 										window.innerWidth >= 1280 && (
-											<div className="absolute left-0 z-40 mt-[16px] w-full max-w-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] text-[0.9rem] text-white opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
+											<div className="absolute left-0 z-40 mt-[18px] w-full max-w-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] text-[1.1rem] text-white opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
 												<div className="flex">
 													{/* Left Sidebar for SubItems */}
-													<div className="flex min-h-[150px] min-w-[280px] flex-col bg-[#31542B]/80">
+													<div className="flex min-h-[170px] min-w-[300px] flex-col bg-[#31542B]/80">
 														{navItem.subItems.map((subItem, subIndex) => (
 															<NavLink
 																to={subItem.path}
@@ -885,14 +885,14 @@ export default function Navbar({ children }) {
 															>
 																<button
 																	onClick={() => {}}
-																	className="w-full cursor-pointer border-l-4 border-transparent px-[20px] py-[15px] text-left leading-[1.4rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-yellow-300 hover:text-[#396131] hover:bg-[#E9F2EA]"
+																	className="w-full cursor-pointer border-l-4 border-transparent px-[24px] py-[18px] text-left leading-[1.6rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-yellow-300 hover:text-[#396131] hover:bg-[#E9F2EA]"
 																>
 																	<div className="flex items-center justify-between">
-																		<span className="text-sm xl:text-base">{subItem.subItem}</span>
+																		<span className="text-base xl:text-lg">{subItem.subItem}</span>
 																		{subItem.subsubItems && subItem.subsubItems.length > 0 && (
 																			<FontAwesomeIcon
 																				icon={faAngleRight}
-																				className="text-sm text-[#396131]"
+																				className="text-base text-[#396131]"
 																			/>
 																		)}
 																	</div>
@@ -902,35 +902,35 @@ export default function Navbar({ children }) {
 													</div>
 
 													{/* Right Content Area */}
-													<div className="flex-1 p-[30px]">
+													<div className="flex-1 p-[36px]">
 														{activeSubDropdown !== null && navItem.subItems[activeSubDropdown] && (
 															<div className="transition-all duration-300 ease-in-out">
-																<h3 className="mb-[20px] border-b-2 border-white pb-2 text-lg font-bold text-white">
+																<h3 className="mb-[24px] border-b-2 border-white pb-3 text-xl font-bold text-white">
 																	{navItem.subItems[activeSubDropdown].subItem}
 																</h3>
 
 																{navItem.subItems[activeSubDropdown].subsubItems && navItem.subItems[activeSubDropdown].subsubItems.length > 0 ? (
-																	<div className="grid grid-cols-1 gap-[20px] md:grid-cols-3">
+																	<div className="grid grid-cols-1 gap-[24px] md:grid-cols-3">
 																		{navItem.subItems[activeSubDropdown].subsubItems.map(
 																			(subsubItem, subsubIndex) => (
 																				<NavLink
 																					key={subsubIndex}
 																					to={subsubItem.path}
-																					className="group flex items-center gap-[15px] rounded-lg border border-transparent p-[15px] transition-all duration-200 hover:border-yellow-300 hover:bg-[#4a7c3a]/40"
+																					className="group flex items-center gap-[18px] rounded-lg border border-transparent p-[18px] transition-all duration-200 hover:border-yellow-300 hover:bg-[#4a7c3a]/40"
 																				>
-																					<div className="h-[12px] w-[12px] rounded-full bg-white transition-colors duration-200 group-hover:bg-yellow-300"></div>
+																					<div className="h-[15px] w-[15px] rounded-full bg-white transition-colors duration-200 group-hover:bg-yellow-300"></div>
 																					<div className="flex flex-col">
-																						<span className="font-semibold text-white transition-colors duration-200 group-hover:text-yellow-300">
+																						<span className="font-semibold text-white text-base transition-colors duration-200 group-hover:text-yellow-300">
 																							{subsubItem.subItem}
 																						</span>
-																						<div className="h-[2px] w-0 bg-yellow-300 transition-all duration-300 ease-in-out group-hover:w-full"></div>
+																						<div className="h-[2.5px] w-0 bg-yellow-300 transition-all duration-300 ease-in-out group-hover:w-full"></div>
 																					</div>
 																				</NavLink>
 																			)
 																		)}
 																	</div>
 																) : (
-																	<div className="text-gray-300 italic">
+																	<div className="text-gray-300 italic text-base">
 																		Navigate to {navItem.subItems[activeSubDropdown].subItem} for
 																		more information.
 																	</div>
@@ -939,8 +939,8 @@ export default function Navbar({ children }) {
 														)}
 
 														{activeSubDropdown === null && (
-															<div className="mt-[50px] text-center text-gray-200">
-																<p className="text-lg">
+															<div className="mt-[60px] text-center text-gray-200">
+																<p className="text-xl">
 																	Hover over a category to see available options
 																</p>
 															</div>
@@ -952,7 +952,7 @@ export default function Navbar({ children }) {
 								</li>
 							))}
 						</ul>
-						<ul className="flex gap-3 text-white xl:gap-[30px]">
+						<ul className="flex gap-3 text-white xl:gap-[38px]">
 							{secondaryNavbarItems.slice(3, 6).map((navItem, index) => (
 								<li
 									key={index}
@@ -965,15 +965,15 @@ export default function Navbar({ children }) {
 								>
 									<NavLink to={navItem.path} className="group">
 										{navItem.subItems.length > 0 ? (
-											<div className="flex items-center gap-[5px] transition-all duration-200 hover:text-yellow-300">
-												<span className="text-[10px] xl:text-sm">{navItem.navItem}</span>
+											<div className="flex items-center gap-[6px] transition-all duration-200 hover:text-yellow-300">
+												<span className="text-[14px] xl:text-lg">{navItem.navItem}</span>
 												<FontAwesomeIcon
 													icon={faAngleUp}
 													className={`transition-all duration-300 ${activeDropdown === index + 3 ? 'rotate-180 text-white' : 'text-white'}`}
 												/>
 											</div>
 										) : (
-											<span className="text-[10px] transition-all duration-200 hover:text-yellow-300 xl:text-sm">
+											<span className="text-[14px] transition-all duration-200 hover:text-yellow-300 xl:text-lg">
 												{navItem.navItem}
 											</span>
 										)}
@@ -983,7 +983,7 @@ export default function Navbar({ children }) {
 												(activeDropdown === index + 4 && window.innerWidth >= 1280)
 													? 'w-full bg-white'
 													: 'w-0 bg-transparent'
-											} h-[3px] rounded-full transition-all duration-300 ease-in-out`}
+											} h-[4px] rounded-full transition-all duration-300 ease-in-out`}
 										></div>
 									</NavLink>
 
@@ -991,10 +991,10 @@ export default function Navbar({ children }) {
 									{activeDropdown === index &&
 										navItem.subItems.length > 0 &&
 										window.innerWidth >= 1280 && (
-											<div className="absolute left-0 z-40 mt-[16px] w-full max-w-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] text-[0.9rem] text-white opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
+											<div className="absolute left-0 z-40 mt-[18px] w-full max-w-screen bg-gradient-to-l from-[#396131] to-[#4a7c3a] text-[1.1rem] text-white opacity-100 shadow-2xl transition-all duration-300 ease-in-out">
 												<div className="flex">
 													{/* Left Sidebar for SubItems */}
-													<div className="flex min-h-[300px] min-w-[280px] flex-col bg-[#31542B]/80">
+													<div className="flex min-h-[340px] min-w-[300px] flex-col bg-[#31542B]/80">
 														{navItem.subItems.map((subItem, subIndex) => (
 															<NavLink
 																to={subItem.path}
@@ -1004,14 +1004,14 @@ export default function Navbar({ children }) {
 															>
 																<button
 																	onClick={() => {}}
-																	className="w-full cursor-pointer border-l-4 border-transparent px-[20px] py-[15px] text-left leading-[1.4rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-white hover:bg-[#396131]"
+																	className="w-full cursor-pointer border-l-4 border-transparent px-[24px] py-[18px] text-left leading-[1.6rem] font-bold text-white capitalize transition-all duration-200 hover:translate-x-2 hover:border-white hover:bg-[#396131]"
 																>
 																	<div className="flex items-center justify-between">
-																		<span className="text-sm xl:text-base">{subItem.subItem}</span>
+																		<span className="text-base xl:text-lg">{subItem.subItem}</span>
 																		{subItem.subsubItems.length > 0 && (
 																			<FontAwesomeIcon
 																				icon={faAngleRight}
-																				className="text-sm text-white"
+																				className="text-base text-white"
 																			/>
 																		)}
 																	</div>
@@ -1021,35 +1021,35 @@ export default function Navbar({ children }) {
 													</div>
 
 													{/* Right Content Area */}
-													<div className="flex-1 p-[30px]">
+													<div className="flex-1 p-[36px]">
 														{activeSubDropdown !== null && navItem.subItems[activeSubDropdown] && (
 															<div className="transition-all duration-300 ease-in-out">
-																<h3 className="mb-[20px] border-b-2 border-white pb-2 text-lg font-bold text-white">
+																<h3 className="mb-[24px] border-b-2 border-white pb-3 text-xl font-bold text-white">
 																	{navItem.subItems[activeSubDropdown].subItem}
 																</h3>
 
 																{navItem.subItems[activeSubDropdown].subsubItems.length > 0 ? (
-																	<div className="grid grid-cols-1 gap-[20px] md:grid-cols-3">
+																	<div className="grid grid-cols-1 gap-[24px] md:grid-cols-3">
 																		{navItem.subItems[activeSubDropdown].subsubItems.map(
 																			(subsubItem, subsubIndex) => (
 																				<NavLink
 																					key={subsubIndex}
 																					to={subsubItem.path}
-																					className="group flex items-center gap-[15px] rounded-lg border border-transparent p-[15px] transition-all duration-200 hover:border-white hover:bg-[#4a7c3a]/40"
+																					className="group flex items-center gap-[18px] rounded-lg border border-transparent p-[18px] transition-all duration-200 hover:border-white hover:bg-[#4a7c3a]/40"
 																				>
-																					<div className="h-[12px] w-[12px] rounded-full bg-white transition-colors duration-200 group-hover:bg-[#396131]"></div>
+																					<div className="h-[15px] w-[15px] rounded-full bg-white transition-colors duration-200 group-hover:bg-[#396131]"></div>
 																					<div className="flex flex-col">
-																						<span className="font-semibold text-white transition-colors duration-200 group-hover:text-yellow-300">
+																						<span className="font-semibold text-white text-base transition-colors duration-200 group-hover:text-yellow-300">
 																							{subsubItem.subItem}
 																						</span>
-																						<div className="h-[2px] w-0 bg-[#b8f2bf] transition-all duration-300 ease-in-out group-hover:w-full"></div>
+																						<div className="h-[2.5px] w-0 bg-[#b8f2bf] transition-all duration-300 ease-in-out group-hover:w-full"></div>
 																					</div>
 																				</NavLink>
 																			)
 																		)}
 																	</div>
 																) : (
-																	<div className="text-gray-300 italic">
+																	<div className="text-gray-300 italic text-base">
 																		Navigate to {navItem.subItems[activeSubDropdown].subItem} for
 																		more information.
 																	</div>
@@ -1058,8 +1058,8 @@ export default function Navbar({ children }) {
 														)}
 
 														{activeSubDropdown === null && (
-															<div className="mt-[50px] text-center text-gray-200">
-																<p className="text-lg">
+															<div className="mt-[60px] text-center text-gray-200">
+																<p className="text-xl">
 																	Hover over a category to see available options
 																</p>
 															</div>
