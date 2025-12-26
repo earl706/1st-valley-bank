@@ -103,7 +103,7 @@ export default function Awards() {
       <section
         id="awards"
         data-scroll
-        className="relative bg-[#E9F2EA] py-8 lg:py-12"
+        className="relative bg-white lg:bg-[#E9F2EA] py-8 lg:py-12"
       >
         <div className="mx-auto max-w-5xl px-2 sm:px-4">
           <LightHeader

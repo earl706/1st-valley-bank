@@ -549,7 +549,7 @@ export default function Newsletter() {
 			<main className="flex flex-col">
 				<PageHeroSection pageSlug="newsletter" />
 
-				<section className="bg-[#E9F2EA] px-6 py-24">
+				<section className="bg-white lg:bg-[#E9F2EA] px-6 py-24">
 					<div className="mx-auto max-w-7xl">
 						<div className="mb-16 text-center">
 							<h2 className="mb-4 text-4xl font-bold text-[#396131] md:text-5xl lg:text-6xl">

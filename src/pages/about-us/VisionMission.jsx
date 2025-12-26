@@ -118,7 +118,7 @@ export default function VisionMission() {
 			/>
 			<main className="flex flex-col">
 				{/* Vision & Mission Full Section with Mission Points & Core Values */}
-				<section id="core-values" className="relative bg-[#E9F2EA] py-8 lg:py-12">
+				<section id="core-values" className="relative bg-white lg:bg-[#E9F2EA] py-8 lg:py-12">
 					<div className="mx-auto max-w-5xl px-2 sm:px-4">
 						<LightHeader
 							badgeText="Vision & Mission"

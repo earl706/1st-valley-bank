@@ -61,10 +61,10 @@ const History = () => {
 				image={carouselImg4}
 				imageAlt="1st Valley Bank History"
 				showCta={false}
-				backgroundColor="from-[#E9F2EA] via-white to-green-50"
+				backgroundColor="white"
 				titleColor="from-[#396131] via-[#4a7c3a] to-[#5a8c4a]"
 			/>
-		<section id="history" data-scroll className="bg-white py-12 min-h-[50vh]">
+		<section id="history" data-scroll className="bg-white lg:bg-[#E9F2EA] py-12 min-h-[50vh]">
 			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 				<LightHeader
 					badgeText="Brief History"

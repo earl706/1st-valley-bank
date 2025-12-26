@@ -15,17 +15,20 @@ export default function HeroSection({
 	showCta = true,
 	backgroundColor = 'from-slate-50 via-white to-green-50',
 	titleColor = 'from-[#396131] via-[#4a7c3a] to-[#5a8c4a]',
-	className = ''
+	className = '',
+	showBackground = true // added optional parameter, default true
 }) {
 	return (
 		<section
 			className={`relative overflow-hidden bg-gradient-to-br ${backgroundColor} ${className}`}
 		>
 			{/* Background Elements */}
-			<div className="absolute inset-0">
-				<div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-gradient-to-br from-[#396131]/20 to-[#4a7c3a]/20 blur-3xl"></div>
-				<div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-gradient-to-tr from-green-400/20 to-[#396131]/20 blur-3xl"></div>
-			</div>
+			{showBackground && (
+				<div className="absolute inset-0">
+					<div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-gradient-to-br from-[#396131]/20 to-[#4a7c3a]/20 blur-3xl"></div>
+					<div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-gradient-to-tr from-green-400/20 to-[#396131]/20 blur-3xl"></div>
+				</div>
+			)}
 
 			{/* Hero Content */}
 			<div className="max-w-8xl relative mx-auto px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
