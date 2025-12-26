@@ -35,8 +35,8 @@ const useMediaQuery = (query) => {
 };
 
 // Uniform card dimensions for org chart
-const CARD_WIDTH = 'w-[140px] sm:w-[160px] md:w-[180px]';
-const CARD_HEIGHT = 'h-[70px] sm:h-[80px] md:h-[90px]';
+const CARD_WIDTH = 'w-[200px] sm:w-[230px] md:w-[260px]';
+const CARD_HEIGHT = 'h-[90px] sm:h-[105px] md:h-[120px]';
 
 // Helper to get visual variant from hierarchy_level (from API)
 const getVariantFromLevel = (hierarchyLevel) => {
@@ -79,7 +79,7 @@ const OfficerCard = memo(({ officer }) => {
 			>
 				{/* Content */}
 				<div className="relative z-10 w-full flex flex-col items-center justify-center h-full">
-					<span className="text-[10px] sm:text-xs md:text-sm font-medium leading-tight text-white/90 text-center line-clamp-3">
+					<span className="text-lg sm:text-xl md:text-2xl font-medium leading-tight text-white/90 text-center line-clamp-3">
 						{officer.position}
 					</span>
 				</div>
@@ -474,7 +474,7 @@ const Leadership = () => {
 					</div>
 
 					{/* Product & Area Management Section */}
-					<div className="flex flex-col gap-8 mt-16">
+					{/* <div className="flex flex-col gap-8 mt-16">
 						<div className="text-center">
 							<span className="text-2xl md:text-3xl leading-tight font-bold tracking-wide text-white uppercase mb-2 block">
 								Product &amp; Area Management
@@ -504,7 +504,7 @@ const Leadership = () => {
 								</p>
 							</div>
 						)}
-					</div>
+					</div> */}
 				</div>
 			</section>
 		</>
