@@ -23,14 +23,14 @@ function sendToAnalytics(metric) {
 	// In production, you can send to your analytics service
 	if (import.meta.env.PROD) {
 		// Example: Send to Google Analytics
-		// if (window.gtag) {
-		//   window.gtag('event', metric.name, {
-		//     event_category: 'Web Vitals',
-		//     value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
-		//     event_label: metric.id,
-		//     non_interaction: true,
-		//   });
-		// }
+		if (window.gtag) {
+		  window.gtag('event', metric.name, {
+		    event_category: 'Web Vitals',
+		    value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+		    event_label: metric.id,
+		    non_interaction: true,
+		  });
+		}
 		// Example: Send to custom API endpoint
 		// fetch('/api/analytics/performance', {
 		//   method: 'POST',

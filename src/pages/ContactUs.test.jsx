@@ -1,104 +1,130 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
-// Simple ContactUs component for testing
-const ContactUs = () => {
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		// Submit logic here
-	};
+// Mock dependencies
+vi.mock('../services/index', () => ({
+	contactService: {
+		submitContact: vi.fn()
+	}
+}));
 
-	return (
-		<div className="container mx-auto p-6">
-			<h1 className="mb-6 text-3xl font-bold">Contact Us</h1>
-			<form onSubmit={handleSubmit} className="space-y-4">
-				<div>
-					<label htmlFor="name" className="mb-2 block">
-						Name
-					</label>
-					<input type="text" id="name" name="name" className="w-full rounded border p-2" required />
-				</div>
-				<div>
-					<label htmlFor="email" className="mb-2 block">
-						Email
-					</label>
-					<input
-						type="email"
-						id="email"
-						name="email"
-						className="w-full rounded border p-2"
-						required
-					/>
-				</div>
-				<div>
-					<label htmlFor="message" className="mb-2 block">
-						Message
-					</label>
-					<textarea
-						id="message"
-						name="message"
-						className="w-full rounded border p-2"
-						rows={4}
-						required
-					/>
-				</div>
-				<button type="submit" className="rounded bg-blue-600 px-6 py-2 text-white">
-					Send Message
-				</button>
-			</form>
-		</div>
-	);
-};
+vi.mock('../components/ContactPageMap', () => ({
+	default: () => <div data-testid="contact-map">Map Component</div>
+}));
+
+vi.mock('../components/PageHeroSection', () => ({
+	default: () => <div data-testid="page-hero">Hero Section</div>
+}));
+
+vi.mock('../components/Header', () => ({
+	DarkHeader: () => <div data-testid="dark-header">Header</div>
+}));
+
+vi.mock('../components/PageSkeleton', () => ({
+	FormPageSkeleton: () => <div data-testid="form-skeleton">Loading...</div>
+}));
+
+vi.mock('@react-google-maps/api', () => ({
+	useJsApiLoader: vi.fn(() => ({
+		isLoaded: true,
+		loadError: null
+	}))
+}));
+
+vi.mock('../analytics/ga4', () => ({
+	trackEvent: vi.fn()
+}));
 
 describe('ContactUs Page', () => {
-	it('renders contact form with all fields', () => {
-		render(
-			<BrowserRouter>
-				<ContactUs />
-			</BrowserRouter>
-		);
-
-		expect(screen.getByText('Contact Us')).toBeInTheDocument();
-		expect(screen.getByLabelText(/name/i)).toBeInTheDocument();
-		expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-		expect(screen.getByLabelText(/message/i)).toBeInTheDocument();
-		expect(screen.getByRole('button', { name: /send message/i })).toBeInTheDocument();
+	beforeEach(() => {
+		vi.clearAllMocks();
+		
+		// Mock fetch for PSGC API
+		global.fetch = vi.fn().mockResolvedValue({
+			ok: true,
+			json: async () => ([])
+		});
 	});
 
-	it('allows users to fill out the form', () => {
+	it('renders contact form skeleton while loading', async () => {
+		// Dynamically import after mocks are set up
+		const ContactUs = (await import('./ContactUs')).default;
+		
 		render(
 			<BrowserRouter>
 				<ContactUs />
 			</BrowserRouter>
 		);
 
-		const nameInput = screen.getByLabelText(/name/i);
-		const emailInput = screen.getByLabelText(/email/i);
-		const messageInput = screen.getByLabelText(/message/i);
-
-		fireEvent.change(nameInput, { target: { value: 'John Doe' } });
-		fireEvent.change(emailInput, { target: { value: 'john@example.com' } });
-		fireEvent.change(messageInput, { target: { value: 'Hello, I need help!' } });
-
-		expect(nameInput).toHaveValue('John Doe');
-		expect(emailInput).toHaveValue('john@example.com');
-		expect(messageInput).toHaveValue('Hello, I need help!');
+		// Initially should show skeleton
+		expect(screen.getByTestId('form-skeleton')).toBeInTheDocument();
 	});
 
-	it('requires all fields to be filled', () => {
+	it('renders contact form with form fields after loading', async () => {
+		const ContactUs = (await import('./ContactUs')).default;
+		
 		render(
 			<BrowserRouter>
 				<ContactUs />
 			</BrowserRouter>
 		);
 
-		const nameInput = screen.getByLabelText(/name/i);
-		const emailInput = screen.getByLabelText(/email/i);
-		const messageInput = screen.getByLabelText(/message/i);
+		await waitFor(() => {
+			expect(screen.queryByTestId('form-skeleton')).not.toBeInTheDocument();
+		}, { timeout: 3000 });
 
-		expect(nameInput).toBeRequired();
-		expect(emailInput).toBeRequired();
-		expect(messageInput).toBeRequired();
+		// Check for main heading
+		await waitFor(() => {
+			const headings = screen.getAllByRole('heading');
+			expect(headings.length).toBeGreaterThan(0);
+		});
+	});
+
+	it('renders page hero section', async () => {
+		const ContactUs = (await import('./ContactUs')).default;
+		
+		render(
+			<BrowserRouter>
+				<ContactUs />
+			</BrowserRouter>
+		);
+
+		await waitFor(() => {
+			expect(screen.getByTestId('page-hero')).toBeInTheDocument();
+		});
+	});
+
+	it('renders contact map section', async () => {
+		const ContactUs = (await import('./ContactUs')).default;
+		
+		render(
+			<BrowserRouter>
+				<ContactUs />
+			</BrowserRouter>
+		);
+
+		await waitFor(() => {
+			// Map section should render, but ContactPageMap is conditionally rendered
+			// So we check for the "Location Preview" heading instead
+			expect(screen.getByText('Location Preview')).toBeInTheDocument();
+		});
+	});
+
+	it('loads provinces from PSGC API on mount', async () => {
+		const ContactUs = (await import('./ContactUs')).default;
+		
+		render(
+			<BrowserRouter>
+				<ContactUs />
+			</BrowserRouter>
+		);
+
+		await waitFor(() => {
+			expect(global.fetch).toHaveBeenCalledWith(
+				expect.stringContaining('/provinces/'),
+				expect.any(Object)
+			);
+		});
 	});
 });

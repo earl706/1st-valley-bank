@@ -50,7 +50,12 @@ export function getPageSlugFromRoute(pathname) {
 	}
 
 	// Try to find a matching route (for dynamic routes)
-	for (const [route, slug] of Object.entries(ROUTE_TO_SLUG_MAP)) {
+	// Sort routes by length (longest first) to match more specific routes first
+	// Exclude '/' from startsWith matching since it matches everything
+	const sortedRoutes = Object.entries(ROUTE_TO_SLUG_MAP)
+		.filter(([route]) => route !== '/')
+		.sort((a, b) => b[0].length - a[0].length);
+	for (const [route, slug] of sortedRoutes) {
 		if (pathname.startsWith(route)) {
 			return slug;
 		}

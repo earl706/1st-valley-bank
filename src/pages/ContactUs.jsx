@@ -10,6 +10,8 @@ import { useJsApiLoader } from '@react-google-maps/api';
 import { contactService } from '../services/index';
 import { FormPageSkeleton } from '../components/PageSkeleton';
 import { trackEvent } from '../analytics/ga4';
+import { sanitizeFormData, getRateLimitKey, contactFormRateLimiter, secureLog, secureErrorLog } from '../utils/security';
+import { validateContactForm } from '../utils/validation';
 
 const PSGC_API_BASE = 'https://psgc.gitlab.io/api';
 
@@ -110,7 +112,7 @@ const ContactUsForm = () => {
 				setAddressFieldError('');
 			} catch (error) {
 				if (error.name !== 'AbortError') {
-					console.error('Failed to load provinces:', error);
+					secureErrorLog('Failed to load provinces', error);
 					setAddressFieldError('Unable to load provinces. Please refresh the page.');
 				}
 			} finally {
@@ -162,7 +164,7 @@ const ContactUsForm = () => {
 				setAddressFieldError('');
 			} catch (error) {
 				if (error.name !== 'AbortError') {
-					console.error('Failed to load cities/municipalities:', error);
+					secureErrorLog('Failed to load cities/municipalities', error);
 					setAddressFieldError(
 						'Unable to load cities or municipalities for the selected province.'
 					);
@@ -212,7 +214,7 @@ const ContactUsForm = () => {
 				setAddressFieldError('');
 			} catch (error) {
 				if (error.name !== 'AbortError') {
-					console.error('Failed to load barangays:', error);
+					secureErrorLog('Failed to load barangays', error);
 					setAddressFieldError('Unable to load barangays for the selected city or municipality.');
 				}
 			} finally {
@@ -302,7 +304,7 @@ const ContactUsForm = () => {
 							setMapCoordinates(null);
 							setMapError('No matching locations found.');
 						} else {
-							console.warn('Google geocode status:', status, results);
+							secureLog('Google geocode status', { status, resultsCount: results?.length || 0 });
 							setMapCoordinates(null);
 							setMapError('Unable to fetch location preview right now. Please try again.');
 						}
@@ -311,7 +313,7 @@ const ContactUsForm = () => {
 				);
 				return;
 			} catch (error) {
-				console.error('Error fetching coordinates:', error);
+				secureErrorLog('Error fetching coordinates', error);
 				setMapCoordinates(null);
 				setMapError('Unable to fetch location preview right now. Please try again.');
 				setIsMapLoading(false);
@@ -343,8 +345,16 @@ const ContactUsForm = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		// Check rate limiting
+		const rateLimitKey = getRateLimitKey('contact');
+		if (!contactFormRateLimiter.isAllowed(rateLimitKey)) {
+			const waitTime = contactFormRateLimiter.getTimeUntilNext(rateLimitKey);
+			setSubmitError(`Too many requests. Please wait ${waitTime} seconds before submitting again.`);
+			return;
+		}
+
 		// Prepare the payload with names from selected options
-		const payload = {
+		const rawPayload = {
 			name: formData.name,
 			email: formData.email,
 			subject: formData.subject,
@@ -357,24 +367,55 @@ const ContactUsForm = () => {
 			message: formData.message
 		};
 
+		// Validate form data
+		const validation = validateContactForm(rawPayload);
+		if (!validation.isValid) {
+			setFormErrors(validation.errors);
+			setSubmitError('Please correct the errors in the form.');
+			return;
+		}
+
+		// Sanitize form data
+		const sanitizedPayload = sanitizeFormData(rawPayload, {
+			name: { type: 'text', maxLength: 255 },
+			email: { type: 'email' },
+			contact_number: { type: 'phone' },
+			subject: { type: 'text', maxLength: 100 },
+			street: { type: 'text', maxLength: 255 },
+			barangay: { type: 'text', maxLength: 255 },
+			municipality: { type: 'text', maxLength: 255 },
+			province: { type: 'text', maxLength: 255 },
+			postal_code: { type: 'text', maxLength: 20 },
+			message: { type: 'text', maxLength: 5000 }
+		});
+
 		try {
 			setIsSubmitting(true);
-			console.log('Form data:', payload);
-			const response = await contactService.submitContact(payload);
-			console.log('Form submitted:', response);
+			setFormErrors({});
+			setSubmitError(null);
+
+			// Use secure logging (only in dev, with data masking)
+			secureLog('Submitting contact form', { ...sanitizedPayload, message: '[REDACTED]' });
+
+			const response = await contactService.submitContact(sanitizedPayload);
+			
+			secureLog('Contact form submitted', { success: response.success });
+
 			if (response.success) {
 				trackEvent('contact_submit', { success: true, subject: String(formData.subject || 'general') });
 				setSubmitSuccess(true);
 				setSubmitError(null);
+				// Reset form
+				setFormData(initialFormData);
 			} else {
 				trackEvent('contact_submit', { success: false, subject: String(formData.subject || 'general') });
-				setSubmitError(response.error);
+				setSubmitError(response.error || response.message || 'Failed to submit form. Please try again.');
 				setSubmitSuccess(false);
 			}
 		} catch (error) {
-			console.error('Error submitting form:', error);
+			secureErrorLog('Error submitting contact form', error);
 			trackEvent('contact_submit', { success: false, subject: String(formData.subject || 'general') });
-			setSubmitError(error);
+			setSubmitError(error.message || 'An error occurred. Please try again later.');
 			setSubmitSuccess(false);
 		} finally {
 			setIsSubmitting(false);

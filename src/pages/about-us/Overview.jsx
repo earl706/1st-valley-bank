@@ -3,6 +3,7 @@ import aboutPageService from '../../services/aboutPageService';
 import PageHeroSection from '../../components/PageHeroSection';
 import { DarkHeader } from '../../components/Header';
 import carouselImg4 from '/src/assets/carousel/4.png';
+import { sanitizeHTML } from '../../utils/security';
 
 const Overview = () => {
 	const [aboutPage, setAboutPage] = useState(null);
@@ -72,7 +73,7 @@ const Overview = () => {
 									<div
 										className="text-base leading-relaxed font-normal text-white/90"
 										dangerouslySetInnerHTML={{
-											__html: aboutPage.overview_content.replace(/\n/g, '<br />')
+											__html: sanitizeHTML(aboutPage.overview_content.replace(/\n/g, '<br />'))
 										}}
 									/>
 								) : (

@@ -14,9 +14,9 @@ const annualReportService = {
 		return response.data;
 	},
 	async getAnnualReport(id) {
-		const url = `${API_BASE_URL}/${id}/`;
+		const url = `${API_BASE_URL}${id}/`;
 		const response = await api.get(url, {
-			headers: {
+			headers: {	
 				'Content-Type': 'application/json'
 			}
 		});

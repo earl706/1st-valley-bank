@@ -38,6 +38,7 @@ import carouselImg7 from '/src/assets/carousel/7.png';
 import { LightCard } from '../components/Card';
 import { LightPrimaryButton } from '../components/Buttons';
 import { LightHeader, DarkHeader } from '../components/Header';
+import { sanitizeHTML } from '../utils/security';
 
 // --- API service import for live annual reports data ---
 import annualReportService from '../services/annualReportService';
@@ -546,7 +547,7 @@ export default function AboutUs() {
 									<div
 										className="text-base leading-relaxed font-normal text-white/90"
 										dangerouslySetInnerHTML={{
-											__html: aboutPage.overview_content.replace(/\n/g, '<br />')
+											__html: sanitizeHTML(aboutPage.overview_content.replace(/\n/g, '<br />'))
 										}}
 									/>
 								) : (
@@ -593,7 +594,7 @@ export default function AboutUs() {
 									<div
 										className="text-base leading-relaxed font-normal text-gray-700"
 										dangerouslySetInnerHTML={{
-											__html: aboutPage.history_content.replace(/\n/g, '<br />')
+											__html: sanitizeHTML(aboutPage.history_content.replace(/\n/g, '<br />'))
 										}}
 									/>
 								) : (

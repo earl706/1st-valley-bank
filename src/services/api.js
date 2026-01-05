@@ -6,10 +6,18 @@
 import axios from 'axios';
 
 // API Base URL - Change this based on environment
-const API_BASE_URL =
+let API_BASE_URL =
 	import.meta.env.VITE_APP_ENV == 'production'
 		? import.meta.env.VITE_API_BASE_URL
 		: 'http://127.0.0.1:8000/api';
+
+// Enforce HTTPS in production
+if (import.meta.env.VITE_APP_ENV === 'production') {
+	if (!API_BASE_URL || !API_BASE_URL.startsWith('https://')) {
+		console.error('Production API must use HTTPS. Current URL:', API_BASE_URL);
+		throw new Error('Production API must use HTTPS. Please set VITE_API_BASE_URL to an HTTPS URL.');
+	}
+}
 
 // Create axios instance with default config
 const api = axios.create({

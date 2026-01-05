@@ -627,7 +627,7 @@ export default function Navbar({ children }) {
 									</li>
 								))}
 							</ul>
-						</div>
+						</div> 
 						{/* --- Search Bar (Desktop/Tablet) --- */}
 						<div className="relative hidden items-center justify-end xl:flex xl:w-1/3">
 							<form

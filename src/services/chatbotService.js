@@ -13,7 +13,7 @@ const chatbotService = {
 	 */
 	async startSession(userIp = null) {
 		try {
-			const response = await api.post('/chatbot/session/start/', {
+			const response = await api.post('/chatbot/sessions/start/', {
 				user_ip: userIp
 			});
 			return { success: true, data: response.data };
@@ -31,7 +31,7 @@ const chatbotService = {
 	 */
 	async sendMessage(sessionId, message) {
 		try {
-			const response = await api.post('/chatbot/message/', {
+			const response = await api.post('/chatbot/messages/', {
 				session_id: sessionId,
 				message: message
 			});
@@ -49,7 +49,7 @@ const chatbotService = {
 	 */
 	async getHistory(sessionId) {
 		try {
-			const response = await api.get(`/chatbot/session/${sessionId}/history/`);
+			const response = await api.get(`/chatbot/sessions/${sessionId}/messages/`);
 			return { success: true, data: response.data };
 		} catch (error) {
 			const apiError = handleApiError(error);
@@ -64,7 +64,7 @@ const chatbotService = {
 	 */
 	async endSession(sessionId) {
 		try {
-			const response = await api.post(`/chatbot/session/${sessionId}/end/`);
+			const response = await api.post(`/chatbot/sessions/${sessionId}/end/`);
 			return { success: true, data: response.data };
 		} catch (error) {
 			const apiError = handleApiError(error);

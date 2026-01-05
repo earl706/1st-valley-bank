@@ -16,6 +16,7 @@ import img5 from '/src/assets/carousel/5.png';
 import img6 from '/src/assets/carousel/6.png';
 import { LightCard } from '../../components/Card';
 import { LightPrimaryButton } from '../../components/Buttons';
+import { sanitizeHTML } from '../../utils/security';
 
 // Static data for Sustainability page (unchanged)
 const staticSustainabilityData = {
@@ -199,7 +200,7 @@ export default function Sustainability() {
 									<div
 										className="text-base leading-relaxed font-normal text-gray-700"
 										dangerouslySetInnerHTML={{
-											__html: page.energy_transition_content.replace(/\n/g, '<br />')
+											__html: sanitizeHTML(page.energy_transition_content.replace(/\n/g, '<br />'))
 										}}
 									/>
 								) : (

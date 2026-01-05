@@ -152,18 +152,36 @@ export default function HomePage() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		// Simple email validation regex
-		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		if (!emailRegex.test(email)) {
-			setError('Please enter a valid email address.');
+		// Import security utilities
+		const { getRateLimitKey, newsletterRateLimiter, sanitizeEmail, secureLog, secureErrorLog } = await import('../utils/security');
+		const { validateNewsletterEmail } = await import('../utils/validation');
+		
+		// Check rate limiting
+		const rateLimitKey = getRateLimitKey('newsletter');
+		if (!newsletterRateLimiter.isAllowed(rateLimitKey)) {
+			const waitTime = newsletterRateLimiter.getTimeUntilNext(rateLimitKey);
+			setError(`Too many requests. Please wait ${waitTime} seconds before subscribing again.`);
+			setSuccess('');
+			return;
+		}
+
+		// Validate and sanitize email
+		const sanitizedEmail = sanitizeEmail(email);
+		const validation = validateNewsletterEmail(sanitizedEmail);
+		if (!validation.isValid) {
+			setError(validation.errors.email || 'Please enter a valid email address.');
 			setSuccess('');
 			return;
 		}
 
 		setIsSubmitting(true);
 		try {
-			const response = await newsletterService.subscribe(email);
-			console.log(response);
+			secureLog('Subscribing to newsletter', { email: sanitizedEmail.replace(/(.{2}).*(@.*)/, '$1***$2') });
+
+			const response = await newsletterService.subscribe(sanitizedEmail);
+			
+			secureLog('Newsletter subscription', { success: response.success });
+
 			if (response.success) {
 				trackEvent('newsletter_subscribe', { success: true });
 				if (response.data.message) {
@@ -175,13 +193,14 @@ export default function HomePage() {
 				setEmail('');
 			} else {
 				trackEvent('newsletter_subscribe', { success: false });
-				setError(response.error);
+				setError(response.error || response.message || 'Failed to subscribe. Please try again.');
 				setSuccess('');
 				setEmail('');
 			}
 		} catch (error) {
+			secureErrorLog('Error subscribing to newsletter', error);
 			trackEvent('newsletter_subscribe', { success: false });
-			setError(error.message);
+			setError(error.message || 'An error occurred. Please try again later.');
 			setSuccess('');
 			setEmail('');
 		} finally {
