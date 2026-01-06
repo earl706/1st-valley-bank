@@ -2,7 +2,7 @@ import { faTty } from '@fortawesome/free-solid-svg-icons/faTty';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import ContactPageMap from '../components/ContactPageMap';
-import { MapPin, User, Mail, Phone, MessageSquare, FileText, Map, ArrowRight } from 'lucide-react';
+import { MapPin, User, Mail, Phone, MessageSquare, FileText, Map, ArrowRight, Shield, Lock, CheckCircle2 } from 'lucide-react';
 import PageHeroSection from '../components/PageHeroSection';
 import carouselImg1 from '/src/assets/carousel/1.png';
 import { DarkHeader } from '../components/Header';
@@ -12,6 +12,7 @@ import { FormPageSkeleton } from '../components/PageSkeleton';
 import { trackEvent } from '../analytics/ga4';
 import { sanitizeFormData, getRateLimitKey, contactFormRateLimiter, secureLog, secureErrorLog } from '../utils/security';
 import { validateContactForm } from '../utils/validation';
+import { Link } from 'react-router-dom';
 
 const PSGC_API_BASE = 'https://psgc.gitlab.io/api';
 
@@ -35,6 +36,8 @@ const ContactUsForm = () => {
 	const [submitSuccess, setSubmitSuccess] = useState(false);
 	const [submitError, setSubmitError] = useState(null);
 	const [initialLoading, setInitialLoading] = useState(true);
+	const [acceptedTerms, setAcceptedTerms] = useState(false);
+	const [termsError, setTermsError] = useState('');
 
 	// Address dropdown data (using PSGC API like ATMLocator)
 	const [provinceOptions, setProvinceOptions] = useState([]);
@@ -345,6 +348,13 @@ const ContactUsForm = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		// Validate Terms & Conditions acceptance
+		if (!acceptedTerms) {
+			setTermsError('You must accept the Terms & Conditions and Privacy Policy to submit this form.');
+			setSubmitError('Please accept the Terms & Conditions and Privacy Policy.');
+			return;
+		}
+
 		// Check rate limiting
 		const rateLimitKey = getRateLimitKey('contact');
 		if (!contactFormRateLimiter.isAllowed(rateLimitKey)) {
@@ -407,6 +417,8 @@ const ContactUsForm = () => {
 				setSubmitError(null);
 				// Reset form
 				setFormData(initialFormData);
+				setAcceptedTerms(false);
+				setTermsError('');
 			} else {
 				trackEvent('contact_submit', { success: false, subject: String(formData.subject || 'general') });
 				setSubmitError(response.error || response.message || 'Failed to submit form. Please try again.');
@@ -452,6 +464,65 @@ const ContactUsForm = () => {
 									Submitting...
 								</div>
 							)}
+
+							{/* Security & Privacy Assurance Section */}
+							<div className="mb-8 rounded-2xl border-2 border-[#396131]/30 bg-white/95 p-6 shadow-sm">
+								<div className="mb-4 flex items-center gap-3">
+									<div className="rounded-full bg-[#396131]/10 p-2">
+										<Lock className="h-6 w-6 text-[#396131]" />
+									</div>
+									<h3 className="text-xl font-bold text-[#396131]">Security & Privacy</h3>
+								</div>
+								<div className="grid gap-4 md:grid-cols-2">
+									<div className="flex items-start gap-2">
+										<CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600" />
+										<div>
+											<p className="text-sm font-semibold text-gray-800">Encrypted Transmission</p>
+											<p className="text-xs text-gray-600">All data is encrypted using SSL/TLS protocols</p>
+										</div>
+									</div>
+									<div className="flex items-start gap-2">
+										<CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600" />
+										<div>
+											<p className="text-sm font-semibold text-gray-800">Secure Storage</p>
+											<p className="text-xs text-gray-600">Your information is stored in secure, compliant databases</p>
+										</div>
+									</div>
+									<div className="flex items-start gap-2">
+										<CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600" />
+										<div>
+											<p className="text-sm font-semibold text-gray-800">Privacy Protected</p>
+											<p className="text-xs text-gray-600">We never share your data with third parties without consent</p>
+										</div>
+									</div>
+									<div className="flex items-start gap-2">
+										<CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600" />
+										<div>
+											<p className="text-sm font-semibold text-gray-800">Banking Standards</p>
+											<p className="text-xs text-gray-600">Compliant with Philippine banking regulations</p>
+										</div>
+									</div>
+								</div>
+								<div className="mt-4 border-t border-gray-200 pt-4">
+									<p className="text-xs text-gray-600">
+										By submitting this form, you acknowledge that you have read and agree to our{' '}
+										<Link
+											to="/consumer-protection/privacy-policy"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="font-semibold text-[#396131] underline hover:text-[#4a7c3a] transition-colors"
+										>
+											Privacy Policy
+										</Link>
+										. For questions about data handling, contact us at{' '}
+										<a href="mailto:info@1stvalleybank.com" className="text-[#396131] hover:underline">
+											info@1stvalleybank.com
+										</a>
+										.
+									</p>
+								</div>
+							</div>
+
 							<form onSubmit={handleSubmit} className="space-y-6">
 								{/* Name Field */}
 								<div className="relative">
@@ -663,14 +734,64 @@ const ContactUsForm = () => {
 									</div>
 								</div>
 
+								{/* Terms & Conditions Acceptance */}
+								<div className="space-y-2">
+									<div className="flex items-start gap-3">
+										<input
+											type="checkbox"
+											id="acceptTerms"
+											name="acceptTerms"
+											checked={acceptedTerms}
+											onChange={(e) => {
+												setAcceptedTerms(e.target.checked);
+												setTermsError('');
+												setSubmitError(null);
+											}}
+											className="mt-1 h-4 w-4 cursor-pointer rounded border-gray-300 text-[#396131] focus:ring-2 focus:ring-[#396131]"
+											required
+										/>
+										<label htmlFor="acceptTerms" className="flex-1 cursor-pointer text-sm leading-relaxed text-gray-700">
+											I agree to the{' '}
+											<Link
+												to="/consumer-protection/privacy-policy"
+												target="_blank"
+												rel="noopener noreferrer"
+												className="font-semibold text-[#396131] underline underline-offset-2 hover:text-[#4a7c3a] transition-colors"
+											>
+												Terms & Conditions
+											</Link>
+											{' '}and{' '}
+											<Link
+												to="/consumer-protection/privacy-policy"
+												target="_blank"
+												rel="noopener noreferrer"
+												className="font-semibold text-[#396131] underline underline-offset-2 hover:text-[#4a7c3a] transition-colors"
+											>
+												Privacy Policy
+											</Link>
+											{' '}of 1st Valley Bank. I understand that my information will be used to process my inquiry and may be stored for customer service purposes.
+										</label>
+									</div>
+									{termsError && (
+										<p className="ml-7 text-xs text-red-600">{termsError}</p>
+									)}
+								</div>
+
 								{/* Submit Button */}
 								<button
 									type="submit"
-									className="group inline-flex w-full transform cursor-pointer items-center justify-center rounded-xl bg-[#396131] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+									disabled={!acceptedTerms || isSubmitting}
+									className={`group inline-flex w-full transform items-center justify-center rounded-xl px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 ${
+										!acceptedTerms || isSubmitting
+											? 'cursor-not-allowed bg-gray-400 opacity-60'
+											: 'cursor-pointer bg-[#396131] hover:-translate-y-1 hover:shadow-xl'
+									}`}
 								>
 									<span className="flex items-center">
-										Send Message
-										<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+										{isSubmitting ? 'Submitting...' : 'Send Message'}
+										{!isSubmitting && (
+											<ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+										)}
 									</span>
 								</button>
 							</form>
