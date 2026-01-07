@@ -156,7 +156,7 @@ export default function SplashScreen({ onComplete }) {
 				style={{ opacity: textOpacity }}
 			>
 				<p className="text-xs text-white/50 sm:text-sm">
-					© 2025 1st Valley Bank. All rights reserved.
+					© 2026 1st Valley Bank. All rights reserved.
 				</p>
 			</div>
 		</div>

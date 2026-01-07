@@ -371,7 +371,7 @@ const Footer = () => {
 							<div className="border-t border-white/20 pt-8 text-center">
 								<p className="text-sm text-gray-300">
 									{footer?.copyright ||
-										'Copyright © 2025 1st Valley Bank Inc. All rights reserved.'}
+										'Copyright © 2026 1st Valley Bank Inc. All rights reserved.'}
 								</p>
 							</div>
 						</>
