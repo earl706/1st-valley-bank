@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import logo from '/src/assets/logo.png';
+import anniversaryLogo from '/src/assets/1VB LOGO/70_years_anniversary_logo_1st_Valley_Bank.png'
 
 export default function SplashScreen({ onComplete }) {
 	const [isVisible, setIsVisible] = useState(true);
@@ -35,28 +36,31 @@ export default function SplashScreen({ onComplete }) {
 			setTextOpacity(1);
 		}, 800);
 
-		// Progress bar animation
+		// Progress bar animation - visual only, updates smoothly
 		const progressInterval = setInterval(() => {
 			setProgress((prev) => {
 				if (prev >= 100) {
 					clearInterval(progressInterval);
-					// Start exit animation
-					setTimeout(() => {
-						setIsExiting(true);
-						// Call onComplete after exit animation completes
-						setTimeout(() => {
-							onComplete();
-						}, 800); // Match the transition duration
-					}, 500);
 					return 100;
 				}
-				return prev + 2;
+				return prev + 0.5; // Smooth progress animation
 			});
-		}, 30);
+		}, 25); // Update every 25ms
+
+		// Total splash screen duration: 5 seconds
+		// After 5 seconds, start exit animation, then call onComplete after exit completes
+		const exitTimer = setTimeout(() => {
+			setIsExiting(true);
+			// Call onComplete after exit animation completes
+			setTimeout(() => {
+				onComplete();
+			}, 800); // Match the transition duration
+		}, 5000); // 5 seconds total duration
 
 		return () => {
 			clearTimeout(logoTimer);
 			clearTimeout(textTimer);
+			clearTimeout(exitTimer);
 			clearInterval(progressInterval);
 		};
 	}, [onComplete]);
@@ -100,12 +104,12 @@ export default function SplashScreen({ onComplete }) {
 				>
 					<div className="relative">
 						<img
-							src={logo}
+							src={anniversaryLogo}
 							alt="1st Valley Bank"
-							className="h-32 w-auto drop-shadow-2xl sm:h-40 lg:h-48"
+							className="h-72 w-auto drop-shadow-2xl sm:h-64 lg:h-80"
 						/>
 						{/* Glow effect */}
-						<div className="absolute inset-0 h-32 w-auto rounded-full bg-white/20 blur-xl sm:h-40 lg:h-48"></div>
+						<div className="absolute inset-0 h-72 w-auto rounded-full bg-white/20 blur-xl sm:h-64 lg:h-80"></div>
 					</div>
 				</div>
 

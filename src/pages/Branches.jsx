@@ -918,7 +918,6 @@ function ClosestBranchSection({ allBranches }) {
 			};
 
 			const result = await locationService.findNearestBranchByAddress(payload);
-			console.log(result)
 			if (!result.success) {
 				setLocatorMessage(
 					result.message || 'Unable to determine the nearest branch. Please try again later.'

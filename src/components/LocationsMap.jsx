@@ -11,7 +11,7 @@ const markerColors = {
 	branch: '#1f7a4d',
 	atm: '#1f4d7a',
 	selected: '#ffb703',
-	user: '#ff6b00'
+	user: '#2563eb'
 };
 
 export default function LocationsMap({
@@ -22,7 +22,7 @@ export default function LocationsMap({
 	onMarkerSelect = undefined
 }) {
 	const mapRef = useRef(null);
-	const iconCacheRef = useRef({});
+	const markerRefsRef = useRef({});
 	const [activeInfoId, setActiveInfoId] = useState(null);
 
 	const apiKey = useMemo(() => import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '', []);
@@ -82,6 +82,23 @@ export default function LocationsMap({
 		};
 	}, [userLocation]);
 
+	// Helper function to create custom marker icon config
+	// Based on: https://stackoverflow.com/a/59767527 by Andrii Gordiichuk
+	const createMarkerIcon = useCallback(
+		(opts) => {
+			const defaults = {
+				path: window.google?.maps?.SymbolPath?.CIRCLE || google?.maps?.SymbolPath?.CIRCLE,
+				fillOpacity: 1,
+				strokeColor: '#ffffff',
+				strokeOpacity: 1,
+				strokeWeight: 2,
+				scale: 8
+			};
+			return Object.assign({}, defaults, opts);
+		},
+		[]
+	);
+
 	useEffect(() => {
 		if (selectedId) {
 			// Only set activeInfoId if the marker exists in normalizedMarkers or it's the user location
@@ -97,28 +114,25 @@ export default function LocationsMap({
 		}
 	}, [selectedId, normalizedMarkers, userPoint]);
 
-	const getMarkerIcon = useCallback(
-		(color, scale = 8) => {
-			if (!isLoaded || !window.google?.maps?.SymbolPath?.CIRCLE) {
-				return undefined;
-			}
+	// Update marker icons when selection changes
+	useEffect(() => {
+		if (!isLoaded || !window.google?.maps) return;
 
-			if (!iconCacheRef.current[color]) {
-				iconCacheRef.current[color] = {
-					path: window.google.maps.SymbolPath.CIRCLE,
-					scale,
-					fillColor: color,
-					fillOpacity: 1,
-					strokeColor: '#ffffff',
-					strokeOpacity: 1,
-					strokeWeight: 2
-				};
-			}
+		normalizedMarkers.forEach((marker) => {
+			const markerInstance = markerRefsRef.current[marker.id];
+			if (!markerInstance) return;
 
-			return iconCacheRef.current[color];
-		},
-		[isLoaded]
-	);
+			const isActive = marker.id === selectedId || activeInfoId === marker.id;
+			const markerColor = isActive ? markerColors.selected : marker.color;
+			const markerScale = isActive ? 9 : 7;
+
+			const iconConfig = createMarkerIcon({
+				fillColor: markerColor,
+				scale: markerScale
+			});
+			markerInstance.setIcon(iconConfig);
+		});
+	}, [selectedId, activeInfoId, normalizedMarkers, isLoaded, createMarkerIcon]);
 
 	const handleMapLoad = useCallback((mapInstance) => {
 		mapRef.current = mapInstance;
@@ -259,14 +273,25 @@ export default function LocationsMap({
 						return null;
 					}
 
+					const markerColor = isActive ? markerColors.selected : marker.color;
+					const markerScale = isActive ? 9 : 7;
+
 					return (
 						<Marker
 							key={marker.id}
 							position={marker.position}
-							icon={getMarkerIcon(
-								isActive ? markerColors.selected : marker.color,
-								isActive ? 9 : 7
-							)}
+							onLoad={(markerInstance) => {
+								if (markerInstance && isLoaded && window.google?.maps) {
+									// Store marker reference for updates
+									markerRefsRef.current[marker.id] = markerInstance;
+									
+									const iconConfig = createMarkerIcon({
+										fillColor: markerColor,
+										scale: markerScale
+									});
+									markerInstance.setIcon(iconConfig);
+								}
+							}}
 							onClick={() => handleMarkerClick(marker)}
 						>
 							{activeInfoId === marker.id && (
@@ -284,8 +309,20 @@ export default function LocationsMap({
 
 				{userPoint && (
 					<Marker
+						key={`user-${userPoint.position.lat}-${userPoint.position.lng}`}
 						position={userPoint.position}
-						icon={getMarkerIcon(userPoint.color, 8)}
+						onLoad={(markerInstance) => {
+							if (markerInstance && isLoaded && window.google?.maps) {
+								// Store user marker reference
+								markerRefsRef.current['user'] = markerInstance;
+								
+								const iconConfig = createMarkerIcon({
+									fillColor: markerColors.user,
+									scale: 8
+								});
+								markerInstance.setIcon(iconConfig);
+							}
+						}}
 						onClick={handleUserMarkerClick}
 					>
 						{activeInfoId === 'user' && (
