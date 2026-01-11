@@ -12,12 +12,12 @@ import { onCLS, onFID, onFCP, onLCP, onTTFB, onINP } from 'web-vitals';
 function sendToAnalytics(metric) {
 	// In development, log to console
 	if (import.meta.env.DEV) {
-		console.log('[Performance]', metric.name, {
-			value: metric.value,
-			rating: metric.rating,
-			delta: metric.delta,
-			id: metric.id
-		});
+		// console.log('[Performance]', metric.name, {
+		// 	value: metric.value,
+		// 	rating: metric.rating,
+		// 	delta: metric.delta,
+		// 	id: metric.id
+		// });
 	}
 
 	// In production, you can send to your analytics service
@@ -62,10 +62,10 @@ export function reportWebVitals() {
 		onINP(sendToAnalytics); // Interaction to Next Paint (replaces FID)
 
 		if (import.meta.env.DEV) {
-			console.log('[Performance] Web Vitals tracking initialized');
+			// console.log('[Performance] Web Vitals tracking initialized');
 		}
 	} catch (error) {
-		console.error('[Performance] Failed to initialize Web Vitals:', error);
+		// console.error('[Performance] Failed to initialize Web Vitals:', error);
 	}
 }
 
@@ -85,7 +85,7 @@ export function measurePerformance(name, fn) {
 
 		const measure = performance.getEntriesByName(measureName)[0];
 		if (import.meta.env.DEV) {
-			console.log(`[Performance] ${name}:`, measure.duration, 'ms');
+			// console.log(`[Performance] ${name}:`, measure.duration, 'ms');
 		}
 
 		// Clean up
@@ -118,7 +118,7 @@ export function trackPageLoad() {
 					};
 
 					if (import.meta.env.DEV) {
-						console.log('[Performance] Page Load Metrics:', metrics);
+						// console.log('[Performance] Page Load Metrics:', metrics);
 					}
 
 					// Send to analytics if needed

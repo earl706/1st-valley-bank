@@ -47,6 +47,58 @@ describe('FAQPage', () => {
             renderWithRouter(<FAQPage />);
             expect(screen.getByTestId('loading-skeleton')).toBeInTheDocument();
         });
+
+        it('shows loading skeleton while fetching FAQs', () => {
+            // Create a promise that doesn't resolve immediately
+            landingService.getFaqs.mockImplementation(
+                () => new Promise(() => {}) // Never resolves, keeps loading
+            );
+            renderWithRouter(<FAQPage />);
+            
+            // Should show skeleton while loading
+            expect(screen.getByTestId('loading-skeleton')).toBeInTheDocument();
+        });
+
+        it('hides loading skeleton after data loads successfully', async () => {
+            landingService.getFaqs.mockResolvedValue({ data: mockFAQs });
+            renderWithRouter(<FAQPage />);
+            
+            // Initially may show skeleton
+            await waitFor(() => {
+                expect(screen.queryByTestId('loading-skeleton')).not.toBeInTheDocument();
+            }, { timeout: 3000 });
+            
+            // After data loads, FAQs should be visible
+            expect(screen.getByText('How do I open an account?')).toBeInTheDocument();
+        });
+
+        it('handles loading state transition from skeleton to content', async () => {
+            landingService.getFaqs.mockImplementation(
+                () => new Promise((resolve) => 
+                    setTimeout(() => resolve({ data: mockFAQs }), 100)
+                )
+            );
+            renderWithRouter(<FAQPage />);
+            
+            // Initially shows skeleton
+            expect(screen.getByTestId('loading-skeleton')).toBeInTheDocument();
+            
+            // After loading completes, skeleton disappears and content appears
+            await waitFor(() => {
+                expect(screen.queryByTestId('loading-skeleton')).not.toBeInTheDocument();
+                expect(screen.getByText('How do I open an account?')).toBeInTheDocument();
+            }, { timeout: 2000 });
+        });
+
+        it('shows loading state only when FAQs array is empty', async () => {
+            // If FAQs already exist, skeleton should not show
+            landingService.getFaqs.mockResolvedValue({ data: mockFAQs });
+            renderWithRouter(<FAQPage />);
+            
+            await waitFor(() => {
+                expect(screen.queryByTestId('loading-skeleton')).not.toBeInTheDocument();
+            });
+        });
     });
 
     describe('Successful Data Loading', () => {
@@ -256,6 +308,64 @@ describe('FAQPage', () => {
             });
         });
 
+        it('handles 400 Bad Request error', async () => {
+            const error = new Error('Bad Request');
+            error.response = { status: 400, data: { error: 'Invalid request' } };
+            landingService.getFaqs.mockRejectedValue(error);
+            renderWithRouter(<FAQPage />);
+            
+            await waitFor(() => {
+                expect(screen.getByText('Failed to load FAQs. Please try again later.')).toBeInTheDocument();
+            });
+            expect(landingService.getFaqs).toHaveBeenCalled();
+        });
+
+        it('handles 404 Not Found error', async () => {
+            const error = new Error('Not Found');
+            error.response = { status: 404, data: { error: 'Resource not found' } };
+            landingService.getFaqs.mockRejectedValue(error);
+            renderWithRouter(<FAQPage />);
+            
+            await waitFor(() => {
+                expect(screen.getByText('Failed to load FAQs. Please try again later.')).toBeInTheDocument();
+            });
+            expect(landingService.getFaqs).toHaveBeenCalled();
+        });
+
+        it('handles 500 Internal Server Error', async () => {
+            const error = new Error('Internal Server Error');
+            error.response = { status: 500, data: { error: 'Server error' } };
+            landingService.getFaqs.mockRejectedValue(error);
+            renderWithRouter(<FAQPage />);
+            
+            await waitFor(() => {
+                expect(screen.getByText('Failed to load FAQs. Please try again later.')).toBeInTheDocument();
+            });
+            expect(landingService.getFaqs).toHaveBeenCalled();
+        });
+
+        it('handles network errors (no response)', async () => {
+            const error = new Error('Network Error');
+            error.request = {}; // Simulate network error
+            landingService.getFaqs.mockRejectedValue(error);
+            renderWithRouter(<FAQPage />);
+            
+            await waitFor(() => {
+                expect(screen.getByText('Failed to load FAQs. Please try again later.')).toBeInTheDocument();
+            });
+        });
+
+        it('handles timeout errors', async () => {
+            const error = new Error('Request timeout');
+            error.code = 'ECONNABORTED';
+            landingService.getFaqs.mockRejectedValue(error);
+            renderWithRouter(<FAQPage />);
+            
+            await waitFor(() => {
+                expect(screen.getByText('Failed to load FAQs. Please try again later.')).toBeInTheDocument();
+            });
+        });
+
         it('logs error to console', async () => {
             const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
             const testError = new Error('Test error');
@@ -274,6 +384,20 @@ describe('FAQPage', () => {
                 expect(screen.getByText('Failed to load FAQs. Please try again later.')).toBeInTheDocument();
             });
             expect(screen.queryByRole('button', { name: /How do I/ })).not.toBeInTheDocument();
+        });
+
+        it('hides loading skeleton after error occurs', async () => {
+            landingService.getFaqs.mockRejectedValue(new Error('Network error'));
+            renderWithRouter(<FAQPage />);
+            
+            // Initially shows skeleton
+            expect(screen.getByTestId('loading-skeleton')).toBeInTheDocument();
+            
+            await waitFor(() => {
+                // After error, skeleton should be gone
+                expect(screen.queryByTestId('loading-skeleton')).not.toBeInTheDocument();
+                expect(screen.getByText('Failed to load FAQs. Please try again later.')).toBeInTheDocument();
+            }, { timeout: 3000 });
         });
     });
 

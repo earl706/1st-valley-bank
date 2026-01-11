@@ -19,10 +19,18 @@ describe('SplashScreen Component', () => {
 	it('renders splash screen with logo and text', () => {
 		render(<SplashScreen onComplete={mockOnComplete} />);
 
+		// Logo should be present
 		expect(screen.getByAltText('1st Valley Bank')).toBeInTheDocument();
-		expect(screen.getByText('1st Valley Bank')).toBeInTheDocument();
-		expect(screen.getByText('A Development Bank')).toBeInTheDocument();
-		expect(screen.getByText('Your Trusted Financial Partner')).toBeInTheDocument();
+		
+		// Text elements are commented out in the component, so we only check for copyright text
+		// which is rendered conditionally based on textOpacity
+		act(() => {
+			vi.advanceTimersByTime(850); // Advance past text opacity animation
+		});
+		
+		// Copyright text should be visible after animation
+		const copyrightText = screen.queryByText(/©\s*2026\s*1st\s*Valley\s*Bank/i);
+		expect(copyrightText).toBeInTheDocument();
 	});
 
 	it('creates particles on mount', () => {
@@ -50,14 +58,16 @@ describe('SplashScreen Component', () => {
 	it('sets up text opacity animation timer', () => {
 		render(<SplashScreen onComplete={mockOnComplete} />);
 		
-		const textContainer = screen.getByText('1st Valley Bank').closest('div');
-		expect(textContainer).toBeInTheDocument();
+		// Copyright text is rendered at the bottom and uses textOpacity
+		// Initially, textOpacity is 0, so copyright text may not be visible
+		// Advance timers past text animation delay (800ms)
+		act(() => {
+			vi.advanceTimersByTime(850);
+		});
 		
-		// Advance timers past text animation delay
-		vi.advanceTimersByTime(850);
-		
-		// Text should still be visible
-		expect(screen.getByText('1st Valley Bank')).toBeInTheDocument();
+		// After animation, copyright text should be visible
+		const copyrightText = screen.queryByText(/©\s*2026\s*1st\s*Valley\s*Bank/i);
+		expect(copyrightText).toBeInTheDocument();
 	});
 
 	it('shows loading dots animation', () => {
@@ -69,22 +79,27 @@ describe('SplashScreen Component', () => {
 		expect(dots.length).toBeGreaterThanOrEqual(3);
 	});
 
-	it('calls onComplete after progress reaches 100% and exit animation', async () => {
+	it('calls onComplete after progress reaches 100% and exit animation', () => {
 		mockOnComplete.mockClear(); // Clear any previous calls
 		render(<SplashScreen onComplete={mockOnComplete} />);
 
-		// Progress increments by 2 every 30ms, so 100% = 50 * 30ms = 1500ms
-		// Then 500ms delay before setIsExiting(true)
-		// Then 800ms delay before onComplete is called
-		// Total: 2800ms
+		// Component timing:
+		// - Exit timer triggers after 5000ms total duration
+		// - Exit animation delay: 800ms before onComplete is called
+		// Total: 5000ms + 800ms = 5800ms
+		// Note: Progress interval runs independently but clears itself when progress >= 100
 		
-		// Advance timers all at once - the component handles state updates internally
+		// Advance timers incrementally to allow React to process state updates
+		// This prevents the interval from causing issues with fake timers
 		act(() => {
-			vi.advanceTimersByTime(2800);
+			// Advance to trigger exit timer (5000ms)
+			vi.advanceTimersByTime(5000);
 		});
 		
-		// Run all pending async operations
-		await vi.runAllTimersAsync();
+		act(() => {
+			// Advance to trigger onComplete callback (800ms after exit)
+			vi.advanceTimersByTime(800);
+		});
 
 		// onComplete should have been called
 		expect(mockOnComplete).toHaveBeenCalled();
@@ -119,7 +134,21 @@ describe('SplashScreen Component', () => {
 	it('renders copyright text', () => {
 		render(<SplashScreen onComplete={mockOnComplete} />);
 
-		expect(screen.getByText(/© 2025 1st Valley Bank/i)).toBeInTheDocument();
+		// Advance timers past the text opacity animation (800ms)
+		act(() => {
+			vi.advanceTimersByTime(850);
+		});
+
+		// Use getAllByText since the text appears in both parent div and paragraph
+		// We only need to verify that the copyright text exists in the DOM
+		const matcher = (content, node) => {
+			const hasText = (node2) => node2.textContent && /©\s*2026\s*1st\s*Valley\s*Bank/i.test(node2.textContent.replace(/\s+/g, ' '));
+			return hasText(node);
+		};
+		const copyrightElements = screen.getAllByText(matcher);
+		expect(copyrightElements.length).toBeGreaterThan(0);
+		// Verify the text content contains the copyright year
+		expect(copyrightElements[0]).toHaveTextContent(/©\s*2026\s*1st\s*Valley\s*Bank/i);
 	});
 
 	it('renders decorative background elements', () => {

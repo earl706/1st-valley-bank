@@ -11,35 +11,35 @@ export default function Services() {
 	const [aboutPage, setAboutPage] = useState(null);
 	const [services, setServices] = useState([]);
 	const [loading, setLoading] = useState(true);
-
+	const fetchData = async () => {
+		setLoading(true)
+		try {
+			const data = await aboutPageService.getAboutPage();
+			setAboutPage(data || {});
+			// Adapt admin-field: 'service_features' -> frontend 'services'
+			const features = Array.isArray(data?.services_features)
+				? data.services_features
+				: [];
+			setServices(
+				features.map((item) => ({
+					image: item.image_url || '',
+					name: item.name || '',
+					description: item.description || '',
+					link: item.link || '',
+				}))
+			);
+		} catch (err) {
+			console.log(err)
+			setServices([]);
+		}
+		setLoading(false);
+	};
 	useEffect(() => {
-		let mounted = true;
-		const fetchData = async () => {
-			try {
-				const data = await aboutPageService.getAboutPage();
-				if (!mounted) return;
-				setAboutPage(data || {});
-				// Adapt admin-field: 'service_features' -> frontend 'services'
-				const features = Array.isArray(data?.service_features)
-					? data.service_features
-					: [];
-				setServices(
-					features.map((item) => ({
-						image: item.image_url || '',
-						name: item.name || '',
-						description: item.description || '',
-						link: item.link || '',
-					}))
-				);
-			} catch (err) {
-				setServices([]);
-			}
-			setLoading(false);
-		};
+		// let mounted = true;
 		fetchData();
-		return () => {
-			mounted = false;
-		};
+		// return () => {
+		// 	mounted = false;
+		// };
 	}, []);
 
 	return (

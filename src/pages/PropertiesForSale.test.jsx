@@ -98,5 +98,167 @@ describe('PropertiesForSale Page', () => {
 			expect(screen.getByTestId('page-hero-section')).toBeInTheDocument();
 		}, { timeout: 2000 });
 	});
+
+	describe('Error Handling for API Failures', () => {
+		it('handles 400 Bad Request error for vehicles', async () => {
+			const error = new Error('Bad Request');
+			error.response = { status: 400, data: { error: 'Invalid request' } };
+			propertyService.getVehicles.mockRejectedValue(error);
+			propertyService.getRealEstate.mockResolvedValue(mockRealEstate);
+
+			renderWithRouter(<PropertiesForSale />);
+
+			await waitFor(() => {
+				expect(propertyService.getVehicles).toHaveBeenCalled();
+			}, { timeout: 3000 });
+
+			// Page should still render (real estate might still load)
+			expect(screen.getByTestId('page-hero-section')).toBeInTheDocument();
+		});
+
+		it('handles 404 Not Found error for real estate', async () => {
+			const error = new Error('Not Found');
+			error.response = { status: 404, data: { error: 'Resource not found' } };
+			propertyService.getVehicles.mockResolvedValue(mockVehicles);
+			propertyService.getRealEstate.mockRejectedValue(error);
+
+			renderWithRouter(<PropertiesForSale />);
+
+			await waitFor(() => {
+				expect(propertyService.getRealEstate).toHaveBeenCalled();
+			}, { timeout: 3000 });
+		});
+
+		it('handles 500 Internal Server Error', async () => {
+			const error = new Error('Internal Server Error');
+			error.response = { status: 500, data: { error: 'Server error' } };
+			propertyService.getVehicles.mockRejectedValue(error);
+			propertyService.getRealEstate.mockRejectedValue(error);
+
+			renderWithRouter(<PropertiesForSale />);
+
+			await waitFor(() => {
+				expect(propertyService.getVehicles).toHaveBeenCalled();
+				expect(propertyService.getRealEstate).toHaveBeenCalled();
+			}, { timeout: 3000 });
+
+			// Page should handle server error gracefully without crashing
+			expect(screen.getByTestId('page-hero-section')).toBeInTheDocument();
+		});
+
+		it('handles network errors (no response)', async () => {
+			const error = new Error('Network Error');
+			error.request = {}; // Simulate network error
+			propertyService.getVehicles.mockRejectedValue(error);
+			propertyService.getRealEstate.mockRejectedValue(error);
+
+			renderWithRouter(<PropertiesForSale />);
+
+			await waitFor(() => {
+				expect(propertyService.getVehicles).toHaveBeenCalled();
+			}, { timeout: 3000 });
+		});
+
+		it('handles timeout errors', async () => {
+			const error = new Error('Request timeout');
+			error.code = 'ECONNABORTED';
+			propertyService.getVehicles.mockRejectedValue(error);
+			propertyService.getRealEstate.mockRejectedValue(error);
+
+			renderWithRouter(<PropertiesForSale />);
+
+			await waitFor(() => {
+				expect(propertyService.getVehicles).toHaveBeenCalled();
+			}, { timeout: 3000 });
+		});
+
+		it('handles service returning success:false', async () => {
+			propertyService.getVehicles.mockResolvedValue({
+				success: false,
+				message: 'Failed to load vehicles',
+				error: 'Service error'
+			});
+			propertyService.getRealEstate.mockResolvedValue({
+				success: false,
+				message: 'Failed to load properties',
+				error: 'Service error'
+			});
+
+			renderWithRouter(<PropertiesForSale />);
+
+			await waitFor(() => {
+				expect(propertyService.getVehicles).toHaveBeenCalled();
+				expect(propertyService.getRealEstate).toHaveBeenCalled();
+			}, { timeout: 3000 });
+
+			// Page should handle service errors gracefully
+			expect(screen.getByTestId('page-hero-section')).toBeInTheDocument();
+		});
+	});
+
+	describe('Loading States', () => {
+		it('shows loading skeleton while fetching vehicles and real estate', () => {
+			propertyService.getVehicles.mockImplementation(() => new Promise(() => {}));
+			propertyService.getRealEstate.mockImplementation(() => new Promise(() => {}));
+			renderWithRouter(<PropertiesForSale />);
+
+			// Should show skeleton while loading
+			expect(screen.getByTestId('skeleton')).toBeInTheDocument();
+		});
+
+		it('hides loading skeleton after both APIs load successfully', async () => {
+			renderWithRouter(<PropertiesForSale />);
+
+			// Wait for data to load
+			await waitFor(() => {
+				expect(screen.queryByTestId('skeleton')).not.toBeInTheDocument();
+			}, { timeout: 3000 });
+
+			// Both sections should render
+			expect(screen.getAllByTestId('vehicle-card').length).toBeGreaterThan(0);
+			expect(screen.getAllByTestId('property-card').length).toBeGreaterThan(0);
+		});
+
+		it('handles loading state when one API fails and one succeeds', async () => {
+			propertyService.getVehicles.mockRejectedValue(new Error('API Error'));
+			propertyService.getRealEstate.mockResolvedValue(mockRealEstate);
+
+			renderWithRouter(<PropertiesForSale />);
+
+			await waitFor(() => {
+				expect(propertyService.getVehicles).toHaveBeenCalled();
+				expect(propertyService.getRealEstate).toHaveBeenCalled();
+			}, { timeout: 3000 });
+
+			// Skeleton should disappear after both calls complete
+			await waitFor(() => {
+				expect(screen.queryByTestId('skeleton')).not.toBeInTheDocument();
+			}, { timeout: 2000 });
+		});
+
+		it('shows loading state transition from skeleton to content', async () => {
+			propertyService.getVehicles.mockImplementation(
+				() => new Promise((resolve) => 
+					setTimeout(() => resolve(mockVehicles), 100)
+				)
+			);
+			propertyService.getRealEstate.mockImplementation(
+				() => new Promise((resolve) => 
+					setTimeout(() => resolve(mockRealEstate), 100)
+				)
+			);
+
+			renderWithRouter(<PropertiesForSale />);
+
+			// Initially shows skeleton
+			expect(screen.getByTestId('skeleton')).toBeInTheDocument();
+
+			// After loading completes, skeleton disappears and content appears
+			await waitFor(() => {
+				expect(screen.queryByTestId('skeleton')).not.toBeInTheDocument();
+				expect(screen.getAllByTestId('vehicle-card').length).toBeGreaterThan(0);
+			}, { timeout: 2000 });
+		});
+	});
 });
 

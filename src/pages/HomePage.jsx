@@ -127,19 +127,29 @@ export default function HomePage() {
 	const [services, setServices] = useState([]);
 	const [heroSlides, setHeroSlides] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [pageError, setPageError] = useState(null);
+	const [newsletterLoading, setNewsletterLoading] = useState(true);
+	const [newsletterError, setNewsletterError] = useState(null);
 
 	const fetchPageData = async () => {
 		try {
 			setLoading(true);
+			setPageError(null);
 			const response = await landingService.getLandingPageFull();
 			console.log(response);
 			setPageData(response.data);
-			setTestimonials(response.data.testimonials);
-			setFaqs(response.data.faqs);
-			setServices(response.data.services);
-			setHeroSlides(response.data.hero_sections);
+			setTestimonials(response.data?.testimonials || []);
+			setFaqs(response.data?.faqs || []);
+			setServices(response.data?.services || []);
+			setHeroSlides(response.data?.hero_sections || []);
 		} catch (error) {
 			console.error('Error fetching page data:', error);
+			setPageError('Failed to load page data. Please try again later.');
+			// Set empty arrays as fallback
+			setTestimonials([]);
+			setFaqs([]);
+			setServices([]);
+			setHeroSlides([]);
 		} finally {
 			setLoading(false);
 		}
@@ -233,9 +243,27 @@ export default function HomePage() {
 	];
 
 	useEffect(() => {
-		newsletterService.getNewsletters({ page: 1, page_size: 3 }).then((response) => {
-			setNewsletterArticles(response.results);
-		});
+		const fetchNewsletters = async () => {
+			try {
+				setNewsletterLoading(true);
+				setNewsletterError(null);
+				const response = await newsletterService.getNewsletters({ page: 1, page_size: 3 });
+				if (response?.results) {
+					setNewsletterArticles(response.results);
+				} else if (response?.data?.results) {
+					setNewsletterArticles(response.data.results);
+				} else {
+					setNewsletterArticles([]);
+				}
+			} catch (error) {
+				console.error('Error fetching newsletters:', error);
+				setNewsletterError('Failed to load newsletters. Please try again later.');
+				setNewsletterArticles([]);
+			} finally {
+				setNewsletterLoading(false);
+			}
+		};
+		fetchNewsletters();
 	}, []);
 
 	// Show skeleton on initial load
@@ -405,6 +433,18 @@ export default function HomePage() {
 				showLearnMoreButton={true}
 				learnMoreText="Learn More"
 			/>
+			{/* Page Error Message */}
+			{pageError && (
+				<section className="bg-red-50 py-4">
+					<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+						<div className="rounded-lg bg-red-100 p-4">
+							<p className="text-sm font-medium text-red-800" role="alert">
+								{pageError}
+							</p>
+						</div>
+					</div>
+				</section>
+			)}
 			{/* Services Section */}
 			<section className="bg-gradient-to-l from-[#396131] to-[#4a7c3a] py-20 text-white">
 				<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -565,8 +605,8 @@ export default function HomePage() {
 				/>
 				<div className="mx-auto mb-8 w-full max-w-3xl">
 					<form className="relative mx-auto flex w-full flex-col items-center gap-3 rounded-xl">
-						{error && <div className="text-sm text-red-500">{error}</div>}
-						{success && <div className="text-sm text-green-500">{success}</div>}
+						{error && <div className="text-sm text-red-500" role="alert">{error}</div>}
+						{success && <div className="text-sm text-green-500" role="alert">{success}</div>}
 						<div className="relative w-full flex-1">
 							<input
 								type="email"
@@ -597,11 +637,27 @@ export default function HomePage() {
 				</div>
 
 				<div className="mx-auto w-full max-w-7xl">
-					<NewsletterGrid
-						data={{ count: newsletterArticles?.length, results: newsletterArticles }}
-						showPagination={false}
-						cardVariant="light"
-					/>
+					{newsletterLoading ? (
+						<div className="py-8" data-testid="newsletter-loading">
+							<CardGridSkeleton
+								columns={3}
+								rows={1}
+								variant="light"
+								showImage={true}
+								showButton={true}
+							/>
+						</div>
+					) : newsletterError ? (
+						<div className="rounded-lg bg-red-50 p-4 text-center" role="alert" data-testid="newsletter-error">
+							<p className="text-sm font-medium text-red-800">{newsletterError}</p>
+						</div>
+					) : newsletterArticles?.length > 0 ? (
+						<NewsletterGrid
+							data={{ count: newsletterArticles?.length, results: newsletterArticles }}
+							showPagination={false}
+							cardVariant="light"
+						/>
+					) : null}
 				</div>
 				<LightPrimaryButton
 					secondaryIcon={

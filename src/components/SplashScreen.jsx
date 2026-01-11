@@ -103,18 +103,18 @@ export default function SplashScreen({ onComplete }) {
 					style={{ transform: `scale(${logoScale})` }}
 				>
 					<div className="relative">
+						{/* Glow effect */}
+						<div className="absolute inset-0 h-72 w-auto rounded-full bg-white/30 blur-xl sm:h-64 lg:h-80 z-0"></div>
 						<img
 							src={anniversaryLogo}
 							alt="1st Valley Bank"
-							className="h-72 w-auto drop-shadow-2xl sm:h-64 lg:h-80"
+							className="relative z-10 h-72 w-auto drop-shadow-2xl sm:h-64 lg:h-80"
 						/>
-						{/* Glow effect */}
-						<div className="absolute inset-0 h-72 w-auto rounded-full bg-white/20 blur-xl sm:h-64 lg:h-80"></div>
 					</div>
 				</div>
 
 				{/* Bank name and tagline */}
-				<div
+				{/* <div
 					className="text-center transition-opacity duration-700"
 					style={{ opacity: textOpacity }}
 				>
@@ -123,7 +123,7 @@ export default function SplashScreen({ onComplete }) {
 					</h1>
 					<p className="text-sm text-white/80 sm:text-base lg:text-lg">A Development Bank</p>
 					<p className="mt-2 text-xs text-white/60 sm:text-sm">Your Trusted Financial Partner</p>
-				</div>
+				</div> */}
 
 				{/* Loading progress bar */}
 				{/* <div className="w-64 sm:w-80">
