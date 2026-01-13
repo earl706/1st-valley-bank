@@ -120,6 +120,7 @@ export default function HomePage() {
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [acceptTerms, setAcceptTerms] = useState(false);
 	const [newsletterArticles, setNewsletterArticles] = useState([]);
 	const [pageData, setPageData] = useState(null);
 	const [testimonials, setTestimonials] = useState([]);
@@ -162,6 +163,13 @@ export default function HomePage() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		// Check terms acceptance
+		if (!acceptTerms) {
+			setError('Please accept the Terms & Conditions to subscribe.');
+			setSuccess('');
+			return;
+		}
+
 		// Import security utilities
 		const { getRateLimitKey, newsletterRateLimiter, sanitizeEmail, secureLog, secureErrorLog } = await import('../utils/security');
 		const { validateNewsletterEmail } = await import('../utils/validation');
@@ -201,6 +209,7 @@ export default function HomePage() {
 				}
 				setError('');
 				setEmail('');
+				setAcceptTerms(false);
 			} else {
 				trackEvent('newsletter_subscribe', { success: false });
 				setError(response.error || response.message || 'Failed to subscribe. Please try again.');
@@ -622,13 +631,39 @@ export default function HomePage() {
 							/>
 							<Mail className="pointer-events-none absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-[#396131]/70" />
 						</div>
+						<div className="w-full">
+							<label className="flex items-start gap-2 cursor-pointer">
+								<input
+									type="checkbox"
+									checked={acceptTerms}
+									onChange={(e) => {
+										setAcceptTerms(e.target.checked);
+										setError('');
+										setSuccess('');
+									}}
+									className="mt-1 h-4 w-4 rounded border-gray-300 text-[#396131] focus:ring-[#396131]"
+									required
+								/>
+								<span className="text-sm text-gray-700">
+									I agree to the{' '}
+									<NavLink
+										to="/consumer-protection"
+										target="_blank"
+										className="text-[#396131] underline hover:text-[#24581c] font-medium"
+									>
+										Terms & Conditions
+									</NavLink>
+									{' '}for newsletter subscription
+								</span>
+							</label>
+						</div>
 						<LightPrimaryButton
-							disabled={isSubmitting}
+							disabled={isSubmitting || !acceptTerms}
 							type="submit"
 							secondaryIcon={
 								<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
 							}
-							className="w-full"
+							className={`w-full ${!acceptTerms ? 'opacity-50 cursor-not-allowed' : ''}`}
 							onClick={handleSubmit}
 						>
 							{isSubmitting ? 'Submitting...' : 'Subscribe to Newsletter'}
