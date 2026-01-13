@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import logo from '/src/assets/logo-official.png';
 import logolight from '/src/assets/1VB LOGO/1VB-light-hd.png';
+import bsp from '/src/assets/footer/bsp.png'
+import ctb from '/src/assets/footer/ctb.webp'
+import pdic from '/src/assets/footer/pdic.png'
 import { NavLink } from 'react-router-dom';
 import {
 	Phone,
@@ -13,7 +16,6 @@ import {
 	Youtube,
 	ExternalLink,
 	ChevronUp,
-	Shield,
 	Building2,
 	Headphones
 } from 'lucide-react';
@@ -258,17 +260,59 @@ const Footer = () => {
 									</p>
 
 									{/* Regulatory Info */}
-									<div className="rounded-xl border border-white/20 bg-white/5 p-4">
-										<div className="mb-2 flex items-start gap-3">
-											<Shield className="mt-0.5 h-4 w-4 flex-shrink-0 text-green-300" />
-											<p className="text-xs leading-relaxed text-gray-200">
-												{footer?.regulatory_bsp || 'Regulated by Bangko Sentral ng Pilipinas (BSP)'}
+									<div className="rounded-xl border border-white/20 bg-white/5 p-4 space-y-4">
+										{/* Supervised by Section */}
+										<div>
+											<p className="mb-3 text-xs font-semibold text-gray-200">Supervised by</p>
+											<div className="flex justify-center flex-wrap gap-4">
+												{/* BSP Image Placeholder */}
+												<NavLink
+													to={footer?.supervised_bsp_link || "https://www.bsp.gov.ph/"}
+													target="_blank"
+													rel="noopener noreferrer"
+													className="flex items-center justify-center rounded-lg bg-white/10 p-3 sm:p-4"
+												>
+													<img
+														src={footer?.supervised_bsp_image || bsp}
+														alt="Bangko Sentral ng Pilipinas"
+														className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto max-w-[96px] sm:max-w-[120px] object-contain"
+													/>
+												</NavLink>
+												{/* CTB Image Placeholder */}
+												<NavLink
+													to={footer?.supervised_ctb_link || "https://ctb.com.ph/"}
+													target="_blank"
+													rel="noopener noreferrer"
+													className="flex items-center justify-center rounded-lg bg-white/10 p-3 sm:p-4"
+												>
+													<img
+														src={footer?.supervised_ctb_image || ctb}
+														alt="CHAMBER OF THRIFT BANKS"
+														className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto max-w-[96px] sm:max-w-[120px] object-contain"
+													/>
+												</NavLink>
+											</div>
+										</div>
+
+										{/* PDIC Section */}
+										<div className="flex items-center gap-4 pt-2 border-t border-white/10">
+											{/* PDIC Image Placeholder */}
+											<NavLink
+												to={footer?.regulatory_pdic_link || "https://www.pdic.gov.ph/"}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												<img
+													src={footer?.regulatory_pdic_image || pdic}
+													alt="PDIC"
+													className="mt-0.5 h-12 sm:h-16 md:h-20 w-auto max-w-[160px] object-contain flex-shrink-0"
+												/>
+											</NavLink>
+											<p className="text-xs text-gray-200">
+												{footer?.regulatory_pdic ||
+													'Deposits insured by PDIC up to ₱1 million per depositor'}
 											</p>
 										</div>
-										<p className="text-xs text-gray-200">
-											{footer?.regulatory_pdic ||
-												'Deposits insured by PDIC up to ₱1 million per depositor'}
-										</p>
 									</div>
 								</div>
 
